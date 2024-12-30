@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/public/favicon.ico}">
+    <title>Dashboard</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Example Demo All Rights Reserved">
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/gritter/jquery.gritter.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/multiselect/tree-multiselect.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <style>
+        .panel-body {
+            padding: 15px;
+        }
+        .panel-title {
+            font-size: 1.2em;
+        }
+        .data-row {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between; /* Ensures label and value are spaced apart */
+            align-items: center;
+        }
+        .data-label {
+            font-weight: bold;
+            text-align: right;  /* Right-align the label */
+            width: 40%; /* Ensures space for the label */
+        }
+        .data-value {
+            margin-left: 10px;
+            text-align: left; /* Left-align the value */
+            width: 60%; /* Ensures space for the value */
+        }
+        .summary-panel {
+            background-color: #f5f5f5;
+            border-color: #ddd;
+        }
+        .summary-data {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        /* 表格样式 */
+        table.table-striped th,
+        table.table-striped td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* 固定列宽 */
+        table.table-striped th:first-child,
+        table.table-striped td:first-child {
+            width: 15%;
+        }
+        table.table-striped th:nth-child(2),
+        table.table-striped td:nth-child(2) {
+            width: 15%;
+        }
+        table.table-striped th:nth-child(3),
+        table.table-striped td:nth-child(3) {
+            width: 20%;
+        }
+        table.table-striped th:nth-child(4),
+        table.table-striped td:nth-child(4) {
+            width: 15%;
+        }
+        table.table-striped th:nth-child(5),
+        table.table-striped td:nth-child(5) {
+            width: 20%;
+        }
+        table.table-striped th:last-child,
+        table.table-striped td:last-child {
+            width: 15%;
+        }
+    </style>
+</head>
+
+<body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
+<div id="wrapper">
+    <!----左侧导航开始----->
+    <nav class="navbar-default navbar-static-side animated fadeInLeft" role="navigation" id="leftnav"></nav>
+    <!----左侧导航结束----->
+    <!---右侧内容区开始---->
+    <div id="page-wrapper" class="gray-bg">
+        <!---顶部状态栏 star-->
+        <div class="row ">
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+        </div>
+        <!---顶部状态栏 end-->
+        <!--------当前位置----->
+        <!-----内容区域---->
+        <!-- 构建总览面板 -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default summary-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">总计</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="data-row">
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default summary-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">建设银行</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="data-row">
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default summary-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">支付宝</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="data-row">
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 构建详细数据面板 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">今日详细数据</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div th:each="entry : ${payDailySumTotalMap}">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" th:text="${entry.key}"></h4>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>商户号</th>
+                                            <th>日交易笔数</th>
+                                            <th>月交易笔数</th>
+                                            <th>日交易汇总</th>
+                                            <th>月交易汇总</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="item : ${entry.value}">
+                                            <td th:text="${item.merchantCode}">-</td>
+                                            <td th:text="${item.dailyCount}">-</td>
+                                            <td th:text="${item.monthlyCount}">-</td>
+                                            <td th:text="${#numbers.formatCurrency(item.dailyTotal)}">-</td>
+                                            <td th:text="${#numbers.formatCurrency(item.monthlyTotal)}">-</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----内容结束----->
+    </div>
+    <!---右侧内容区结束----->
+    <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/static/js/bootstrap.js}"></script>
+    <script th:src="@{/static/js/wuling.js}"></script>
+    <script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+    <script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+</body>
+</html>

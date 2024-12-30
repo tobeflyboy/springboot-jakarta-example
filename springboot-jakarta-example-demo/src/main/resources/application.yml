@@ -1,0 +1,166 @@
+# 激活actuator 部分端点
+management:
+  endpoints:
+    web:
+      # Actuator 暴露的端点路径
+      base-path: /rest/actuator
+      exposure:
+        # 常用端点：/info 应用基本信息，/health 健康度信息，/metrics 运行指标，/env 环境变量信息，/loggers 日志相关，/dump 线程相关信息，/trace 请求调用轨迹
+        # 公开的端点列表。默认值为info, health
+        include: '*'
+
+server:
+  servlet:
+    context-path: /demo
+  port: 8080
+  shutdown: graceful   # 优雅停服务，在容器关闭时，web服务器将不再接收新请求，并将等待活动请求完成的缓冲期。从springboot2.3.0引入的新特性
+  error:
+    # springboot2.5.3 ErrorController中删除了getErrorPath方法，改为走配置项，默认是：/error
+    path: /error
+  tomcat:
+    basedir: .
+    accesslog:
+      buffered: true # 设置是否缓存日志，默认值为true，当设置为false时，每个request都会立刻产生访问日志
+      directory: logs # 指定access文件的路径
+      enabled: true # 取值true、false，需要accesslog时设置为true
+      file-date-format: .yyyy-MM-dd # 是设置滚动生成文件的格式，如yyyy-MM-dd是每天滚动生成新日志文件，yyyy-MM-dd.HH是每小时滚动生成新的日志文件。
+      # Access log内置了两个日志格式模板，可以直接指定pattern为模板名称
+      # common - %h %l %u %t "%r" %s %b，依次为：远程主机名称，远程用户名，被认证的远程用户，日期和时间，请求的第一行，response code，发送的字节数
+      # combined - %h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"，依次为：远程主机名称，远程用户名，被认证的远程用户，日期和时间，请求的第一行，response code，发送的字节数，request header的Referer信息，request header的User-Agent信息。
+      pattern: combined # 设置日志的格式，指定pattern为模板名称
+      prefix: access # 日志文件的文件名后缀
+      rename-on-rotate: false # 是否延迟在文件名中包含日期戳，直到旋转时间。
+      request-attributes-enabled: false # 设置请求的IP地址，主机名，协议和端口的请求属性。
+      rotate: true # 是否启用访问日志轮换。
+      suffix: .log # 日志文件的文件名后缀
+
+spring:
+  servlet:
+    multipart:
+      # 总上传的数据大小
+      max-request-size: 200MB
+      # 单个文件大小
+      max-file-size: 200MB
+  profiles:
+    active: dev
+  main:
+    # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
+    allow-bean-definition-overriding: true
+    # springboot2.6.0 以后的版本默认禁止 Bean 之间的循环引用，默认为false
+    allow-circular-references: true
+  application:
+    # 应用名
+    name: fast-testing
+  mvc:
+    # 前端静态资源的位置
+    static-path-pattern: /static/**
+  thymeleaf:
+    # 关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
+    cache: false
+    # 开启MVC thymeleaf 视图解析
+    enabled: true
+    # 设置编码
+    encoding: UTF-8
+    # 禁用严格的HTML语法检查模式
+    mode: HTML
+    #    mode: LEGACYHTML5
+    # 自定义的Thymeleaf的模板位置
+    prefix: classpath:/templates/
+    # 模板文件后缀
+    suffix: .html
+  redis:
+    redisson:
+      # redisson cluster yml 方式集成redis
+      config: classpath:redisson_cluster.yml
+  session:
+    store-type: redis
+    redis:
+      namespace: demo-session-namespace
+      flush-mode: on-save
+  datasource:
+    # 配置多数据源
+    dynamic:
+      primary: auth # 设置默认的数据源或者数据源组,默认值即为auth
+      strict: false # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        auth:
+          url: jdbc:sqlite::resource:db/auth.sqlite
+          driver-class-name: org.sqlite.JDBC
+          username:
+          password:
+          hikari:
+            #连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
+            connection-timeout: 60000
+            #控制连接测试活动的最长时间。这个值必须小于connectionTimeout。
+            validation-timeout: 3000
+            #最大连接数,最多不超过10个，小于等于0会被重置为默认值10；大于零小于1会被重置为minimum-idle的值
+            maximum-pool-size: 60
+            #最小空闲连接，默认值10，小于0或大于maximum-pool-size，都会重置为maximum-pool-size
+            minimum-idle: 10
+            #空闲连接超时时间，默认值600000（10分钟），大于等于max-lifetime且max-lifetime>0，会被重置为0；不等于0且小于10秒，会被重置为10秒。
+            # 只有空闲连接数大于最大连接数且空闲时间超过该值，才会被释放
+            idle-timeout: 60000
+            #连接最大存活时间.不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
+            max-lifetime: 600000
+            #开启连接监测泄露leakDetectionThreshold方法，此属性控制在记录消息之前连接可能离开池的时间量，表明可能的连接泄漏。值代表连接被占用的泄露时间最低可接受值为5秒，不过此值的设定需要根据场景多次调试，如果真实泄露时间小幅度超过5秒，会引起warning，但不一定会导出数据不能入库，因为该方法只是检查，只有到达idleTimeout ，才会强制执行关闭连接。
+            leak-detection-threshold: 60000
+            #连接测试查询
+            connection-test-query: SELECT 'auth'
+        biz:
+          url: jdbc:sqlite::resource:db/biz.sqlite
+          driver-class-name: org.sqlite.JDBC
+          username:
+          password:
+          hikari:
+            #连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
+            connection-timeout: 60000
+            #控制连接测试活动的最长时间。这个值必须小于connectionTimeout。
+            validation-timeout: 3000
+            #最大连接数,最多不超过10个，小于等于0会被重置为默认值10；大于零小于1会被重置为minimum-idle的值
+            maximum-pool-size: 60
+            #最小空闲连接，默认值10，小于0或大于maximum-pool-size，都会重置为maximum-pool-size
+            minimum-idle: 10
+            #空闲连接超时时间，默认值600000（10分钟），大于等于max-lifetime且max-lifetime>0，会被重置为0；不等于0且小于10秒，会被重置为10秒。
+            # 只有空闲连接数大于最大连接数且空闲时间超过该值，才会被释放
+            idle-timeout: 60000
+            #连接最大存活时间.不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
+            max-lifetime: 600000
+            #开启连接监测泄露leakDetectionThreshold方法，此属性控制在记录消息之前连接可能离开池的时间量，表明可能的连接泄漏。值代表连接被占用的泄露时间最低可接受值为5秒，不过此值的设定需要根据场景多次调试，如果真实泄露时间小幅度超过5秒，会引起warning，但不一定会导出数据不能入库，因为该方法只是检查，只有到达idleTimeout ，才会强制执行关闭连接。
+            leak-detection-threshold: 60000
+            #连接测试查询
+            connection-test-query: SELECT 'biz'
+#  session:
+#    store-type: redis
+#    redis:
+#      namespace: spring::session
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  # 关闭mybatis-plus的banner打印
+  global-config:
+    banner: false
+# PageHelper 配置
+pagehelper:
+  helperDialect: sqlserver        # 根据数据库类型设置，如mysql, oracle等
+  reasonable: true                # 分页合理化
+  supportMethodsArguments: true   # 支持通过参数控制
+  params: count=countSql          # 设置为 SQL 语句中的 count 查询
+
+#登录图形验证码有效时间(单位分钟)/宽度/高度/位数
+captcha:
+  expiration: 2
+  width: 111
+  height: 36
+  digit: 2
+
+# security 配置
+security:
+  #同一账号，最大登录数
+  max-session: 10
+  # 超出最大登录数，是否阻止登录
+  prevents-login: false
+
+app:
+  version: '@version@'
+  secret:
+    pool-size: 3

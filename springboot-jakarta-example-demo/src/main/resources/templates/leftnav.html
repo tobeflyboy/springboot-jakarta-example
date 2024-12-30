@@ -1,0 +1,41 @@
+<div class="sidebar-scroll">
+	<div class="logo">
+		<a th:href="@{/dashboard}"><img th:src="@{/static/images/logo_icon.png}" style="width: 55px;height: 40px;">收款系统</a>
+	</div>
+	<div class="sidebar-collapse">
+		<ul class="nav metismenu" id="side-menu">
+			<li class="active"><a th:href="@{/dashboard}"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a></li>
+			<li>
+				<a href="javascript:void(0)">
+					<i class="glyphicon glyphicon-credit-card"></i>
+					<span class="nav-label">收款</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/payment/alipayQrCode}"><i class="glyphicon glyphicon-phone"></i>支付宝收款</a></li>
+					<li><a th:href="@{/payment/getPayQrCode}"><i class="glyphicon glyphicon-qrcode"></i>二维码收款</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:void(0)">
+					<i class="glyphicon glyphicon-list-alt"></i>
+					<span class="nav-label">统计</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/payment/record}"><i class="glyphicon glyphicon-check"></i>支付流水</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="javascript:void(0)">
+					<i class="glyphicon glyphicon-cog"></i>
+					<span class="nav-label">设置</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/payment/changeCcbPaymentRoute}"><i class="glyphicon glyphicon-wrench"></i>切换建设银行商户号</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

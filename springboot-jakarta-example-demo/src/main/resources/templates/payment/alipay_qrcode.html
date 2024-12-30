@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh_CN"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/public/favicon.ico}">
+    <title>支付宝收款</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Example Demo All Rights Reserved">
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    <link th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+</head>
+
+<body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
+<div id="wrapper">
+    <!----左侧导航开始----->
+    <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav">
+    </nav>
+    <!----左侧导航结束----->
+    <!---右侧内容区开始---->
+    <div id="page-wrapper" class="gray-bg">
+        <!---顶部状态栏 star-->
+        <div class="row ">
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+        </div>
+        <!---顶部状态栏 end-->
+        <!--------当前位置----->
+        <div class="row  border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>二维码收款</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="javascript:void(0)">收款</a>
+                    </li>
+                    <li>
+                        <a class="active" href="javascript:void(0)">支付宝收款</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-----内容区域---->
+        <div class="wrapper wrapper-content animated fadeInRight qr-code-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox-heading">
+                        <div class="ibox-title">
+                            <h5>生成收款二维码</h5>
+                        </div>
+                    </div>
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form class="form-horizontal" id="house_form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-lg-3 control-label" readonly="readonly" for="payAmount">收款金额
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="number" id="payAmount" class="form-control" value="" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-lg-3 control-label" readonly="readonly" for="productName">收款说明
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" id="productName" class="form-control" placeholder="" maxlength="200">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-4 col-lg-offset-3">
+                                            <button class="btn btn-primary" type="button" id="createQrCodeImageBtn">
+                                                <i class="fa fa-check"></i>生成二维码
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mark-p" style="display: none">
+                            <div class="col-md-6">
+                                <div class="cell">
+                                    <p class="h6">支付流水号：<strong id="payTransNo"></strong></p>
+                                    <p class="h6 danger">
+                                        二维码<strong>
+                                        <mark id="effectiveTime"></mark>
+                                    </strong>内有效
+                                    </p>
+                                </div>
+                                <div class="cell">
+                                    <canvas id="alipayQrCodeImage"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----内容结束----->
+
+    </div>
+    <!---右侧内容区结束----->
+</div>
+<!-- 全局 scripts -->
+
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.js}"></script>
+<script th:src="@{/static/js/wuling.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<!-- 插件 scripts -->
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script>
+<script th:src="@{/static/js/plugins/sweetalert/sweetalert.min.js}" async></script><!---对话框 alert--->
+<script th:src="@{/static/js/plugins/loading/jquery.loading.js}"></script>
+<script th:src="@{/static/js/plugins/qrcode/qrcode.min.js}"></script>
+
+<script th:inline="javascript">
+    $("#createQrCodeImageBtn").click(function () {
+        const payAmount = $.trim($("#payAmount").val());
+        if (payAmount === '') {
+            toastr.error('', '请输入有效的收款金额！');
+            return;
+        }
+        const productName = $.trim($("#productName").val());
+        if (productName === '') {
+            toastr.error('', '请输入产品名！');
+            return;
+        }
+        // 显示加载对话框
+        $(".qr-code-box").loading('show');
+        $.ajax({
+            url: _ctx + '/payment/getPayQrCode',
+            type: "post",
+            data: {
+                "payAmount": payAmount,
+                "productName": productName,
+                "busiEnumCode": 'ALIPAY_QRCODE_PAY',
+                "merAccount": 'sh.centaline.finance.dept'
+            },
+            success: function (response) {
+                if (response.code === 200) {
+                    // 使用 qrcode.js 生成二维码并插入到页面
+                    let qrcodeContainer = document.getElementById("alipayQrCodeImage");
+                    QRCode.toCanvas(qrcodeContainer, response.data.qrCodePaymentUrl, {width: 300, height: 300}, function (error) {
+                        if (error) {
+                            console.error(error);
+                        }
+                        // 二维码绘制成功
+                        $("#payTransNo").text(response.data.payTransNo);
+                        $("#effectiveTime").text(response.data.effectiveTime);
+                        // 显示二维码
+                        $(".mark-p").show();
+                        // 关闭loading
+                        $(".qr-code-box").loading('hide');
+                        // 在二维码上添加 logo
+                        let canvas = qrcodeContainer;
+                        let ctx = canvas.getContext("2d");
+                        // 加载 logo 图片
+                        let img = new Image();
+                        img.onload = function () {
+                            // 计算 logo 的尺寸和位置
+                            let logoSize = 50;  // Logo的尺寸
+                            let logoX = (canvas.width - logoSize) / 2;  // 居中显示 logo
+                            let logoY = (canvas.height - logoSize) / 2;
+                            // 在二维码中央绘制 logo
+                            ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
+                        };
+                        img.src = _ctx + "/static/img/" + response.data.qrcodeLogoName;  // 设置 logo 图片的路径
+                    });
+                } else {
+                    toastr.error('', response.message);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $(".qr-code-box").loading('hide');
+                console.error('Error:', errorThrown);
+                toastr.error('', '生成付款码失败！');
+            }
+        });
+    });
+</script>
+</body>
+</html>

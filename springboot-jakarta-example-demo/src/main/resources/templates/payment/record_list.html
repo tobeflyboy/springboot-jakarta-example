@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh_CN"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/public/favicon.ico}">
+    <title>支付流水</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Example Demo All Rights Reserved">
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <!--date style-->
+
+    <link th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <link th:href="@{/static/js/My97DatePicker/skin/WdatePicker.css}" rel="stylesheet">
+</head>
+
+<body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
+<div id="wrapper">
+    <!----左侧导航开始----->
+    <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+    <!----左侧导航结束----->
+
+    <!---右侧内容区开始---->
+    <div id="page-wrapper" class="gray-bg">
+        <!---顶部状态栏 star-->
+        <div class="row ">
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+        </div>
+        <!---顶部状态栏 end-->
+
+        <!--------当前位置----->
+        <div class="row  border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>支付流水</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a th:href="@{/index}">统计</a>
+                    </li>
+                    <li class="active">
+                        支付流水
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-----内容区域---->
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!--当前位置开始-->
+            <div class="ibox-content m-b-sm border-bottom">
+                <div class="row">
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <input value="" placeholder="请输入支付流水号" class="form-control input-sm text-center" id="payTransNo">
+                    </div>
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <select class="form-control input-sm text-center" id="busiEnumCode">
+                            <option value="">--支付通道--</option>
+                            <option th:each="entry:${busiEnumMap}" th:value="${entry.key}" th:text="${entry.value.msg}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <select class="form-control input-sm text-center" id="status">
+                            <option value="">--状态--</option>
+                            <option th:each="entry:${payRecordStatusMap}" th:value="${entry.key}" th:text="${entry.value.msg}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-4 m-t-xs m-b-none">
+                        <div class="input-group input-group">
+                            <input type="text" class="form-control input-sm text-center Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')||%y-%M-%d'})" id="startTime" name="startTime" th:value="${#dates.format(payRecordVo.startTime, 'yyyy-MM-dd HH:mm:ss')}">
+                            <div class="input-group-addon">至</div>
+                            <input type="text" class="form-control input-sm text-center Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'%y-%M-%d'})" id="endTime" name="endTime" th:value="${#dates.format(payRecordVo.endTime, 'yyyy-MM-dd HH:mm:ss')}">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <button type="button" class="btn btn-sm btn-primary no-margins" id="queryPaymentRecordBtn">
+                            查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--当前位置结束-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox" id="record_list" th:include="payment/record_list_page:: #include_list_page">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-----内容结束----->
+
+    </div>
+</div>
+<!---右侧内容区结束----->
+
+<!----明细开始---->
+<div class="modal fade" id="payment-detail-box" tabindex="-1" role="dialog" aria-labelledby="payment-detail-box-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="payment-detail-box-label">交易明细</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Payment Information -->
+                <form>
+                    <div class="form-group row">
+                        <label for="detail-pay-trans-no" class="col-sm-4 col-form-label text-right"><strong>支付流水号:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-pay-trans-no"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-busi-enum-code" class="col-sm-4 col-form-label text-right"><strong>支付通道:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-busi-enum-code"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-mer-name" class="col-sm-4 col-form-label text-right"><strong>发起方:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-mer-name"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-pay-status" class="col-sm-4 col-form-label text-right"><strong>状态:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-pay-status"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-pay-amount" class="col-sm-4 col-form-label text-right"><strong>支付金额:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-pay-amount"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-reserved" class="col-sm-4 col-form-label text-right"><strong>备注:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-reserved"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-pay-finish-time" class="col-sm-4 col-form-label text-right"><strong>交付完成时间:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-pay-finish-time"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-create-time" class="col-sm-4 col-form-label text-right"><strong>创建时间:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-create-time"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-update-time" class="col-sm-4 col-form-label text-right"><strong>更新时间:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-update-time"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="detail-notice-status" class="col-sm-4 col-form-label text-right"><strong>内部应用通知状态:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-notice-status"></span>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm" id="notice-retry-btn" style="display: none;">
+                            内部应用通知重试次数
+                        </button>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="display: none;">
+                        <label for="detail-notice-retry-num" class="col-sm-4 col-form-label text-right"><strong>通知重试次数:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="detail-notice-retry-num"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!----明细结束---->
+
+<!----二维码开始---->
+<div class="modal fade" id="payment-qrcode-box" tabindex="-1" role="dialog" aria-labelledby="payment-qrcode-box-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="payment-qrcode-box-label">收款二维码</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Payment Information -->
+                <form>
+                    <div class="form-group row">
+                        <label for="view-pay-trans-no" class="col-sm-4 col-form-label text-right"><strong>支付流水号:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-pay-trans-no"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="view-busi-enum-code" class="col-sm-4 col-form-label text-right"><strong>支付通道:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-busi-enum-code"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="view-mer-name" class="col-sm-4 col-form-label text-right"><strong>发起方:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-mer-name"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="view-pay-amount" class="col-sm-4 col-form-label text-right"><strong>支付金额:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-pay-amount"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="view-reserved" class="col-sm-4 col-form-label text-right"><strong>备注:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-reserved"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="view-create-time" class="col-sm-4 col-form-label text-right"><strong>创建时间:</strong></label>
+                        <div class="col-sm-8">
+                            <span id="view-create-time"></span>
+                        </div>
+                    </div>
+                </form>
+                <!-- QR Code Canvas -->
+                <div class="text-center">
+                    <canvas id="view-payment-qrcode-img" class="img-fluid"></canvas>
+                </div>
+            </div>
+            <!-- Reminder Text -->
+            <div class="text-center mt-3">
+                <small class="text-muted">二维码生成后
+                    <mark id="view-effective-time"></mark>
+                    内有效，请尽快扫描完成支付。</small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----二维码结束---->
+
+<!-- 全局 scripts -->
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/static/js/wuling.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- 插件 scripts -->
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script><!---顶部弹出提示--->
+<script th:src="@{/static/js/plugins/tagsinput/jquery.tagsinput.js}"></script>
+<script th:src="@{/static/js/plugins/rslide/rslide.js}"></script>
+<!--date style-->
+<script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
+<script th:src="@{/static/js/plugins/qrcode/qrcode.min.js}"></script>
+
+<script th:inline="javascript">
+
+    //查询
+    $("#queryPaymentRecordBtn").click(function () {
+        const payTransNo = $("#payTransNo").val();
+        const busiEnumCode = $("#busiEnumCode").val();
+        const status = $("#status").val();
+        const startTime = $("#startTime").val();
+        const endTime = $("#endTime").val();
+        if (startTime > endTime) {
+            toastr.error('', '开始时间不能大于结束时间');
+            return;
+        }
+        $.ajax({
+            url: _ctx + '/payment/record',
+            type: "post",
+            data: {
+                "payTransNo": payTransNo,
+                "busiEnumCode": busiEnumCode,
+                "status": status,
+                "startTime": startTime,
+                "endTime": endTime
+            },
+            success: function (data) {
+                $('#record_list').html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error('', '查询失败');
+            }
+        });
+    });
+
+    // 查看详情
+    function viewDetail(btn) {
+        let payTransNo = $(btn).attr("data-id");
+        let pay = $('#' + payTransNo);
+        let busiEnumCode = pay.attr("data-busi-enum-code");
+        let merName = pay.attr("data-mer-name");
+        let status = pay.attr("data-status");
+        let payAmount = pay.attr("data-pay-amount");
+        let reserved = pay.attr("data-reserved");
+        let payFinishTime = pay.attr("data-pay-finish-time");
+        let createTime = pay.attr("data-create-time");
+        let updateTime = pay.attr("data-update-time");
+        let effectiveTime = pay.attr("data-effective-time");
+        let noticeStatus = pay.attr("data-notice-status");
+        let noticeRetryNum = pay.attr("data-notice-retry-num");
+
+        $("#detail-pay-trans-no").text(payTransNo);
+        $("#detail-busi-enum-code").text(busiEnumCode);
+        $("#detail-mer-name").text(merName);
+        $("#detail-pay-status").text(status);
+        $("#detail-pay-amount").text(payAmount);
+        if (payFinishTime) {
+            $("#detail-pay-finish-time").text(payFinishTime);
+        }
+        if (reserved) {
+            $("#detail-reserved").text(reserved);
+        }
+        if (updateTime) {
+            $("#detail-update-time").text(updateTime);
+        }
+        $("#detail-create-time").text(createTime);
+        $("#detail-notice-status").text(noticeStatus);
+        $("#detail-effective-time").text(effectiveTime);
+        if (noticeRetryNum) {
+            $("#detail-notice-retry-num").text(noticeRetryNum);
+        }
+    }
+
+    // 通知重试
+    $("#notice-retry-btn").click(function () {
+        let payTransNo = $("#detail-pay-trans-no").text();
+        console.log('payTransNo=' + payTransNo);
+        let $btn = $(this);
+        $.ajax({
+            url: _ctx + '/payment/noticeRetry',
+            type: "post",
+            data: {
+                "payTransNo": payTransNo
+            },
+            success: function (response) {
+                if (response.code === 200) {
+                    toastr.success(response.message, '操作成功');
+                    $btn.style.display = 'none';
+                } else {
+                    toastr.error('', '通知重试发起失败');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.error('Error:', errorThrown);
+                toastr.error('', '通知重试发起失败！');
+            }
+        });
+    });
+
+    // 查看二维码
+    function viewQrcode(btn) {
+        let payTransNo = $(btn).attr("data-id");
+        let pay = $('#' + payTransNo);
+        let busiEnumCode = pay.attr("data-busi-enum-code");
+        let merName = pay.attr("data-mer-name");
+        let payAmount = pay.attr("data-pay-amount");
+        let reserved = pay.attr("data-reserved");
+        let createTime = pay.attr("data-create-time");
+        let payQrcode = pay.attr("data-pay-qrcode");
+        let qrcodeLogo = pay.attr("data-qrcode-logo");
+        let effectiveTime = pay.attr("data-effective-time");
+
+        $("#view-pay-trans-no").text(payTransNo);
+        $("#view-busi-enum-code").text(busiEnumCode);
+        $("#view-mer-name").text(merName);
+        $("#view-pay-amount").text(payAmount);
+        if (!reserved) {
+            $("#view-reserved").text(reserved);
+        }
+        $("#view-create-time").text(createTime);
+        $("#view-effective-time").text(effectiveTime);
+
+        // 使用 qrcode.js 生成二维码并插入到页面
+        let qrcodeContainer = document.getElementById("view-payment-qrcode-img");
+        QRCode.toCanvas(qrcodeContainer, payQrcode, {width: 300, height: 300}, function (error) {
+            if (error) {
+                console.error(error);
+            }
+            // 在二维码上添加 logo
+            let canvas = qrcodeContainer;
+            let ctx = canvas.getContext("2d");
+            // 加载 logo 图片
+            let img = new Image();
+            img.onload = function () {
+                // 计算 logo 的尺寸和位置
+                let logoSize = 50;  // Logo的尺寸
+                let logoX = (canvas.width - logoSize) / 2;  // 居中显示 logo
+                let logoY = (canvas.height - logoSize) / 2;
+                // 在二维码中央绘制 logo
+                ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
+            };
+            img.src = _ctx + "/static/img/" + qrcodeLogo;  // 设置 logo 图片的路径
+        });
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div id="include_page">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="m-t-md" th:text="'当前显示'+${page.startRow}+'到'+${page.endRow }+'，共'+${page.pages }+'页'+${page.total }+'条'"></div>
+        </div>
+        <div class="col-md-8 footable-visible">
+            <ul class="pagination pull-right">
+                <li class="footable-page-arrow disabled">
+                    <a th:attr="data-page=1,data-form-id=${formId},data-page-box-id=${pageBoxId}" href="javascript:void(0);" onclick="javascript:goPage(this)">«</a>
+                </li>
+                <li class="footable-page-arrow disabled">
+                    <a th:attr="data-page=${page.prePage},data-form-id=${formId},data-page-box-id=${pageBoxId}" href="javascript:void(0);" onclick="javascript:goPage(this)">‹</a>
+                </li>
+                <li th:class="${pgnum==page.pageNum}?'footable-page  active':'footable-page'" th:if="${not #lists.isEmpty(page.navigatepageNums)}" th:each="pgnum:${page.navigatepageNums}">
+                    <a th:attr="data-page=${pgnum},data-form-id=${formId},data-page-box-id=${pageBoxId}" href="javascript:void(0);" onclick="javascript:goPage(this)" th:text="${pgnum}"></a>
+                </li>
+                <li class="footable-page-arrow">
+                    <a th:attr="data-page=${page.nextPage},data-form-id=${formId},data-page-box-id=${pageBoxId}" href="javascript:void(0);" onclick="javascript:goPage(this)">›</a>
+                </li>
+                <li class="footable-page-arrow">
+                    <a th:attr="data-page=${page.pages},data-form-id=${formId},data-page-box-id=${pageBoxId}" href="javascript:void(0);" onclick="javascript:goPage(this)">»</a>
+                </li>
+            </ul>
+        </div>
+        <input type="hidden" name="pageNum"/>
+    </div>
+    <script type="text/javascript">
+        function goPage(a) {
+            let formId = $(a).attr("data-form-id");
+            let pageBoxId = $(a).attr("data-page-box-id");
+            let pageNum = $(a).attr("data-page");
+            $('#' + formId + " input[name='pageNum']").val(pageNum);
+            // console.log("formId=" + formId)
+            // console.log("pageBoxId=" + pageBoxId)
+            // console.log("pageNum=" + pageNum)
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: $("#" + formId).attr("action"),
+                data: $('#' + formId).serialize(),
+                async: false,
+                error: function (data) {
+                    toastr.error('', '分页查询失败');
+                },
+                success: function (data) {
+                    $("#" + pageBoxId).html(data);
+                }
+            });
+        }
+    </script>
+</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.sys.SysUserMapper">
+
+    <select id="findByName" resultType="com.nutcracker.example.demo.entity.sys.SysUser" parameterType="java.lang.String">
+        SELECT * FROM sys_user WHERE name= #{name}
+    </select>
+
+    <select id="getAll" resultType="com.nutcracker.example.demo.entity.sys.SysUser">
+        SELECT * FROM sys_user
+    </select>
+
+    <select id="getById" resultType="com.nutcracker.example.demo.entity.sys.SysUser" parameterType="java.lang.String">
+        select * from sys_user where id = #{id}
+    </select>
+
+    <update id="updatePasswordById" parameterType="java.lang.String">
+        update sys_user set password = #{password} where id = #{id}
+    </update>
+
+</mapper>
