@@ -1,6 +1,6 @@
 package com.nutcracker.example.demo.vo;
 
-import com.nutcracker.example.demo.entity.sys.SysMenu;
+import com.nutcracker.example.demo.entity.vo.auth.SysPermissionVo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,12 +19,13 @@ public class MenuVo implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4791979608536111109L;
+
     private String name;
 
     private String icon;
 
     private String code;
 
-    private List<SysMenu> sysMenus;
+    private List<SysPermissionVo> sysMenus;
 
 }

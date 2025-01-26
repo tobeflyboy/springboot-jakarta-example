@@ -1,6 +1,5 @@
 package com.nutcracker.example.demo.util;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.io.PrintWriter;
  */
 public class ResponseUtils {
 
-    public static void print(HttpServletResponse response, Object... object) throws IOException, ServletException {
+    public static void print(HttpServletResponse response, Object... object) throws IOException {
         PrintWriter writer = utf8AndJson(response).getWriter();
         for (Object o : object) {
             writer.print(o);

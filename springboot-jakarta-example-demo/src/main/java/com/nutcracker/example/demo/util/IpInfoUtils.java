@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.util;
 
 import cn.hutool.core.io.resource.ClassPathResource;
-import com.nutcracker.example.demo.constant.Constants;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import nl.bitwalker.useragentutils.Browser;
@@ -38,7 +38,7 @@ public class IpInfoUtils {
         }
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
-            if (Constants.LOCAL_HOST.equals(ip)) {
+            if (DemoConstants.LOCAL_HOST.equals(ip)) {
                 //根据网卡取本机配置的IP
                 InetAddress inet = null;
                 try {
@@ -57,7 +57,7 @@ public class IpInfoUtils {
         }
 
         if ("0:0:0:0:0:0:0:1".equals(ip)) {
-            ip = Constants.LOCAL_HOST;
+            ip = DemoConstants.LOCAL_HOST;
         }
 
         return ip;
@@ -90,7 +90,7 @@ public class IpInfoUtils {
             if (address.charAt(address.length() - 1) == '|') {
                 address = address.substring(0, address.length() - 1);
             }
-            return address.equals(Constants.REGION) ? Constants.INTRANET_IP : address;
+            return address.equals(DemoConstants.REGION) ? DemoConstants.INTRANET_IP : address;
         } catch (DbMakerConfigException | IOException e) {
             log.error("获取ip地址失败 ip={}", ip, e);
             return null;

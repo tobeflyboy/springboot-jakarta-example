@@ -1,6 +1,6 @@
 package com.nutcracker.example.demo.util;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 手机号掩码工具类
@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 public class FackNoUtil {
 
     public static String getFackNo(String no) {
-        if (StringUtils.isBlank(no) || no.length() < 5) {
-            return StringUtils.EMPTY;
+        if (StrUtil.isBlank(no) || no.length() < 5) {
+            return StrUtil.EMPTY;
         }
         int fixedlength = 8;
         int fackLength = 4;

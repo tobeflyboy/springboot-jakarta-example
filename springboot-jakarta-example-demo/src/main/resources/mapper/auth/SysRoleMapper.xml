@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.auth.SysRoleMapper">
+
+	<resultMap id="roleMap" type="com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+		<result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+	</resultMap>
+
+	<sql id="find_xxx">
+		id, role_code, role_name, create_time, create_by
+	</sql>
+
+	<select id="findRoleByUserId" parameterType="string" resultMap="roleMap">
+		select
+			r.id,
+			r.role_code,
+			r.role_name,
+			r.create_time,
+			r.create_by
+		from sys_role r
+		inner join sys_user_role ur on ur.role_id = r.id
+		where ur.user_id=#{userId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findRoleByRoleCode" parameterType="string" resultMap="roleMap">
+		select
+			<include refid="find_xxx" />
+		from sys_role
+		where role_code = #{roleCode,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

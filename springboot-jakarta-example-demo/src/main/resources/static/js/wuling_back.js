@@ -1,62 +1,80 @@
 var _ctx = $("body").attr('data-ctx');
-//加载左侧导航
-$("#leftnav").load(_ctx + '/leftnav', function (response, status, xhr) {
-    if (status === 'success') {
-        //加载完成执行导航组件
-        $('#side-menu').metisMenu();
-        // resetMenuClass();
-        if ($("body").hasClass('fixed-sidebar')) {
-            $('.sidebar-scroll').slimScroll({
-                height: '100%',
-                railVisible: false,
-                color: "#65cea7",
-                opacity: .8,
-                size: '4px',
-                borderRadius: '0',
-                railBorderRadius: '0',
-                distance: 0
-            });
-        }
-    }
-});
-//加载顶部导航
-$("#topnav").load(_ctx + '/topnav', function (response, status, xhr) {
-    if (status === 'success') {
-        //加载完成执行按钮点击事件
-        $('.navbar-minimalize').click(function () {
-            $("body").toggleClass("mini-navbar");
-            SmoothlyMenu();
-        });
-    }
-});
 
-// function resetMenuClass(){
-//     // 重新绘制菜单样式
-//     // 获取当前的路径（去掉 query 参数）
-//     let currentPath = window.location.pathname;
-//     console.log(currentPath);
-//     console.log($("#side-menu").html());
-//     // 遍历所有菜单项
-//     $('#side-menu li a').each(function() {
-//         // 获取菜单项的 href 属性
-//         let href = $(this).attr('href');
-//         console.log(href)
-//         // 判断 href 是否包含当前路径
-//         if (currentPath.indexOf(href) !== -1) {
-//             // 添加 active 类
-//             $(this).closest('li').addClass('active');
-//             // 如果你想处理子菜单的展开，可以添加
-//             $(this).closest('li').children('ul').addClass('in');
-//         } else {
-//             // 移除 active 类
-//             $(this).closest('li').removeClass('active');
-//             // 关闭子菜单
-//             $(this).closest('li').children('ul').removeClass('in');
-//         }
-//     });
-// }
+
+// 设置当前 URL 对应的菜单项的 active 样式
+function setActiveMenu() {
+    var currentPath = window.location.pathname;
+
+    // 遍历所有菜单项
+    $('#side-menu li a').each(function() {
+        // 获取菜单项的 href 属性
+        var href = $(this).attr('href');
+
+        // 判断 href 是否包含当前路径
+        if (currentPath.indexOf(href) !== -1) {
+            // 为匹配的菜单项添加 active 类
+            var $li = $(this).closest('li');
+            $li.addClass('active');
+
+            // 向上查找父级菜单，直到找到 #side-menu 或最上级的 <li>，并为每个父级菜单项添加 active 类
+            $li.parents('li').each(function() {
+                var $parentLi = $(this);
+
+                // 如果找到了 #side-menu，则停止查找
+                if ($parentLi.closest('#side-menu').length > 0) {
+                    // 为父级菜单添加 active 类
+                    $parentLi.addClass('active');
+
+                    // 如果父级菜单有子菜单，展开子菜单（添加 'in' 类）
+                    $parentLi.children('ul').addClass('in');
+                }
+            });
+
+            // 如果菜单项有子菜单，展开子菜单
+            $(this).closest('li').children('ul').addClass('in');
+        } else {
+            // 移除没有匹配的菜单项的 active 类
+            $(this).closest('li').removeClass('active');
+
+            // 关闭子菜单
+            $(this).closest('li').children('ul').removeClass('in');
+        }
+    });
+}
 
 $(document).ready(function () {
+    //加载左侧导航
+    $("#leftnav").load(_ctx + '/leftnav', function (response, status, xhr) {
+        if (status === 'success') {
+            //加载完成执行导航组件
+            $('#side-menu').metisMenu();
+            // 调用函数设置当前 URL 对应的菜单项的 active 样式
+            setActiveMenu();
+            if ($("body").hasClass('fixed-sidebar')) {
+                $('.sidebar-scroll').slimScroll({
+                    height: '100%',
+                    railVisible: false,
+                    color: "#65cea7",
+                    opacity: .8,
+                    size: '4px',
+                    borderRadius: '0',
+                    railBorderRadius: '0',
+                    distance: 0
+                });
+            }
+        }
+    });
+    //加载顶部导航
+    $("#topnav").load(_ctx + '/topnav', function (response, status, xhr) {
+        if (status === 'success') {
+            //加载完成执行按钮点击事件
+            $('.navbar-minimalize').click(function () {
+                $("body").toggleClass("mini-navbar");
+                SmoothlyMenu();
+            });
+        }
+    });
+
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
         $('body').addClass('body-small')

@@ -1,9 +1,10 @@
 package com.nutcracker.example.demo.config.security;
 
-import com.nutcracker.example.demo.entity.sys.SysRole;
-import com.nutcracker.example.demo.entity.sys.SysUser;
-import com.nutcracker.example.demo.service.sys.SysRoleService;
-import com.nutcracker.example.demo.service.sys.SysUserService;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
+import com.nutcracker.example.demo.service.auth.AuthService;
+import com.nutcracker.example.demo.service.auth.RoleService;
+import com.nutcracker.example.demo.util.JSON;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,10 +29,10 @@ import java.util.Collection;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Resource
-    private SysUserService sysUserService;
+    private AuthService authService;
 
     @Resource
-    private SysRoleService sysRoleService;
+    private RoleService roleService;
 
     /**
      * 登录验证方法，前端发起 /login post请求，请求数据类型 content-type:【application/x-www-form-urlencoded; charset=UTF-8】
@@ -43,14 +44,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("loadUserByUsername username={}", username);
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
         // 查询用户
-        SysUser sysUser = sysUserService.findByName(username);
-        if (sysUser != null) {
+        SysUserDo sysUserDo = authService.findUserByName(username);
+        if (sysUserDo != null) {
             // 查询权限
-            SysRole sysRole = sysRoleService.findByUserId(sysUser.getId());
-            authorities.add(new SimpleGrantedAuthority(sysRole.getAuthority()));
-            return new User(username, sysUser.getPassword(), authorities);
+            Collection<GrantedAuthority> authorities = new ArrayList<>();
+            SysRoleDo sysRoleDo = roleService.findRoleByUserId(sysUserDo.getId());
+            authorities.add(new SimpleGrantedAuthority(sysRoleDo.getRoleCode()));
+            User user = new User(username, sysUserDo.getPassword(), authorities);
+            log.info("loadUserByUsername user={}", JSON.toJSONString(user));
+            return user;
         } else {
             throw new UsernameNotFoundException("用户名不存在");
         }

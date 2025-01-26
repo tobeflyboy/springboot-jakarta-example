@@ -84,7 +84,8 @@ spring:
       strict: false # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       datasource:
         auth:
-          url: jdbc:sqlite::resource:db/auth.sqlite
+#          url: jdbc:sqlite::resource:db/auth.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/auth.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:
@@ -107,7 +108,8 @@ spring:
             #连接测试查询
             connection-test-query: SELECT 'auth'
         biz:
-          url: jdbc:sqlite::resource:db/biz.sqlite
+#          url: jdbc:sqlite::resource:db/biz.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/biz.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:
@@ -145,6 +147,25 @@ pagehelper:
   reasonable: true                # 分页合理化
   supportMethodsArguments: true   # 支持通过参数控制
   params: count=countSql          # 设置为 SQL 语句中的 count 查询
+  banner: false                   # 关闭banner打印
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.nutcracker.example.demo.web.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
 
 #登录图形验证码有效时间(单位分钟)/宽度/高度/位数
 captcha:

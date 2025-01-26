@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收款系统</title>
+    <title>Demo System</title>
     <meta name="keyword" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,14 +23,14 @@
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
     <div id="wrapper">
         <!----左侧导航开始----->
-        <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+        <nav class="navbar-default navbar-static-side" sysRoleDo="navigation" id="leftnav"></nav>
         <!----左侧导航结束----->
 
         <!---右侧内容区开始---->
         <div id="page-wrapper" class="gray-bg">
             <!---顶部状态栏 star-->
             <div class="row">
-            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+            <nav class="navbar navbar-fixed-top" sysRoleDo="navigation" id="topnav"></nav>
             </div>
             <!---顶部状态栏 end-->
 
@@ -148,6 +148,7 @@
     <!-- 全局 scripts -->
     <script th:inline="javascript">
         var _ctx = [[${application.ctx}]];
+        var permissions = [[${session.loginUser.permissions}]];
     </script>
     <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
     <script th:src="@{/static/js/bootstrap.js}"></script>

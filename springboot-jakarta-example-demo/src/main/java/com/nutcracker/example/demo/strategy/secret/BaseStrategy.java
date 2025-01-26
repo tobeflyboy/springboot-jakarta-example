@@ -1,16 +1,14 @@
 package com.nutcracker.example.demo.strategy.secret;
 
-import com.nutcracker.example.demo.constant.Constants;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.enums.SecretStrategyEnum;
 import com.nutcracker.example.demo.strategy.StrategyFactory;
 import com.nutcracker.example.demo.util.FackNoUtil;
 import com.nutcracker.example.demo.util.ListUtil;
 import com.nutcracker.example.demo.util.TimeUtil;
 import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -28,9 +26,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author 胡桃夹子
  * @date 2021-11-17 18:20
  */
+@Slf4j
 public abstract class BaseStrategy {
-
-    private static final Logger LOG = LoggerFactory.getLogger(BaseStrategy.class);
 
     /**
      * 获取加解密策略枚举
@@ -45,14 +42,13 @@ public abstract class BaseStrategy {
     @Value("${app.secret.pool-size}")
     protected Integer poolSize;
 
-    @Autowired
+    @Resource
     protected StrategyFactory strategyFactory;
 
     /**
      * 自定义线程池
      */
-    @Autowired
-    @Qualifier(value = "taskExecutor")
+    @Resource(name = "taskExecutor")
     protected ThreadPoolTaskExecutor taskExecutor;
 
     @PostConstruct
@@ -89,14 +85,14 @@ public abstract class BaseStrategy {
         String result = null;
         try {
             if (null == list || list.isEmpty()) {
-                LOG.warn("# body is empty.");
+                log.warn("# body is empty.");
                 return null;
             }
 
             // 按照份数切割
             List<List<String>> batchList = ListUtil.splitListForNum(list, poolSize);
             int size = batchList.size();
-            LOG.info("# total batch={}\n\n\n\n", size);
+            log.info("# total batch={}\n\n\n\n", size);
 
             // 线程计数器
             CountDownLatch countDownLatch = new CountDownLatch(size);
@@ -105,29 +101,29 @@ public abstract class BaseStrategy {
             List<Future<String>> futureList = new ArrayList<>();
             AtomicInteger page = new AtomicInteger(1);
             for (List<String> currentBatch : batchList) {
-                LOG.info("# action={},currentBatch.size={}", action, currentBatch.size());
+                log.info("# action={},currentBatch.size={}", action, currentBatch.size());
                 Future<String> call = taskExecutor.submit(new JobTask(countDownLatch, page.getAndIncrement(), currentBatch, action));
                 futureList.add(call);
             }
-            LOG.info("\n\n================等待线程操作==========================\n\n");
+            log.info("\n\n================等待线程操作==========================\n\n");
             // 等待所有线程结束
             countDownLatch.await();
 
             // 执行其他操作
-            LOG.info("******************* 操作结束");
+            log.info("******************* 操作结束");
 
-            StringJoiner joiner = new StringJoiner(Constants.BR);
+            StringJoiner joiner = new StringJoiner(DemoConstants.BR);
             for (Future<String> future : futureList) {
                 joiner.add(future.get());
             }
             result = joiner.toString();
 
             // 执行其他操作
-            LOG.info("------it's over");
+            log.info("------it's over");
         } catch (Exception e) {
-            LOG.error("# error {}", e.getLocalizedMessage());
+            log.error("# error {}", e.getLocalizedMessage());
         } finally {
-            LOG.info("# execute:{}s", TimeUtil.getSecond(begin));
+            log.info("# execute:{}s", TimeUtil.getSecond(begin));
         }
         return result;
     }
@@ -154,13 +150,13 @@ public abstract class BaseStrategy {
          * 加密
          */
         private String en() {
-            StringJoiner joiner = new StringJoiner(Constants.BR);
+            StringJoiner joiner = new StringJoiner(DemoConstants.BR);
             AtomicInteger atomic = new AtomicInteger(1);
             int size = list.size();
             for (String temp : list) {
                 String info = temp + "," + FackNoUtil.getFackNo(temp) + "," + encrypt(temp);
                 joiner.add(info);
-                LOG.info("# {} batchNo={},list.size={},index={},info=[{}]", getSecretStrategyEnum(), batchNo, size, atomic.getAndIncrement(), info);
+                log.info("# {} batchNo={},list.size={},index={},info=[{}]", getSecretStrategyEnum(), batchNo, size, atomic.getAndIncrement(), info);
             }
             return joiner.toString();
         }
@@ -169,14 +165,14 @@ public abstract class BaseStrategy {
          * 解密
          */
         private String de() {
-            StringJoiner joiner = new StringJoiner(Constants.BR);
+            StringJoiner joiner = new StringJoiner(DemoConstants.BR);
             AtomicInteger atomic = new AtomicInteger(1);
             int size = list.size();
             for (String temp : list) {
                 String resp = decrypt(temp);
                 String info = temp + "," + FackNoUtil.getFackNo(resp) + "," + resp;
                 joiner.add(info);
-                LOG.info("# {} batchNo={},list.size={},index={},info=[{}]", getSecretStrategyEnum(), batchNo, size, atomic.getAndIncrement(), info);
+                log.info("# {} batchNo={},list.size={},index={},info=[{}]", getSecretStrategyEnum(), batchNo, size, atomic.getAndIncrement(), info);
             }
             return joiner.toString();
         }
@@ -184,7 +180,7 @@ public abstract class BaseStrategy {
 
         @Override
         public String call() throws Exception {
-            LOG.info("# pageNo={}, begin-----------------------------------------------------------------", batchNo);
+            log.info("# pageNo={}, begin-----------------------------------------------------------------", batchNo);
             String resp;
             if (action) {
                 resp = en();
@@ -193,7 +189,7 @@ public abstract class BaseStrategy {
             }
             // countDown自减
             latch.countDown();
-            LOG.info("# pageNo={}, end -----------------------------------------------------------------\n\n", batchNo);
+            log.info("# pageNo={}, end -----------------------------------------------------------------\n\n", batchNo);
             return resp;
         }
     }

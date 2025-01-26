@@ -90,15 +90,15 @@
 </head>
 <body th:attr="data-ctx=${application.ctx}">
 <div class="login-container">
-    <h1>收款</h1>
+    <h1>Login</h1>
     <form id="loginUserVo" name="loginUserVo">
         <div class="form-group">
-            <label for="username">域账号</label>
-            <input type="text" id="username" name="username" required th:value="${username}">
+            <label for="username">账号</label>
+            <input type="text" id="username" name="username" required value="admin">
         </div>
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" id="password" name="password" required th:value="${password}">
+            <input type="password" id="password" name="password" required value="123456">
         </div>
         <!-- 将 button 替换为 input 类型 submit -->
         <input type="button" class="login-btn" id="login-btn" value="登录">
@@ -130,7 +130,7 @@
                 type: 'POST',
                 data: {
                     username: username,
-                    password: CryptoJS.SHA256(password).toString()
+                    password: password
                 },
                 success: function (response) {
                     if (response.code === 200) {

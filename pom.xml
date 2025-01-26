@@ -125,7 +125,7 @@
                 <version>3.5.17</version>
             </dependency>
 
-            <!-- https://pagehelper.github.io/docs -->
+            <!-- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot</artifactId>

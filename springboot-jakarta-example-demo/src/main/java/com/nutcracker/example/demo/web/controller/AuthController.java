@@ -2,9 +2,7 @@ package com.nutcracker.example.demo.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -18,23 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AuthController {
 
-    /**
-     * jvm设置username，只是为了本地开发调试
-     */
-    @Value("${username:-}")
-    private String username;
-
-    /**
-     * jvm设置password，只是为了本地开发调试
-     */
-    @Value("${password:-}")
-    private String password;
-
     @GetMapping("/login")
-    public String login(ModelMap map) {
-        map.put("username", username);
-        map.put("password", password);
-        log.info("login username={},password={}", username, password);
+    public String login() {
+        log.info("login");
         return "login";
     }
 
@@ -44,6 +28,24 @@ public class AuthController {
         request.getSession().invalidate();
         log.info("logout");
         return "redirect:/login";
+    }
+
+    @GetMapping("/auth/permission_list")
+    public String permissionList() {
+        log.info("/auth/permission_list");
+        return "auth/permission_list";
+    }
+
+    @GetMapping("/auth/role_list")
+    public String roleList() {
+        log.info("/auth/role_list");
+        return "auth/role_list";
+    }
+
+    @GetMapping("/auth/user_list")
+    public String userList() {
+        log.info("/auth/user_list");
+        return "auth/user_list";
     }
 
 }

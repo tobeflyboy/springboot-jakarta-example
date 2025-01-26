@@ -1,9 +1,6 @@
 package com.nutcracker.example.demo.config.security.handler;
 
-import com.nutcracker.example.demo.constant.Constants;
-import com.nutcracker.example.demo.service.sys.SysLogService;
-import com.nutcracker.example.demo.web.util.WebUtil;
-import jakarta.annotation.Resource;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,15 +26,12 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Value("${server.servlet.context-path}")
     private String path;
 
-    @Resource
-    private SysLogService sysLogService;
-
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
         String name = token.getName();
+        log.info("onLogoutSuccess 用户：{} 退出成功", name);
         //保存日志
-        sysLogService.saveLoginLog(WebUtil.getSysLog(request, Constants.LOGIN_SUCCESS, name));
-        response.sendRedirect(path == null ? Constants.LOGIN_URL : path + Constants.LOGIN_URL);
+        response.sendRedirect(path == null ? DemoConstants.LOGIN_URL : path + DemoConstants.LOGIN_URL);
     }
 }

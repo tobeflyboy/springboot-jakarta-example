@@ -73,15 +73,19 @@
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-creator</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
+        </dependency>
+
+        <!-- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- thymeleaf -->
@@ -94,17 +98,13 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
 
-        <!-- https://doc.xiaominfo.com -->
+        <!-- https://doc.xiaominfo.com/docs/quick-start -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- apache commons -->
-        <!--<dependency>-->
-        <!--    <groupId>org.apache.commons</groupId>-->
-        <!--    <artifactId>commons-pool2</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -126,7 +126,6 @@
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>6.4.0</version>
         </dependency>
 
         <!--ip2region获取详细IP地址 -->

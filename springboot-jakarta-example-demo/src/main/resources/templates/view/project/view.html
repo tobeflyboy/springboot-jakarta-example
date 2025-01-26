@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收款系统</title>
+    <title>Demo System</title>
     <meta name="keyword" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,13 @@
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
     <div id="wrapper">
         <!----左侧导航开始----->
-        <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+        <nav class="navbar-default navbar-static-side" sysRoleDo="navigation" id="leftnav"></nav>
         <!----左侧导航结束----->
         <!---右侧内容区开始---->
         <div id="page-wrapper" class="gray-bg">
             <!---顶部状态栏 star-->
             <div class="row ">
-                <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+                <nav class="navbar navbar-fixed-top" sysRoleDo="navigation" id="topnav"></nav>
             </div>
             <!---顶部状态栏 end-->
             <!--------当前位置----->
@@ -86,7 +86,7 @@
                                         楼盘，是香港不动产买卖时，对物业的称呼，一个楼盘可以是一个单位、一幢大厦或一个屋 苑；甚至一幅地皮、一个泊车位、楼花期货等。楼盘的资讯包括建筑面积平方米，有装修、景观、层数、地点、价钱、房间数目，会所设施，甚至实用率。前称资料未必是法例规定，不实陈述时有可能。大楼盘或蓝筹楼盘指其交易量高、价格稳定、转手易且快，铁路沿线。通常成为炒楼者至爱。
                                     </p>
 
-                                    <div class="user-button">
+                                    <div class="sysUserDo-button">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 通过审核</button>
@@ -220,7 +220,7 @@
     </div>
 
     <!----添加用户--->
-    <div class="modal inmodal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal inmodal fade" id="edit" tabindex="-1" sysRoleDo="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
@@ -229,7 +229,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form role="form" id="add" name="add" class="form-horizontal">
+                    <form sysRoleDo="form" id="add" name="add" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-4 control-label">电商名称 <span class="text-danger">*</span></label>
                             <div class="col-sm-8">

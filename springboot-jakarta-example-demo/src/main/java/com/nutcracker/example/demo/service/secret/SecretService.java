@@ -20,7 +20,7 @@ public interface SecretService {
      * @param param              明文号码
      * @return 密文号码
      */
-    public String encrypt(SecretStrategyEnum secretStrategyEnum, String param);
+    String encrypt(SecretStrategyEnum secretStrategyEnum, String param);
 
     /**
      * 解密
@@ -29,24 +29,24 @@ public interface SecretService {
      * @param param              密文号码
      * @return 明文号码
      */
-    public String decrypt(SecretStrategyEnum secretStrategyEnum, String param);
+    String decrypt(SecretStrategyEnum secretStrategyEnum, String param);
 
     /**
      * 批量加密操作
      *
      * @param secretStrategyEnum 加解密渠道枚举
      * @param list               密文号码
-     * @return
+     * @return {@link String }
      */
-    public String encrypt(SecretStrategyEnum secretStrategyEnum, List<String> list);
+    String encrypt(SecretStrategyEnum secretStrategyEnum, List<String> list);
 
     /**
      * 批量解密操作
      *
      * @param secretStrategyEnum 加解密渠道枚举
      * @param list               密文号码
-     * @return
+     * @return {@link String }
      */
-    public String decrypt(SecretStrategyEnum secretStrategyEnum, List<String> list);
+    String decrypt(SecretStrategyEnum secretStrategyEnum, List<String> list);
 
 }

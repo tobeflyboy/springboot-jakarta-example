@@ -3,7 +3,7 @@ package com.nutcracker.example.demo.config.security;
 import com.nutcracker.example.demo.config.security.handler.AuthenticationFailureHandler;
 import com.nutcracker.example.demo.config.security.handler.AuthenticationSuccessHandler;
 import com.nutcracker.example.demo.config.security.handler.CustomLogoutSuccessHandler;
-import com.nutcracker.example.demo.constant.Constants;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,9 +71,8 @@ public class SecurityConfigurer {
                 // 放行接口
                 .authorizeHttpRequests(authorize -> authorize
                         // 放行接口
-                        .requestMatchers("/public/favicon.ico", "/code", "/invalid_session", "/expired", "/logout", "/403").permitAll()
-                        // 放行目录
-                        .requestMatchers("/static/**", "/actuator/**").permitAll()
+                        .requestMatchers(DemoConstants.WHILE_URL_LIST)
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 // 其余的都需要权限校验
@@ -84,8 +83,8 @@ public class SecurityConfigurer {
                 .csrf(AbstractHttpConfigurer::disable)
                 // 表单登录配置
                 .formLogin(formLogin -> formLogin
-                        .loginProcessingUrl(Constants.LOGIN_URL)
-                        .loginPage(Constants.LOGIN_URL)
+                        .loginProcessingUrl(DemoConstants.LOGIN_URL)
+                        .loginPage(DemoConstants.LOGIN_URL)
                         .successHandler(authenticationSuccessHandler)
                         .failureHandler(authenticationFailureHandler)
                         .permitAll()
@@ -98,7 +97,7 @@ public class SecurityConfigurer {
                 )
                 // 登出配置
                 .logout(logout -> logout
-                        .logoutUrl(Constants.LOGOUT_URL)
+                        .logoutUrl(DemoConstants.LOGOUT_URL)
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessHandler(customLogoutSuccessHandler)

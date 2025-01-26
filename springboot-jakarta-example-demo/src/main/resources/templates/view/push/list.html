@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收款系统</title>
+    <title>Demo System</title>
     <meta name="keyword" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +28,14 @@
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
 <div id="wrapper">
     <!----左侧导航开始----->
-    <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+    <nav class="navbar-default navbar-static-side" sysRoleDo="navigation" id="leftnav"></nav>
     <!----左侧导航结束----->
 
     <!---右侧内容区开始---->
     <div id="page-wrapper" class="gray-bg">
         <!---顶部状态栏 star-->
         <div class="row ">
-            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+            <nav class="navbar navbar-fixed-top" sysRoleDo="navigation" id="topnav"></nav>
         </div>
         <!---顶部状态栏 end-->
 
@@ -169,7 +169,7 @@
 
 
 <!----修改开始--->
-<div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal-form" tabindex="-1" sysRoleDo="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -178,7 +178,7 @@
             </div>
             <div class="modal-body">
 
-                <form role="form" id="add" name="add" class="form-horizontal">
+                <form sysRoleDo="form" id="add" name="add" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">推送类型</label>
                         <div class="col-sm-8">

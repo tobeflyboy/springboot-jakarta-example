@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.auth.SysUserMapper">
+
+    <resultMap id="userMap" type="com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+    </resultMap>
+
+    <sql id="find_xxx">
+        id, username, password, salt, real_name, email, status, create_time, create_by, update_time, update_by, last_login_time
+	</sql>
+
+    <select id="findUserByUsername" parameterType="string" resultMap="userMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_user
+        where username=#{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findUserByRoleCode" parameterType="string" resultMap="userMap">
+        select
+            u.id,
+            u.username,
+            u.password,
+            u.salt,
+            u.real_name,
+            u.email,
+            u.status,
+            u.create_time,
+            u.create_by,
+            u.update_time,
+            u.update_by,
+            u.last_login_time
+        from sys_user u
+        inner join sys_user_role ur on ur.user_id = u.id
+        inner join sys_role r on r.role_id = ur.role_id
+        where r.authority = #{roleCode}
+    </select>
+
+    <select id="findUser" parameterType="string" resultMap="userMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_user u
+        inner join sys_user_role ur on ur.user_id = u.id
+        inner join sys_role r on r.id = ur.role_id
+        where r.role_code=#{roleCode,jdbcType=VARCHAR}
+        and u.status=#{status,jdbcType=VARCHAR}
+        <if test="realName != null">
+            and u.real_name like '%'||#{realName}||'%'
+        </if>
+    </select>
+
+    <select id="findUsers" resultMap="userMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_user
+    </select>
+
+</mapper>

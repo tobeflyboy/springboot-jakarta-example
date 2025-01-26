@@ -1,39 +1,39 @@
 <div class="sidebar-scroll">
 	<div class="logo">
-		<a th:href="@{/dashboard}"><img th:src="@{/static/images/logo_icon.png}" style="width: 55px;height: 40px;">收款系统</a>
+		<a th:href="@{/dashboard}"><img th:src="@{/static/images/logo_icon.png}" style="width: 55px;height: 40px;">Demo</a>
 	</div>
 	<div class="sidebar-collapse">
-		<ul class="nav metismenu" id="side-menu">
-			<li class="active"><a th:href="@{/dashboard}"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a></li>
-			<li>
-				<a href="javascript:void(0)">
-					<i class="glyphicon glyphicon-credit-card"></i>
-					<span class="nav-label">收款</span>
+		<ul class="nav metismenu" id="side-menu" >
+			<li th:class="${oneStat.index==1}?'active':''"  th:each="one:${session.loginUser.permissions}">
+				<!-- 只是单纯的一级菜单，没有子菜单 -->
+				<a th:href="${#strings.isEmpty(one.url)}?'javascript:void(0)':${application.ctx}+'/'+${one.url}" th:if="${#lists.isEmpty(one.children)}">
+					<i th:class="'fa ' + ${one.icon}"></i>
+					<span class="nav-label" th:text="${one.permissionName}"></span>
+				</a>
+
+				<!-- 一级菜单，有子菜单 -->
+				<a th:href="${#strings.isEmpty(one.url)}?'javascript:void(0)':${application.ctx}+'/'+${one.url}" th:if="${not #lists.isEmpty(one.children)}">
+					<i th:class="'fa ' + ${one.icon}"></i>
+					<span class="nav-label" th:text="${one.permissionName}"></span>
 					<span class="fa arrow"></span>
 				</a>
-				<ul class="nav nav-second-level collapse">
-					<li><a th:href="@{/payment/alipayQrCode}"><i class="glyphicon glyphicon-phone"></i>支付宝收款</a></li>
-					<li><a th:href="@{/payment/getPayQrCode}"><i class="glyphicon glyphicon-qrcode"></i>二维码收款</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="javascript:void(0)">
-					<i class="glyphicon glyphicon-list-alt"></i>
-					<span class="nav-label">统计</span>
-					<span class="fa arrow"></span>
-				</a>
-				<ul class="nav nav-second-level collapse">
-					<li><a th:href="@{/payment/record}"><i class="glyphicon glyphicon-check"></i>支付流水</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="javascript:void(0)">
-					<i class="glyphicon glyphicon-cog"></i>
-					<span class="nav-label">设置</span>
-					<span class="fa arrow"></span>
-				</a>
-				<ul class="nav nav-second-level collapse">
-					<li><a th:href="@{/payment/changeCcbPaymentRoute}"><i class="glyphicon glyphicon-wrench"></i>切换建设银行商户号</a></li>
+
+				<!-- 迭代显示子菜单 -->
+				<ul class="nav nav-second-level collapse" th:if="${not #lists.isEmpty(one.children)}" th:each="two:${one.children}">
+					<li>
+						<a th:href="${#strings.isEmpty(two.url)}?'javascript:void(0)':${application.ctx}+'/'+${two.url}">
+							<i th:class="'fa ' + ${two.icon}"></i>
+							<span class="nav-label" th:text="${two.permissionName}"></span>
+						</a>
+						<ul class="nav nav-third-level" th:if="${not #lists.isEmpty(two.children)}" th:each="three:${two.children}">
+							<li>
+								<a th:href="${application.ctx}+'/'+${three.url}">
+									<i th:class="'fa ' + ${three.icon}"></i>
+									<span class="nav-label" th:text="${three.permissionName}"></span>
+								</a>
+							</li>
+						</ul>
+					</li>
 				</ul>
 			</li>
 		</ul>

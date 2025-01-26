@@ -3,7 +3,7 @@
 
 <mapper namespace="com.nutcracker.example.demo.mapper.biz.NewsMapper">
 
-    <resultMap id="newsMap" type="com.nutcracker.example.demo.entity.biz.News">
+    <resultMap id="newsMap" type="com.nutcracker.example.demo.entity.dataobject.biz.News">
         <result column="id" property="id"/>
         <result column="address" property="address"/>
         <result column="create_time" property="createTime"/>
@@ -12,7 +12,7 @@
         <result column="title" property="title"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.nutcracker.example.demo.entity.biz.News">
+    <insert id="insert" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.News">
         insert into t_news(id, address, create_time, description, news_time, title)
         values (#{id}, #{address}, #{createTime}, #{description}, #{newsTime}, #{title})
     </insert>
@@ -48,7 +48,7 @@
         order by create_time desc
     </select>
 
-    <update id="updateNews" parameterType="com.nutcracker.example.demo.entity.biz.News">
+    <update id="updateNews" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.News">
         update t_news
         <set>
             <if test="address != null and address!='' ">
@@ -69,4 +69,13 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="findNewsByTitle" parameterType="string" resultMap="newsMap">
+        select
+        <include refid="news_column" />
+        from t_news
+        <where>
+            <if test="title != null and title != ''"> title like '%${title}%'</if>
+        </where>
+    </select>
 </mapper>

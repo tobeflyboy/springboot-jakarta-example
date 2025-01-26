@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.auth.SysPermissionMapper">
+
+    <resultMap id="permissionMap" type="com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="permission_code" jdbcType="VARCHAR" property="permissionCode" />
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
+        <result column="parent_permission_code" jdbcType="VARCHAR" property="parentPermissionCode" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="hide" jdbcType="INTEGER" property="hide" />
+        <result column="lev" jdbcType="INTEGER" property="lev" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    </resultMap>
+
+    <sql id="find_xxx">
+        id, permission_code, permission_name, parent_permission_code, url, icon, hide, lev, sort, create_time, create_by
+	</sql>
+
+    <select id="findPermissionByUserId" parameterType="java.lang.String" resultMap="permissionMap">
+        select
+            p.id,
+            p.permission_code,
+            p.permission_name,
+            p.parent_permission_code,
+            p.url,
+            p.icon,
+            p.hide,
+            p.lev,
+            p.sort,
+            p.create_time,
+            p.create_by
+        from sys_permission p
+        inner join sys_role_permission rp on rp.permission_id = p.id
+        inner join sys_user_role ur on ur.role_id = rp.role_id
+        where ur.user_id = #{userId,jdbcType=VARCHAR}
+        order by p.sort asc
+    </select>
+
+    <select id="findPermissionByPermissionCode" parameterType="java.lang.String" resultMap="permissionMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_permission
+        where permission_code = #{permissionCode,jdbcType=VARCHAR}
+    </select>
+</mapper>

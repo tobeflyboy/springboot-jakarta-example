@@ -1,12 +1,10 @@
 package com.nutcracker.example.demo.config.security.handler;
 
-import com.nutcracker.example.demo.constant.Constants;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.ApiResponse;
-import com.nutcracker.example.demo.service.sys.SysLogService;
 import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.util.ResponseUtils;
 import com.nutcracker.example.demo.web.util.WebUtil;
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,22 +26,20 @@ import java.io.IOException;
 @Slf4j
 public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Resource
-    private SysLogService sysLogService;
-
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+        log.debug("onAuthenticationFailure {}", request.getRequestURI());
         if (WebUtil.isAjax(request)) {
             String username = request.getParameter("username");
             String message;
             if (e instanceof SessionAuthenticationException) {
                 //Object username = request.getAttribute("SPRING_SECURITY_LAST_USERNAME_KEY")
-                message = Constants.LOGIN_MAX_LIMIT;
+                message = DemoConstants.LOGIN_MAX_LIMIT;
                 ResponseUtils.print(response, JSON.toJSONString(ApiResponse.fail(message)));
             }
             message = e.getMessage();
+            log.info("登录失败，用户名：{}，错误信息：{}", username, message);
             // 保存日志
-            sysLogService.saveLoginLog(WebUtil.getSysLog(request, message, username));
             ResponseUtils.print(response, JSON.toJSONString(ApiResponse.fail(message)));
         } else {
             super.onAuthenticationFailure(request, response, e);

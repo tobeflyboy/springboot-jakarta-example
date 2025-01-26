@@ -1,6 +1,6 @@
 package com.nutcracker.example.demo.util;
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -216,10 +216,10 @@ public class DateUtil {
      * @return 日期
      */
     public static Date stringToDate(String dateString, String pattern) {
-        if (StringUtils.isBlank(dateString)) {
+        if (StrUtil.isBlank(dateString)) {
             return null;
         }
-        if (StringUtils.isBlank(pattern)) {
+        if (StrUtil.isBlank(pattern)) {
             pattern = fm_yyyyMMdd;
         }
         LocalDate localDate = LocalDate.parse(dateString, getDateFormat(pattern));
@@ -236,7 +236,7 @@ public class DateUtil {
      */
     public static String dateToString(String pattern) {
         Date cur = Calendar.getInstance().getTime();
-        if (StringUtils.isBlank(pattern)) {
+        if (StrUtil.isBlank(pattern)) {
             pattern = fm_yyyy_MM_dd_HHmmss;
         }
         return dateToString(cur, pattern);
@@ -253,7 +253,7 @@ public class DateUtil {
         if (date == null) {
             date = Calendar.getInstance().getTime();
         }
-        if (StringUtils.isBlank(pattern)) {
+        if (StrUtil.isBlank(pattern)) {
             pattern = fm_yyyy_MM_dd_HHmmss;
         }
 
@@ -273,7 +273,7 @@ public class DateUtil {
         if (milliseconds == null) {
             milliseconds = Calendar.getInstance().getTime().getTime();
         }
-        if (StringUtils.isBlank(pattern)) {
+        if (StrUtil.isBlank(pattern)) {
             pattern = fm_yyyy_MM_dd_HHmmss;
         }
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(pattern);

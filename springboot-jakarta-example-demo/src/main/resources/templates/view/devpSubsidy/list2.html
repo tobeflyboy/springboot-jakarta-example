@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收款系统</title>
+    <title>Demo System</title>
     <meta name="keyword" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,14 +24,14 @@
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
     <div id="wrapper">
         <!----左侧导航开始----->
-        <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+        <nav class="navbar-default navbar-static-side" sysRoleDo="navigation" id="leftnav"></nav>
         <!----左侧导航结束----->
 
         <!---右侧内容区开始---->
         <div id="page-wrapper" class="gray-bg">
             <!---顶部状态栏 star-->
             <div class="row ">
-           		<nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+           		<nav class="navbar navbar-fixed-top" sysRoleDo="navigation" id="topnav"></nav>
             </div>
             <!---顶部状态栏 end-->
 
@@ -102,7 +102,7 @@
                                             <div class="btn-group ">
                                                 <a href="#myModa-reset" data-toggle="modal" data-id="1" class="btn btn-white btn-sm through"><i class="fa fa-jpy"></i>  进账指示</a>
                                                 <a href="#myModa-msg" data-toggle="modal" data-id="1" class="btn btn-white btn-sm through"><i class="fa fa-reply-all"></i>  反馈</a>
-                                                <a href="#add_rslide" data-id="555555" data-toggle="rslide" role="button" class="btn btn-white btn-sm through"><i class="fa fa-pencil"></i>  编辑</a>
+                                                <a href="#add_rslide" data-id="555555" data-toggle="rslide" sysRoleDo="button" class="btn btn-white btn-sm through"><i class="fa fa-pencil"></i>  编辑</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -118,14 +118,14 @@
                                             <div class="btn-group ">
                                                 <a href="#myModa-reset" data-toggle="modal" data-id="1" class="btn btn-white btn-sm through"><i class="fa fa-jpy"></i>  进账指示</a>
                                                 <a href="#myModa-msg" data-toggle="modal" data-id="1" class="btn btn-white btn-sm through"><i class="fa fa-reply-all"></i>  反馈</a>
-                                                <a href="#add_rslide" data-id="555555" data-toggle="rslide" role="button" class="btn btn-white btn-sm through"><i class="fa fa-pencil"></i>  编辑</a>
+                                                <a href="#add_rslide" data-id="555555" data-toggle="rslide" sysRoleDo="button" class="btn btn-white btn-sm through"><i class="fa fa-pencil"></i>  编辑</a>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="alert alert-warning m-t-sm" role="alert">暂无信息</div>
+                        <div class="alert alert-warning m-t-sm" sysRoleDo="alert">暂无信息</div>
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@
 
 
     <!----进账指示---->
-    <div class="modal inmodal fade" id="myModa-reset" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal fade" id="myModa-reset" tabindex="-1" sysRoleDo="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -213,7 +213,7 @@
     <!----重置结束---->
 
     <!----反馈---->
-    <div class="modal inmodal fade" id="myModa-msg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal inmodal fade" id="myModa-msg" tabindex="-1" sysRoleDo="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">

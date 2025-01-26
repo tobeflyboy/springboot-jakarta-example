@@ -1,14 +1,12 @@
 package com.nutcracker.example.demo.service.secret.impl;
 
-import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.enums.SecretStrategyEnum;
 import com.nutcracker.example.demo.service.secret.SecretService;
 import com.nutcracker.example.demo.strategy.StrategyFactory;
 import com.nutcracker.example.demo.strategy.secret.BaseStrategy;
+import com.nutcracker.example.demo.util.JSON;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +21,7 @@ import java.util.List;
 @Service
 public class SecretServiceImpl implements SecretService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SecretServiceImpl.class);
-
-    @Autowired
+    @Resource
     private StrategyFactory strategyFactory;
 
     @Override
@@ -34,7 +30,7 @@ public class SecretServiceImpl implements SecretService {
         if (null != strategy) {
             return strategy.encrypt(param);
         }
-        LOG.error(" 加密失败, {}, {}", secretStrategyEnum, param);
+        log.error("encrypt fail, {}, {}", secretStrategyEnum, param);
         return null;
     }
 
@@ -44,7 +40,7 @@ public class SecretServiceImpl implements SecretService {
         if (null != strategy) {
             return strategy.decrypt(param);
         }
-        LOG.error(" 解密失败, {}, {}", secretStrategyEnum, param);
+        log.error("decrypt fail, {}, {}", secretStrategyEnum, param);
         return null;
     }
 
@@ -54,7 +50,7 @@ public class SecretServiceImpl implements SecretService {
         if (null != strategy) {
             return strategy.execute(list, true);
         }
-        LOG.error(" 加密失败, {}, {}", secretStrategyEnum, JSON.toJSONString(list));
+        log.error("encrypt list fail, {}, {}", secretStrategyEnum, JSON.toJSONString(list));
         return null;
     }
 
@@ -64,7 +60,7 @@ public class SecretServiceImpl implements SecretService {
         if (null != strategy) {
             return strategy.execute(list, false);
         }
-        LOG.error(" 解密失败, {}, {}", secretStrategyEnum, JSON.toJSONString(list));
+        log.error("decrypt list fail, {}, {}", secretStrategyEnum, JSON.toJSONString(list));
         return null;
     }
 }

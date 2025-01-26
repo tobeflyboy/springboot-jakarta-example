@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>收款系统</title>
+<title>Demo System</title>
 <meta name="keyword" content="">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,14 +23,14 @@
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
 	<div id="wrapper">
 		<!----左侧导航开始----->
-		<nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+		<nav class="navbar-default navbar-static-side" sysRoleDo="navigation" id="leftnav"></nav>
 		<!----左侧导航结束----->
 
 		<!---右侧内容区开始---->
 		<div id="page-wrapper" class="gray-bg">
 			<!---顶部状态栏 star-->
 			<div class="row ">
-				<nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+				<nav class="navbar navbar-fixed-top" sysRoleDo="navigation" id="topnav"></nav>
 			</div>
 			<!---顶部状态栏 end-->
 
@@ -82,7 +82,7 @@
 	</div>
 
 	<!----添加用户--->
-	<div class="modal inmodal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal inmodal fade" id="edit" tabindex="-1" sysRoleDo="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
@@ -90,7 +90,7 @@
 					<h4 class="modal-title">编辑重新发布新闻</h4>
 				</div>
 				<div class="modal-body">
-					<form role="form" id="newsForm" name="newsForm" class="form-horizontal"></form>
+					<form sysRoleDo="form" id="newsForm" name="newsForm" class="form-horizontal"></form>
 				</div>
 			</div>
 		</div>

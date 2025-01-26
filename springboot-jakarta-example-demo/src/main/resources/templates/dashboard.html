@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" th:href="@{/public/favicon.ico}">
+    <link rel="icon" type="image/x-icon" th:href="@{/public/favicon.png}">
     <title>Dashboard</title>
     <meta name="keyword" content="">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
-    <meta name="copyright" content="Example Demo All Rights Reserved">
+    <meta name="copyright" content="胡桃夹子。All Rights Reserved">
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
     <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
@@ -22,33 +22,40 @@
         .panel-body {
             padding: 15px;
         }
+
         .panel-title {
             font-size: 1.2em;
         }
+
         .data-row {
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between; /* Ensures label and value are spaced apart */
             align-items: center;
         }
+
         .data-label {
             font-weight: bold;
-            text-align: right;  /* Right-align the label */
+            text-align: right; /* Right-align the label */
             width: 40%; /* Ensures space for the label */
         }
+
         .data-value {
             margin-left: 10px;
             text-align: left; /* Left-align the value */
             width: 60%; /* Ensures space for the value */
         }
+
         .summary-panel {
             background-color: #f5f5f5;
             border-color: #ddd;
         }
+
         .summary-data {
             font-size: 1.1em;
             font-weight: bold;
         }
+
         /* 表格样式 */
         table.table-striped th,
         table.table-striped td {
@@ -61,22 +68,27 @@
         table.table-striped td:first-child {
             width: 15%;
         }
+
         table.table-striped th:nth-child(2),
         table.table-striped td:nth-child(2) {
             width: 15%;
         }
+
         table.table-striped th:nth-child(3),
         table.table-striped td:nth-child(3) {
             width: 20%;
         }
+
         table.table-striped th:nth-child(4),
         table.table-striped td:nth-child(4) {
             width: 15%;
         }
+
         table.table-striped th:nth-child(5),
         table.table-striped td:nth-child(5) {
             width: 20%;
         }
+
         table.table-striped th:last-child,
         table.table-striped td:last-child {
             width: 15%;
@@ -107,16 +119,16 @@
                     </div>
                     <div class="panel-body">
                         <div class="data-row">
-                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data" th:text="${total.dailyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data" th:text="${total.monthlyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(total.dailyTotal)}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(total.monthlyTotal)}">-</span>
                         </div>
                     </div>
                 </div>
@@ -128,16 +140,16 @@
                     </div>
                     <div class="panel-body">
                         <div class="data-row">
-                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data" th:text="${ccbpayTotal.dailyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data" th:text="${ccbpayTotal.monthlyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(ccbpayTotal.dailyTotal)}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(ccbpayTotal.monthlyTotal)}">-</span>
                         </div>
                     </div>
                 </div>
@@ -149,16 +161,16 @@
                     </div>
                     <div class="panel-body">
                         <div class="data-row">
-                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易笔数：</span><span class="data-value summary-data" th:text="${alipayTotal.dailyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易笔数：</span><span class="data-value summary-data" th:text="${alipayTotal.monthlyCount}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">日交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(alipayTotal.dailyTotal)}">-</span>
                         </div>
                         <div class="data-row">
-                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data">-</span>
+                            <span class="data-label">月交易汇总：</span><span class="data-value summary-data" th:text="${#numbers.formatCurrency(alipayTotal.monthlyTotal)}">-</span>
                         </div>
                     </div>
                 </div>
@@ -182,7 +194,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>商户号</th>
+                                            <th th:text="${entry.key}=='支付宝'?'支付宝产品':'商户号'"></th>
                                             <th>日交易笔数</th>
                                             <th>月交易笔数</th>
                                             <th>日交易汇总</th>
@@ -209,6 +221,10 @@
         <!-----内容结束----->
     </div>
     <!---右侧内容区结束----->
+    <script th:inline="javascript">
+        var _ctx = [[${application.ctx}]];
+        var permissions = [[${session.loginUser.permissions}]];
+    </script>
     <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
     <script th:src="@{/static/js/bootstrap.js}"></script>
     <script th:src="@{/static/js/wuling.js}"></script>

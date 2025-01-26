@@ -3,6 +3,7 @@ package com.nutcracker.example.demo.config.security;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
@@ -16,6 +17,7 @@ import java.io.IOException;
  * @author 胡桃夹子
  * @date 2022/12/23 08:28
  */
+@Slf4j
 @Component
 public class CustomExpiredSessionStrategy implements SessionInformationExpiredStrategy {
 
@@ -26,6 +28,7 @@ public class CustomExpiredSessionStrategy implements SessionInformationExpiredSt
     public void onExpiredSessionDetected(SessionInformationExpiredEvent sessionInformationExpiredEvent) throws IOException, ServletException {
         HttpServletResponse response = sessionInformationExpiredEvent.getResponse();
         HttpServletRequest request = sessionInformationExpiredEvent.getRequest();
+        log.debug("onExpiredSessionDetected {}", request.getRequestURI());
         request.getRequestDispatcher("/expired").forward(request, response);
     }
 }

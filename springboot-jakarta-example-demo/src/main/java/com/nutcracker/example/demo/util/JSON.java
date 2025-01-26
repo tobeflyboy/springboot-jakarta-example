@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nutcracker.example.demo.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +28,8 @@ public class JSON {
     static {
         // 配置 Jackson，忽略未知属性
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // 注册 JavaTimeModule 来处理 Java 8 的时间类型
+        OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
     /**

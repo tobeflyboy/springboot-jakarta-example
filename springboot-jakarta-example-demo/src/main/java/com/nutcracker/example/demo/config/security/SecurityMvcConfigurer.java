@@ -1,6 +1,7 @@
 package com.nutcracker.example.demo.config.security;
 
 import com.nutcracker.example.demo.config.interceptor.AccessAuthHandlerInterceptor;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,12 @@ public class SecurityMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册过滤器
-        registry.addInterceptor(accessAuthHandlerInterceptor).excludePathPatterns("/static/**").addPathPatterns("/**");
+        registry
+                .addInterceptor(accessAuthHandlerInterceptor)
+                // 拦截所有路径
+                .addPathPatterns("/**")
+                // 排除 API 接口
+                .excludePathPatterns(DemoConstants.WHILE_URL_LIST);
     }
 
     /**
