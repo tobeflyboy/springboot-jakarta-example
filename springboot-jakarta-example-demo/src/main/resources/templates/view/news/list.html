@@ -12,12 +12,12 @@
 <meta name="renderer" content="webkit">
 <meta name="Author" content="zifan">
 <meta name="copyright" content="Example Demo All Rights Reserved">
-<link th:href="${application.ctx}+'/static/css/bootstrap.min.css'" rel="stylesheet">
-<link th:href="${application.ctx}+'/static/font-awesome/css/font-awesome.css'" rel="stylesheet">
-<link th:href="${application.ctx}+'/static/css/plugins/toastr/toastr.min.css'" rel="stylesheet">
-<link th:href="${application.ctx}+'/static/css/plugins/iCheck/green.css'" rel="stylesheet">
-<link th:href="${application.ctx}+'/static/css/animate.css'" rel="stylesheet">
-<link th:href="${application.ctx}+'/static/css/style.css'" rel="stylesheet">
+<link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+<link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+<link th:href="@{/static/css/plugins/iCheck/green.css}" rel="stylesheet">
+<link th:href="@{/static/css/animate.css}" rel="stylesheet">
+<link th:href="@{/static/css/style.css}" rel="stylesheet">
 </head>
 
 <body th:attr="data-ctx=${application.ctx}" class="fixed-sidebar">
@@ -99,27 +99,30 @@
 
 
 	<!-- 全局 scripts -->
-	<script th:src="${application.ctx}+'/static/js/jquery-2.1.1.js'"></script>
-	<script th:src="${application.ctx}+'/static/js/bootstrap.js'"></script>
-	<script th:src="${application.ctx}+'/static/js/wuling.js'"></script>
-	<script th:src="${application.ctx}+'/static/js/plugins/pace/pace.min.js'"></script>
+	<script th:inline="javascript">
+		window.ctx = [[${application.ctx}]];
+		window.sessionUser = [[${session.sessionUser}]];
+	</script>
+	<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+	<script th:src="@{/static/js/bootstrap.js}"></script>
+	<script th:src="@{/static/js/common.js}"></script>
+	<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
 
-	<script th:src="${application.ctx}+'/static/js/plugins/slimscroll/jquery.slimscroll.min.js'"></script>
-	<script th:src="${application.ctx}+'/static/js/plugins/metisMenu/jquery.metisMenu.js'"></script>
+	<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+	<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
 	<!-- 插件 scripts -->
-	<script th:src="${application.ctx}+'/static/js/plugins/toastr/toastr.min.js'" async></script>
+	<script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script>
 	<!---顶部弹出提示--->
-	<script th:src="${application.ctx}+'/static/js/plugins/iCheck/icheck.min.js'"></script>
-	<script th:src="${application.ctx}+'/static/js/plugins/validate/jquery.validate.min.js'"></script>
+	<script th:src="@{/static/js/plugins/iCheck/icheck.min.js}"></script>
+	<script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
 	<!---表单验证--->
-	<script th:src="${application.ctx}+'/static/js/plugins/validate/validate-cn.js'"></script>
+	<script th:src="@{/static/js/plugins/validate/validate-cn.js}"></script>
 	<!--date style-->
-	<script th:src="${application.ctx}+'/static/js/My97DatePicker/WdatePicker.js'"></script>
+	<script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
 	<!---validate 自定义方法--->
 	
 	<!-- 激活thymeleaf取值 -->
 	<script th:inline="javascript">
-    var _ctx = [[${application.ctx}]];
     $(document).ready(function() {
 
       $('.i-checks').iCheck({
@@ -142,7 +145,7 @@
       // 分页查询
       function list_page() {
         $.ajax({
-          url: _ctx + '/news/list_page',
+          url: ctx + '/news/list_page',
           type: "post",
           data: {"keywords":$("#keywords").val()},
           success: function(data) {
@@ -156,7 +159,7 @@
 
       function editForm(form) {
         $.ajax({
-          url: _ctx + "/news/edit",
+          url: ctx + "/news/edit",
           type: "post",
           data: $(form).serialize(),
           success: function(data) {
@@ -177,7 +180,7 @@
       $("#edit").on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var id = button.data("id");
-        $("#newsForm").load(_ctx + '/news/load/' + id);//加载待编辑数据
+        $("#newsForm").load(ctx + '/news/load/' + id);//加载待编辑数据
       });
     });
   </script>

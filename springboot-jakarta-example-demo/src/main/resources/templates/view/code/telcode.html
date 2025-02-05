@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh_CN" 
-	  xmlns:th="http://www.thymeleaf.org"  
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"    
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -150,10 +148,13 @@
     <!---右侧内容区结束----->
 </div>
 <!-- 全局 scripts -->
-
+<script th:inline="javascript">
+    window.ctx = [[${application.ctx}]];
+    window.sessionUser = [[${session.sessionUser}]];
+</script>
 <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
 <script th:src="@{/static/js/bootstrap.js}"></script>
-<script th:src="@{/static/js/wuling.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
 <script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
 <script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 <script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>

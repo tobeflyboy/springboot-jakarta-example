@@ -112,7 +112,7 @@
 <script th:src="@{/static/js/plugins/crypto/sha256.js}"></script><!---顶部弹出提示--->
 <!-- 激活thymeleaf取值 -->
 <script th:inline="javascript">
-    var _ctx = [[${application.ctx}]];
+    var ctx = [[${application.ctx}]];
     $(function () {
 
         // 修改事件绑定以适应新的 input 提交按钮
@@ -126,7 +126,7 @@
                 return;
             }
             $.ajax({
-                url: _ctx + '/login',
+                url: ctx + '/login',
                 type: 'POST',
                 data: {
                     username: username,
@@ -134,7 +134,7 @@
                 },
                 success: function (response) {
                     if (response.code === 200) {
-                        window.location.href = _ctx + "/dashboard"; // 执行重定向
+                        window.location.href = ctx + "/dashboard"; // 执行重定向
                     } else {
                         toastr.error('', response.message);
                     }

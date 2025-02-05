@@ -23,7 +23,7 @@ public class DemoConstants {
 
     /* session & session key */
     public static final String PERMISSION_SESSION = "permission_session";
-    public static final String LOGIN_USER_SESSION_KEY = "loginUser";
+    public static final String LOGIN_USER_SESSION_KEY = "sessionUser";
 
     // url & roleName
     public static final String ROLE_CODE = "role_code";

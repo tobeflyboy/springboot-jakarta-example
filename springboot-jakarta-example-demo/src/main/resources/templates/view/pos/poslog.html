@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh_CN" 
-	  xmlns:th="http://www.thymeleaf.org"  
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"    
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -689,24 +687,25 @@
 
     <!-- 全局 scripts -->
     <script th:inline="javascript">
-        var _ctx = [[${application.ctx}]];
+        window.ctx = [[${application.ctx}]];
+        window.sessionUser = [[${session.sessionUser}]];
     </script>
     <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
     <script th:src="@{/static/js/bootstrap.js}"></script>
-    <script th:src="@{/static/js/wuling.js}"></script>
+    <script th:src="@{/static/js/common.js}"></script>
     <script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
     <script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
     <script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
     <!-- 插件 scripts -->
     <script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script><!---顶部弹出提示--->
     <script th:src="@{/static/js/plugins/iCheck/icheck.min.js}"></script>
-<script th:inline="javascript">
-    $(document).ready(function () {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_minimal-green',
-            radioClass: 'iradio_minimal-green'
-        });
-    })
-</script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_minimal-green',
+                radioClass: 'iradio_minimal-green'
+            });
+        })
+    </script>
 </body>
 </html>

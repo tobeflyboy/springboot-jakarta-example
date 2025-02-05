@@ -222,12 +222,12 @@
     </div>
     <!---右侧内容区结束----->
     <script th:inline="javascript">
-        var _ctx = [[${application.ctx}]];
-        var permissions = [[${session.loginUser.permissions}]];
+        window.ctx = [[${application.ctx}]];
+        window.sessionUser = [[${session.sessionUser}]];
     </script>
     <script th:src="@{/static/js/jquery-2.1.1.js}"></script>
     <script th:src="@{/static/js/bootstrap.js}"></script>
-    <script th:src="@{/static/js/wuling.js}"></script>
+    <script th:src="@{/static/js/common.js}"></script>
     <script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
     <script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
 </body>

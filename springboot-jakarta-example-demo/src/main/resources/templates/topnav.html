@@ -1,13 +1,20 @@
 <div class="navbar-header">
-	<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0)"><i class="fa fa-bars"></i> </a>
+	<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0)">
+		<i class="fa fa-bars"></i>
+	</a>
 </div>
 <ul class="nav navbar-top-links navbar-right notification-menu">
 	<li class="sysUserDo-dropdown">
 		<a href="javascript:void(0)" class="btn  dropdown-toggle" data-toggle="dropdown"> 
-			<span th:text="${session.loginUser.realName}"></span>
+			<span th:text="${session.sessionUser.realName}"></span>
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-			<li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i>退出</a></li>
-		</ul></li>
+			<li>
+				<a th:href="@{/logout}">
+					<i class="fa fa-sign-out"></i>退出
+				</a>
+			</li>
+		</ul>
+	</li>
 </ul>

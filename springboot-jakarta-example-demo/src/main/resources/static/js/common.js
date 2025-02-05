@@ -1,5 +1,3 @@
-var _ctx = $("body").attr('data-ctx');
-
 function setActiveMenu() {
     var currentPath = window.location.pathname;
 
@@ -49,7 +47,7 @@ function generateMenu(oneLevelMenus) {
         // 创建菜单项的 <li> 元素
         let menu = '<li>';
         // 生成菜单链接
-        const oneLeveMenuUrl = oneLevelMenu.url ? `${_ctx}/${oneLevelMenu.url}` : 'javascript:void(0)';
+        const oneLeveMenuUrl = oneLevelMenu.url ? `${ctx}/${oneLevelMenu.url}` : 'javascript:void(0)';
         menu += `<a href="${oneLeveMenuUrl}">`;
         menu += `<i class="fa ${oneLevelMenu.icon}"></i> <span class="nav-label">${oneLevelMenu.permissionName}</span>`;
         if (oneLevelMenu.children && oneLevelMenu.children.length > 0) {
@@ -57,7 +55,7 @@ function generateMenu(oneLevelMenus) {
             menu += '<ul class="nav nav-second-level collapse">';
             oneLevelMenu.children.forEach(twoLevelMenus => {
                 menu += '<li>';
-                const twoLevelMenuUrl = twoLevelMenus.url ? `${_ctx}/${twoLevelMenus.url}` : 'javascript:void(0)';
+                const twoLevelMenuUrl = twoLevelMenus.url ? `${ctx}/${twoLevelMenus.url}` : 'javascript:void(0)';
                 menu += `<a href="${twoLevelMenuUrl}">`;
                 menu += `<i class="fa ${twoLevelMenus.icon}"></i><span class="nav-label">${twoLevelMenus.permissionName}</span>`;
                 if (twoLevelMenus.children && twoLevelMenus.children.length > 0) {
@@ -65,7 +63,7 @@ function generateMenu(oneLevelMenus) {
                     menu += '<ul class="nav nav-third-level">';
                     twoLevelMenus.children.forEach(threeLevelMenus => {
                         menu += '<li>';
-                        const threeLevelMenuUrl = threeLevelMenus.url ? `${_ctx}/${threeLevelMenus.url}` : 'javascript:void(0)';
+                        const threeLevelMenuUrl = threeLevelMenus.url ? `${ctx}/${threeLevelMenus.url}` : 'javascript:void(0)';
                         menu += `<a href="${threeLevelMenuUrl}">`;
                         menu += `<i class="fa ${threeLevelMenus.icon}"></i>${threeLevelMenus.permissionName}`;
                         menu += '</a></li>';
@@ -84,13 +82,16 @@ function generateMenu(oneLevelMenus) {
     });
 }
 
-function initMenu() {
+/**
+ * 初始化左侧导航栏
+ */
+function initLeftNav() {
     // 使用模板字符串生成左侧导航栏结构
     const sidebarScroll = `
         <div class="sidebar-scroll">
             <div class="logo">
-                <a href="${_ctx}/dashboard">
-                    <img src="${_ctx}/static/images/logo_icon.png" style="width: 55px;height: 40px;">Demo
+                <a href="${ctx}/dashboard">
+                    <img src="${ctx}/static/images/logo_icon.png" style="width: 55px;height: 40px;">Demo
                 </a>
             </div>
             <div class="sidebar-collapse">
@@ -100,12 +101,9 @@ function initMenu() {
     `;
     $("#leftnav").html(sidebarScroll);
     // 生成菜单项
-
-    generateMenu(permissions);
-
+    generateMenu(sessionUser.permissions);
     // 初始化 MetisMenu（依赖 jQuery）
     $('#side-menu').metisMenu();
-
     // 设置当前 URL 对应的菜单项的 active 样式
     setActiveMenu();
 
@@ -124,39 +122,47 @@ function initMenu() {
     }
 }
 
-
 $(document).ready(function () {
-    //加载左侧导航
-    // $("#leftnav").load(_ctx + '/leftnav', function (response, status, xhr) {
+    initLeftNav()
+    //加载顶部导航
+    // $("#topnav").load(ctx + '/topnav', function (response, status, xhr) {
     //     if (status === 'success') {
-    //         //加载完成执行导航组件
-    //         $('#side-menu').metisMenu();
-    //         // 调用函数设置当前 URL 对应的菜单项的 active 样式
-    //         setActiveMenu();
-    //         if ($("body").hasClass('fixed-sidebar')) {
-    //             $('.sidebar-scroll').slimScroll({
-    //                 height: '100%',
-    //                 railVisible: false,
-    //                 color: "#65cea7",
-    //                 opacity: .8,
-    //                 size: '4px',
-    //                 borderRadius: '0',
-    //                 railBorderRadius: '0',
-    //                 distance: 0
-    //             });
-    //         }
+    //         //加载完成执行按钮点击事件
+    //         $('.navbar-minimalize').click(function () {
+    //             $("body").toggleClass("mini-navbar");
+    //             SmoothlyMenu();
+    //         });
     //     }
     // });
-    initMenu()
-    //加载顶部导航
-    $("#topnav").load(_ctx + '/topnav', function (response, status, xhr) {
-        if (status === 'success') {
-            //加载完成执行按钮点击事件
-            $('.navbar-minimalize').click(function () {
-                $("body").toggleClass("mini-navbar");
-                SmoothlyMenu();
-            });
-        }
+
+    // 使用模板字符串生成左侧导航栏结构
+    const navbarHeader = `
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0)">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right notification-menu">
+            <li class="sysUserDo-dropdown">
+                <a href="javascript:void(0)" class="btn  dropdown-toggle" data-toggle="dropdown"> 
+                    <span>${sessionUser.realName}</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                    <li>
+                        <a href="${ctx}/logout">
+                            <i class="fa fa-sign-out"></i>退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    `;
+    $("#topnav").html(navbarHeader);
+    //加载完成执行按钮点击事件
+    $('.navbar-minimalize').click(function () {
+        $("body").toggleClass("mini-navbar");
+        SmoothlyMenu();
     });
 
     // Add body-small class if window less than 768px
