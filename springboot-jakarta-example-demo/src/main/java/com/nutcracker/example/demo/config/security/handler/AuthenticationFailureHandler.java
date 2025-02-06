@@ -4,7 +4,7 @@ import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.util.ResponseUtils;
-import com.nutcracker.example.demo.web.util.WebUtil;
+import com.nutcracker.example.demo.web.WebUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

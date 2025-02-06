@@ -3,7 +3,7 @@
 
 <mapper namespace="com.nutcracker.example.demo.mapper.biz.NewsMapper">
 
-    <resultMap id="newsMap" type="com.nutcracker.example.demo.entity.dataobject.biz.News">
+    <resultMap id="newsMap" type="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
         <result column="id" property="id"/>
         <result column="address" property="address"/>
         <result column="create_time" property="createTime"/>
@@ -12,7 +12,7 @@
         <result column="title" property="title"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.News">
+    <insert id="insert" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
         insert into t_news(id, address, create_time, description, news_time, title)
         values (#{id}, #{address}, #{createTime}, #{description}, #{newsTime}, #{title})
     </insert>
@@ -48,7 +48,7 @@
         order by create_time desc
     </select>
 
-    <update id="updateNews" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.News">
+    <update id="updateNews" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
         update t_news
         <set>
             <if test="address != null and address!='' ">

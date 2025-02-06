@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.web.controller;
 
 import cn.hutool.core.date.DateUtil;
-import com.nutcracker.example.demo.entity.dto.dashboard.PayDailySumTotalDto;
+import com.nutcracker.example.demo.entity.domain.dashboard.PayDailySumTotalDto;
 import com.nutcracker.example.demo.enums.BusiEnum;
 import com.nutcracker.example.demo.util.BigDecimalUtil;
 import lombok.extern.slf4j.Slf4j;

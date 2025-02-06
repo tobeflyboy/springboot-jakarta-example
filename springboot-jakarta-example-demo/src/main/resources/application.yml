@@ -41,8 +41,6 @@ spring:
       max-request-size: 200MB
       # 单个文件大小
       max-file-size: 200MB
-  profiles:
-    active: dev
   main:
     # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
     allow-bean-definition-overriding: true
@@ -50,7 +48,7 @@ spring:
     allow-circular-references: true
   application:
     # 应用名
-    name: fast-testing
+    name: demo
   mvc:
     # 前端静态资源的位置
     static-path-pattern: /static/**
@@ -62,8 +60,7 @@ spring:
     # 设置编码
     encoding: UTF-8
     # 禁用严格的HTML语法检查模式
-    mode: HTML
-    #    mode: LEGACYHTML5
+    mode: LEGACYHTML5
     # 自定义的Thymeleaf的模板位置
     prefix: classpath:/templates/
     # 模板文件后缀
@@ -143,9 +140,11 @@ mybatis-plus:
     banner: false
 # PageHelper 配置
 pagehelper:
-  helperDialect: sqlserver        # 根据数据库类型设置，如mysql, oracle等
+  autoDialect: true               # 启用自动方言，自动识别数据库类型并选择适配的方言。
   reasonable: true                # 分页合理化
   supportMethodsArguments: true   # 支持通过参数控制
+  count-column: "*"               # 计算总记录数时查询所有列，通常为 *
+  async-count: true               # 异步查询总记录数，提升分页查询性能。
   params: count=countSql          # 设置为 SQL 语句中的 count 查询
   banner: false                   # 关闭banner打印
 

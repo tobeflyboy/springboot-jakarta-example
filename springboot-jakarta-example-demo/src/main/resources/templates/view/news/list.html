@@ -60,7 +60,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="ibox" id="ibox" th:include="view/news/list_page:: #include_list_page">
+						<div class="ibox" id="ibox" th:include="view/newsDo/list_page:: #include_list_page">
 						</div>
 					</div>
 				</div>
@@ -145,7 +145,7 @@
       // 分页查询
       function list_page() {
         $.ajax({
-          url: ctx + '/news/list_page',
+          url: ctx + '/newsDo/list_page',
           type: "post",
           data: {"keywords":$("#keywords").val()},
           success: function(data) {
@@ -159,7 +159,7 @@
 
       function editForm(form) {
         $.ajax({
-          url: ctx + "/news/edit",
+          url: ctx + "/newsDo/edit",
           type: "post",
           data: $(form).serialize(),
           success: function(data) {
@@ -180,7 +180,7 @@
       $("#edit").on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var id = button.data("id");
-        $("#newsForm").load(ctx + '/news/load/' + id);//加载待编辑数据
+        $("#newsForm").load(ctx + '/newsDo/load/' + id);//加载待编辑数据
       });
     });
   </script>

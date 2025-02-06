@@ -32,7 +32,7 @@
 		</div>
 
 		<!-- 分页表单 -->
-		<form th:action="@{/news/list_page}" id="newsPageForm" th:include="common/page::#include_page" th:with="formId='newsPageForm',pageBoxId='ibox'">
+		<form th:action="@{/newsDo/list_page}" id="newsPageForm" th:include="common/page::#include_page" th:with="formId='newsPageForm',pageBoxId='ibox'">
 			<!-- 查询条件，用隐藏表单域 -->
 			<input type="hidden" th:value="${keywords }" name="keywords" />
 		</form>

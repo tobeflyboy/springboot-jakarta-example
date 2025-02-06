@@ -1,17 +1,20 @@
 package com.nutcracker.example.demo.config.security.handler;
 
 import com.nutcracker.example.demo.constant.DemoConstants;
+import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
-import com.nutcracker.example.demo.entity.vo.auth.SysPermissionVo;
+import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
+import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.service.auth.AuthService;
-import com.nutcracker.example.demo.service.auth.PermissionService;
-import com.nutcracker.example.demo.service.auth.RoleService;
+import com.nutcracker.example.demo.service.auth.SysPermissionService;
+import com.nutcracker.example.demo.service.auth.SysRoleService;
+import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.util.ResponseUtils;
-import com.nutcracker.example.demo.vo.LoginUserVo;
-import com.nutcracker.example.demo.web.util.WebUtil;
+import com.nutcracker.example.demo.web.WebUtil;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +26,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -41,10 +45,13 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
     private AuthService authService;
 
     @Resource
-    private PermissionService permissionService;
+    private SysPermissionService sysPermissionService;
 
     @Resource
-    private RoleService roleService;
+    private SysRoleService sysRoleService;
+
+    @Resource
+    private SysUserService sysUserService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -56,18 +63,20 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
                 response.sendRedirect(request.getContextPath() + "/403");
                 return;
             }
-            List<SysPermissionVo> permissions = permissionService.getMenuPermissionByUserId(sysUserDo.getId());
-            SysRoleDo sysRoleDo = roleService.findRoleByUserId(sysUserDo.getId());
-            LoginUserVo loginUserVo = LoginUserVo.builder()
+            List<SysPermission> permissions = sysPermissionService.getMenuPermissionByUserId(sysUserDo.getId());
+            SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
+            SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
+            SessionUser sessionUser = SessionUser.builder()
                     .id(sysUserDo.getId())
                     .username(sysUserDo.getUsername())
                     .realName(sysUserDo.getRealName())
                     .permissions(permissions)
-                    .sysRoleDo(sysRoleDo)
+                    .sysRole(role)
                     .build();
-            WebUtil.setLoginUser(request, loginUserVo);
-            String name = token.getName();
-            log.info("onAuthenticationSuccess 用户：{} 登录成功", name);
+            WebUtil.setSessionUser(request, sessionUser);
+            sysUserDo.setLastLoginTime(LocalDateTime.now());
+            sysUserService.updateLastLoginTime(sysUserDo);
+            log.info("onAuthenticationSuccess {} 登录成功", sessionUser.getUsername());
             //保存日志
             ResponseUtils.print(response, LOGIN_SUCCESS);
         } else {

@@ -48,23 +48,32 @@
         where r.authority = #{roleCode}
     </select>
 
-    <select id="findUser" parameterType="string" resultMap="userMap">
+    <select id="findUser" parameterType="string" resultType="com.nutcracker.example.demo.entity.domain.auth.SysUser">
         select
-            <include refid="find_xxx"/>
-        from sys_user u
-        inner join sys_user_role ur on ur.user_id = u.id
-        inner join sys_role r on r.id = ur.role_id
-        where r.role_code=#{roleCode,jdbcType=VARCHAR}
-        and u.status=#{status,jdbcType=VARCHAR}
-        <if test="realName != null">
-            and u.real_name like '%'||#{realName}||'%'
-        </if>
-    </select>
-
-    <select id="findUsers" resultMap="userMap">
-        select
-            <include refid="find_xxx"/>
-        from sys_user
+            u1.id,
+            u1.username,
+            u1.real_name as realName,
+            u1.email,
+            u1.status,
+            u1.create_time as createTime,
+            u2.real_name as createUserRealName,
+            u1.update_time as updateTime,
+            u3.real_name as updateUserRealName,
+            u1.last_login_time as lastLoginTime
+        from sys_user u1
+        left join sys_user u2 on u2.id = u1.create_by
+        left join sys_user u3 on u3.id = u1.update_by
+        <where>
+            <if test="username != null and username != ''">
+                and u1.username=#{username,jdbcType=VARCHAR}
+            </if>
+            <if test="realName != null and realName != ''">
+                and u1.real_name like '%'||#{realName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="status != null">
+                and u1.status=#{status,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 
 </mapper>

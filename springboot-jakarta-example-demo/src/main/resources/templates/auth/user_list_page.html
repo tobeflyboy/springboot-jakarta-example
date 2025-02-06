@@ -1,0 +1,63 @@
+<div id="include_list_page">
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-centerbody table-mail table-striped table-condensed text-nowrap"
+                   id="editable-sample">
+                <thead>
+                <tr>
+                    <th>账号</th>
+                    <th>姓名</th>
+                    <th>邮箱</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                    <th>创建人</th>
+                    <th>更新时间</th>
+                    <th>更新人</th>
+                    <th>最后登录时间</th>
+                    <th class="text-right text-nowrap">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${page.list}">
+                    <td th:text="${user.username}" class="small"></td>
+                    <td th:text="${user.realName}" class="small"></td>
+                    <td th:text="${user.email}" class="small"></td>
+                    <td th:text="${statusMap[user.status]?.msg}" class="small"></td>
+                    <td th:text="${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${user.createUserRealName}" class="small"></td>
+                    <td th:text="${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${user.updateUserRealName}" class="small"></td>
+                    <td th:text="${#temporals.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td class="text-right text-nowrap" style="min-width: 125px;">
+                        <div class="btn-group"
+                             th:id="${user.id}"
+                             th:attr="
+                                data-username=${user.username},
+                                data-real-name=${user.realName},
+                                data-email=${user.email},
+                                data-status=${statusMap[user.status]?.msg},
+                                data-create-user-real-name=${user.createUserRealName},
+                                data-create-time=${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')},
+                                data-update-user-real-name=${user.updateUserRealName},
+                                data-update-time=${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')},
+                                data-last-login-time=${#temporals.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}
+                                ">
+                            <button onclick="viewDetail(this)" th:attr="data-id=${user.id}" class="btn-white btn btn-sm through view-detail-btn" data-toggle="modal" data-target="#user-detail-box" title="查看详情">
+                                <i class="glyphicon glyphicon-eye-open"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 分页表单 -->
+        <form th:action="@{/auth/user_list}" id="userListPageForm">
+            <div class="pages border-top" th:include="common/page::#include_page" th:with="formId='userListPageForm',pageBoxId='user_list_page_box'">
+            </div>
+            <!-- 查询条件，用隐藏表单域 -->
+            <input type="hidden" th:value="${user == null ? '' : user.username}" name="username"/>
+            <input type="hidden" th:value="${user == null ? '' : user.realName}" name="realName"/>
+            <input type="hidden" th:value="${user == null ? '' : user.status}" name="status"/>
+        </form>
+    </div>
+</div>

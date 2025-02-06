@@ -20,6 +20,7 @@
         <maven.test.skip>true</maven.test.skip>
 
         <springboot.version>3.4.1</springboot.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
     <!--
@@ -173,6 +174,17 @@
                 <groupId>nl.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>1.2.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.service.auth.AuthService;
-import com.nutcracker.example.demo.service.auth.RoleService;
+import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.util.SecurityUtils;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private AuthService authService;
 
     @Resource
-    private RoleService roleService;
+    private SysRoleService sysRoleService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -56,7 +56,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // 查询权限
-        SysRoleDo sysRoleDo = roleService.findRoleByUserId(sysUserDo.getId());
+        SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
         authorities.add(new SimpleGrantedAuthority(sysRoleDo.getRoleCode()));
         return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }

@@ -3,7 +3,7 @@ package com.nutcracker.example.demo.config.security;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.service.auth.AuthService;
-import com.nutcracker.example.demo.service.auth.RoleService;
+import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.util.JSON;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private AuthService authService;
 
     @Resource
-    private RoleService roleService;
+    private SysRoleService sysRoleService;
 
     /**
      * 登录验证方法，前端发起 /login post请求，请求数据类型 content-type:【application/x-www-form-urlencoded; charset=UTF-8】
@@ -49,7 +49,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (sysUserDo != null) {
             // 查询权限
             Collection<GrantedAuthority> authorities = new ArrayList<>();
-            SysRoleDo sysRoleDo = roleService.findRoleByUserId(sysUserDo.getId());
+            SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
             authorities.add(new SimpleGrantedAuthority(sysRoleDo.getRoleCode()));
             User user = new User(username, sysUserDo.getPassword(), authorities);
             log.info("loadUserByUsername user={}", JSON.toJSONString(user));

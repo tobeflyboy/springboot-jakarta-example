@@ -156,13 +156,13 @@
       });
       function addform(form) {
         $.ajax({
-          url: ctx + "/news/add",
+          url: ctx + "/newsDo/add",
           type: "post",
           data: $(form).serialize(),
           success: function(data) {
             if (data.status == '1') {
               toastr.success('', data.msg);
-              window.location.href=ctx+"/news/list";
+              window.location.href=ctx+"/newsDo/list";
             } else
               toastr.error('', data.msg);
           },

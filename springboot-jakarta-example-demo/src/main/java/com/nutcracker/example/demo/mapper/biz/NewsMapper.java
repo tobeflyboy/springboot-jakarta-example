@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.mapper.biz;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nutcracker.example.demo.entity.dataobject.biz.News;
+import com.nutcracker.example.demo.entity.dataobject.biz.NewsDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,11 +15,11 @@ import java.util.List;
  * @date 2025/01/02 14:33:12
  */
 @Mapper
-public interface NewsMapper extends BaseMapper<News> {
+public interface NewsMapper extends BaseMapper<NewsDo> {
 
-    List<News> findNewsByKeywords(@Param("keywords") String keywords);
+    List<NewsDo> findNewsByKeywords(@Param("keywords") String keywords);
 
-    List<News> findNewsByPage(@Param("keywords") String keywords);
+    List<NewsDo> findNewsByPage(@Param("keywords") String keywords);
 
-    List<News> findNewsByTitle(@Param("title") String title);
+    List<NewsDo> findNewsByTitle(@Param("title") String title);
 }

@@ -2,7 +2,7 @@ package com.nutcracker.example.demo.service.biz;
 
 
 import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.entity.dataobject.biz.News;
+import com.nutcracker.example.demo.entity.dataobject.biz.NewsDo;
 
 import java.util.List;
 
@@ -17,49 +17,49 @@ public interface NewsService {
     /**
      * 添加新闻
      *
-     * @param news 新闻
+     * @param newsDo 新闻
      * @return boolean
      */
-    boolean addNews(News news);
+    boolean addNews(NewsDo newsDo);
 
     /**
      * 编辑新闻
      *
-     * @param news 新闻
+     * @param newsDo 新闻
      * @return boolean
      */
-    boolean editNews(News news);
+    boolean editNews(NewsDo newsDo);
 
     /**
      * 按id查找新闻
      *
      * @param newsId 新闻id
-     * @return {@link News }
+     * @return {@link NewsDo }
      */
-    News findNewsById(String newsId);
+    NewsDo findNewsById(String newsId);
 
     /**
      * 按关键字查找新闻
      *
      * @param keywords 关键字
-     * @return {@link List }<{@link News }>
+     * @return {@link List }<{@link NewsDo }>
      */
-    List<News> findNewsByKeywords(String keywords);
+    List<NewsDo> findNewsByKeywords(String keywords);
 
     /**
      * 按页面查找新闻
      *
      * @param pageNum  书籍页码
      * @param keywords 关键字
-     * @return {@link PageInfo }<{@link News }>
+     * @return {@link PageInfo }<{@link NewsDo }>
      */
-    PageInfo<News> findNewsByPage(Integer pageNum, String keywords);
+    PageInfo<NewsDo> findNewsByPage(Integer pageNum, String keywords);
 
     /**
      * 按标题查找新闻
      *
      * @param title 标题
-     * @return {@link News }
+     * @return {@link NewsDo }
      */
-    News findNewsByTitle(String title);
+    NewsDo findNewsByTitle(String title);
 }
