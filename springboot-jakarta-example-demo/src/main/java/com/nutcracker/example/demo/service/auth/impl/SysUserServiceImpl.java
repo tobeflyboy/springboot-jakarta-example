@@ -146,7 +146,7 @@ public class SysUserServiceImpl implements SysUserService {
         PageHelper.startPage(pageNum, DemoConstants.PAGE_SIZE);
         List<SysUser> list = sysUserMapper.findUser(user);
         PageInfo<SysUser> page = new PageInfo<>(list);
-        log.debug("# 查询默认数据库 page.toString()={}", page);
+        log.debug("findSysUserByPage page.toString()={}", page);
         return page;
     }
 }

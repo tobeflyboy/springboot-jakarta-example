@@ -46,4 +46,35 @@
         from sys_permission
         where permission_code = #{permissionCode,jdbcType=VARCHAR}
     </select>
+
+    <select id="findSysPermission" resultType="com.nutcracker.example.demo.entity.domain.auth.SysPermission">
+        select
+            p.id,
+            p.permission_code,
+            p.permission_name,
+            p.parent_permission_code,
+            pr.permission_name as parentPermissionName,
+            p.url,
+            p.icon,
+            p.hide,
+            p.lev,
+            p.sort,
+            p.create_time,
+            u.real_name as createUserRealName
+        from sys_permission p
+        left join sys_user u on u.id = p.create_by
+        left join sys_permission pr on pr.permission_code = p.parent_permission_code
+        <where>
+            <if test="permissionCode != null and permissionCode != ''">
+                and p.permission_code=#{permissionCode,jdbcType=VARCHAR}
+            </if>
+            <if test="permissionName != null and permissionName != ''">
+                and p.permission_name like '%'||#{permissionName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="url != null and url != ''">
+                and p.url like '%'||#{url,jdbcType=VARCHAR}||'%'
+            </if>
+        </where>
+        order by p.sort asc
+    </select>
 </mapper>

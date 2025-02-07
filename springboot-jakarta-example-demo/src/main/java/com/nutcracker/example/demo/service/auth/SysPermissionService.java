@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.service.auth;
 
+import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 
@@ -27,4 +28,13 @@ public interface SysPermissionService {
      * @param sysPermissionDo 菜单项
      */
     void addPermission(SysPermissionDo sysPermissionDo);
+
+    /**
+     * 分页查询资源
+     *
+     * @param pageNum 当前页码
+     * @param permission  {@link SysPermission }
+     * @return {@link List }<{@link SysPermission }>
+     */
+    PageInfo<SysPermission> findSysPermissionByPage(Integer pageNum , SysPermission permission);
 }

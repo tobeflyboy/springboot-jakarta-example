@@ -48,7 +48,7 @@
         where r.authority = #{roleCode}
     </select>
 
-    <select id="findUser" parameterType="string" resultType="com.nutcracker.example.demo.entity.domain.auth.SysUser">
+    <select id="findUser" resultType="com.nutcracker.example.demo.entity.domain.auth.SysUser">
         select
             u1.id,
             u1.username,
@@ -74,6 +74,7 @@
                 and u1.status=#{status,jdbcType=INTEGER}
             </if>
         </where>
+        order by u1.create_time desc
     </select>
 
 </mapper>

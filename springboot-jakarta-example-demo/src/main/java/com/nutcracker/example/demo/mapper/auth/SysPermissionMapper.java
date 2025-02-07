@@ -2,6 +2,7 @@ package com.nutcracker.example.demo.mapper.auth;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,12 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      * @return {@link SysPermissionDo }
      */
     SysPermissionDo findPermissionByPermissionCode(@Param("permissionCode") String permissionCode);
+
+    /**
+     * 查找系统权限
+     *
+     * @param permission 许可
+     * @return {@link List }<{@link SysPermission }>
+     */
+    List<SysPermission> findSysPermission(SysPermission permission);
 }

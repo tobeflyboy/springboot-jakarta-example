@@ -26,37 +26,37 @@ public class SysUser implements Serializable {
     @Serial
     private static final long serialVersionUID = -2617669111308455616L;
 
-    @Schema(description = "id", name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     private String id;
 
-    @Schema(description = "账号", name = "username", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
 
-    @Schema(description = "姓名", name = "realName")
+    @Schema(description = "姓名")
     private String realName;
 
-    @Schema(description = "邮箱", name = "email")
+    @Schema(description = "邮箱")
     private String email;
 
-    @Schema(description = "状态", name = "status", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer status;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Schema(description = "创建时间", name = "createTime", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime createTime;
 
-    @Schema(description = "创建人", name = "createUserRealName")
+    @Schema(description = "创建人")
     private String createUserRealName;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Schema(description = "更新时间", name = "updateTime")
+    @Schema(description = "更新时间")
     private LocalDateTime updateTime;
 
-    @Schema(description = "更新人", name = "updateUserRealName")
+    @Schema(description = "更新人")
     private String updateUserRealName;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Schema(description = "最后登录时间", name = "lastLoginTime")
+    @Schema(description = "最后登录时间")
     private LocalDateTime lastLoginTime;
 
 }

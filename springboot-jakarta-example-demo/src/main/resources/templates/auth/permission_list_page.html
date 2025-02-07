@@ -1,0 +1,67 @@
+<div id="include_list_page">
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-centerbody table-mail table-striped table-condensed text-nowrap"
+                   id="editable-sample">
+                <thead>
+                <tr>
+                    <th>菜单资源编码</th>
+                    <th>菜单资源名称</th>
+                    <th>父菜单资源编码</th>
+                    <th>父菜单资源名称</th>
+                    <th>菜单URL</th>
+                    <th>菜单icon图标</th>
+                    <th>菜单是否显示</th>
+                    <th>排序</th>
+                    <th>创建时间</th>
+                    <th>创建人</th>
+                    <th class="text-right text-nowrap">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="per:${page.list}">
+                    <td th:text="${per.permissionCode}" class="small"></td>
+                    <td th:text="${per.permissionName}" class="small"></td>
+                    <td th:text="${per.parentPermissionCode}" class="small"></td>
+                    <td th:text="${per.parentPermissionName}" class="small"></td>
+                    <td th:text="${per.url}" class="small"></td>
+                    <td><i th:class="'fa '+${per.icon}"></i></td>
+                    <td th:text="${hideMap[per.hide]?.msg}" class="small"></td>
+                    <td th:text="${per.lev}" class="small"></td>
+                    <td th:text="${#temporals.format(per.createTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${per.createUserRealName}" class="small"></td>
+                    <td class="text-right text-nowrap" style="min-width: 125px;">
+                        <div class="btn-group"
+                             th:id="${per.id}"
+                             th:attr="
+                                data-permission-code=${per.permissionCode},
+                                data-permission-name=${per.permissionName},
+                                data-parent-permission-code=${per.parentPermissionCode},
+                                data-parent-permission-name=${per.parentPermissionName},
+                                data-url=${per.url},
+                                data-icon=${per.icon},
+                                data-hide=${hideMap[per.hide]?.msg},
+                                data-lev=${per.lev},
+                                data-sort=${per.sort},
+                                data-create-user-real-name=${per.createUserRealName},
+                                data-create-time=${#temporals.format(per.createTime, 'yyyy-MM-dd HH:mm:ss')}
+                                ">
+                            <button onclick="viewDetail(this)" th:attr="data-id=${per.id}" class="btn-white btn btn-sm through view-detail-btn" data-toggle="modal" data-target="#permission-detail-box" title="查看详情">
+                                <i class="glyphicon glyphicon-eye-open"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 分页表单 -->
+        <form th:action="@{/auth/permission_list}" id="permissionListPageForm">
+            <div class="pages border-top" th:include="common/page::#include_page" th:with="formId='permissionListPageForm',pageBoxId='permission_list_page_box'">
+            </div>
+            <!-- 查询条件，用隐藏表单域 -->
+            <input type="hidden" th:value="${permission == null ? '' : permission.permissionCode}" name="permissionCode"/>
+            <input type="hidden" th:value="${permission == null ? '' : permission.permissionName}" name="permissionName"/>
+            <input type="hidden" th:value="${permission == null ? '' : permission.url}" name="url"/>
+        </form>
+    </div>
+</div>

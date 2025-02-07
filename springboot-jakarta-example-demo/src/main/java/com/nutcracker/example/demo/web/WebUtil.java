@@ -5,10 +5,12 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
-import com.nutcracker.example.demo.entity.domain.systeminfo.SysLog;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
+import com.nutcracker.example.demo.entity.domain.systeminfo.SysLog;
 import com.nutcracker.example.demo.util.IpInfoUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
@@ -31,11 +33,22 @@ public class WebUtil {
     /**
      * 按登录用户设置会话
      *
-     * @param request 请求
-     * @param userVo  用户vo
+     * @param request  请求
+     * @param response 响应
+     * @param sessionUser   用户vo
      */
-    public static void setSessionUser(HttpServletRequest request, SessionUser userVo) {
-        request.getSession().setAttribute(DemoConstants.LOGIN_USER_SESSION_KEY, userVo);
+    @SneakyThrows
+    public static void setSessionUser(HttpServletRequest request, HttpServletResponse response, SessionUser sessionUser) {
+        request.getSession().setAttribute(DemoConstants.LOGIN_USER_SESSION_KEY, sessionUser);
+
+        //Cookie ctxCookie = new Cookie("ctx", request.getContextPath());
+        //ctxCookie.setHttpOnly(true);
+        //response.addCookie(ctxCookie);
+        //String user = URLEncoder.encode(JSON.toJSONString(sessionUser), StandardCharsets.UTF_8);
+        //log.info("setSessionUser user={}", user);
+        //Cookie userCookie = new Cookie("sessionUser", user);
+        //userCookie.setHttpOnly(true);
+        //response.addCookie(userCookie);
     }
 
     /**

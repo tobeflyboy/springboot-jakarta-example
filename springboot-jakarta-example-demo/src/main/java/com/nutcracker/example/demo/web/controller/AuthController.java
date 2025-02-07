@@ -1,9 +1,12 @@
 package com.nutcracker.example.demo.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
+import com.nutcracker.example.demo.enums.SysPermissionHideEnum;
 import com.nutcracker.example.demo.enums.SysUserStatusEnum;
+import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.JSON;
@@ -27,14 +30,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
-
+    private final SysPermissionService sysPermissionService;
+    private final SysRoleService sysRoleService;
     private final SysUserService sysUserService;
 
-    private final SysRoleService sysRoleService;
-
-    public AuthController(SysUserService sysUserService, SysRoleService sysRoleService) {
-        this.sysUserService = sysUserService;
+    public AuthController(SysPermissionService sysPermissionService,
+                          SysRoleService sysRoleService,
+                          SysUserService sysUserService) {
+        this.sysPermissionService = sysPermissionService;
         this.sysRoleService = sysRoleService;
+        this.sysUserService = sysUserService;
     }
 
     @GetMapping("/login")
@@ -52,9 +57,22 @@ public class AuthController {
     }
 
     @GetMapping("/auth/permission_list")
-    public String permissionList() {
+    public String permissionList(ModelMap model) {
         log.info("/auth/permission_list");
+        PageInfo<SysPermission> page = sysPermissionService.findSysPermissionByPage(null, null);
+        model.put("page", page);
+        model.put("hideMap", SysPermissionHideEnum.getHideMap());
         return "auth/permission_list";
+    }
+
+    @PostMapping("/auth/permission_list")
+    public String permissionList(@RequestParam("pageNum") Integer pageNum, @RequestBody SysPermission permission, ModelMap model) {
+        log.info("/auth/permission_list pageNum={},{}", pageNum, permission);
+        PageInfo<SysPermission> page = sysPermissionService.findSysPermissionByPage(pageNum, permission);
+        model.put("page", page);
+        model.put("hideMap", SysPermissionHideEnum.getHideMap());
+        model.put("permission", permission);
+        return "auth/permission_list_page";
     }
 
     @GetMapping("/auth/role_list")
@@ -66,8 +84,8 @@ public class AuthController {
     }
 
     @PostMapping("/auth/role_list")
-    public String roleList(@RequestBody SysRole role, @RequestParam("pageNum") Integer pageNum, ModelMap model) {
-        log.info("/auth/role_list");
+    public String roleList(@RequestParam("pageNum") Integer pageNum, @RequestBody SysRole role, ModelMap model) {
+        log.info("/auth/role_list pageNum={},{}", pageNum, role);
         PageInfo<SysRole> page = sysRoleService.findSysRoleByPage(pageNum, role);
         model.put("page", page);
         model.put("role", role);
@@ -85,8 +103,8 @@ public class AuthController {
     }
 
     @PostMapping("/auth/user_list")
-    public String userList(@RequestBody SysUser user, @RequestParam("pageNum") Integer pageNum, ModelMap model) {
-        log.info("/auth/user_list");
+    public String userList(@RequestParam("pageNum") Integer pageNum, @RequestBody SysUser user, ModelMap model) {
+        log.info("/auth/user_list pageNum={},{}", pageNum, user);
         PageInfo<SysUser> page = sysUserService.findSysUserByPage(pageNum, user);
         model.put("page", page);
         model.put("statusMap", SysUserStatusEnum.getStatusMap());

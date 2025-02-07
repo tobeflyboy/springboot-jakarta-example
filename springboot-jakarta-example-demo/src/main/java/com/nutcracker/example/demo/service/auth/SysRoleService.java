@@ -49,9 +49,9 @@ public interface SysRoleService {
      * 分页查询角色
      *
      * @param pageNum 当前页码
-     * @param user  {@link SysRole }
+     * @param role  {@link SysRole }
      * @return {@link List }<{@link SysRole }>
      */
-    PageInfo<SysRole> findSysRoleByPage(Integer pageNum , SysRole user);
+    PageInfo<SysRole> findSysRoleByPage(Integer pageNum , SysRole role);
 
 }

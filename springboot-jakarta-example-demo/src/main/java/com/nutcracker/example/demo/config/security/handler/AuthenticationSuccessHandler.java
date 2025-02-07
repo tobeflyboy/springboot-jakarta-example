@@ -73,9 +73,10 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
                     .permissions(permissions)
                     .sysRole(role)
                     .build();
-            WebUtil.setSessionUser(request, sessionUser);
+            WebUtil.setSessionUser(request, response, sessionUser);
             sysUserDo.setLastLoginTime(LocalDateTime.now());
             sysUserService.updateLastLoginTime(sysUserDo);
+
             log.info("onAuthenticationSuccess {} 登录成功", sessionUser.getUsername());
             //保存日志
             ResponseUtils.print(response, LOGIN_SUCCESS);

@@ -98,13 +98,13 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public PageInfo<SysRole> findSysRoleByPage(Integer pageNum, SysRole user) {
-        log.info("findSysRoleByPage , pageNum={},{}", pageNum, user);
+    public PageInfo<SysRole> findSysRoleByPage(Integer pageNum, SysRole role) {
+        log.info("findSysRoleByPage , pageNum={},{}", pageNum, role);
         pageNum = pageNum == null ? 1 : pageNum;
         PageHelper.startPage(pageNum, DemoConstants.PAGE_SIZE);
-        List<SysRole> list = sysRoleMapper.findSysRole(user);
+        List<SysRole> list = sysRoleMapper.findSysRole(role);
         PageInfo<SysRole> page = new PageInfo<>(list);
-        log.debug("# 查询默认数据库 page.toString()={}", page);
+        log.debug("findSysRoleByPage page.toString()={}", page);
         return page;
     }
 }

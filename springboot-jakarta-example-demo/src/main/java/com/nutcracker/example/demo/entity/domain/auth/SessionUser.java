@@ -25,18 +25,18 @@ public class SessionUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 2573965649742628481L;
 
-    @Schema(description = "用户ID", name = "id", example = "182827785478483968")
+    @Schema(description = "用户ID", example = "182827785478483968")
     private String id;
 
-    @Schema(description = "账号", name = "name", example = "test")
+    @Schema(description = "账号", example = "test")
     private String username;
 
-    @Schema(description = "姓名", name = "nickName", example = "test")
+    @Schema(description = "姓名", example = "test")
     private String realName;
 
-    @Schema(description = "资源", name = "username", example = "admin")
+    @Schema(description = "资源", example = "admin")
     private List<SysPermission> permissions;
 
-    @Schema(description = "角色", name = "realName", example = "CS王鑫")
+    @Schema(description = "角色", example = "CS王鑫")
     private SysRole sysRole;
 }

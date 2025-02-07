@@ -33,11 +33,16 @@
             // console.log(formId)
             // console.log(pageBoxId)
             // console.log(pageNum)
+            let formData = {};
+            $("#" + formId + " input[type=hidden]").each(function () {
+                formData[$(this).attr("name")] = $(this).val();
+            })
             $.ajax({
                 cache: false,
-                type: "POST",
                 url: $("#" + formId).attr("action") + "?pageNum=" + pageNum,
-                data: $('#' + formId).serialize(),
+                type: "post",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(formData),
                 async: false,
                 error: function (data) {
                     toastr.error('', '分页查询失败');

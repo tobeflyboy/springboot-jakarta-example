@@ -3,6 +3,10 @@ package com.nutcracker.example.demo.service.auth.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.constant.DemoConstants;
+import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.exception.BusinessException;
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -70,29 +75,14 @@ public class SysPermissionServiceImpl implements SysPermissionService {
      * @return 按菜单级别分组的 Map
      */
     private Map<Integer, List<SysPermission>> groupPermissionsByLevel(List<SysPermissionDo> sysPermissionDos) {
-        return sysPermissionDos.stream()
-                .map(this::convertToVo)
-                .collect(Collectors.groupingBy(SysPermission::getLev));
+        Map<Integer, List<SysPermission>> map = new HashMap<>();
+        for (SysPermissionDo sysPermissionDo : sysPermissionDos) {
+            SysPermission sysPermission = SysPermissionConvert.INSTANCE.toDomain(sysPermissionDo);
+            map.computeIfAbsent(sysPermission.getLev(), k -> new ArrayList<>()).add(sysPermission);
+        }
+        return map;
     }
 
-    /**
-     * 将 DO 对象转换为 VO 对象
-     *
-     * @param permissionDo 权限 DO 对象
-     * @return 权限 VO 对象
-     */
-    private SysPermission convertToVo(SysPermissionDo permissionDo) {
-        return SysPermission.builder()
-                .id(permissionDo.getId())
-                .permissionCode(permissionDo.getPermissionCode())
-                .permissionName(permissionDo.getPermissionName())
-                .parentPermissionCode(permissionDo.getParentPermissionCode())
-                .url(permissionDo.getUrl())
-                .icon(permissionDo.getIcon())
-                .hide(permissionDo.getHide())
-                .lev(permissionDo.getLev())
-                .build();
-    }
 
     /**
      * 将子菜单挂到父菜单下
@@ -132,4 +122,14 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         sysPermissionMapper.insert(sysPermissionDo);
     }
 
+    @Override
+    public PageInfo<SysPermission> findSysPermissionByPage(Integer pageNum, SysPermission permission) {
+        log.info("findSysPermissionByPage , pageNum={},{}", pageNum, permission);
+        pageNum = pageNum == null ? 1 : pageNum;
+        PageHelper.startPage(pageNum, DemoConstants.PAGE_SIZE);
+        List<SysPermission> list = sysPermissionMapper.findSysPermission(permission);
+        PageInfo<SysPermission> page = new PageInfo<>(list);
+        log.debug("findSysPermissionByPage page.toString()={}", page);
+        return page;
+    }
 }

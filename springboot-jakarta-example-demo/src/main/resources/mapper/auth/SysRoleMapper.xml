@@ -33,7 +33,7 @@
 		where role_code = #{roleCode,jdbcType=VARCHAR}
 	</select>
 
-	<select id="findSysRole" parameterType="string" resultType="com.nutcracker.example.demo.entity.domain.auth.SysRole">
+	<select id="findSysRole" resultType="com.nutcracker.example.demo.entity.domain.auth.SysRole">
 		select
 			r.id,
 			r.role_code,
@@ -50,6 +50,7 @@
 				and r.role_name like '%'||#{roleName,jdbcType=VARCHAR}||'%'
 			</if>
 		</where>
+		order by r.create_time desc
 	</select>
 
 </mapper>
