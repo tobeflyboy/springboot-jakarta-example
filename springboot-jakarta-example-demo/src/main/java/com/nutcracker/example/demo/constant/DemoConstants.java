@@ -8,7 +8,7 @@ package com.nutcracker.example.demo.constant;
  */
 public class DemoConstants {
 
-    private DemoConstants(){
+    private DemoConstants() {
 
     }
 
@@ -17,42 +17,15 @@ public class DemoConstants {
     /* 分页操作时，每页只显示10条 */
     public static final Integer PAGE_SIZE = 10;
 
-    /* 状态,1=有效，0=失效 */
-    public static final Integer STATUS_VALID = 1;
-    public static final Integer STATUS_INVALID = 0;
-
     /* session & session key */
-    public static final String PERMISSION_SESSION = "permission_session";
     public static final String LOGIN_USER_SESSION_KEY = "sessionUser";
-
-    // url & roleName
-    public static final String ROLE_CODE = "role_code";
-    public static final String PERMISSION_URL = "permission_url";
-
-    public static final String ROLE_BOSS_CODE = "boss_role";
-    // 管理员
-    public static final String ROLE_MANAGER_CODE = "manager_role";
-    // 普通用户
-    public static final String COMMON_ROLE_CODE = "common_role";
-
-    public static final String ROLE_BOSS_NAME = "总经理";
-    public static final String ROLE_MANAGER_NAME = "管理员";
-    public static final String ROLE_COMMON_NAME = "普通用户";
-
+    /** cookie */
+    public static final String LOGIN_USER_COOKIE_KEY = "sessionUser";
+    public static final String CONTEXT_PATH_COOKIE_KEY = "ctx";
 
     public static final String LOGIN_URL = "/login";
 
     public static final String LOGOUT_URL = "/logout";
-
-    public static final Integer INT_PAGE_ERROR = 500;
-
-    public static final Integer INT_PAGE_NOT_FOUND = 404;
-
-    public static final String STRING_PAGE_ERROR = "500";
-
-    public static final String STRING_PAGE_NOT_FOUND = "404";
-
-    public static final String REQUEST_MODE_POST = "POST";
 
     public static final String LOGIN_SUCCESS = "登录成功";
 
@@ -61,17 +34,6 @@ public class DemoConstants {
     public static final String LOGOUT_SUCCESS = "退出成功";
 
     public static final String LOGIN_MAX_LIMIT = "登录超出最大限制";
-
-    /**
-     * 五分钟需要之内允许修改密码错误三次
-     */
-    public static final Long PASSWORD_UPDATE_MINUTE = 300L;
-
-    public static final String PASSWORD_UPDATE = "PASSWORD_UPDATE";
-
-    public static final Integer ACCESS_AUTH_FILTER_ORDER = 10;
-
-    public static final String MENU_ICON_PREFIX = "layui-icon ";
 
 
     /**
@@ -83,14 +45,9 @@ public class DemoConstants {
 
     public static final String LOCAL_HOST = "127.0.0.1";
 
-    /**
-     * 重置密码  123456
-     */
-    public static final String CZMM = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
-
 
     /** 白名单url */
-    public static final String[] WHILE_URL_LIST = {"/favicon.ico","/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**"};
+    public static final String[] WHILE_URL_LIST = {"/favicon.ico", "/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**", "/swagger-ui/**", "/actuator/**"};
 
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 用户转换器
  *
- * @author wangxin4
+ * @author 胡桃夹子
  * @date 2025/02/06 10:57:22
  */
 @org.mapstruct.Mapper(componentModel = "spring")

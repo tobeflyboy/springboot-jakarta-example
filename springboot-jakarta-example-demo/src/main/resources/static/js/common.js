@@ -1,3 +1,33 @@
+/**
+ * 获取指定名称的 Cookie 值
+ * @param {string} name - Cookie 名称
+ * @returns {string|null} - Cookie 值，如果不存在则返回 null
+ */
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+/**
+ * 解析 SessionUser 对象
+ * @param {string} sessionUserCookie - SessionUser 的 Cookie 值
+ * @returns {object|null} - 解析后的 SessionUser 对象，如果解析失败则返回 null
+ */
+function parseSessionUser(sessionUserCookie) {
+    try {
+        // Base64 解码
+        const decodedSessionUser = atob(sessionUserCookie);
+        // JSON 反序列化
+        return JSON.parse(decodedSessionUser);
+    } catch (error) {
+        console.error('Failed to parse SessionUser:', error);
+        return null;
+    }
+}
+
+
 function setActiveMenu() {
     var currentPath = window.location.pathname;
 
@@ -123,17 +153,20 @@ function initLeftNav() {
 }
 
 $(document).ready(function () {
+
+    // 获取 ContextPath 的 Cookie 值，并赋值给全局变量 ctx
+    // window.ctx = getCookie('ctx');
+    // // 获取 SessionUser 的 Cookie 值
+    // const sessionUserCookie = getCookie('sessionUser');
+    // if (sessionUserCookie) {
+    //     // 解析 SessionUser
+    //     window.sessionUser = parseSessionUser(sessionUserCookie);
+    // }
+    console.log(ctx);
+    console.log(sessionUser);
+
+    //初始化左侧导航栏
     initLeftNav()
-    //加载顶部导航
-    // $("#topnav").load(ctx + '/topnav', function (response, status, xhr) {
-    //     if (status === 'success') {
-    //         //加载完成执行按钮点击事件
-    //         $('.navbar-minimalize').click(function () {
-    //             $("body").toggleClass("mini-navbar");
-    //             SmoothlyMenu();
-    //         });
-    //     }
-    // });
 
     // 使用模板字符串生成左侧导航栏结构
     const navbarHeader = `

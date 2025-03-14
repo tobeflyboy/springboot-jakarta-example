@@ -26,6 +26,7 @@ import java.util.Map;
 public class DashboardController {
     @GetMapping("/")
     public String index() {
+        log.info("index");
         return "redirect:/dashboard";
     }
 
@@ -107,7 +108,7 @@ public class DashboardController {
 
     @GetMapping("dashboard")
     public String dashboard(ModelMap model) {
-        log.debug("dashboard start");
+        log.info("dashboard start");
         // 当日0点0分0秒
         PayDailySumTotalDto total = PayDailySumTotalDto.builder().dailyTotal(BigDecimal.ZERO).dailyCount(0).monthlyTotal(BigDecimal.ZERO).monthlyCount(0).build();
         PayDailySumTotalDto ccbpayTotal = PayDailySumTotalDto.builder().dailyTotal(BigDecimal.ZERO).dailyCount(0).monthlyTotal(BigDecimal.ZERO).monthlyCount(0).build();
@@ -146,7 +147,7 @@ public class DashboardController {
         model.put("total", total);
         model.put("ccbpayTotal", ccbpayTotal);
         model.put("alipayTotal", alipayTotal);
-        log.debug("dashboard end");
+        log.info("dashboard end");
         return "dashboard";
     }
 }

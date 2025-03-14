@@ -1,10 +1,6 @@
 package com.nutcracker.example.demo.config.security;
 
-import com.nutcracker.example.demo.config.security.handler.AuthenticationFailureHandler;
-import com.nutcracker.example.demo.config.security.handler.AuthenticationSuccessHandler;
-import com.nutcracker.example.demo.config.security.handler.CustomLogoutSuccessHandler;
 import com.nutcracker.example.demo.constant.DemoConstants;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -44,26 +40,18 @@ public class SecurityConfigurer {
     @Value("${security.prevents-login}")
     private Boolean preventsLogin;
 
-    @Resource
-    private CustomAuthenticationProvider customAuthenticationProvider;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final UserDetailServiceImpl userDetailService;
 
-    @Resource
-    private CustomInvalidSessionStrategy customInvalidSessionStrategy;
+    /** 白名单url */
+    public static final String[] WHILE_URL_LIST = {"/favicon.ico", "/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**", "/swagger-ui/**", "/rest/actuator/**", "/actuator/**"};
 
-    @Resource
-    private CustomExpiredSessionStrategy customExpiredSessionStrategy;
-
-    @Resource
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Resource
-    private AuthenticationFailureHandler authenticationFailureHandler;
-
-    @Resource
-    private SessionRegistry sessionRegistry;
-
-    @Resource
-    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    public SecurityConfigurer(AuthenticationSuccessHandler authenticationSuccessHandler, CustomAuthenticationProvider customAuthenticationProvider, UserDetailServiceImpl userDetailService) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.customAuthenticationProvider = customAuthenticationProvider;
+        this.userDetailService = userDetailService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -71,22 +59,18 @@ public class SecurityConfigurer {
                 // 放行接口
                 .authorizeHttpRequests(authorize -> authorize
                         // 放行接口
-                        .requestMatchers(DemoConstants.WHILE_URL_LIST)
-                        .permitAll()
+                        .requestMatchers(WHILE_URL_LIST).permitAll()
+                        // 其他请求需要认证
                         .anyRequest().authenticated()
                 )
                 // 其余的都需要权限校验
-                .exceptionHandling(exception -> exception
-                        .accessDeniedPage("/403")
-                )
-                // 防跨站请求伪造
-                .csrf(AbstractHttpConfigurer::disable)
+                //.exceptionHandling(exception -> exception
+                //        .accessDeniedPage("/403")
+                //)
                 // 表单登录配置
                 .formLogin(formLogin -> formLogin
-                        .loginProcessingUrl(DemoConstants.LOGIN_URL)
                         .loginPage(DemoConstants.LOGIN_URL)
                         .successHandler(authenticationSuccessHandler)
-                        .failureHandler(authenticationFailureHandler)
                         .permitAll()
                 )
                 // 禁用CSRF
@@ -100,31 +84,25 @@ public class SecurityConfigurer {
                         .logoutUrl(DemoConstants.LOGOUT_URL)
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
-                        .logoutSuccessHandler(customLogoutSuccessHandler)
                 )
                 // 会话管理
                 .sessionManagement(sessionManagement -> sessionManagement
-                        // 失效处理
-                        .invalidSessionStrategy(customInvalidSessionStrategy)
                         // 同一账号同时允许多个设备在线
                         .maximumSessions(maxSession)
                         // 新用户挤走前用户
                         .maxSessionsPreventsLogin(preventsLogin)
-                        // 超时处理
-                        .expiredSessionStrategy(customExpiredSessionStrategy)
-                        .sessionRegistry(sessionRegistry)
+                        .sessionRegistry(getSessionRegistry())
                 )
                 // 校验用户信息
                 .authenticationProvider(customAuthenticationProvider)
+                .userDetailsService(userDetailService)
                 .build();
     }
-
 
     @Bean
     public SessionRegistry getSessionRegistry() {
         return new SessionRegistryImpl();
     }
-
 
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {

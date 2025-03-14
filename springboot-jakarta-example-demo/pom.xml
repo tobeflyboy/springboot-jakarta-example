@@ -100,7 +100,7 @@
 
         <!-- https://doc.xiaominfo.com/docs/quick-start -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
+            <groupId>com.github.xingfudeshi</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         </dependency>
 
@@ -153,6 +153,7 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- test -->

@@ -26,10 +26,10 @@ import java.util.StringJoiner;
 @EnableAsync
 @EnableCaching
 @ServletComponentScan(basePackages = "com.nutcracker.example.demo")
-public class DemoApplication {
+public class DemoStarter {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+        ApplicationContext context = SpringApplication.run(DemoStarter.class, args);
         printApplicationInfo(context);
     }
 
@@ -38,7 +38,7 @@ public class DemoApplication {
         // 获取 SpringBoot 的版本号
         joiner.add("SpringBoot Version: " + SpringApplication.class.getPackage().getImplementationVersion());
         // 获取当前应用的版本号
-        String version = DemoApplication.class.getPackage().getImplementationVersion();
+        String version = DemoStarter.class.getPackage().getImplementationVersion();
         if (version != null) {
             joiner.add("Application Version: " + version);
         }
@@ -50,13 +50,11 @@ public class DemoApplication {
             hostAddress = null;
         }
         String app = "";
-        if (!Objects.isNull(hostAddress)) {
-            if (context instanceof WebApplicationContext) {
-                Environment env = context.getEnvironment();
-                String contextPath = env.getProperty("server.servlet.context-path");
-                joiner.add("Doc URL: http://" + hostAddress + ":" + env.getProperty("server.port", Integer.class, 8080) + contextPath + "/doc.html");
-                app = Objects.isNull(contextPath) ? "" : contextPath.replace("/", "") + " ";
-            }
+        if (!Objects.isNull(hostAddress) && context instanceof WebApplicationContext) {
+            Environment env = context.getEnvironment();
+            String contextPath = env.getProperty("server.servlet.context-path");
+            joiner.add("Doc URL: http://" + hostAddress + ":" + env.getProperty("server.port", Integer.class, 8080) + contextPath + "/doc.html");
+            app = Objects.isNull(contextPath) ? "" : contextPath.replace("/", "") + " ";
         }
         joiner.add(app + "Start Successful");
         log.info(joiner.toString());

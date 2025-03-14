@@ -39,16 +39,8 @@ public class WebUtil {
      */
     @SneakyThrows
     public static void setSessionUser(HttpServletRequest request, HttpServletResponse response, SessionUser sessionUser) {
+        // 将 SessionUser 存入 Session
         request.getSession().setAttribute(DemoConstants.LOGIN_USER_SESSION_KEY, sessionUser);
-
-        //Cookie ctxCookie = new Cookie("ctx", request.getContextPath());
-        //ctxCookie.setHttpOnly(true);
-        //response.addCookie(ctxCookie);
-        //String user = URLEncoder.encode(JSON.toJSONString(sessionUser), StandardCharsets.UTF_8);
-        //log.info("setSessionUser user={}", user);
-        //Cookie userCookie = new Cookie("sessionUser", user);
-        //userCookie.setHttpOnly(true);
-        //response.addCookie(userCookie);
     }
 
     /**

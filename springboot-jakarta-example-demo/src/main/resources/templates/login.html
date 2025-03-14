@@ -91,7 +91,7 @@
 <body th:attr="data-ctx=${application.ctx}">
 <div class="login-container">
     <h1>Login</h1>
-    <form id="sessionUser" name="sessionUser">
+    <form id="loginForm" name="loginForm" method="post" th:action="@{/login}">
         <div class="form-group">
             <label for="username">账号</label>
             <input type="text" id="username" name="username" required value="admin">
@@ -125,26 +125,7 @@
                 toastr.error('', '请输入账号和密码');
                 return;
             }
-            $.ajax({
-                url: ctx + '/login',
-                type: 'POST',
-                data: {
-                    username: username,
-                    password: password
-                },
-                success: function (response) {
-                    if (response.code === 200) {
-                        window.location.href = ctx + "/dashboard"; // 执行重定向
-                    } else {
-                        toastr.error('', response.message);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error:", error);
-                    console.log("Status:", status);
-                    console.log("Response Text:", xhr.responseText); // 输出服务器返回的具体信息
-                }
-            });
+            $("#loginForm").submit();
         });
 
         // 添加回车键登录事件

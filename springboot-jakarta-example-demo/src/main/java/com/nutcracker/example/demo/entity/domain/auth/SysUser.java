@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * 系统用户dto
  *
- * @author wangxin4
+ * @author 胡桃夹子
  * @date 2025/02/06 09:15:54
  */
 @Schema(description = "用户分页查询结果")

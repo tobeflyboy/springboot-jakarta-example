@@ -36,12 +36,6 @@ server:
       rotate: true # 是否启用访问日志轮换。
 
 spring:
-  servlet:
-    multipart:
-      # 总上传的数据大小
-      max-request-size: 200MB
-      # 单个文件大小
-      max-file-size: 200MB
   main:
     # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
     allow-bean-definition-overriding: true
@@ -149,6 +143,7 @@ pagehelper:
   params: count=countSql          # 设置为 SQL 语句中的 count 查询
   banner: false                   # 关闭banner打印
 
+
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:
@@ -158,7 +153,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'default'
+    - group: 'demo'
       paths-to-match: '/**'
       packages-to-scan: com.nutcracker.example.demo.web.controller
 # knife4j的增强配置，不需要增强可以不配
@@ -166,13 +161,6 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-
-#登录图形验证码有效时间(单位分钟)/宽度/高度/位数
-captcha:
-  expiration: 2
-  width: 111
-  height: 36
-  digit: 2
 
 # security 配置
 security:
@@ -182,6 +170,5 @@ security:
   prevents-login: false
 
 app:
-  version: '@version@'
   secret:
     pool-size: 3

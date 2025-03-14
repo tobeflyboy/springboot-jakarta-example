@@ -6,7 +6,6 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.util.SecurityUtils;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,11 +29,12 @@ import java.util.Collection;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Resource
-    private AuthService authService;
-
-    @Resource
-    private SysRoleService sysRoleService;
+    private final AuthService authService;
+    private final SysRoleService sysRoleService;
+    public CustomAuthenticationProvider(AuthService authService, SysRoleService sysRoleService) {
+        this.authService = authService;
+        this.sysRoleService = sysRoleService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -63,6 +63,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
+        // 指定该 Provider 支持 UsernamePasswordAuthenticationToken 类型的认证
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }

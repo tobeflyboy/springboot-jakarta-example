@@ -9,6 +9,7 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserRoleDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
+import com.nutcracker.example.demo.enums.SysUserStatusEnum;
 import com.nutcracker.example.demo.exception.BusinessException;
 import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserMapper;
@@ -85,7 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
         entryptPassword(sysUserDo);
-        sysUserDo.setStatus(DemoConstants.STATUS_VALID);
+        sysUserDo.setStatus(SysUserStatusEnum.VALID.getCode());
         sysUserDo.setCreateTime(LocalDateTime.now());
         sysUserDo.setId(String.valueOf(IdWorker.getId("T_USER")));
         sysUserMapper.insert(sysUserDo);
