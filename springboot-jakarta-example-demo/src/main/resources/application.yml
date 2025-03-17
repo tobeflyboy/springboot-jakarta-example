@@ -32,7 +32,7 @@ server:
       rename-on-rotate: false # 是否延迟在文件名中包含日期戳，直到旋转时间。
       request-attributes-enabled: false # 设置请求的IP地址，主机名，协议和端口的请求属性。
       suffix: .log # 日志文件的文件名后缀
-      max-days: 1  # 设定保留1天的日志文件
+      max-days: 7  # 设定保留7天的日志文件，已验证，此参数可真实有效删除access日志文件。
       rotate: true # 是否启用访问日志轮换。
 
 spring:

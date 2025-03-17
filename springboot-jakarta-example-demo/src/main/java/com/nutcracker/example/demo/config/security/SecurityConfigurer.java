@@ -45,7 +45,23 @@ public class SecurityConfigurer {
     private final UserDetailServiceImpl userDetailService;
 
     /** 白名单url */
-    public static final String[] WHILE_URL_LIST = {"/favicon.ico", "/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**", "/swagger-ui/**", "/rest/actuator/**", "/actuator/**"};
+    public static final String[] WHILE_URL_LIST = {
+            "/public/**",
+            "/static/**",
+            "/favicon.ico",
+            "/v3/api-docs/**",
+            "/webjars/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/swagger-resources/**",
+            "/doc.html",
+            "/rest/actuator/**",
+            "/actuator/**",
+            "/alive",
+            "/login",
+            "/error/**",
+            "/api/**"
+    };
 
     public SecurityConfigurer(AuthenticationSuccessHandler authenticationSuccessHandler, CustomAuthenticationProvider customAuthenticationProvider, UserDetailServiceImpl userDetailService) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
@@ -119,7 +135,7 @@ public class SecurityConfigurer {
         source.registerCorsConfiguration("/**", config);
         // 设置CORS filter的顺序，-1表示在Spring Security filter之后执行
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-        bean.setOrder(-1);
+        bean.setOrder(-100);
         return bean;
     }
 }

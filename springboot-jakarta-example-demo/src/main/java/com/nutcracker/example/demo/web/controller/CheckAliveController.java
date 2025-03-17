@@ -27,6 +27,6 @@ public class CheckAliveController {
     @Operation(summary = "健康检查接口")
     @GetMapping("/alive")
     public String alive() {
-        return "{\"code\": 200, \"message\": \"keep alive\", \"flag\": true, \"data\": null}";
+        return "{\"code\": 200, \"message\": \"keep alive\"}";
     }
 }
