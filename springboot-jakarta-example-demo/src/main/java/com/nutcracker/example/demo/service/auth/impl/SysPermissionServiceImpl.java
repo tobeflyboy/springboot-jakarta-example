@@ -40,31 +40,40 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     private SysPermissionMapper sysPermissionMapper;
 
     @Override
-    public List<SysPermission> getMenuPermissionByUserId(String userId) {
-        // 1. 查询用户权限
-        List<SysPermissionDo> sysPermissionDos = sysPermissionMapper.findPermissionByUserId(userId);
-        log.info("查询到的权限数据: \n{}", JSON.toJSONString(sysPermissionDos));
+    public List<SysPermission> findAllSysPermission() {
+        List<SysPermissionDo> sysPermissionDos = sysPermissionMapper.findAllSysPermission();
+        log.info("findAllSysPermission: \n{}", JSON.toJSONString(sysPermissionDos));
+        return getPermissionTree(sysPermissionDos);
+    }
 
-        // 2. 如果查询结果为空，直接返回空列表
+    @Override
+    public List<SysPermission> getMenuPermissionByUserId(String userId) {
+        List<SysPermissionDo> sysPermissionDos = sysPermissionMapper.findPermissionByUserId(userId);
+        log.info("getMenuPermissionByUserId: \n{}", JSON.toJSONString(sysPermissionDos));
+        return getPermissionTree(sysPermissionDos);
+    }
+
+    private List<SysPermission> getPermissionTree(List<SysPermissionDo> sysPermissionDos) {
+        // 如果查询结果为空，直接返回空列表
         if (CollectionUtil.isEmpty(sysPermissionDos)) {
             return Collections.emptyList();
         }
 
-        // 3. 将 DO 对象转换为 VO 对象，并按菜单级别分组
+        // 将 DO 对象转换为 VO 对象，并按菜单级别分组
         Map<Integer, List<SysPermission>> menuLevelMap = groupPermissionsByLevel(sysPermissionDos);
 
-        // 4. 获取各级菜单
+        // 获取各级菜单
         List<SysPermission> oneLevelMenus = menuLevelMap.getOrDefault(1, Collections.emptyList());
         List<SysPermission> twoLevelMenus = menuLevelMap.getOrDefault(2, Collections.emptyList());
         List<SysPermission> threeLevelMenus = menuLevelMap.getOrDefault(3, Collections.emptyList());
 
-        // 5. 将三级菜单挂到二级菜单下
+        // 将三级菜单挂到二级菜单下
         attachChildrenToParent(threeLevelMenus, twoLevelMenus);
 
-        // 6. 将二级菜单挂到一级菜单下
+        // 将二级菜单挂到一级菜单下
         attachChildrenToParent(twoLevelMenus, oneLevelMenus);
 
-        // 7. 返回一级菜单
+        // 返回一级菜单
         return oneLevelMenus;
     }
 
@@ -132,4 +141,5 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         log.debug("findSysPermissionByPage page.toString()={}", page);
         return page;
     }
+
 }

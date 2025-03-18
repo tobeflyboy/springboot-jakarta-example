@@ -18,6 +18,13 @@ import java.util.List;
 public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
 
     /**
+     * 查找所有系统权限
+     *
+     * @return {@link List }<{@link SysPermission }>
+     */
+    List<SysPermissionDo> findAllSysPermission();
+
+    /**
      * 查询用户所能访问的所有菜单
      *
      * @param userId 用户
@@ -40,4 +47,5 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      * @return {@link List }<{@link SysPermission }>
      */
     List<SysPermission> findSysPermission(SysPermission permission);
+
 }

@@ -20,6 +20,23 @@
         id, permission_code, permission_name, parent_permission_code, url, icon, hide, lev, sort, create_time, create_by
 	</sql>
 
+    <select id="findAllSysPermission" resultMap="permissionMap">
+        select
+            p.id,
+            p.permission_code,
+            p.permission_name,
+            p.parent_permission_code,
+            p.url,
+            p.icon,
+            p.hide,
+            p.lev,
+            p.sort,
+            p.create_time,
+            p.create_by
+        from sys_permission p
+        order by p.sort asc
+    </select>
+
     <select id="findPermissionByUserId" parameterType="java.lang.String" resultMap="permissionMap">
         select
             p.id,
@@ -77,4 +94,5 @@
         </where>
         order by p.sort asc
     </select>
+
 </mapper>

@@ -70,7 +70,7 @@ public class InitTest {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addSysPermission fail", e);
         }
     }
 
@@ -92,7 +92,7 @@ public class InitTest {
                 log.error("角色已存在，{}", sysRoleDo);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addSysRole fail", e);
         }
     }
 
@@ -123,7 +123,7 @@ public class InitTest {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addSysRolePermission fail", e);
         }
     }
 
@@ -152,7 +152,7 @@ public class InitTest {
                 log.error("用户已存在，{}", sysUserDo);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addSysUser fail", e);
         }
     }
 
@@ -186,7 +186,7 @@ public class InitTest {
                 log.error("用户角色已存在，{}", sysUserRoleDo);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addSysUserRole fail", e);
         }
     }
 

@@ -15,6 +15,13 @@ import java.util.List;
 public interface SysPermissionService {
 
     /**
+     * 查找所有系统权限
+     *
+     * @return {@link List }<{@link SysPermission }>
+     */
+    List<SysPermission> findAllSysPermission();
+
+    /**
      * 查询用户所能访问的所有菜单
      *
      * @param userId 用户ID
@@ -37,4 +44,5 @@ public interface SysPermissionService {
      * @return {@link List }<{@link SysPermission }>
      */
     PageInfo<SysPermission> findSysPermissionByPage(Integer pageNum , SysPermission permission);
+
 }

@@ -1,19 +1,13 @@
-/**
- * Created by zifan on 2015/10/16.
- */
 $.validator.setDefaults({
-    ignore: ":hidden",
-    success: function (span) {
-      if(span.prev().length!=0){
-        if (span.prev().is(":radio") || span.prev().is(":checkbox") || $(span).prev().prop("tagName").toLowerCase() == "select") {
-            $(span).addClass("hide")
+    ignore: ":hidden", success: function (span) {
+        if (span.prev().length !== 0) {
+            if (span.prev().is(":radio") || span.prev().is(":checkbox") || $(span).prev().prop("tagName").toLowerCase() == "select") {
+                $(span).addClass("hide")
+            } else {
+                $(span).addClass("success fa fa-check");
+            }
         }
-        else {
-            $(span).addClass("success fa fa-check");
-        }
-      }
-    },
-    highlight: function (element, errorClass) {
+    }, highlight: function (element, errorClass) {
         $(element).addClass("error");
         $(element).parent().find("." + errorClass).removeClass("hide success fa fa-check");
     }
@@ -39,40 +33,45 @@ jQuery.extend(jQuery.validator.messages, {
     min: jQuery.validator.format("请输入一个最小为{0} 的值")
 });
 
-// 只能输入[0-9]数字 
+// 只能输入[0-9]数字
 jQuery.validator.addMethod("isDigits", function (value, element) {
     return this.optional(element) || /^\d+$/.test(value);
 }, "只能输入0-9数字");
-// 判断中文字符  
+
+// 判断中文字符
 jQuery.validator.addMethod("isChinese", function (value, element) {
     return this.optional(element) || /^[\u0391-\uFFE5]+$/.test(value);
 }, "只能包含中文字符。");
-// 判断英文字符  
+
+// 判断英文字符
 jQuery.validator.addMethod("isEnglish", function (value, element) {
     return this.optional(element) || /^[A-Za-z]+$/.test(value);
 }, "只能包含英文字符。");
-// 手机号码验证     
+
+// 手机号码验证
 jQuery.validator.addMethod("isMobile", function (value, element) {
-    var length = value.length;
-    return this.optional(element) || (length == 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value));
+    const length = value.length;
+    return this.optional(element) || (length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(value));
 }, "请正确填写您的手机号码。");
-// 电话号码验证     
+
+// 电话号码验证
 jQuery.validator.addMethod("isPhone", function (value, element) {
-    var tel = /^(\d{3,4}-?)?\d{7,9}$/g;
+    const tel = /^(\d{3,4}-?)?\d{7,9}$/g;
     return this.optional(element) || (tel.test(value));
 }, "请正确填写您的电话号码。");
-// 联系电话(手机/电话皆可)验证    
+
+// 联系电话(手机/电话皆可)验证
 jQuery.validator.addMethod("isTel", function (value, element) {
-    var length = value.length;
-    var mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-    var tel = /^(\d{3,4}-?)?\d{7,9}$/g;
-    return this.optional(element) || tel.test(value) || (length == 11 && mobile.test(value));
+    const length = value.length;
+    const mobile = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    const tel = /^(\d{3,4}-?)?\d{7,9}$/g;
+    return this.optional(element) || tel.test(value) || (length === 11 && mobile.test(value));
 }, "请正确填写您的联系方式");
 
 //公共方法  表单项的  选择对应的  隐藏区域
 $("form").find('*[data-toggle-name]').on('change', function () {
-    var val = $(this).find(":selected").attr("data-box-name");
-    var $target = $(this).attr('data-toggle-name');
+    const val = $(this).find(":selected").attr("data-box-name");
+    const $target = $(this).attr('data-toggle-name');
     $($target + " #" + val).removeClass().addClass("show").siblings().removeClass().addClass("hide");
     //$target.find("[data-box]").toggle();
 });

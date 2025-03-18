@@ -12,12 +12,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 系统用户dto
+ * 用户对象
  *
  * @author 胡桃夹子
  * @date 2025/02/06 09:15:54
  */
-@Schema(description = "用户分页查询结果")
+@Schema(description = "用户对象")
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,6 +31,9 @@ public class SysUser implements Serializable {
 
     @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
+
+    @Schema(description = "用户登录密码", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String password;
 
     @Schema(description = "姓名")
     private String realName;
