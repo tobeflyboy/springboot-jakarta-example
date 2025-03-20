@@ -39,7 +39,10 @@
                 icon = #{icon,jdbcType=VARCHAR},
             </if>
             <if test="lev != null">
-                lev = #{lev,jdbcType=INTEGER}
+                lev = #{lev,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
