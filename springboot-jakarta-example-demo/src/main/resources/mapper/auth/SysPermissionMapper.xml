@@ -89,6 +89,13 @@
         where permission_code = #{permissionCode,jdbcType=VARCHAR}
     </select>
 
+    <select id="findPermissionByParentPermissionCode" parameterType="java.lang.String" resultMap="permissionMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_permission
+        where parent_permission_code = #{parentPermissionCode,jdbcType=VARCHAR}
+    </select>
+
     <select id="findSysPermission" resultType="com.nutcracker.example.demo.entity.domain.auth.SysPermission">
         select
             p.id,

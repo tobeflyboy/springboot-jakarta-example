@@ -49,6 +49,14 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
     SysPermissionDo findPermissionByPermissionCode(@Param("permissionCode") String permissionCode);
 
     /**
+     * 查询子菜单
+     *
+     * @param parentPermissionCode 父菜单编码
+     * @return {@link List }<{@link SysPermissionDo }>
+     */
+    List<SysPermissionDo> findPermissionByParentPermissionCode(@Param("parentPermissionCode") String parentPermissionCode);
+
+    /**
      * 查找菜单
      *
      * @param permission 许可

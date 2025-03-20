@@ -162,8 +162,8 @@ $(document).ready(function () {
     //     // 解析 SessionUser
     //     window.sessionUser = parseSessionUser(sessionUserCookie);
     // }
-    console.log(ctx);
-    console.log(sessionUser);
+    // console.log(ctx);
+    // console.log(sessionUser);
 
     //初始化左侧导航栏
     initLeftNav()

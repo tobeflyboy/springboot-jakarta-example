@@ -1,6 +1,7 @@
 package com.nutcracker.example.demo.service.auth;
 
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 
 import java.util.List;
@@ -32,9 +33,16 @@ public interface SysPermissionService {
      * 保存菜单
      *
      * @param sysPermission 菜单
-     * @return boolean true=保存成功，false=保存失败
      */
-    boolean savePermission(SysPermission sysPermission);
+    ApiResponse<Boolean> savePermission(SysPermission sysPermission);
+
+    /**
+     * 删除权限
+     *
+     * @param id 本我
+     * @return {@link ApiResponse }<{@link Boolean }>
+     */
+    ApiResponse<Boolean> deletePermission(String id);
 
     /**
      * 分页查询资源

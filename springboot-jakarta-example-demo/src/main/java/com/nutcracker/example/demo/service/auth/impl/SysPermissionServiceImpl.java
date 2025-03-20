@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.service.auth.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -7,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
+import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
@@ -118,11 +120,11 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Transactional
     @Override
-    public boolean savePermission(SysPermission sysPermission) {
+    public ApiResponse<Boolean> savePermission(SysPermission sysPermission) {
         log.info("savePermission {}", sysPermission);
         if (sysPermission == null || StrUtil.isBlank(sysPermission.getPermissionCode()) || StrUtil.isBlank(sysPermission.getPermissionName())) {
             log.error("savePermission fail, {}", sysPermission);
-            return false;
+            return ApiResponse.fail("保存失败，缺少必要参数");
         }
         SysPermissionDo p = sysPermissionMapper.selectById(sysPermission.getId());
         int resultNum;
@@ -135,7 +137,24 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             resultNum = sysPermissionMapper.insert(p);
         }
         log.info("savePermission {},resultNum={}", sysPermission, resultNum);
-        return resultNum > 0;
+        if (resultNum == 0) {
+            return ApiResponse.fail("保存失败，缺少必要参数");
+        }
+        return ApiResponse.ofSuccess(Boolean.TRUE);
+    }
+
+    @Override
+    public ApiResponse<Boolean> deletePermission(String id) {
+        log.info("deletePermission id={}", id);
+        SysPermissionDo sysPermissionDo = sysPermissionMapper.selectById(id);
+        List<SysPermissionDo> children = sysPermissionMapper.findPermissionByParentPermissionCode(sysPermissionDo.getPermissionCode());
+        if (CollUtil.isNotEmpty(children)) {
+            return ApiResponse.fail("因为还有下级菜单，无法执行删除操作！");
+        }
+        if (sysPermissionMapper.deleteById(id) > 0) {
+            return ApiResponse.ofSuccess(Boolean.TRUE);
+        }
+        return ApiResponse.fail("删除失败！");
     }
 
     @Override

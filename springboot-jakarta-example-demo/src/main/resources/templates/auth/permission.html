@@ -200,7 +200,7 @@
 </div>
 
 <!-- 图标选择器模态框 -->
-<div class="modal fade" id="iconSelectorModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="iconSelectorModal" tabindex="-1" role="alertdialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -379,7 +379,6 @@
             lev: $('#lev').val(),
             sort: $('#sort').val()
         };
-        console.log('保存的节点数据:', nodeData);
         // 发送保存请求
         $.ajax({
             url: ctx + '/auth/permission/save',
@@ -393,7 +392,11 @@
                     // 关闭模态框
                     $('#nodeModal').modal('hide');
                 } else {
-                    toastr.error('', '保存失败！');
+                    let message = '保存失败！';
+                    if(response.message){
+                        message = response.message;
+                    }
+                    toastr.error('', message);
                 }
             }
         });
@@ -401,17 +404,22 @@
 
     // 删除节点
     function deleteNode(node) {
-        console.log('删除的节点:', node);
         if (confirm(`确定要删除【${node.permissionName}】及其所有子节点吗？`)) {
             $.ajax({
-                url: ctx + '/permission/delete/' + node.id, // 使用节点ID
-                method: 'DELETE',
+                url: ctx + '/auth/permission/delete/' + node.id, // 使用节点ID
+                method: 'POST',
                 success: function (response) {
-                    if (response.success) {
+                    if (response.code === 200 && response.data) {
                         // 刷新树数据
                         drawTree();
-                        // 显示删除成功提示
-                        toastr.success('删除成功');
+                        // 关闭模态框
+                        $('#nodeModal').modal('hide');
+                    } else {
+                        let message = '删除失败！';
+                        if(response.message){
+                            message = response.message;
+                        }
+                        toastr.error('', message);
                     }
                 }
             });

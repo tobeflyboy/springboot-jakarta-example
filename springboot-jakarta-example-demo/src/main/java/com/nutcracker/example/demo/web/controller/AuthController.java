@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,7 +55,7 @@ public class AuthController {
     }
 
     @GetMapping("/auth/permission")
-    public String permissionList(ModelMap model) {
+    public String permissionList() {
         log.info("/auth/permission");
         return "auth/permission";
     }
@@ -70,8 +71,18 @@ public class AuthController {
     @ResponseBody
     public ApiResponse<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
         log.info("/auth/permission/save {}", sysPermission);
-        boolean isSuccess =  sysPermissionService.savePermission(sysPermission);
-        return ApiResponse.ofSuccess(isSuccess);
+        ApiResponse<Boolean> response = sysPermissionService.savePermission(sysPermission);
+        log.info("/auth/permission/save {}, response={}", sysPermission, response);
+        return response;
+    }
+
+    @PostMapping("/auth/permission/delete/{id}")
+    @ResponseBody
+    public ApiResponse<Boolean> permissionDelete(@PathVariable("id") String id) {
+        log.info("/auth/permission/delete id={}", id);
+        ApiResponse<Boolean> response = sysPermissionService.deletePermission(id);
+        log.info("/auth/permission/delete id={}, response={}", id, response);
+        return response;
     }
 
     @GetMapping("/auth/role_list")
