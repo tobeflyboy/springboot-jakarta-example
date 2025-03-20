@@ -401,5 +401,54 @@ function SmoothlyMenu() {
         // Remove all inline style from jquery fadeIn function to reset menu state
         $('#side-menu').removeAttr('style');
     }
-};
+}
+
+// 自定义 confirm 弹窗函数
+function showConfirm(message, title = '确认操作', onConfirm, onCancel) {
+    // 创建模态框
+    const modalHtml = `
+        <div class="modal fade" id="customConfirmModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">${title}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>${message}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="confirmBtn">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // 将模态框添加到页面
+    $('body').append(modalHtml);
+
+    // 显示模态框
+    $('#customConfirmModal').modal('show');
+
+    // 确认按钮点击事件
+    $('#confirmBtn').on('click', function() {
+        $('#customConfirmModal').modal('hide');
+        if (typeof onConfirm === 'function') {
+            onConfirm();
+        }
+    });
+
+    // 取消按钮点击事件
+    $('#customConfirmModal').on('hidden.bs.modal', function () {
+        if (typeof onCancel === 'function') {
+            onCancel();
+        }
+        // 移除模态框
+        $(this).remove();
+    });
+}
 

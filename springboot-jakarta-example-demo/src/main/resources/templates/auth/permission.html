@@ -164,7 +164,7 @@
                     </div>
                     <div class="form-group">
                         <label for="parentPermissionCode">父菜单编码</label>
-                        <input type="text" class="form-control" id="parentPermissionCode">
+                        <input type="text" class="form-control" id="parentPermissionCode" readonly>
                     </div>
                     <div class="form-group">
                         <label for="icon">icon图标</label>
@@ -402,28 +402,35 @@
         });
     }
 
-    // 删除节点
+    // 删除菜单节点
     function deleteNode(node) {
-        if (confirm(`确定要删除【${node.permissionName}】及其所有子节点吗？`)) {
-            $.ajax({
-                url: ctx + '/auth/permission/delete/' + node.id, // 使用节点ID
-                method: 'POST',
-                success: function (response) {
-                    if (response.code === 200 && response.data) {
-                        // 刷新树数据
-                        drawTree();
-                        // 关闭模态框
-                        $('#nodeModal').modal('hide');
-                    } else {
-                        let message = '删除失败！';
-                        if(response.message){
-                            message = response.message;
+        showConfirm(
+            `确定要删除【${node.permissionName}】及其所有子节点吗？`,
+            '删除确认',
+            function() {
+                // 确认
+                $.ajax({
+                    url: ctx + '/auth/permission/delete/' + node.id, // 使用节点ID
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.code === 200 && response.data) {
+                            // 刷新树数据
+                            drawTree();
+                        } else {
+                            let message = '删除失败！';
+                            if(response.message){
+                                message = response.message;
+                            }
+                            toastr.error('', message);
                         }
-                        toastr.error('', message);
                     }
-                }
-            });
-        }
+                });
+            },
+            function() {
+                // 取消
+                console.log(`【${node.permissionName}】删除操作已取消`);
+            }
+        );
     }
 
     // 绘制树
