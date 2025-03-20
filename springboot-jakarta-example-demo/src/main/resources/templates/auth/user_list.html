@@ -51,21 +51,26 @@
             <!--当前位置开始-->
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
-                    <div class="form-group col-md-3 m-t-xs m-b-none">
-                        <input value="" placeholder="请输入账号" class="form-control input-sm text-center" id="username">
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <input value="" placeholder="账号，精准查询" class="form-control input-sm text-center" id="username">
                     </div>
-                    <div class="form-group col-md-3 m-t-xs m-b-none">
-                        <input value="" placeholder="请输入姓名号，模糊查询" class="form-control input-sm text-center" id="realName">
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
+                        <input value="" placeholder="姓名，模糊查询" class="form-control input-sm text-center" id="realName">
                     </div>
-                    <div class="form-group col-md-3 m-t-xs m-b-none">
+                    <div class="form-group col-md-2 m-t-xs m-b-none">
                         <select class="form-control input-sm text-center" id="status">
-                            <option value="">--- 状态 ---</option>
+                            <option value="">--- 用户状态 ---</option>
                             <option th:each="entry:${statusMap}" th:value="${entry.key}" th:text="${entry.value.msg}"></option>
                         </select>
                     </div>
-                    <div class="form-group col-md-1 m-t-xs m-b-none">
-                        <button type="button" class="btn btn-sm btn-primary no-margins" id="queryUserBtn">
-                            查询
+                    <div class="form-group col-md-3 m-t-xs m-b-none">
+                        <button type="button" class="btn btn-sm btn-primary no-margins" id="search-user-btn">
+                            查询用户
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-success no-margins" id="view-create-user-model-btn" data-toggle="modal" href="#create-user-modal">
+                            创建用户
+                            <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
@@ -83,8 +88,64 @@
         <!-----内容结束----->
 
     </div>
+
 </div>
 <!---右侧内容区结束----->
+
+<!---创建用户开始--->
+<div class="modal fade" id="create-user-modal" tabindex="-1" aria-labelledby="create-user-modal-label">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">添加用户账号</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="addUserForm" name="addUserForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="addUserName" class="col-sm-3 control-label">账号名称：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" id="addUserName" name="addUserName" placeholder="请输入6-12位的英文字母或字符" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addRealName">真实姓名：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" id="addRealName" name="addRealName" placeholder="请输入姓名" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addPassword">密码：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="password" id="addPassword" name="addPassword" placeholder="请输入6-12位的英文字母或字符" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addConfirmPassword">确认密码：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="password" id="addConfirmPassword" name="addConfirmPassword" required placeholder="请再次输入密码" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addEmail">邮箱：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" id="addEmail" name="addEmail" required placeholder="请输入邮箱地址" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-sm">
+                        <div class="col-sm-6 col-sm-push-3">
+                            <button class="btn btn-md btn-primary " id="createUserBtn"><strong>创建用户</strong>
+                            </button>
+                            <button type="button" class="btn btn-white m-l-sm" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!---创建用户结束--->
 
 <!----明细开始---->
 <div class="modal fade" id="user-detail-box" tabindex="-1" role="dialog" aria-labelledby="user-detail-box-label" aria-hidden="true">
@@ -186,31 +247,125 @@
 <script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
 <script th:src="@{/static/js/plugins/qrcode/qrcode.min.js}"></script>
 <script th:src="@{/static/js/plugins/loading/jquery.loading.js}"></script>
+<script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/static/js/plugins/validate/validate-cn.js}"></script>
 
 <script th:inline="javascript">
+    $(document).ready(function () {
+        //查询
+        $("#search-user-btn").click(function () {
+            const username = $("#username").val();
+            const realName = $("#realName").val();
+            const status = $("#status").val();
+            $.ajax({
+                url: ctx + '/auth/user_list?pageNum=1',
+                type: "post",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "username": username,
+                    "realName": realName,
+                    "status": status
+                }),
+                success: function (data) {
+                    $('#user_list_page_box').html(data);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    toastr.error('', '查询失败');
+                }
+            });
+        });
 
-    //查询
-    $("#queryUserBtn").click(function () {
-        const username = $("#username").val();
-        const realName = $("#realName").val();
-        const status = $("#status").val();
-        $.ajax({
-            url: ctx + '/auth/user_list?pageNum=1',
-            type: "post",
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({
-                "username": username,
-                "realName": realName,
-                "status": status
-            }),
-            success: function (data) {
-                $('#user_list_page_box').html(data);
+        // 显示创建用户模态框
+        $("#view-create-user-model-btn").click(function () {
+            $("#addUserForm")[0].reset();
+        });
+
+        $("#addUserForm").validate({
+            rules: {
+                addUserName: {
+                    required: true,
+                    rangelength: [6, 12],
+                },
+                addRealName: {
+                    required: true,
+                    isChinese: true
+                },
+                addPassword: {
+                    required: true,
+                    rangelength: [6, 12]
+                },
+                addConfirmPassword: {
+                    required: true,
+                    rangelength: [6, 12],
+                    equalTo: "#addPassword"
+                },
+                addEmail: {
+                    required: true,
+                    email: true
+                }
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error('', '查询失败');
+            messages: {
+                addUserName: {
+                    required: "请输入账号",
+                    rangelength: $.validator.format("请输入{0}-{1}位的英文字母或字符")
+                },
+                addRealName: {
+                    required: "请填写您的真实姓名"
+                },
+                addPassword: {
+                    required: "请输入密码",
+                    rangelength: $.validator.format("请输入{0}-{1}位的英文字母或字符")
+
+                },
+                addConfirmPassword: {
+                    required: "请输入确认密码",
+                    rangelength: $.validator.format("请输入{0}-{1}位的英文字母或字符"),
+                    equalTo: "两次输入密码不一致，请重新输入"
+                },
+                addEmail: {
+                    required: "请输入有效的电子邮件地址",
+                    email: "请输入有效的电子邮件地址."
+                }
+            },
+            debug: true,
+            submitHandler: function (form) {
+                // 获取表单数据
+                createUser(form);
             }
         });
+
+        // 阻止表单的默认提交行为
+        $("#addUserForm").on('submit', function (event) {
+            // 阻止表单的默认提交行为
+            event.preventDefault();
+        });
     });
+
+
+    // 创建用户
+    function createUser(form) {
+        const username = $(form).find("#addUserName").val();
+        const realName = $(form).find("#addRealName").val();
+        const email = $(form).find("#addEmail").val();
+        const password = $(form).find("#addPassword").val();
+        const confirmPassword = $(form).find("#addConfirmPassword").val();
+        const user = JSON.stringify({
+            "username": username,
+            "realName": realName,
+            "email": email,
+            "password": password
+        });
+        console.log(user);
+        toastr.success('操作成功！','操作成功！');
+        // $.ajax({
+        //     url: ctx + '/auth/add_user',
+        //     type: "post",
+        //     contentType: "application/json; charset=UTF-8",
+        //     data: user,
+        //     success: function (data) {
+        //     }
+        // });
+    }
 
     // 查看详情
     function viewDetail(btn) {

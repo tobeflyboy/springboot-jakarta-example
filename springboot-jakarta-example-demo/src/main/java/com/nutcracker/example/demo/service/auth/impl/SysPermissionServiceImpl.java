@@ -9,11 +9,10 @@ import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
-import com.nutcracker.example.demo.exception.BusinessException;
 import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.util.JSON;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,11 +32,11 @@ import java.util.stream.Collectors;
  * @date 2025/01/02 15:15:00
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class SysPermissionServiceImpl implements SysPermissionService {
 
-    @Resource
-    private SysPermissionMapper sysPermissionMapper;
+    private final SysPermissionMapper sysPermissionMapper;
 
     @Override
     public List<SysPermission> findAllSysPermission() {
@@ -119,16 +118,24 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Transactional
     @Override
-    public void addPermission(SysPermissionDo sysPermissionDo) {
-        if (sysPermissionDo == null || StrUtil.isBlank(sysPermissionDo.getPermissionCode()) || StrUtil.isBlank(sysPermissionDo.getPermissionName())) {
-            throw new BusinessException("permission-fail", "## 创建菜单出错；菜单项数据不完整，无法进行创建。");
+    public boolean savePermission(SysPermission sysPermission) {
+        log.info("savePermission {}", sysPermission);
+        if (sysPermission == null || StrUtil.isBlank(sysPermission.getPermissionCode()) || StrUtil.isBlank(sysPermission.getPermissionName())) {
+            log.error("savePermission fail, {}", sysPermission);
+            return false;
         }
-        SysPermissionDo p = sysPermissionMapper.findPermissionByPermissionCode(sysPermissionDo.getPermissionCode());
+        SysPermissionDo p = sysPermissionMapper.selectById(sysPermission.getId());
+        int resultNum;
         if (p != null) {
-            throw new BusinessException("permission-fail", "#创建菜单出错;菜单Key已经存在,key=" + sysPermissionDo.getPermissionCode());
+            p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
+            resultNum = sysPermissionMapper.updateSysPermissionById(p);
+        } else {
+            p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
+            p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
+            resultNum = sysPermissionMapper.insert(p);
         }
-        sysPermissionDo.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
-        sysPermissionMapper.insert(sysPermissionDo);
+        log.info("savePermission {},resultNum={}", sysPermission, resultNum);
+        return resultNum > 0;
     }
 
     @Override

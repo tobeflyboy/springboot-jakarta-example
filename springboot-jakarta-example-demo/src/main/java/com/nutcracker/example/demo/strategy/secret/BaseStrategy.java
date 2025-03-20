@@ -8,6 +8,7 @@ import com.nutcracker.example.demo.util.ListUtil;
 import com.nutcracker.example.demo.util.TimeUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -29,6 +30,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public abstract class BaseStrategy {
 
+    @Resource
+    protected StrategyFactory strategyFactory;
+    @Resource
+    protected ThreadPoolTaskExecutor taskExecutor;
+
     /**
      * 获取加解密策略枚举
      *
@@ -41,15 +47,6 @@ public abstract class BaseStrategy {
      */
     @Value("${app.secret.pool-size}")
     protected Integer poolSize;
-
-    @Resource
-    protected StrategyFactory strategyFactory;
-
-    /**
-     * 自定义线程池
-     */
-    @Resource(name = "taskExecutor")
-    protected ThreadPoolTaskExecutor taskExecutor;
 
     @PostConstruct
     public void init() {
@@ -129,22 +126,24 @@ public abstract class BaseStrategy {
     }
 
 
+    /**
+     * 工作任务
+     *
+     * @author wangxin4
+     * @date 2025/03/20 10:23:25
+     */
+    @AllArgsConstructor
     private class JobTask implements Callable<String> {
-        private CountDownLatch latch;
-        private Integer batchNo;
-        private List<String> list;
-
+        /** 门闩 */
+        private final CountDownLatch latch;
+        /** 批次 */
+        private final Integer batchNo;
+        /** 列表 */
+        private final List<String> list;
         /**
          * true代表加密,false代表解密
          */
         private final boolean action;
-
-        public JobTask(CountDownLatch latch, Integer batchNo, List<String> list, boolean action) {
-            this.latch = latch;
-            this.batchNo = batchNo;
-            this.list = list;
-            this.action = action;
-        }
 
         /**
          * 加密

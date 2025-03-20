@@ -20,6 +20,31 @@
         id, permission_code, permission_name, parent_permission_code, url, icon, hide, lev, sort, create_time, create_by
 	</sql>
 
+    <update id="updateSysPermissionById" parameterType="com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo">
+        update sys_permission
+        <set>
+            <if test="permissionCode != null and permissionCode != ''">
+                permission_code = #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionName != null and permissionName != ''">
+                permission_name = #{permissionName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentPermissionCode != null and parentPermissionCode != ''">
+                parent_permission_code = #{parentPermissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="lev != null">
+                lev = #{lev,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
     <select id="findAllSysPermission" resultMap="permissionMap">
         select
             p.id,

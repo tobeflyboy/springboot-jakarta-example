@@ -1,7 +1,6 @@
 package com.nutcracker.example.demo.service.auth;
 
 import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 
 import java.util.List;
@@ -30,11 +29,12 @@ public interface SysPermissionService {
     List<SysPermission> getMenuPermissionByUserId(String userId);
 
     /**
-     * 添加 菜单
+     * 保存菜单
      *
-     * @param sysPermissionDo 菜单项
+     * @param sysPermission 菜单
+     * @return boolean true=保存成功，false=保存失败
      */
-    void addPermission(SysPermissionDo sysPermissionDo);
+    boolean savePermission(SysPermission sysPermission);
 
     /**
      * 分页查询资源

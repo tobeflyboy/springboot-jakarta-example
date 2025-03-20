@@ -5,7 +5,7 @@ import com.nutcracker.example.demo.service.secret.SecretService;
 import com.nutcracker.example.demo.strategy.StrategyFactory;
 import com.nutcracker.example.demo.strategy.secret.BaseStrategy;
 import com.nutcracker.example.demo.util.JSON;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +18,11 @@ import java.util.List;
  * @date 2021-11-18 10:17
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class SecretServiceImpl implements SecretService {
 
-    @Resource
-    private StrategyFactory strategyFactory;
+    private final StrategyFactory strategyFactory;
 
     @Override
     public String encrypt(SecretStrategyEnum secretStrategyEnum, String param) {

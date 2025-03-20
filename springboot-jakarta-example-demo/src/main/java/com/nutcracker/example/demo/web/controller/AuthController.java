@@ -1,16 +1,17 @@
 package com.nutcracker.example.demo.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
-import com.nutcracker.example.demo.enums.SysPermissionHideEnum;
 import com.nutcracker.example.demo.enums.SysUserStatusEnum;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.JSON;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 /**
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author 胡桃夹子
  * @date 2024/12/10 09:50:10
  */
+@RequiredArgsConstructor
 @Slf4j
 @Controller
 public class AuthController {
@@ -33,14 +38,6 @@ public class AuthController {
     private final SysPermissionService sysPermissionService;
     private final SysRoleService sysRoleService;
     private final SysUserService sysUserService;
-
-    public AuthController(SysPermissionService sysPermissionService,
-                          SysRoleService sysRoleService,
-                          SysUserService sysUserService) {
-        this.sysPermissionService = sysPermissionService;
-        this.sysRoleService = sysRoleService;
-        this.sysUserService = sysUserService;
-    }
 
     @GetMapping("/login")
     public String login() {
@@ -56,23 +53,25 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @GetMapping("/auth/permission_list")
+    @GetMapping("/auth/permission")
     public String permissionList(ModelMap model) {
-        log.info("/auth/permission_list");
-        PageInfo<SysPermission> page = sysPermissionService.findSysPermissionByPage(null, null);
-        model.put("page", page);
-        model.put("hideMap", SysPermissionHideEnum.getHideMap());
-        return "auth/permission_list";
+        log.info("/auth/permission");
+        return "auth/permission";
     }
 
-    @PostMapping("/auth/permission_list")
-    public String permissionList(@RequestParam("pageNum") Integer pageNum, @RequestBody SysPermission permission, ModelMap model) {
-        log.info("/auth/permission_list pageNum={},{}", pageNum, permission);
-        PageInfo<SysPermission> page = sysPermissionService.findSysPermissionByPage(pageNum, permission);
-        model.put("page", page);
-        model.put("hideMap", SysPermissionHideEnum.getHideMap());
-        model.put("permission", permission);
-        return "auth/permission_list_page";
+    @GetMapping("/auth/permission/tree")
+    @ResponseBody
+    public List<SysPermission> permissionTree() {
+        log.info("/auth/permission/tree");
+        return sysPermissionService.findAllSysPermission();
+    }
+
+    @PostMapping("/auth/permission/save")
+    @ResponseBody
+    public ApiResponse<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
+        log.info("/auth/permission/save {}", sysPermission);
+        boolean isSuccess =  sysPermissionService.savePermission(sysPermission);
+        return ApiResponse.ofSuccess(isSuccess);
     }
 
     @GetMapping("/auth/role_list")
@@ -109,6 +108,16 @@ public class AuthController {
         model.put("page", page);
         model.put("statusMap", SysUserStatusEnum.getStatusMap());
         model.put("user", user);
+        return "auth/user_list_page";
+    }
+
+    @PostMapping("/auth/create_user")
+    public String createUser(@RequestBody SysUser user, ModelMap model) {
+        log.info("/auth/create_user user={}", user);
+        //PageInfo<SysUser> page = sysUserService.findSysUserByPage(pageNum, user);
+        //model.put("page", page);
+        //model.put("statusMap", SysUserStatusEnum.getStatusMap());
+        //model.put("user", user);
         return "auth/user_list_page";
     }
 

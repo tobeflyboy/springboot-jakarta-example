@@ -5,7 +5,7 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.util.JSON;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,14 +25,12 @@ import java.util.Collection;
  * @date 2022/12/23 10:47
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    @Resource
-    private AuthService authService;
-
-    @Resource
-    private SysRoleService sysRoleService;
+    private final AuthService authService;
+    private final SysRoleService sysRoleService;
 
     /**
      * 登录验证方法，前端发起 /login post请求，请求数据类型 content-type:【application/x-www-form-urlencoded; charset=UTF-8】

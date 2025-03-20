@@ -18,7 +18,15 @@ import java.util.List;
 public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
 
     /**
-     * 查找所有系统权限
+     * 按id更新菜单
+     *
+     * @param sysPermission 菜单
+     * @return int
+     */
+    int updateSysPermissionById(SysPermissionDo sysPermission);
+
+    /**
+     * 查找所有菜单
      *
      * @return {@link List }<{@link SysPermission }>
      */
@@ -41,7 +49,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
     SysPermissionDo findPermissionByPermissionCode(@Param("permissionCode") String permissionCode);
 
     /**
-     * 查找系统权限
+     * 查找菜单
      *
      * @param permission 许可
      * @return {@link List }<{@link SysPermission }>

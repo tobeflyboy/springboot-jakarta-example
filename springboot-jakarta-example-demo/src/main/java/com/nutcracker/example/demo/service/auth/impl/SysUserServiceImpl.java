@@ -17,9 +17,8 @@ import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.salt.Digests;
 import com.nutcracker.example.demo.util.salt.Encodes;
-import jakarta.annotation.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,21 +31,16 @@ import java.util.List;
  * @author 胡桃夹子
  * @date 2025/01/02 15:21:01
  */
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class SysUserServiceImpl implements SysUserService {
-    private final static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
-
     public static final int HASH_INTERATIONS = 1024;
     private static final int SALT_SIZE = 8;
 
-    @Resource
-    private SysRoleMapper sysRoleMapper;
-
-    @Resource
-    private SysUserRoleMapper sysUserRoleMapper;
-
-    @Resource
-    private SysUserMapper sysUserMapper;
+    private final SysRoleMapper sysRoleMapper;
+    private final SysUserRoleMapper sysUserRoleMapper;
+    private final SysUserMapper sysUserMapper;
 
     /**
      * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash

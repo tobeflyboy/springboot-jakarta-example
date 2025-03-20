@@ -11,10 +11,10 @@ import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.web.WebUtil;
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,22 +25,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 身份验证成功处理程序
+ *
+ * @author wangxin4
+ * @date 2025/03/20 10:20:30
+ */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    @Resource
-    private AuthService authService;
-
-    @Resource
-    private SysPermissionService sysPermissionService;
-
-    @Resource
-    private SysRoleService sysRoleService;
-
-    @Resource
-    private SysUserService sysUserService;
-
+    private final AuthService authService;
+    private final SysPermissionService sysPermissionService;
+    private final SysRoleService sysRoleService;
+    private final SysUserService sysUserService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {

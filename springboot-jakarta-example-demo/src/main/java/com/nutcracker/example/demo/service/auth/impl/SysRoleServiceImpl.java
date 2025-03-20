@@ -15,7 +15,7 @@ import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,17 +29,13 @@ import java.util.List;
  * @date 2025/01/02 15:17:22
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
 
-    @Resource
-    private SysRoleMapper sysRoleMapper;
-
-    @Resource
-    private SysPermissionMapper sysPermissionMapper;
-
-    @Resource
-    private SysRolePermissionMapper sysRolePermissionMapper;
+    private final SysRoleMapper sysRoleMapper;
+    private final SysPermissionMapper sysPermissionMapper;
+    private final SysRolePermissionMapper sysRolePermissionMapper;
 
     @Override
     @Transactional

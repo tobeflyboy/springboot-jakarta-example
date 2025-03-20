@@ -1,6 +1,7 @@
 package com.nutcracker.example.demo.config.security;
 
 import com.nutcracker.example.demo.constant.DemoConstants;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,6 +25,7 @@ import org.springframework.web.filter.CorsFilter;
  * @date 2022/12/23 11:04
  */
 @Slf4j
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurer {
@@ -62,12 +64,6 @@ public class SecurityConfigurer {
             "/error/**",
             "/api/**"
     };
-
-    public SecurityConfigurer(AuthenticationSuccessHandler authenticationSuccessHandler, CustomAuthenticationProvider customAuthenticationProvider, UserDetailServiceImpl userDetailService) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
-        this.customAuthenticationProvider = customAuthenticationProvider;
-        this.userDetailService = userDetailService;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -6,12 +6,12 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.constant.DataSourceTagger;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.dataobject.biz.NewsDo;
 import com.nutcracker.example.demo.mapper.biz.NewsMapper;
 import com.nutcracker.example.demo.service.biz.NewsService;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +25,12 @@ import java.util.List;
  * @author 胡桃夹子
  * @date 2025/01/02 15:47:32
  */
-@SuppressWarnings("resource")
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class NewsServiceImpl implements NewsService {
 
-    @Resource
-    private NewsMapper newsMapper;
+    private final NewsMapper newsMapper;
 
     @Transactional
     @Override

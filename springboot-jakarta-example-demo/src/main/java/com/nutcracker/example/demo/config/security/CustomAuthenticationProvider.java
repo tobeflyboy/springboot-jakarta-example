@@ -6,6 +6,7 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.util.SecurityUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,15 +27,12 @@ import java.util.Collection;
  * @date 2022/12/23 08:27
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final AuthService authService;
     private final SysRoleService sysRoleService;
-    public CustomAuthenticationProvider(AuthService authService, SysRoleService sysRoleService) {
-        this.authService = authService;
-        this.sysRoleService = sysRoleService;
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

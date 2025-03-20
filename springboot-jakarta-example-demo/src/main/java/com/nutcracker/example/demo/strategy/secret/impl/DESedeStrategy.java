@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DESedeStrategy extends BaseStrategy {
 
-
     @Override
     public SecretStrategyEnum getSecretStrategyEnum() {
         return SecretStrategyEnum.DESede;

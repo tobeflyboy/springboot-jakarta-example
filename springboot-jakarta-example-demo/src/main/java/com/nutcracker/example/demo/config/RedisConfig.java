@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.config;
 
 import com.nutcracker.example.demo.constant.CacheableKey;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
@@ -33,11 +33,11 @@ import java.util.Objects;
  * @date 2020-03-01 09:49
  */
 @Slf4j
+@RequiredArgsConstructor
 @Configuration
 public class RedisConfig implements CachingConfigurer {
 
-    @Resource
-    private RedisConnectionFactory redisConnectionFactory;
+    private final RedisConnectionFactory redisConnectionFactory;
 
     /**
      * redisTemplate 序列化使用的jdkSerializeable, 存储二进制字节码, 所以自定义序列化类

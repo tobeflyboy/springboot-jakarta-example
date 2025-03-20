@@ -35,9 +35,9 @@ public enum SysPermissionEnum {
     GLSY("glsy", "管理首页", null, "dashboard", "fa fa-home", 1, 1, 1),
 
     QXGL("qxgl", "权限管理", null, null, "fa fa-key", 1, 1, 1000),
-    ZNXY_ZYGL("znxy_zygl", "资源管理", "qxgl", "auth/permission_list", "fa fa-cubes", 1, 2, 1001),
-    ZNXY_ZSGL("znxy_zsgl", "角色管理", "qxgl", "auth/role_list", "fa fa-users", 1, 2, 1002),
-    ZNXY_YHGL("znxy_yhgl", "用户管理", "qxgl", "auth/user_list", "fa fa-user", 1, 2, 1003),
+    QXGL_ZYGL("qxgl_zygl", "资源管理", "qxgl", "auth/permission", "fa fa-cubes", 1, 2, 1001),
+    QXGL_ZSGL("qxgl_zsgl", "角色管理", "qxgl", "auth/role_list", "fa fa-users", 1, 2, 1002),
+    QXGL_YHGL("qxgl_yhgl", "用户管理", "qxgl", "auth/user_list", "fa fa-user", 1, 2, 1003),
 
     XTPZ("xtpz", "系统配置", null, "view/sysconfig/setconfig", "fa fa-cogs", 1, 1, 1200),
 
