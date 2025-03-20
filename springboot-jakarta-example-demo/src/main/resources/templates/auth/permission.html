@@ -183,7 +183,7 @@
                     </div>
                     <div class="form-group">
                         <label for="lev">菜单级别</label>
-                        <input type="text" class="form-control" id="lev">
+                        <input type="text" class="form-control" id="lev" readonly>
                     </div>
                     <div class="form-group">
                         <label for="sort">菜单排序</label>
@@ -229,7 +229,7 @@
 
 <!-- 右键菜单模板 -->
 <div id="nodeMenu" class="node-menu" style="display:none;">
-    <div class="node-menu-item" onclick="showAddModal(currentNode.id)">
+    <div class="node-menu-item" onclick="showAddModal(currentNode)">
         <i class="fa fa-plus"></i> 添加子菜单
     </div>
     <div class="node-menu-item" onclick="showEditModal(currentNode)">
@@ -338,12 +338,18 @@
     }
 
     // 显示添加/编辑模态框
-    function showAddModal(parentId) {
+    function showAddModal(node) {
+        console.log(node);
         // 清空表单数据
-        $('#nodeId').val('');
-        $('#parentId').val(parentId || '');
-        $('#modalTitle').text(parentId ? '添加子菜单' : '添加一级菜单');
         $('#nodeForm')[0].reset();
+        if (node) {
+            $('#modalTitle').text('添加子菜单');
+            $('#lev').val(node.lev + 1);
+            $('#parentPermissionCode').val(node.permissionCode);  // 清空父ID（编辑时不需要）
+        } else {
+            $('#modalTitle').text('添加一级菜单');
+            $('#lev').val(1);
+        }
         // 清空图标预览
         $('#icon-preview').html('');
         // 显示模态框
@@ -352,7 +358,7 @@
 
     // 显示编辑表单并填充数据
     function showEditModal(node) {
-        // 填充表单数据
+        $('#nodeForm')[0].reset();
         $('#permissionId').val(node.id);                            // 设置节点ID
         $('#parentPermissionCode').val(node.parentPermissionCode);  // 清空父ID（编辑时不需要）
         $('#permissionName').val(node.permissionName);              // 设置节点名称
@@ -393,7 +399,7 @@
                     $('#nodeModal').modal('hide');
                 } else {
                     let message = '保存失败！';
-                    if(response.message){
+                    if (response.message) {
                         message = response.message;
                     }
                     toastr.error('', message);
@@ -407,7 +413,7 @@
         showConfirm(
             `确定要删除【${node.permissionName}】及其所有子节点吗？`,
             '删除确认',
-            function() {
+            function () {
                 // 确认
                 $.ajax({
                     url: ctx + '/auth/permission/delete/' + node.id, // 使用节点ID
@@ -418,7 +424,7 @@
                             drawTree();
                         } else {
                             let message = '删除失败！';
-                            if(response.message){
+                            if (response.message) {
                                 message = response.message;
                             }
                             toastr.error('', message);
@@ -426,7 +432,7 @@
                     }
                 });
             },
-            function() {
+            function () {
                 // 取消
                 console.log(`【${node.permissionName}】删除操作已取消`);
             }

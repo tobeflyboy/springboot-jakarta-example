@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -134,6 +135,8 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         } else {
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
+            p.setCreateTime(LocalDateTime.now());
+            //p.setCreateBy();
             resultNum = sysPermissionMapper.insert(p);
         }
         log.info("savePermission {},resultNum={}", sysPermission, resultNum);
