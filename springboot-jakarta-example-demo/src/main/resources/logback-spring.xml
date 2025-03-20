@@ -27,7 +27,7 @@
 
     <!-- set print log level  -->
     <logger name="com.nutcracker" level="DEBUG"/>
-    <logger name="org.springframework.security" level="DEBUG"/>
+    <!--<logger name="org.springframework.security" level="DEBUG"/>-->
 
     <!-- print transaction -->
     <logger name="org.mybatis.spring.SqlSessionUtils" level="DEBUG"/>

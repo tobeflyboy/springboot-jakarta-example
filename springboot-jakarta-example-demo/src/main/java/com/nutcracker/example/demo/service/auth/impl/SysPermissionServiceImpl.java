@@ -10,10 +10,12 @@ import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
+import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.util.JSON;
+import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -133,10 +135,11 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             resultNum = sysPermissionMapper.updateSysPermissionById(p);
         } else {
+            SessionUser sessionUser = Identify.getSessionUser();
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
             p.setCreateTime(LocalDateTime.now());
-            //p.setCreateBy();
+            p.setCreateBy(sessionUser.getRealName());
             resultNum = sysPermissionMapper.insert(p);
         }
         log.info("savePermission {},resultNum={}", sysPermission, resultNum);

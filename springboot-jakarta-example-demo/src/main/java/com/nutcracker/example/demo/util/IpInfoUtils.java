@@ -25,6 +25,10 @@ import java.net.UnknownHostException;
 @Slf4j
 public class IpInfoUtils {
 
+    private IpInfoUtils(){
+
+    }
+
     /**
      * 获取客户端IP地址
      */

@@ -129,7 +129,7 @@ public abstract class BaseStrategy {
     /**
      * 工作任务
      *
-     * @author wangxin4
+     * @author 胡桃夹子
      * @date 2025/03/20 10:23:25
      */
     @AllArgsConstructor

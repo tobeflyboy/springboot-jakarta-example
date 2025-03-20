@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 身份验证成功处理程序
  *
- * @author wangxin4
+ * @author 胡桃夹子
  * @date 2025/03/20 10:20:30
  */
 @Slf4j

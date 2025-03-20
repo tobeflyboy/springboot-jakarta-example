@@ -76,8 +76,8 @@ spring:
       strict: false # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       datasource:
         auth:
-          url: jdbc:sqlite::resource:db/auth.sqlite
-#          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/auth.sqlite
+#          url: jdbc:sqlite::resource:db/auth.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/auth.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:
@@ -100,8 +100,8 @@ spring:
             #连接测试查询
             connection-test-query: SELECT 'auth'
         biz:
-          url: jdbc:sqlite::resource:db/biz.sqlite
-#          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/biz.sqlite
+#          url: jdbc:sqlite::resource:db/biz.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/biz.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:

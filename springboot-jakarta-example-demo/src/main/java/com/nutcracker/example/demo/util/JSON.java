@@ -16,6 +16,7 @@ import java.util.List;
  * @author 胡桃夹子
  * @since 2023/12/28 14:02
  */
+@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
 @Slf4j
 public class JSON {
 
