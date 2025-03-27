@@ -30,7 +30,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      *
      * @return {@link List }<{@link SysPermission }>
      */
-    List<SysPermissionDo> findAllSysPermission();
+    List<SysPermissionDo> findAll();
 
     /**
      * 查询用户所能访问的所有菜单
@@ -38,7 +38,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      * @param userId 用户
      * @return {@link List }<{@link SysPermissionDo }>
      */
-    List<SysPermissionDo> findPermissionByUserId(@Param("userId") String userId);
+    List<SysPermissionDo> findByUserId(@Param("userId") String userId);
 
     /**
      * 根据菜单KEY查询菜单
@@ -46,7 +46,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      * @param permissionCode 菜单KEY
      * @return {@link SysPermissionDo }
      */
-    SysPermissionDo findPermissionByPermissionCode(@Param("permissionCode") String permissionCode);
+    SysPermissionDo findByPermissionCode(@Param("permissionCode") String permissionCode);
 
     /**
      * 查询子菜单
@@ -54,14 +54,15 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
      * @param parentPermissionCode 父菜单编码
      * @return {@link List }<{@link SysPermissionDo }>
      */
-    List<SysPermissionDo> findPermissionByParentPermissionCode(@Param("parentPermissionCode") String parentPermissionCode);
+    List<SysPermissionDo> findByParentPermissionCode(@Param("parentPermissionCode") String parentPermissionCode);
+
 
     /**
-     * 查找菜单
+     * 查找全部菜单，同时判断角色有没有权限
      *
-     * @param permission 许可
+     * @param roleId 角色ID
      * @return {@link List }<{@link SysPermission }>
      */
-    List<SysPermission> findSysPermission(SysPermission permission);
+    List<SysPermission> findAllByRoleId(@Param("roleId") String roleId);
 
 }

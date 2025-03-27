@@ -1,7 +1,9 @@
 package com.nutcracker.example.demo.service.auth;
 
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
+import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 
 import java.util.List;
@@ -40,7 +42,7 @@ public interface SysRoleService {
     /**
      * 给角色授权
      *
-     * @param roleCode      角色编码
+     * @param roleCode       角色编码
      * @param permissionCode 授权对应的KEY
      */
     void addRolePermission(String roleCode, String permissionCode);
@@ -49,9 +51,24 @@ public interface SysRoleService {
      * 分页查询角色
      *
      * @param pageNum 当前页码
-     * @param role  {@link SysRole }
+     * @param role    {@link SysRole }
      * @return {@link List }<{@link SysRole }>
      */
-    PageInfo<SysRole> findSysRoleByPage(Integer pageNum , SysRole role);
+    PageInfo<SysRole> findSysRoleByPage(Integer pageNum, SysRole role);
 
+    /**
+     * 编辑角色
+     *
+     * @param role 角色
+     * @return {@link ApiResponse }<{@link Boolean }>
+     */
+    ApiResponse<Boolean> editRole(SysRole role);
+
+    /**
+     * 给角色授权
+     *
+     * @param saveRolePermission 保存角色权限
+     * @return {@link ApiResponse }<{@link Boolean }>
+     */
+    ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission);
 }

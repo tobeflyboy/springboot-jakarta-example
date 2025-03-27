@@ -49,7 +49,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        List<SysPermission> permissions = sysPermissionService.getMenuPermissionByUserId(sysUserDo.getId());
+        List<SysPermission> permissions = sysPermissionService.getSysPermissionByUserId(sysUserDo.getId());
         SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
         SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
         SessionUser sessionUser = SessionUser.builder()

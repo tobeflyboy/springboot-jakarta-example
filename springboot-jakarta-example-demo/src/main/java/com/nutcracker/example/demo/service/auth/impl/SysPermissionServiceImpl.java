@@ -4,9 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
@@ -44,27 +41,35 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     private final SysPermissionMapper sysPermissionMapper;
 
     @Override
-    public List<SysPermission> findAllSysPermission() {
-        List<SysPermissionDo> sysPermissionDos = sysPermissionMapper.findAllSysPermission();
-        log.info("findAllSysPermission: \n{}", JSON.toJSONString(sysPermissionDos));
-        return getPermissionTree(sysPermissionDos);
+    public List<SysPermission> findSysPermission() {
+        List<SysPermissionDo> permissionDoList = sysPermissionMapper.findAll();
+        log.info("findAllSysPermission: \n{}", JSON.toJSONString(permissionDoList));
+        if (CollUtil.isEmpty(permissionDoList)) {
+            return Collections.emptyList();
+        }
+        List<SysPermission> list = SysPermissionConvert.INSTANCE.toDomain(permissionDoList);
+        return getPermissionTree(list);
     }
 
     @Override
-    public List<SysPermission> getMenuPermissionByUserId(String userId) {
-        List<SysPermissionDo> sysPermissionDos = sysPermissionMapper.findPermissionByUserId(userId);
-        log.info("getMenuPermissionByUserId: \n{}", JSON.toJSONString(sysPermissionDos));
-        return getPermissionTree(sysPermissionDos);
+    public List<SysPermission> getSysPermissionByUserId(String userId) {
+        List<SysPermissionDo> permissionDoList = sysPermissionMapper.findByUserId(userId);
+        log.info("getMenuPermissionByUserId: \n{}", JSON.toJSONString(permissionDoList));
+        if (CollUtil.isEmpty(permissionDoList)) {
+            return Collections.emptyList();
+        }
+        List<SysPermission> list = SysPermissionConvert.INSTANCE.toDomain(permissionDoList);
+        return getPermissionTree(list);
     }
 
-    private List<SysPermission> getPermissionTree(List<SysPermissionDo> sysPermissionDos) {
+    private List<SysPermission> getPermissionTree(List<SysPermission> permissionList) {
         // 如果查询结果为空，直接返回空列表
-        if (CollectionUtil.isEmpty(sysPermissionDos)) {
+        if (CollectionUtil.isEmpty(permissionList)) {
             return Collections.emptyList();
         }
 
         // 将 DO 对象转换为 VO 对象，并按菜单级别分组
-        Map<Integer, List<SysPermission>> menuLevelMap = groupPermissionsByLevel(sysPermissionDos);
+        Map<Integer, List<SysPermission>> menuLevelMap = groupPermissionsByLevel(permissionList);
 
         // 获取各级菜单
         List<SysPermission> oneLevelMenus = menuLevelMap.getOrDefault(1, Collections.emptyList());
@@ -84,13 +89,12 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     /**
      * 将权限数据按菜单级别分组
      *
-     * @param sysPermissionDos 权限数据列表
+     * @param permissionList 权限数据列表
      * @return 按菜单级别分组的 Map
      */
-    private Map<Integer, List<SysPermission>> groupPermissionsByLevel(List<SysPermissionDo> sysPermissionDos) {
+    private Map<Integer, List<SysPermission>> groupPermissionsByLevel(List<SysPermission> permissionList) {
         Map<Integer, List<SysPermission>> map = new HashMap<>();
-        for (SysPermissionDo sysPermissionDo : sysPermissionDos) {
-            SysPermission sysPermission = SysPermissionConvert.INSTANCE.toDomain(sysPermissionDo);
+        for (SysPermission sysPermission : permissionList) {
             map.computeIfAbsent(sysPermission.getLev(), k -> new ArrayList<>()).add(sysPermission);
         }
         return map;
@@ -150,28 +154,25 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
-    public ApiResponse<Boolean> deletePermission(String id) {
-        log.info("deletePermission id={}", id);
-        SysPermissionDo sysPermissionDo = sysPermissionMapper.selectById(id);
-        List<SysPermissionDo> children = sysPermissionMapper.findPermissionByParentPermissionCode(sysPermissionDo.getPermissionCode());
+    public ApiResponse<Boolean> deletePermission(String permissionId) {
+        log.info("deletePermission permissionId={}", permissionId);
+        SysPermissionDo sysPermissionDo = sysPermissionMapper.selectById(permissionId);
+        List<SysPermissionDo> children = sysPermissionMapper.findByParentPermissionCode(sysPermissionDo.getPermissionCode());
         if (CollUtil.isNotEmpty(children)) {
             return ApiResponse.fail("因为还有下级菜单，无法执行删除操作！");
         }
-        if (sysPermissionMapper.deleteById(id) > 0) {
+        if (sysPermissionMapper.deleteById(permissionId) > 0) {
             return ApiResponse.ofSuccess(Boolean.TRUE);
         }
         return ApiResponse.fail("删除失败！");
     }
 
     @Override
-    public PageInfo<SysPermission> findSysPermissionByPage(Integer pageNum, SysPermission permission) {
-        log.info("findSysPermissionByPage , pageNum={},{}", pageNum, permission);
-        pageNum = pageNum == null ? 1 : pageNum;
-        PageHelper.startPage(pageNum, DemoConstants.PAGE_SIZE);
-        List<SysPermission> list = sysPermissionMapper.findSysPermission(permission);
-        PageInfo<SysPermission> page = new PageInfo<>(list);
-        log.debug("findSysPermissionByPage page.toString()={}", page);
-        return page;
+    public List<SysPermission> getSysPermissionByRoleId(String roleId) {
+        List<SysPermission> sysPermissionDos = sysPermissionMapper.findAllByRoleId(roleId);
+        if (CollUtil.isNotEmpty(sysPermissionDos)) {
+            return getPermissionTree(sysPermissionDos);
+        }
+        return Collections.emptyList();
     }
-
 }

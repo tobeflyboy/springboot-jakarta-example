@@ -128,7 +128,7 @@
                             <h6>点击选择菜单后，右键可添加子节点、可编辑、可删除</h6>
                         </div>
                         <div class="ibox-content">
-                            <div id="tree"></div>
+                            <div id="permissionTree"></div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +275,6 @@
 <script th:src="@{/static/js/plugins/tagsinput/jquery.tagsinput.js}"></script>
 <script th:src="@{/static/js/plugins/rslide/rslide.js}"></script>
 <script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
-<script th:src="@{/static/js/plugins/loading/jquery.loading.js}"></script>
 <script th:src="@{/static/js/plugins/treeview/bootstrap-treeview.min.js}"></script>
 <script th:src="@{/static/font-awesome/js/icon.js}"></script>
 <script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
@@ -310,7 +309,7 @@
         // 生成图标HTML
         const iconHtml = filteredIcons.map(icon => `
             <div class="icon-item">
-                <i class="fa ${icon.name}"></i>
+                <i class="${icon.name}"></i>
                 <p class="text-muted">${icon.label}</p>
             </div>
         `).join('');
@@ -338,7 +337,7 @@
 
     // 初始化树结构
     function initTree() {
-        $('#tree').treeview({
+        $('#permissionTree').treeview({
             data: treeData,
             showIcon: false,
             levels: 1,
@@ -487,20 +486,26 @@
     function convertToTreeView(nodes) {
         return nodes.map(function (permission) {
             const iconHtml = permission.icon ? `<i class="${permission.icon}"></i>` : '';
-            return {
-                id: permission.id,          // 使用权限实体的ID
-                permissionCode: permission.permissionCode, // 保留权限编码
-                permissionName: permission.permissionName, // 保留原始字段
-                parentPermissionCode: permission.parentPermissionCode, // 保留父ID
+            const node = {
+                id: permission.id,
+                permissionCode: permission.permissionCode,
+                permissionName: permission.permissionName,
+                parentPermissionCode: permission.parentPermissionCode,
                 icon: permission.icon,
                 url: permission.url,
                 lev: permission.lev,
                 sort: permission.sort,
-                text: `&nbsp;&nbsp;&nbsp;&nbsp;${permission.permissionName} ${iconHtml}`, // 增强显示
-                // selectable: !permission.children || permission.children.length === 0,
+                text: `&nbsp;&nbsp;&nbsp;&nbsp;${permission.permissionName} ${iconHtml}`,
                 selectable: true,
                 nodes: permission.children ? convertToTreeView(permission.children) : null
             };
+            // 如果有 checked 字段，则设置 state.checked
+            if (permission.checked !== undefined) {
+                node.state = {
+                    checked: permission.checked
+                };
+            }
+            return node;
         });
     }
 
@@ -508,7 +513,6 @@
     $(document).ready(function () {
         // 初始化菜单树
         drawTree();
-
         $("#saveNodeForm").validate({
             rules: {
                 permissionName: {required: true},
@@ -524,7 +528,7 @@
             submitHandler: function (form) {
                 // 对icon做特殊的校验
                 const icon = $('#icon').val();
-                if(!icon){
+                if (!icon) {
                     $('#icon-preview').before(`<label id="icon-error" class="error" for="icon">请选择icon图标!</label>`)
                     return;
                 }

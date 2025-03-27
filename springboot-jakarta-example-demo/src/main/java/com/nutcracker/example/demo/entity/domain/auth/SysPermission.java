@@ -64,6 +64,9 @@ public class SysPermission implements Serializable {
     @Schema(description = "创建人", name = "createUserRealName")
     private String createUserRealName;
 
+    @Schema(description = "是否选中,true=选中,false=未选择")
+    private boolean checked;
+
     @Schema(description = "子菜单")
     private List<SysPermission> children;
 }

@@ -2,6 +2,7 @@ package com.nutcracker.example.demo.web.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.entity.ApiResponse;
+import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
@@ -64,7 +65,7 @@ public class AuthController {
     @ResponseBody
     public List<SysPermission> permissionTree() {
         log.info("/auth/permission/tree");
-        return sysPermissionService.findAllSysPermission();
+        return sysPermissionService.findSysPermission();
     }
 
     @PostMapping("/auth/permission/save")
@@ -76,12 +77,12 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/auth/permission/delete/{id}")
+    @PostMapping("/auth/permission/delete/{permissionId}")
     @ResponseBody
-    public ApiResponse<Boolean> permissionDelete(@PathVariable("id") String id) {
-        log.info("/auth/permission/delete id={}", id);
-        ApiResponse<Boolean> response = sysPermissionService.deletePermission(id);
-        log.info("/auth/permission/delete id={}, response={}", id, response);
+    public ApiResponse<Boolean> permissionDelete(@PathVariable("permissionId") String permissionId) {
+        log.info("/auth/permission/delete permissionId={}", permissionId);
+        ApiResponse<Boolean> response = sysPermissionService.deletePermission(permissionId);
+        log.info("/auth/permission/delete permissionId={}, response={}", permissionId, response);
         return response;
     }
 
@@ -100,6 +101,33 @@ public class AuthController {
         model.put("page", page);
         model.put("role", role);
         return "auth/role_list_page";
+    }
+
+    @PostMapping("/auth/edit/role")
+    @ResponseBody
+    public ApiResponse<Boolean> editRole(@RequestBody SysRole role) {
+        log.info("/auth/edit/save {}", role);
+        ApiResponse<Boolean> response = sysRoleService.editRole(role);
+        log.info("/auth/edit/save {}, response={}", role, response);
+        return response;
+    }
+
+    @GetMapping("/auth/role_permission/{roleId}")
+    @ResponseBody
+    public List<SysPermission> rolePermission(@PathVariable("roleId") String roleId) {
+        log.info("/auth/role_permission/{}", roleId);
+        List<SysPermission> list = sysPermissionService.getSysPermissionByRoleId(roleId);
+        log.info("/auth/role_permission/{},list={}", roleId, JSON.toJSONString(list));
+        return list;
+    }
+
+    @PostMapping("/auth/role_permission/save")
+    @ResponseBody
+    public ApiResponse<Boolean> rolePermissionSave(@RequestBody SaveRolePermission save) {
+        log.info("/auth/role_permission/save {}", save);
+        ApiResponse<Boolean> response = sysRoleService.saveRolePermission(save);
+        log.info("/auth/role_permission/save {}, response={}", save, response);
+        return response;
     }
 
     @GetMapping("/auth/user_list")

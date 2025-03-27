@@ -5,6 +5,8 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 角色与资源关系Mapper
  *
@@ -22,5 +24,21 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermissionDo>
      * @return {@link SysRolePermissionDo }
      */
     SysRolePermissionDo findRolePermissionByRoleIdAndPermissionId(@Param("roleId") String roleId, @Param("permissionId") String permissionId);
+
+    /**
+     * 按角色id删除
+     *
+     * @param roleId 角色ID
+     * @return int
+     */
+    int deleteRolePermissionByRoleId(@Param("roleId") String roleId);
+
+    /**
+     * 批量插入
+     *
+     * @param list 列表
+     * @return int
+     */
+    int batchInsert(List<SysRolePermissionDo> list);
 
 }

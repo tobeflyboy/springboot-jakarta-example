@@ -61,7 +61,7 @@ public class InitTest {
             List<SysPermissionDo> list = SysPermissionEnum.getPermissionList();
             log.info("\n{}", JSON.toJSONString(list));
             for (SysPermissionDo sysPermissionDo : list) {
-                SysPermissionDo permissionDo = sysPermissionMapper.findPermissionByPermissionCode(sysPermissionDo.getPermissionCode());
+                SysPermissionDo permissionDo = sysPermissionMapper.findByPermissionCode(sysPermissionDo.getPermissionCode());
                 if (null == permissionDo) {
                     int isSuccess = sysPermissionMapper.insert(sysPermissionDo);
                     log.info("添加资源 {},{}", isSuccess, sysPermissionDo);
@@ -103,7 +103,7 @@ public class InitTest {
                 throw new BusinessException("未找到角色");
             }
             for (SysPermissionEnum sysPermissionEnum : SysPermissionEnum.values()) {
-                SysPermissionDo sysPermissionDo = sysPermissionMapper.findPermissionByPermissionCode(sysPermissionEnum.getPermissionCode());
+                SysPermissionDo sysPermissionDo = sysPermissionMapper.findByPermissionCode(sysPermissionEnum.getPermissionCode());
                 if (sysPermissionDo == null) {
                     log.error("未找到资源，{}", sysPermissionEnum);
                     continue;

@@ -27,8 +27,10 @@
                                 data-create-user-real-name=${role.createUserRealName},
                                 data-create-time=${#temporals.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')}
                                 ">
-                            <button onclick="viewDetail(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through view-detail-btn" data-toggle="modal" data-target="#role-detail-box" title="查看详情">
-                                <i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button onclick="showEditRoleModal(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#roleEditModal" title="查看角色详情">
+                                <i class="fa fa-eye"></i>&nbsp;&nbsp;编辑</button>
+                            <button onclick="showRolePermissionModal(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#rolePermissionModal" title="给角色授予菜单权限">
+                                <i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;授权</button>
                         </div>
                     </td>
                 </tr>

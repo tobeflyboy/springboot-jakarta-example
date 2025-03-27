@@ -1,7 +1,6 @@
-# https://github.com/redisson/redisson/wiki/2.-配置方法#22-文件方式配置
 ---
-# 单节点配置
-singleServerConfig:
+# 集群配置
+clusterServersConfig:
   # 连接空闲超时，单位：毫秒
   idleConnectionTimeout: 10000
   # 连接超时，单位：毫秒
@@ -19,19 +18,53 @@ singleServerConfig:
   subscriptionsPerConnection: 5
   # 客户端名称
   clientName: 'demo'
+  # 负载均衡算法：
+  #  org.redisson.connection.balancer.WeightedRoundRobinBalancer - 权重轮询调度算法
+  #  org.redisson.connection.balancer.RoundRobinLoadBalancer - 轮询调度算法
+  #  org.redisson.connection.balancer.RandomLoadBalancer - 随机调度算法
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
   # 发布和订阅连接的最小空闲连接数
   subscriptionConnectionMinimumIdleSize: 1
   # 发布和订阅连接池大小
   subscriptionConnectionPoolSize: 50
+  # 从节点最小空闲连接数
+  slaveConnectionMinimumIdleSize: 10
+  # 从节点连接池大小
+  slaveConnectionPoolSize: 24
+  # 主节点最小空闲连接数
+  masterConnectionMinimumIdleSize: 10
+  # 主节点连接池大小
+  masterConnectionPoolSize: 24
+  # 读取操作的负载均衡模式，可用值为：
+  #  SLAVE - 只在从服务节点里读取。
+  #  MASTER - 只在主服务节点里读取。
+  #  MASTER_SLAVE - 在主从服务节点里都可以读取。
+  readMode: "SLAVE"
+  # 订阅操作的负载均衡模式，可用值为：
+  #  SLAVE - 只在从服务节点里订阅。
+  #  MASTER - 只在主服务节点里订阅。
+  subscriptionMode: "SLAVE"
   # 节点地址
-  address: "redis://10.28.21.165:6382"
-  # database
-  database: 15
-  # 线程池数量,默认值: 当前处理核数量 * 2
-#threads: 16
+  nodeAddresses:
+    - "redis://10.28.21.213:5000"
+    - "redis://10.28.21.213:5001"
+    - "redis://10.28.21.213:5002"
+    - "redis://10.28.21.213:5003"
+    - "redis://10.28.21.213:5004"
+    - "redis://10.28.21.213:5005"
+  # 集群扫描间隔时间，对主节点变化节点状态扫描的时间间隔。单位是毫秒
+  scanInterval: 1000
+  # ping连接间隔
+  pingConnectionInterval: 1000
+  # 是否保持连接
+  keepAlive: false
+  tcpNoDelay: false
+# 线程池数量,默认值: 当前处理核数量 * 2
+threads: 16
 # Netty线程池数量,默认值: 当前处理核数量 * 2
-#nettyThreads: 32
-# 编码
-codec: !<org.redisson.codec.JsonJacksonCodec> { }
+nettyThreads: 32
+# Redisson的对象编码类是用于将对象进行序列化和反序列化，以实现对该对象在Redis里的读取和存储。
+# Redisson提供了多种的对象编码应用，以供大家选择：https://github.com/redisson/redisson/wiki/4.-data-serialization
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
 # 传输模式
 transportMode: "NIO"

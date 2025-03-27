@@ -1,6 +1,5 @@
 package com.nutcracker.example.demo.service.auth;
 
-import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 
@@ -19,7 +18,7 @@ public interface SysPermissionService {
      *
      * @return {@link List }<{@link SysPermission }>
      */
-    List<SysPermission> findAllSysPermission();
+    List<SysPermission> findSysPermission();
 
     /**
      * 查询用户所能访问的所有菜单
@@ -27,7 +26,7 @@ public interface SysPermissionService {
      * @param userId 用户ID
      * @return {@link List }<{@link SysPermission }>
      */
-    List<SysPermission> getMenuPermissionByUserId(String userId);
+    List<SysPermission> getSysPermissionByUserId(String userId);
 
     /**
      * 保存菜单
@@ -37,20 +36,20 @@ public interface SysPermissionService {
     ApiResponse<Boolean> savePermission(SysPermission sysPermission);
 
     /**
-     * 删除权限
+     * 删除菜单权限
      *
-     * @param id 本我
+     * @param permissionId 菜单权限id
      * @return {@link ApiResponse }<{@link Boolean }>
      */
-    ApiResponse<Boolean> deletePermission(String id);
+    ApiResponse<Boolean> deletePermission(String permissionId);
+
 
     /**
-     * 分页查询资源
+     * 查询角色所拥有的所有菜单
      *
-     * @param pageNum 当前页码
-     * @param permission  {@link SysPermission }
+     * @param roleId 角色ID
      * @return {@link List }<{@link SysPermission }>
      */
-    PageInfo<SysPermission> findSysPermissionByPage(Integer pageNum , SysPermission permission);
+    List<SysPermission> getSysPermissionByRoleId(String roleId);
 
 }
