@@ -296,8 +296,8 @@
         $('#editRoleForm')[0].reset();
         const roleId = $(btn).data("id");
         const role = $('#' + roleId);
-        const roleCode = role.attr("data-role-code");
-        const roleName = role.attr("data-role-name");
+        const roleCode = role.data("role-code");
+        const roleName = role.data("role-name");
         $("#editRoleId").val(roleId);
         $("#editRoleCode").val(roleCode);
         $("#editRoleName").val(roleName);
@@ -318,6 +318,7 @@
             $('.perm-checkbox').change(function () {
                 const $checkbox = $(this);
                 const isChecked = $checkbox.prop('checked');
+
                 // 处理子节点
                 if ($checkbox.data('has-child')) {
                     $checkbox.closest('.permission-item')
@@ -328,7 +329,8 @@
 
                 // 处理父节点
                 const parentCode = $checkbox.data('parent-code');
-                if (parentCode) {
+                const code = $checkbox.data('code');
+                if (parentCode && parentCode !== code) {
                     const $parent = $(`.perm-checkbox[data-code="${parentCode}"]`);
                     updateParentState($parent);
                 }

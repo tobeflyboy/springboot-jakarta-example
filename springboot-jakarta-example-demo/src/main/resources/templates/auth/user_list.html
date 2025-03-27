@@ -369,17 +369,17 @@
 
     // 查看详情
     function viewDetail(btn) {
-        let userid = $(btn).attr("data-id");
+        let userid = $(btn).data("id");
         let user = $('#' + userid);
-        let username = user.attr("data-username");
-        let realName = user.attr("data-real-name");
-        let email = user.attr("data-email");
-        let status = user.attr("data-status");
-        let createTime = user.attr("data-create-time");
-        let createUserRealName = user.attr("data-create-user-real-name");
-        let updateTime = user.attr("data-update-time");
-        let updateUserRealName = user.attr("data-update-user-real-name");
-        let lastLoginTime = user.attr("data-last-login-time");
+        let username = user.data("username");
+        let realName = user.data("real-name");
+        let email = user.data("email");
+        let status = user.data("status");
+        let createTime = user.data("create-time");
+        let createUserRealName = user.data("create-user-real-name");
+        let updateTime = user.data("update-time");
+        let updateUserRealName = user.data("update-user-real-name");
+        let lastLoginTime = user.data("last-login-time");
 
         $("#detail-username").text(username);
         $("#detail-real-name").text(realName);
