@@ -340,7 +340,9 @@
 
     // 获取选中权限ID
     function getSelectedPermissionIds() {
-        return $('.perm-checkbox:checked').map(function () {
+        return $('.perm-checkbox').filter(function () {
+            return this.checked || this.indeterminate;
+        }).map(function () {
             return $(this).data('id');
         }).get();
     }
@@ -413,9 +415,9 @@
         const children = $parent.closest('.permission-item').find('.child-permissions .perm-checkbox');
         const allChecked = children.length === children.filter(':checked').length;
         const anyChecked = children.filter(':checked').length > 0;
-
+        console.log(allChecked, anyChecked);
         $parent.prop('checked', allChecked);
-        $parent.prop('indeterminate', anyChecked && !allChecked);
+        $parent.prop('indeterminate', anyChecked && !allChecked);// 设置不确定状态
 
         // 判断是否还有父节点，如果有则继续更上一级父节点状态
         const parentCode = $parent.data('parent-code');
