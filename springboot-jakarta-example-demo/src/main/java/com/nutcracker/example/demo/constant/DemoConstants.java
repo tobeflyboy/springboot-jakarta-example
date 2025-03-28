@@ -19,21 +19,13 @@ public class DemoConstants {
 
     /* session & session key */
     public static final String LOGIN_USER_SESSION_KEY = "sessionUser";
-    /** cookie */
-    public static final String LOGIN_USER_COOKIE_KEY = "sessionUser";
-    public static final String CONTEXT_PATH_COOKIE_KEY = "ctx";
 
     public static final String LOGIN_URL = "/login";
 
     public static final String LOGOUT_URL = "/logout";
 
-    public static final String LOGIN_SUCCESS = "登录成功";
-
-    public static final String LOGIN_FAIL = "登录失败";
-
-    public static final String LOGOUT_SUCCESS = "退出成功";
-
-    public static final String LOGIN_MAX_LIMIT = "登录超出最大限制";
+    /** 菜单最大层级 */
+    public static final int PERMISSION_MAX_LEVEL = 3;
 
 
     /**

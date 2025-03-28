@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,20 +77,23 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
         // 将 DO 对象转换为 VO 对象，并按菜单级别分组
         Map<Integer, List<SysPermission>> menuLevelMap = groupPermissionsByLevel(permissionList);
+        // 获取所有层级
+        List<Integer> levels = new ArrayList<>(menuLevelMap.keySet());
+        // 从大到小排序
+        levels.sort(Comparator.reverseOrder());
 
-        // 获取各级菜单
-        List<SysPermission> oneLevelMenus = menuLevelMap.getOrDefault(1, Collections.emptyList());
-        List<SysPermission> twoLevelMenus = menuLevelMap.getOrDefault(2, Collections.emptyList());
-        List<SysPermission> threeLevelMenus = menuLevelMap.getOrDefault(3, Collections.emptyList());
-
-        // 将三级菜单挂到二级菜单下
-        attachChildrenToParent(threeLevelMenus, twoLevelMenus);
-
-        // 将二级菜单挂到一级菜单下
-        attachChildrenToParent(twoLevelMenus, oneLevelMenus);
-
-        // 返回一级菜单
-        return oneLevelMenus;
+        List<SysPermission> result = null;
+        for (Integer level : levels) {
+            List<SysPermission> menuList = menuLevelMap.get(level);
+            int parentLevel = Math.max(0, level - 1);
+            // 获取上一级菜单
+            List<SysPermission> parentMenus = menuLevelMap.getOrDefault(parentLevel, Collections.emptyList());
+            // 将子菜单挂到父菜单下
+            attachChildrenToParent(menuList, parentMenus);
+            result = menuList;
+        }
+        // 返回顶级菜单，即一级菜单
+        return result;
     }
 
     /**
@@ -114,6 +118,9 @@ public class SysPermissionServiceImpl implements SysPermissionService {
      * @param parents  父菜单列表
      */
     private void attachChildrenToParent(List<SysPermission> children, List<SysPermission> parents) {
+        if (CollectionUtil.isEmpty(children) || CollectionUtil.isEmpty(parents)) {
+            return;
+        }
         // 将父菜单列表转换为 Map，方便快速查找
         Map<String, SysPermission> parentMap = parents.stream()
                 .collect(Collectors.toMap(SysPermission::getPermissionCode, Function.identity()));

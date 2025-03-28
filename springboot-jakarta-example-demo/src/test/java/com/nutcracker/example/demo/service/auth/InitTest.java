@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.service.auth;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -108,6 +110,7 @@ public class InitTest {
             if (sysRoleDo == null) {
                 throw new BusinessException("未找到角色");
             }
+            List<SysRolePermissionDo> list = new ArrayList<>();
             for (SysPermissionEnum sysPermissionEnum : SysPermissionEnum.values()) {
                 SysPermissionDo sysPermissionDo = sysPermissionMapper.findByPermissionCode(sysPermissionEnum.getPermissionCode());
                 if (sysPermissionDo == null) {
@@ -123,10 +126,16 @@ public class InitTest {
                             .permissionId(sysPermissionDo.getId())
                             .createTime(Calendar.getInstance().getTime())
                             .build();
-                    sysRolePermissionMapper.insert(sysRolePermissionDo);
+                    list.add(sysRolePermissionDo);
                 } else {
                     log.error("角色资源已存在，{}", sysRolePermissionDo);
                 }
+            }
+            List<List<SysRolePermissionDo>> batchList = CollUtil.split(list, 100);
+            for (int i = 0; i < batchList.size(); i++) {
+                List<SysRolePermissionDo> doList = batchList.get(i);
+                int ret = sysRolePermissionMapper.batchInsert(doList);
+                log.info("saveRolePermission , batchInsert ret={}, i={},doList={}", ret, i, doList);
             }
         } catch (Exception e) {
             log.error("addSysRolePermission fail", e);
