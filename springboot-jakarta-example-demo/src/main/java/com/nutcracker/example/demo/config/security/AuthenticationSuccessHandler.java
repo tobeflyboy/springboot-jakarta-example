@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -67,7 +67,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
                 .sysRole(role)
                 .build();
         WebUtil.setSessionUser(request, response, sessionUser);
-        sysUserDo.setLastLoginTime(LocalDateTime.now());
+        sysUserDo.setLastLoginTime(Calendar.getInstance().getTime());
         sysUserService.updateLastLoginTime(sysUserDo);
 
         log.info("onAuthenticationSuccess {} 登录成功", sessionUser.getUsername());

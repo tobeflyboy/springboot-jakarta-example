@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * sys_role domain
@@ -36,9 +36,9 @@ public class SysRole implements Serializable {
     @Schema(description = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String roleName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @Schema(description = "创建人", name = "createUserRealName")
     private String createUserRealName;

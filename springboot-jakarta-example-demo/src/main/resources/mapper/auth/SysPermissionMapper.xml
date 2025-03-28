@@ -12,7 +12,7 @@
         <result column="hide" jdbcType="INTEGER" property="hide" />
         <result column="lev" jdbcType="INTEGER" property="lev" />
         <result column="sort" jdbcType="INTEGER" property="sort" />
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_time" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     </resultMap>
 

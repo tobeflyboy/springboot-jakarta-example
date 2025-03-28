@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.web.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
@@ -29,8 +30,9 @@ public class ViewController {
     public String leftNav(ModelMap model) {
         SessionUser user = Identify.getSessionUser();
         log.info("loading leftnav, roleId={}", user.getSysRole().getId());
-        List<SysPermission> permissions = sysPermissionService.getSysPermissionByRoleId(user.getSysRole().getId());
+        List<SysPermission> permissions = sysPermissionService.getRolePermissionByRoleId(user.getSysRole().getId());
         model.put("permissions", permissions);
+        log.info("loading leftnav, roleId={},permissions.size={}", user.getSysRole().getId(), CollUtil.size(permissions));
         return "leftnav";
     }
 

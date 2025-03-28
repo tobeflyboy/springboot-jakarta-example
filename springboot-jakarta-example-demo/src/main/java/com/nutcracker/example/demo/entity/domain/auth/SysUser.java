@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 用户对象
@@ -44,22 +44,22 @@ public class SysUser implements Serializable {
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer status;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @Schema(description = "创建人")
     private String createUserRealName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     @Schema(description = "更新人")
     private String updateUserRealName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "最后登录时间")
-    private LocalDateTime lastLoginTime;
+    private Date lastLoginTime;
 
 }

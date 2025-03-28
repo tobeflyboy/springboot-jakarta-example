@@ -20,8 +20,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +53,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return getPermissionTree(list);
     }
 
-    @Cacheable(value = CacheableKey.ROLE_PERMISSION, key = "#roleId")
+    @Cacheable(value = CacheableKey.ROLE_PERMISSION, key = "#roleId", unless = "#result == null")
     @Override
     public List<SysPermission> getRolePermissionByRoleId(String roleId) {
         log.info("getRolePermissionByRoleId roleId={}", roleId);
@@ -63,7 +63,9 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             return Collections.emptyList();
         }
         List<SysPermission> list = SysPermissionConvert.INSTANCE.toDomain(permissionDoList);
-        return getPermissionTree(list);
+        List<SysPermission> result = getPermissionTree(list);
+        log.debug("getRolePermissionByRoleId roleId={},result={}", roleId, JSON.toJSONString(result));
+        return result;
     }
 
     private List<SysPermission> getPermissionTree(List<SysPermission> permissionList) {
@@ -146,7 +148,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             SessionUser sessionUser = Identify.getSessionUser();
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
-            p.setCreateTime(LocalDateTime.now());
+            p.setCreateTime(Calendar.getInstance().getTime());
             p.setCreateBy(sessionUser.getRealName());
             resultNum = sysPermissionMapper.insert(p);
         }

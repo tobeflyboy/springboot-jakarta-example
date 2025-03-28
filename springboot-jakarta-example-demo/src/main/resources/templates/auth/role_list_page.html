@@ -16,7 +16,7 @@
                 <tr th:each="role:${page.list}">
                     <td th:text="${role.roleCode}" class="small"></td>
                     <td th:text="${role.roleName}" class="small"></td>
-                    <td th:text="${#temporals.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${role.createTime} ? ${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
                     <td th:text="${role.createUserRealName}" class="small"></td>
                     <td class="text-right text-nowrap" style="min-width: 125px;">
                         <div class="btn-group"
@@ -25,7 +25,7 @@
                                 data-role-code=${role.roleCode},
                                 data-role-name=${role.roleName},
                                 data-create-user-real-name=${role.createUserRealName},
-                                data-create-time=${#temporals.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')}
+                                data-create-time=${role.createTime} ? ${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')} : ''
                                 ">
                             <button onclick="showEditRoleModal(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#roleEditModal" title="查看角色详情">
                                 <i class="fa fa-eye"></i>&nbsp;&nbsp;编辑</button>

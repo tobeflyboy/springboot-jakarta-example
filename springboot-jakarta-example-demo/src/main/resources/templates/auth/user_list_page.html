@@ -23,11 +23,11 @@
                     <td th:text="${user.realName}" class="small"></td>
                     <td th:text="${user.email}" class="small"></td>
                     <td th:text="${statusMap[user.status]?.msg}" class="small"></td>
-                    <td th:text="${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${user.createTime} ? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
                     <td th:text="${user.createUserRealName}" class="small"></td>
-                    <td th:text="${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${user.updateTime} ? ${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
                     <td th:text="${user.updateUserRealName}" class="small"></td>
-                    <td th:text="${#temporals.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}" class="small"></td>
+                    <td th:text="${user.lastLoginTime} ? ${#dates.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
                     <td class="text-right text-nowrap" style="min-width: 125px;">
                         <div class="btn-group"
                              th:id="${user.id}"
@@ -37,10 +37,10 @@
                                 data-email=${user.email},
                                 data-status=${statusMap[user.status]?.msg},
                                 data-create-user-real-name=${user.createUserRealName},
-                                data-create-time=${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')},
+                                data-create-time=${user.createTime} ? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')} : '',
                                 data-update-user-real-name=${user.updateUserRealName},
-                                data-update-time=${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')},
-                                data-last-login-time=${#temporals.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}
+                                data-update-time=${user.updateTime} ? ${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')} : '',
+                                data-last-login-time=${user.lastLoginTime} ? ${#dates.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')} : ''
                                 ">
                             <button onclick="viewDetail(this)" th:attr="data-id=${user.id}" class="btn-white btn btn-sm through view-detail-btn" data-toggle="modal" data-target="#user-detail-box" title="查看详情">
                                 <i class="glyphicon glyphicon-eye-open"></i></button>

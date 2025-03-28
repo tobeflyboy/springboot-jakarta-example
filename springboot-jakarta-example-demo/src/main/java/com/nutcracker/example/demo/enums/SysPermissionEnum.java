@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -156,7 +156,7 @@ public enum SysPermissionEnum {
                     .hide(p.getHide())
                     .lev(p.getLev())
                     .sort(p.getSort())
-                    .createTime(LocalDateTime.now())
+                    .createTime(Calendar.getInstance().getTime())
                     .build();
             INIT_SYS_PERMISSION_LIST.add(per);
         }

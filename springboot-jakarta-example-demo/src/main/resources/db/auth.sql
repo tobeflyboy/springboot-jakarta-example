@@ -8,7 +8,7 @@ create table sys_permission  (
     hide integer,
     lev integer,
     sort integer,
-    create_time timestamp not null,
+    create_time varchar(50) not null,
     create_by varchar(32),
     primary key (id)
 );
@@ -17,7 +17,7 @@ create table sys_role  (
     id varchar(32) not null,
     role_code varchar(100) not null,
     role_name varchar(100) not null,
-    create_time timestamp not null,
+    create_time varchar(50) not null,
     create_by varchar(32),
     primary key (id)
 );
@@ -26,7 +26,7 @@ create table sys_role_permission  (
     id varchar(32) not null,
     role_id varchar(32) not null,
     permission_id varchar(32) not null,
-    create_time timestamp not null,
+    create_time varchar(50) not null,
     create_by varchar(32),
     primary key (id)
 );
@@ -39,11 +39,11 @@ create table sys_user  (
     real_name varchar(50),
     email varchar(100),
     status integer not null,
-    create_time timestamp not null,
+    create_time varchar(50) not null,
     create_by varchar(32),
-    update_time timestamp,
+    update_time varchar(50),
     update_by varchar(32),
-    last_login_time timestamp,
+    last_login_time varchar(50),
     primary key (id)
 );
 
@@ -51,7 +51,7 @@ create table sys_user_role  (
     id varchar(32) not null,
     user_id varchar(32) not null,
     role_id varchar(32) not null,
-    create_time timestamp not null,
+    create_time varchar(50) not null,
     create_by varchar(32)
 );
 
@@ -76,7 +76,7 @@ create table sys_log  (
     message varchar(100) null default null ,
     browser_name varchar(100) null default null ,
     system_name varchar(100) not null ,
-    create_time timestamp not null ,
+    create_time varchar(50) not null ,
     primary key (id)
 );
 */

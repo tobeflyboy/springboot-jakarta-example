@@ -10,11 +10,11 @@
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
-        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="last_login_time" jdbcType="VARCHAR" property="lastLoginTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
     </resultMap>
 
     <sql id="find_xxx">

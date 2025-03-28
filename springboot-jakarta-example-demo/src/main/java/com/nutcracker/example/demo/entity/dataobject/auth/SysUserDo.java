@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nutcracker.example.demo.mapper.CustomDateTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * sys_user data object
@@ -61,26 +62,26 @@ public class SysUserDo implements Serializable {
     @TableField(value = "status", jdbcType = JdbcType.INTEGER)
     private Integer status;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", name = "createTime", requiredMode = Schema.RequiredMode.REQUIRED)
-    @TableField(value = "create_time", jdbcType = JdbcType.TIMESTAMP)
-    private LocalDateTime createTime;
+    @TableField(value = "create_time", jdbcType = JdbcType.VARCHAR, typeHandler = CustomDateTypeHandler.class)
+    private Date createTime;
 
     @Schema(description = "创建人id", name = "create_by")
     @TableField(value = "create_by", jdbcType = JdbcType.VARCHAR)
     private String createBy;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "更新时间", name = "updateTime")
-    @TableField(value = "update_time", jdbcType = JdbcType.TIMESTAMP)
-    private LocalDateTime updateTime;
+    @TableField(value = "update_time", jdbcType = JdbcType.VARCHAR, typeHandler = CustomDateTypeHandler.class)
+    private Date updateTime;
 
     @Schema(description = "更新人id", name = "update_by")
     @TableField(value = "update_by", jdbcType = JdbcType.VARCHAR)
     private String updateBy;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "最后登录时间", name = "lastLoginTime")
-    @TableField(value = "last_login_time", jdbcType = JdbcType.TIMESTAMP)
-    private LocalDateTime lastLoginTime;
+    @TableField(value = "last_login_time", jdbcType = JdbcType.VARCHAR, typeHandler = CustomDateTypeHandler.class)
+    private Date lastLoginTime;
 }

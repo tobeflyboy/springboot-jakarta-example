@@ -6,7 +6,7 @@
         <result column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
     </resultMap>
 

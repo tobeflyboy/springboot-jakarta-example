@@ -27,7 +27,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -152,7 +153,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         int ret = sysRolePermissionMapper.deleteRolePermissionByRoleId(saveRolePermission.getRoleId());
         log.info("saveRolePermission , deleteByRoleId ret={}, saveRolePermission={}", ret, saveRolePermission);
-        final LocalDateTime now = LocalDateTime.now();
+        final Date now = Calendar.getInstance().getTime();
         final String roleId = saveRolePermission.getRoleId();
         final String createBy = Identify.getSessionUser().getRealName();
         List<SysRolePermissionDo> list = saveRolePermission.getPermissionIdList()

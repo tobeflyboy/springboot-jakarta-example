@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nutcracker.example.demo.mapper.CustomDateTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * permission data object
@@ -69,10 +70,10 @@ public class SysPermissionDo implements Serializable {
     @TableField(value = "sort", jdbcType = JdbcType.INTEGER)
     private Integer sort;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", name = "create_time", requiredMode = Schema.RequiredMode.REQUIRED)
-    @TableField(value = "create_time", jdbcType = JdbcType.TIMESTAMP)
-    private LocalDateTime createTime;
+    @TableField(value = "create_time", jdbcType = JdbcType.VARCHAR, typeHandler = CustomDateTypeHandler.class)
+    private Date createTime;
 
     @Schema(description = "创建人ID", name = "create_by")
     @TableField(value = "create_by", jdbcType = JdbcType.VARCHAR)

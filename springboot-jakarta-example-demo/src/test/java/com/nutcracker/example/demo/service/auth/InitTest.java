@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 @Slf4j
@@ -89,7 +89,7 @@ public class InitTest {
                         .id(String.valueOf(IdWorker.getId("sys_role")))
                         .roleCode(ADMIN_ROLE_CODE)
                         .roleName("管理员")
-                        .createTime(LocalDateTime.now())
+                        .createTime(Calendar.getInstance().getTime())
                         .build();
 
                 int isSuccess = sysRoleMapper.insert(sysRoleDo);
@@ -121,7 +121,7 @@ public class InitTest {
                             .id(String.valueOf(IdWorker.getId("sys_role_permission")))
                             .roleId(sysRoleDo.getId())
                             .permissionId(sysPermissionDo.getId())
-                            .createTime(LocalDateTime.now())
+                            .createTime(Calendar.getInstance().getTime())
                             .build();
                     sysRolePermissionMapper.insert(sysRolePermissionDo);
                 } else {
@@ -150,7 +150,7 @@ public class InitTest {
                         .realName("管理员")
                         .email("admin@nutcracker.com")
                         .status(1)
-                        .createTime(LocalDateTime.now())
+                        .createTime(Calendar.getInstance().getTime())
                         .build();
                 int isSuccess = sysUserMapper.insert(sysUserDo);
                 log.info("添加用户 {},{}", isSuccess, sysUserDo);
@@ -184,7 +184,7 @@ public class InitTest {
                         .id(String.valueOf(IdWorker.getId("sys_user_role")))
                         .userId(sysUserDo.getId())
                         .roleId(sysRoleDo.getId())
-                        .createTime(LocalDateTime.now())
+                        .createTime(Calendar.getInstance().getTime())
                         .build();
                 int isSuccess = sysUserRoleMapper.insert(sysUserRoleDo);
                 log.info("添加用户角色 {},{}", isSuccess, sysUserRoleDo);

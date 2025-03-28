@@ -22,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,7 +82,7 @@ public class SysUserServiceImpl implements SysUserService {
 
         entryptPassword(sysUserDo);
         sysUserDo.setStatus(SysUserStatusEnum.VALID.getCode());
-        sysUserDo.setCreateTime(LocalDateTime.now());
+        sysUserDo.setCreateTime(Calendar.getInstance().getTime());
         sysUserDo.setId(String.valueOf(IdWorker.getId("T_USER")));
         sysUserMapper.insert(sysUserDo);
 
@@ -101,7 +102,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUserDo u = sysUserMapper.selectById(sysUserDo.getId());
         u.setPassword(sysUserDo.getPassword());
         entryptPassword(u);
-        u.setUpdateTime(LocalDateTime.now());
+        u.setUpdateTime(Calendar.getInstance().getTime());
         sysUserMapper.updateById(u);
     }
 
@@ -123,9 +124,9 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUserDo u = sysUserMapper.selectById(sysUserDo.getId());
         if (u != null) {
-            LocalDateTime lastLoginTime = u.getLastLoginTime();
+            Date lastLoginTime = u.getLastLoginTime();
             if (lastLoginTime == null) {
-                lastLoginTime = LocalDateTime.now();
+                lastLoginTime = Calendar.getInstance().getTime();
             }
             sysUserDo = new SysUserDo();
             sysUserDo.setId(u.getId());

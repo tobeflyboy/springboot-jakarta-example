@@ -6,7 +6,7 @@
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
     </resultMap>
 
@@ -31,7 +31,7 @@
         insert into sys_role_permission (id, role_id, permission_id, create_time, create_by)
         values
         <foreach collection="list" item="perm" separator=",">
-            (#{perm.id,jdbcType=VARCHAR}, #{perm.roleId,jdbcType=VARCHAR}, #{perm.permissionId,jdbcType=VARCHAR}, #{perm.createTime,jdbcType=TIMESTAMP}, #{perm.createBy,jdbcType=VARCHAR})
+            (#{perm.id,jdbcType=VARCHAR}, #{perm.roleId,jdbcType=VARCHAR}, #{perm.permissionId,jdbcType=VARCHAR}, #{perm.createTime,jdbcType=VARCHAR,typeHandler=com.nutcracker.example.demo.mapper.CustomDateTypeHandler}, #{perm.createBy,jdbcType=VARCHAR})
         </foreach>
     </insert>
 

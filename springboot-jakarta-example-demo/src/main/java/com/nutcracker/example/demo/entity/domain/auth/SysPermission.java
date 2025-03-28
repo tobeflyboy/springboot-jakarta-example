@@ -2,14 +2,11 @@ package com.nutcracker.example.demo.entity.domain.auth;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +16,6 @@ import java.util.List;
  * @date 2025/01/02 10:43:46
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class SysPermission implements Serializable {
 
     @Serial
@@ -57,9 +51,9 @@ public class SysPermission implements Serializable {
     @Schema(description = "排序")
     private Integer sort;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @Schema(description = "创建人", name = "createUserRealName")
     private String createUserRealName;

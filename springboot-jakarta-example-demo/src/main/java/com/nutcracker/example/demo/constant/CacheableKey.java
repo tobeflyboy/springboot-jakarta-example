@@ -11,15 +11,17 @@ import java.util.Map;
  */
 public class CacheableKey {
 
+    public static final String PREFIX = "nutcracker_";
+
     /**
      * SysUser CacheManager
      */
-    public static final String SYS_USER = "sys_user";
+    public static final String SYS_USER = PREFIX + "sys_user";
 
     /**
      * 角色权限缓存
      */
-    public static final String ROLE_PERMISSION = "role_permission";
+    public static final String ROLE_PERMISSION = PREFIX + "role_permission";
 
     /**
      * 1周
