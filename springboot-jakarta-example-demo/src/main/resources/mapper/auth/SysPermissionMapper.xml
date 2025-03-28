@@ -65,7 +65,7 @@
         order by p.sort asc
     </select>
 
-    <select id="findByUserId" parameterType="java.lang.String" resultMap="permissionMap">
+    <select id="getSysPermissionByRoleId" parameterType="java.lang.String" resultMap="permissionMap">
         select
             p.id,
             p.permission_code,
@@ -80,8 +80,7 @@
             p.create_by
         from sys_permission p
         inner join sys_role_permission rp on rp.permission_id = p.id
-        inner join sys_user_role ur on ur.role_id = rp.role_id
-        where ur.user_id = #{userId,jdbcType=VARCHAR}
+        where rp.role_id = #{roleId,jdbcType=VARCHAR}
         order by p.sort asc
     </select>
 

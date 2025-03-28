@@ -14,7 +14,12 @@ public class CacheableKey {
     /**
      * SysUser CacheManager
      */
-    public static final String SYS_USER = "SysUser";
+    public static final String SYS_USER = "sys_user";
+
+    /**
+     * 角色权限缓存
+     */
+    public static final String ROLE_PERMISSION = "role_permission";
 
     /**
      * 1周
@@ -61,14 +66,15 @@ public class CacheableKey {
      */
     public static final long CACHE_5_SECOND = 5;
 
-    private static final Map<String, Long> cacheableKeyMap = new LinkedHashMap<>();
+    private static final Map<String, Long> CACHEABLE_KEY_MAP = new LinkedHashMap<>();
 
     static {
         // 设置缓存时长
-        cacheableKeyMap.put(SYS_USER, CACHE_2_HOUR);
+        CACHEABLE_KEY_MAP.put(SYS_USER, CACHE_2_HOUR);
+        CACHEABLE_KEY_MAP.put(ROLE_PERMISSION, CACHE_1_DAY);
     }
 
     public static Map<String, Long> getCacheableKeyMap() {
-        return cacheableKeyMap;
+        return CACHEABLE_KEY_MAP;
     }
 }

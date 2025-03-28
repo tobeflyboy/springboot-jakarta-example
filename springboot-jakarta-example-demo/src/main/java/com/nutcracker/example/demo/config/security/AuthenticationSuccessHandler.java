@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.config.security;
 
+import cn.hutool.core.collection.CollUtil;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
@@ -40,6 +41,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
     private final SysPermissionService sysPermissionService;
     private final SysRoleService sysRoleService;
     private final SysUserService sysUserService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -49,8 +51,13 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        List<SysPermission> permissions = sysPermissionService.getSysPermissionByUserId(sysUserDo.getId());
         SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
+        List<SysPermission> permissions;
+        if (null != sysRoleDo) {
+            permissions = sysPermissionService.getRolePermissionByRoleId(sysRoleDo.getId());
+        } else {
+            permissions = CollUtil.empty(SysPermission.class);
+        }
         SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
         SessionUser sessionUser = SessionUser.builder()
                 .id(sysUserDo.getId())

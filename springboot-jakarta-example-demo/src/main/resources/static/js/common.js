@@ -1,50 +1,20 @@
-/**
- * 获取指定名称的 Cookie 值
- * @param {string} name - Cookie 名称
- * @returns {string|null} - Cookie 值，如果不存在则返回 null
- */
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-}
-
-/**
- * 解析 SessionUser 对象
- * @param {string} sessionUserCookie - SessionUser 的 Cookie 值
- * @returns {object|null} - 解析后的 SessionUser 对象，如果解析失败则返回 null
- */
-function parseSessionUser(sessionUserCookie) {
-    try {
-        // Base64 解码
-        const decodedSessionUser = atob(sessionUserCookie);
-        // JSON 反序列化
-        return JSON.parse(decodedSessionUser);
-    } catch (error) {
-        console.error('Failed to parse SessionUser:', error);
-        return null;
-    }
-}
-
-
 function setActiveMenu() {
-    var currentPath = window.location.pathname;
+    const currentPath = window.location.pathname;
 
     // 遍历所有菜单项
     $('#side-menu li a').each(function () {
         // 获取菜单项的 href 属性
-        var href = $(this).attr('href');
+        const href = $(this).attr('href');
 
         // 判断 href 是否包含当前路径
         if (currentPath.indexOf(href) !== -1) {
             // 为匹配的菜单项添加 active 类
-            var $li = $(this).closest('li');
+            const $li = $(this).closest('li');
             $li.addClass('active');
 
             // 向上查找父级菜单，直到找到 #side-menu 或最上级的 <li>，并为每个父级菜单项添加 active 类
             $li.parents('li').each(function () {
-                var $parentLi = $(this);
+                const $parentLi = $(this);
 
                 // 如果找到了 #side-menu，则停止查找
                 if ($parentLi.closest('#side-menu').length > 0) {
@@ -69,102 +39,33 @@ function setActiveMenu() {
 }
 
 /**
- * 生成菜单项
- * @param {Array} oneLevelMenus - 菜单权限数据
- */
-function generateMenu(oneLevelMenus) {
-    oneLevelMenus.forEach(oneLevelMenu => {
-        // 创建菜单项的 <li> 元素
-        let menu = '<li>';
-        // 生成菜单链接
-        const oneLeveMenuUrl = oneLevelMenu.url ? `${ctx}/${oneLevelMenu.url}` : 'javascript:void(0)';
-        menu += `<a href="${oneLeveMenuUrl}">`;
-        menu += `<i class="fa ${oneLevelMenu.icon}"></i> <span class="nav-label">${oneLevelMenu.permissionName}</span>`;
-        if (oneLevelMenu.children && oneLevelMenu.children.length > 0) {
-            menu += '<span class="fa arrow"></span>';
-            menu += '<ul class="nav nav-second-level collapse">';
-            oneLevelMenu.children.forEach(twoLevelMenus => {
-                menu += '<li>';
-                const twoLevelMenuUrl = twoLevelMenus.url ? `${ctx}/${twoLevelMenus.url}` : 'javascript:void(0)';
-                menu += `<a href="${twoLevelMenuUrl}">`;
-                menu += `<i class="fa ${twoLevelMenus.icon}"></i><span class="nav-label">${twoLevelMenus.permissionName}</span>`;
-                if (twoLevelMenus.children && twoLevelMenus.children.length > 0) {
-                    menu += '<span class="fa arrow"></span></a>';
-                    menu += '<ul class="nav nav-third-level">';
-                    twoLevelMenus.children.forEach(threeLevelMenus => {
-                        menu += '<li>';
-                        const threeLevelMenuUrl = threeLevelMenus.url ? `${ctx}/${threeLevelMenus.url}` : 'javascript:void(0)';
-                        menu += `<a href="${threeLevelMenuUrl}">`;
-                        menu += `<i class="fa ${threeLevelMenus.icon}"></i>${threeLevelMenus.permissionName}`;
-                        menu += '</a></li>';
-                    });
-                    menu += '</ul>';
-                } else {
-                    menu += '</a></li>';
-                }
-
-            });
-        } else {
-            menu += '</a>';
-            menu += '</li>';
-        }
-        $("#side-menu").append(menu);
-    });
-}
-
-/**
  * 初始化左侧导航栏
  */
 function initLeftNav() {
-    // 使用模板字符串生成左侧导航栏结构
-    const sidebarScroll = `
-        <div class="sidebar-scroll">
-            <div class="logo">
-                <a href="${ctx}/dashboard">
-                    <img src="${ctx}/static/images/logo_icon.png" style="width: 55px;height: 40px;">Demo
-                </a>
-            </div>
-            <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu"></ul>
-            </div>
-        </div>
-    `;
-    $("#leftnav").html(sidebarScroll);
-    // 生成菜单项
-    generateMenu(sessionUser.permissions);
-    // 初始化 MetisMenu（依赖 jQuery）
-    $('#side-menu').metisMenu();
-    // 设置当前 URL 对应的菜单项的 active 样式
-    setActiveMenu();
-
-    // 如果页面有 fixed-sidebar 类，则初始化 slimScroll
-    if ($("body").hasClass('fixed-sidebar')) {
-        $('.sidebar-scroll').slimScroll({
-            height: '100%',
-            railVisible: false,
-            color: "#65cea7",
-            opacity: .8,
-            size: '4px',
-            borderRadius: '0',
-            railBorderRadius: '0',
-            distance: 0
-        });
-    }
+    //加载左侧导航
+    $("#leftnav").load(ctx + '/leftnav', function (response, status, xhr) {
+        if (status === 'success') {
+            //加载完成执行导航组件
+            $('#side-menu').metisMenu();
+            // 调用函数设置当前 URL 对应的菜单项的 active 样式
+            setActiveMenu();
+            if ($("body").hasClass('fixed-sidebar')) {
+                $('.sidebar-scroll').slimScroll({
+                    height: '100%',
+                    railVisible: false,
+                    color: "#65cea7",
+                    opacity: .8,
+                    size: '4px',
+                    borderRadius: '0',
+                    railBorderRadius: '0',
+                    distance: 0
+                });
+            }
+        }
+    });
 }
 
 $(document).ready(function () {
-
-    // 获取 ContextPath 的 Cookie 值，并赋值给全局变量 ctx
-    // window.ctx = getCookie('ctx');
-    // // 获取 SessionUser 的 Cookie 值
-    // const sessionUserCookie = getCookie('sessionUser');
-    // if (sessionUserCookie) {
-    //     // 解析 SessionUser
-    //     window.sessionUser = parseSessionUser(sessionUserCookie);
-    // }
-    // console.log(ctx);
-    // console.log(sessionUser);
-
     //初始化左侧导航栏
     initLeftNav()
 
@@ -206,9 +107,9 @@ $(document).ready(function () {
     }
     // Collapse ibox function
     $('.collapse-link').click(function () {
-        var ibox = $(this).closest('div.ibox');
-        var button = $(this).find('i');
-        var content = ibox.find('div.ibox-content');
+        const ibox = $(this).closest('div.ibox');
+        const button = $(this).find('i');
+        const content = ibox.find('div.ibox-content');
         content.slideToggle(200);
         button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
         ibox.toggleClass('').toggleClass('border-bottom');
@@ -220,7 +121,7 @@ $(document).ready(function () {
 
     // Close ibox function
     $('.close-link').click(function () {
-        var content = $(this).closest('div.ibox');
+        const content = $(this).closest('div.ibox');
         content.remove();
     });
 
@@ -255,8 +156,8 @@ $(document).ready(function () {
     });
 
     $('.check-link').click(function () {
-        var button = $(this).find('i');
-        var label = $(this).next('span');
+        const button = $(this).find('i');
+        const label = $(this).next('span');
         button.toggleClass('fa-check-square').toggleClass('fa-square-o');
         label.toggleClass('todo-completed');
         return false;
@@ -274,11 +175,11 @@ $(document).ready(function () {
 
     // Full height of sidebar
     function fix_height() {
-        var heightWithoutNavbar = $("body > #wrapper");
+        const heightWithoutNavbar = $("body > #wrapper");
         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
 
-        var navbarHeigh = $('nav.navbar-default').height() + 61;
-        var wrapperHeigh = $('#page-wrapper').height() + 61;
+        const navbarHeigh = $('nav.navbar-default').height() + 61;
+        const wrapperHeigh = $('#page-wrapper').height() + 61;
 
         if (navbarHeigh > wrapperHeigh) {
             $('#page-wrapper').css("min-height", navbarHeigh + "px");
@@ -320,13 +221,13 @@ $(document).ready(function () {
 
     if (localStorageSupport) {
 
-        var collapse = localStorage.getItem("collapse_menu");
-        var fixedsidebar = localStorage.getItem("fixedsidebar");
-        var fixednavbar = localStorage.getItem("fixednavbar");
-        var boxedlayout = localStorage.getItem("boxedlayout");
-        var fixedfooter = localStorage.getItem("fixedfooter");
+        const collapse = localStorage.getItem("collapse_menu");
+        const fixedsidebar = localStorage.getItem("fixedsidebar");
+        const fixednavbar = localStorage.getItem("fixednavbar");
+        const boxedlayout = localStorage.getItem("boxedlayout");
+        const fixedfooter = localStorage.getItem("fixedfooter");
 
-        var body = $('body');
+        const body = $('body');
 
         if (fixedsidebar === 'on') {
             body.addClass('fixed-sidebar');
@@ -435,7 +336,7 @@ function showConfirm(message, title = '确认操作', onConfirm, onCancel) {
     $('#customConfirmModal').modal('show');
 
     // 确认按钮点击事件
-    $('#confirmBtn').on('click', function() {
+    $('#confirmBtn').on('click', function () {
         $('#customConfirmModal').modal('hide');
         if (typeof onConfirm === 'function') {
             onConfirm();

@@ -134,5 +134,4 @@ public class RedisConfig implements CachingConfigurer {
         return redisCacheConfiguration;
     }
 
-
 }

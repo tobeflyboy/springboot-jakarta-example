@@ -4,7 +4,7 @@
 	</div>
 	<div class="sidebar-collapse">
 		<ul class="nav metismenu" id="side-menu" >
-			<li th:class="${oneStat.index==1}?'active':''"  th:each="one:${session.loginUser.permissions}">
+			<li th:class="${oneStat.index==1}?'active':''"  th:each="one:${permissions}">
 				<!-- 只是单纯的一级菜单，没有子菜单 -->
 				<a th:href="${#strings.isEmpty(one.url)}?'javascript:void(0)':${application.ctx}+'/'+${one.url}" th:if="${#lists.isEmpty(one.children)}">
 					<i th:class="'fa ' + ${one.icon}"></i>

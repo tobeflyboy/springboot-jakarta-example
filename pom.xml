@@ -19,7 +19,7 @@
         <!-- 编译打包时，不执行测试用例，也不编译测试用例类 -->
         <maven.test.skip>true</maven.test.skip>
 
-        <springboot.version>3.4.3</springboot.version>
+        <springboot.version>3.4.4</springboot.version>
     </properties>
 
     <!--
@@ -75,26 +75,26 @@
             <dependency>
                 <groupId>org.springframework.session</groupId>
                 <artifactId>spring-session-data-redis</artifactId>
-                <version>3.4.1</version>
+                <version>3.4.2</version>
             </dependency>
 
             <!-- logback -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.5.15</version>
+                <version>1.5.18</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>1.5.15</version>
+                <version>1.5.18</version>
             </dependency>
 
             <!-- https://baomidou.com -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-bom</artifactId>
-                <version>3.5.9</version>
+                <version>3.5.11</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -122,7 +122,7 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.5.17</version>
+                <version>3.5.19</version>
             </dependency>
 
             <!-- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md -->
@@ -138,14 +138,14 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.8.35</version>
+                <version>5.8.36</version>
             </dependency>
 
             <!-- https://github.com/redisson/redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.41.0</version>
+                <version>3.45.1</version>
             </dependency>
 
             <!-- https://doc.xiaominfo.com/docs/quick-start -->

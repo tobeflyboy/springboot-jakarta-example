@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
@@ -15,6 +16,7 @@ import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,10 +53,12 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return getPermissionTree(list);
     }
 
+    @Cacheable(value = CacheableKey.ROLE_PERMISSION, key = "#roleId")
     @Override
-    public List<SysPermission> getSysPermissionByUserId(String userId) {
-        List<SysPermissionDo> permissionDoList = sysPermissionMapper.findByUserId(userId);
-        log.info("getMenuPermissionByUserId: \n{}", JSON.toJSONString(permissionDoList));
+    public List<SysPermission> getRolePermissionByRoleId(String roleId) {
+        log.info("getRolePermissionByRoleId roleId={}", roleId);
+        List<SysPermissionDo> permissionDoList = sysPermissionMapper.getSysPermissionByRoleId(roleId);
+        log.info("getRolePermissionByRoleId, roleId={},{}", roleId, JSON.toJSONString(permissionDoList));
         if (CollUtil.isEmpty(permissionDoList)) {
             return Collections.emptyList();
         }

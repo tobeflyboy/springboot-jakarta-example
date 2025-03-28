@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.ApiResponse;
@@ -22,6 +23,7 @@ import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -134,6 +136,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, key = "#saveRolePermission.roleId", condition = "#saveRolePermission!=null")
     @Transactional
     public ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission) {
         log.info("saveRolePermission , saveRolePermission={}", saveRolePermission);

@@ -49,6 +49,12 @@ public class InitTest {
      */
     @Test
     public void initAuth() {
+        sysPermissionMapper.delete(null);
+        sysRoleMapper.delete(null);
+        sysRolePermissionMapper.delete(null);
+        sysUserMapper.delete(null);
+        sysUserRoleMapper.delete(null);
+
         addSysPermission();
         addSysRole();
         addSysRolePermission();

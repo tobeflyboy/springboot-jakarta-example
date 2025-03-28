@@ -33,12 +33,12 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
     List<SysPermissionDo> findAll();
 
     /**
-     * 查询用户所能访问的所有菜单
+     * 查询角色所能访问的所有菜单
      *
-     * @param userId 用户
+     * @param roleId 角色id
      * @return {@link List }<{@link SysPermissionDo }>
      */
-    List<SysPermissionDo> findByUserId(@Param("userId") String userId);
+    List<SysPermissionDo> getSysPermissionByRoleId(@Param("roleId") String roleId);
 
     /**
      * 根据菜单KEY查询菜单

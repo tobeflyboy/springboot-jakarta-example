@@ -63,7 +63,7 @@
         <includeCallerData>true</includeCallerData>
     </appender>
 
-    <root level="WARN">
+    <root level="ERROR">
         <appender-ref ref="ASYNC_STDOUT"/>
         <appender-ref ref="ASYNC_CATALINA_LOG"/>
     </root>

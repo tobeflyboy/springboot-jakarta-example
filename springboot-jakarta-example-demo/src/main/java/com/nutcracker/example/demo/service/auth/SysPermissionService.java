@@ -21,12 +21,12 @@ public interface SysPermissionService {
     List<SysPermission> findSysPermission();
 
     /**
-     * 查询用户所能访问的所有菜单
+     * 查询角色所能访问的所有菜单
      *
-     * @param userId 用户ID
+     * @param roleId 角色ID
      * @return {@link List }<{@link SysPermission }>
      */
-    List<SysPermission> getSysPermissionByUserId(String userId);
+    List<SysPermission> getRolePermissionByRoleId(String roleId);
 
     /**
      * 保存菜单

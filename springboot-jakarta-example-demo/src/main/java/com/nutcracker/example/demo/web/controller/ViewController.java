@@ -1,8 +1,16 @@
 package com.nutcracker.example.demo.web.controller;
 
+import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
+import com.nutcracker.example.demo.service.auth.SysPermissionService;
+import com.nutcracker.example.demo.web.Identify;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * 视图控制器
@@ -11,12 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @date 2024/12/23 09:47:13
  */
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class ViewController {
 
+    private final SysPermissionService sysPermissionService;
+
     @GetMapping("leftnav")
-    public String leftNav() {
-        log.debug("loading leftnav");
+    public String leftNav(ModelMap model) {
+        SessionUser user = Identify.getSessionUser();
+        log.info("loading leftnav, roleId={}", user.getSysRole().getId());
+        List<SysPermission> permissions = sysPermissionService.getSysPermissionByRoleId(user.getSysRole().getId());
+        model.put("permissions", permissions);
         return "leftnav";
     }
 
