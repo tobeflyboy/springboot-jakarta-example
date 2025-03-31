@@ -4,39 +4,32 @@
     </div>
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
-            <li th:class="${oneStat.index==1}?'active':''" th:each="one:${permissions}">
-                <!-- 只是单纯的一级菜单，没有子菜单 -->
-                <a th:href="${#strings.isEmpty(one.url)}?'javascript:void(0)':${application.ctx}+'/'+${one.url}" th:if="${#lists.isEmpty(one.children)}">
-                    <i th:class="'fa ' + ${one.icon}"></i>
-                    <span class="nav-label" th:text="${one.permissionName}"></span>
-                </a>
-
-				<!-- 一级菜单，有子菜单 -->
-				<a th:href="${#strings.isEmpty(one.url)}?'javascript:void(0)':${application.ctx}+'/'+${one.url}" th:if="${not #lists.isEmpty(one.children)}">
-					<i th:class="'fa ' + ${one.icon}"></i>
-					<span class="nav-label" th:text="${one.permissionName}"></span>
-					<span class="fa arrow"></span>
-				</a>
-
-                <!-- 迭代显示子菜单 -->
-                <ul class="nav nav-second-level collapse" th:if="${not #lists.isEmpty(one.children)}" th:each="two:${one.children}">
-                    <li>
-                        <a th:href="${#strings.isEmpty(two.url)}?'javascript:void(0)':${application.ctx}+'/'+${two.url}">
-                            <i th:class="'fa ' + ${two.icon}"></i>
-                            <span class="nav-label" th:text="${two.permissionName}"></span>
-                            <span class="fa arrow" th:if="${not #lists.isEmpty(two.children)}"></span>
-                        </a>
-                        <ul class="nav nav-third-level" th:if="${not #lists.isEmpty(two.children)}" th:each="three:${two.children}">
-                            <li>
-                                <a th:href="${application.ctx}+'/'+${three.url}">
-                                    <i th:class="'fa ' + ${three.icon}"></i>
-                                    <span class="nav-label" th:text="${three.permissionName}"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+            <!-- 遍历一级菜单 -->
+            <li th:each="menu : ${permissions}" th:class="${menuStat.index == 1} ? 'active' : ''">
+                <!-- 递归生成菜单结构 -->
+                <div th:replace="~{::menuItem(${menu}, 1)}"></div>
             </li>
         </ul>
     </div>
 </div>
+
+<!-- 定义递归模板 -->
+<th:block th:fragment="menuItem(node, level)">
+    <!-- 生成菜单链接 -->
+    <a th:if="${node != null}" th:href="${node.url ==null or #strings.isEmpty(node.url)}?'javascript:void(0)':${application.ctx}+'/'+${node.url}"
+       th:classappend="'nav-level-' + ${level}">
+        <i th:class="${node.icon}"></i>
+        <span class="nav-label" th:text="${node.permissionName}"></span>
+        <!-- 显示箭头图标如果有子菜单 -->
+        <span th:if="${node.children!=null && not #lists.isEmpty(node.children)}" class="fa arrow"></span>
+    </a>
+
+    <!-- 递归生成子菜单 -->
+    <ul th:if="${node != null and node.children!=null and not #lists.isEmpty(node.children)}"
+        class="nav nav-child-level collapse"
+        th:classappend="'nav-level-' + ${level + 1}">
+        <li th:each="child : ${node.children}">
+            <div th:replace="~{::menuItem(${child}, ${level + 1})}"></div>
+        </li>
+    </ul>
+</th:block>
