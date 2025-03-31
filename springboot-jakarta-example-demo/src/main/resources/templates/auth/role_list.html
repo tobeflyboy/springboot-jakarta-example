@@ -235,6 +235,7 @@
                     <input type="hidden" id="roleId">
                     <div class="form-group">
                         <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-info" id="selectAllPermBtn">全选</button>
                         <button type="button" class="btn btn-primary" id="rolePermissionBtn">保存</button>
                     </div>
                     <div class="form-group">
@@ -346,6 +347,18 @@
             return $(this).data('id');
         }).get();
     }
+
+    // 全选按钮点击事件
+    $('#selectAllPermBtn').click(function() {
+        const $checkboxes = $('.perm-checkbox');
+        const isAllChecked = $checkboxes.length === $checkboxes.filter(':checked').length;
+
+        // 全选/反选切换
+        $checkboxes.prop('checked', !isAllChecked).trigger('change');
+
+        // 更新按钮文字
+        $(this).text(isAllChecked ? '全选' : '取消全选');
+    });
 
     // 保存授权
     $('#rolePermissionBtn').click(function () {
