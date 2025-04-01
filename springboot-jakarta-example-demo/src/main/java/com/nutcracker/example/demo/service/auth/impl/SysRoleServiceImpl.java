@@ -61,6 +61,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         sysRoleDo = SysRoleConvert.INSTANCE.toDo(sysRole);
         sysRoleDo.setId(String.valueOf(IdWorker.getId("sys_role")));
+        sysRoleDo.setCreateTime(Calendar.getInstance().getTime());
         int ret = sysRoleMapper.insert(sysRoleDo);
         if (ret == 1) {
             return ApiResponse.ofSuccess(true);
