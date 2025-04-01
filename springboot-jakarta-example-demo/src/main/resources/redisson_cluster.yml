@@ -13,7 +13,7 @@ clusterServersConfig:
   # 命令重试发送时间间隔，单位：毫秒
   retryInterval: 1500
   # redis密码
-  password:
+  password: null
   # 单个连接最大订阅数量
   subscriptionsPerConnection: 5
   # 客户端名称
@@ -64,7 +64,7 @@ threads: 16
 # Netty线程池数量,默认值: 当前处理核数量 * 2
 nettyThreads: 32
 # Redisson的对象编码类是用于将对象进行序列化和反序列化，以实现对该对象在Redis里的读取和存储。
-# Redisson提供了多种的对象编码应用，以供大家选择：https://github.com/redisson/redisson/wiki/4.-data-serialization
+# Redisson提供了多种的对象编码应用，以供大家选择：https://redisson.pro/docs/data-and-services/data-serialization/
 codec: !<org.redisson.codec.JsonJacksonCodec> {}
 # 传输模式
 transportMode: "NIO"

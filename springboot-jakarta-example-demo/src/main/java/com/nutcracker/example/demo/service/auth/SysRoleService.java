@@ -19,9 +19,10 @@ public interface SysRoleService {
     /**
      * 添加一个角色 ，若已经存在同名角色，则不创建
      *
-     * @param sysRoleDo 角色对象
+     * @param sysRole 角色对象
+     * @return {@link ApiResponse }<{@link Boolean }>
      */
-    void addSysRole(SysRoleDo sysRoleDo);
+    ApiResponse<Boolean> addSysRole(SysRole sysRole);
 
     /**
      * 根据编码查询角色

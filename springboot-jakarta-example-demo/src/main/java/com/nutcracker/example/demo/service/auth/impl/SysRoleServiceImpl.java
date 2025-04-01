@@ -48,18 +48,24 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional
-    public void addSysRole(SysRoleDo sysRoleDo) {
-        if (sysRoleDo == null || StrUtil.isBlank(sysRoleDo.getRoleCode()) || StrUtil.isBlank(sysRoleDo.getRoleName())) {
-            return;
+    public ApiResponse<Boolean> addSysRole(SysRole sysRole) {
+        if (sysRole == null || StrUtil.isBlank(sysRole.getRoleCode()) || StrUtil.isBlank(sysRole.getRoleName())) {
+            return ApiResponse.fail("新增角色失败，角色编码、角色名称不能为空！");
         }
         if (log.isDebugEnabled()) {
-            log.debug("添加角色 : {}", sysRoleDo);
+            log.debug("添加角色 : {}", sysRole);
         }
-        SysRoleDo r = findByRoleCode(sysRoleDo.getRoleCode());
-        if (r == null) {
-            sysRoleDo.setId(String.valueOf(IdWorker.getId("sys_role")));
-            sysRoleMapper.insert(sysRoleDo);
+        SysRoleDo sysRoleDo = findByRoleCode(sysRole.getRoleCode());
+        if (sysRoleDo != null) {
+            return ApiResponse.fail("新增角色失败，角色已不存在！");
         }
+        sysRoleDo = SysRoleConvert.INSTANCE.toDo(sysRole);
+        sysRoleDo.setId(String.valueOf(IdWorker.getId("sys_role")));
+        int ret = sysRoleMapper.insert(sysRoleDo);
+        if (ret == 1) {
+            return ApiResponse.ofSuccess(true);
+        }
+        return ApiResponse.fail("新增角色失败！");
     }
 
     @Override
@@ -137,7 +143,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, key = "#saveRolePermission.roleId", condition = "#saveRolePermission!=null")
+    @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, key = "#saveRolePermission.roleId", condition = "#saveRolePermission!=null && #saveRolePermission.roleId!=null")
     @Transactional
     public ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission) {
         log.info("saveRolePermission , saveRolePermission={}", saveRolePermission);

@@ -29,10 +29,10 @@ public class ViewController {
     @GetMapping("leftnav")
     public String leftNav(ModelMap model) {
         SessionUser user = Identify.getSessionUser();
-        log.info("loading leftnav, roleId={}", user.getSysRole().getId());
+        log.info("==> loading leftnav begin, roleId={}", user.getSysRole().getId());
         List<SysPermission> permissions = sysPermissionService.getRolePermissionByRoleId(user.getSysRole().getId());
         model.put("permissions", permissions);
-        log.info("loading leftnav, roleId={},permissions.size={}", user.getSysRole().getId(), CollUtil.size(permissions));
+        log.info("<== loading leftnav end, roleId={},permissions.size={}\n", user.getSysRole().getId(), CollUtil.size(permissions));
         return "leftnav";
     }
 

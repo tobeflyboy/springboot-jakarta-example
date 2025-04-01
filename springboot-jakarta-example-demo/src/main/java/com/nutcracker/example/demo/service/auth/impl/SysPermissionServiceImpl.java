@@ -55,18 +55,21 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return getPermissionTree(list);
     }
 
-    @Cacheable(value = CacheableKey.ROLE_PERMISSION, key = "#roleId", unless = "#result == null")
     @Override
+    @Cacheable(cacheNames = CacheableKey.ROLE_PERMISSION, key = "#roleId", condition = "#roleId != null", unless = "#result == null")
     public List<SysPermission> getRolePermissionByRoleId(String roleId) {
+        if (roleId == null) {
+            throw new IllegalArgumentException("roleId cannot be null");
+        }
         log.info("getRolePermissionByRoleId roleId={}", roleId);
         List<SysPermissionDo> permissionDoList = sysPermissionMapper.getSysPermissionByRoleId(roleId);
-        log.info("getRolePermissionByRoleId, roleId={},{}", roleId, JSON.toJSONString(permissionDoList));
+        log.info("getRolePermissionByRoleId, roleId={},permissionDoList.size={}", roleId, CollUtil.size(permissionDoList));
         if (CollUtil.isEmpty(permissionDoList)) {
             return Collections.emptyList();
         }
         List<SysPermission> list = SysPermissionConvert.INSTANCE.toDomain(permissionDoList);
         List<SysPermission> result = getPermissionTree(list);
-        log.debug("getRolePermissionByRoleId roleId={},result={}", roleId, JSON.toJSONString(result));
+        log.debug("getRolePermissionByRoleId roleId={},result.size={}", roleId, CollUtil.size(result));
         return result;
     }
 

@@ -16,7 +16,20 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        // Swagger 配置
+        registry.addResourceHandler("doc.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+        // 关键修复：添加默认静态资源路径（包括 public 目录）
+        registry.addResourceHandler("/**")
+                .addResourceLocations(
+                        "classpath:/META-INF/resources/",
+                        "classpath:/resources/",
+                        "classpath:/static/",
+                        "classpath:/public/",
+                        "file:./public/"
+                );
     }
 }

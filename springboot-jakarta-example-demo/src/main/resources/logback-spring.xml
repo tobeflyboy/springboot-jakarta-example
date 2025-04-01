@@ -27,6 +27,8 @@
 
     <!-- set print log level  -->
     <logger name="com.nutcracker" level="DEBUG"/>
+
+    <!-- print security -->
     <!--<logger name="org.springframework.security" level="DEBUG"/>-->
 
     <!-- print transaction -->
@@ -37,6 +39,10 @@
     <!-- print request url & parameter -->
     <logger name="org.springframework.web.method.support.InvocableHandlerMethod" level="DEBUG"/>
     <logger name="org.springframework.boot.SpringApplication" level="TRACE"/>
+
+    <!-- print cache -->
+    <logger name="org.springframework.cache" level="TRACE"/>
+    <logger name="org.springframework.data.redis" level="DEBUG"/>
 
     <!-- print sql log , but for development debug -->
     <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG"/>

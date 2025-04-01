@@ -13,60 +13,15 @@ public class CacheableKey {
 
     public static final String PREFIX = "nutcracker_";
 
-    /**
-     * SysUser CacheManager
-     */
+    /** SysUser CacheManager */
     public static final String SYS_USER = PREFIX + "sys_user";
-
-    /**
-     * 角色权限缓存
-     */
+    /** 角色权限缓存 */
     public static final String ROLE_PERMISSION = PREFIX + "role_permission";
 
-    /**
-     * 1周
-     */
-    public static final long CACHE_1_WEEK = 604800L;
-    /**
-     * 1天
-     */
+    /** 1天 */
     public static final long CACHE_1_DAY = 86400;
-    /**
-     * 4小时
-     */
-    public static final long CACHE_4_HOUR = 14400;
-    /**
-     * 2小时
-     */
+    /** 2小时 */
     public static final long CACHE_2_HOUR = 7200;
-    /**
-     * 1小时
-     */
-    public static final long CACHE_1_HOUR = 3600;
-    /**
-     * 30分钟
-     */
-    public static final long CACHE_30_MIN = 1800;
-    /**
-     * 10分钟
-     */
-    public static final long CACHE_10_MIN = 600;
-    /**
-     * 5分钟
-     */
-    public static final long CACHE_5_MIN = 300;
-    /**
-     * 1分钟
-     */
-    public static final long CACHE_1_MIN = 60;
-    /**
-     * 10秒钟
-     */
-    public static final long CACHE_10_SECOND = 10;
-    /**
-     * 5秒钟
-     */
-    public static final long CACHE_5_SECOND = 5;
 
     private static final Map<String, Long> CACHEABLE_KEY_MAP = new LinkedHashMap<>();
 

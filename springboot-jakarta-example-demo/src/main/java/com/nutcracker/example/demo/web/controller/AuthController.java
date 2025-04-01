@@ -103,6 +103,15 @@ public class AuthController {
         return "auth/role_list_page";
     }
 
+    @PostMapping("/auth/add/role")
+    @ResponseBody
+    public ApiResponse<Boolean> addRole(@RequestBody SysRole role) {
+        log.info("/auth/add/save {}", role);
+        ApiResponse<Boolean> response = sysRoleService.addSysRole(role);
+        log.info("/auth/add/save {}, response={}", role, response);
+        return response;
+    }
+
     @PostMapping("/auth/edit/role")
     @ResponseBody
     public ApiResponse<Boolean> editRole(@RequestBody SysRole role) {
