@@ -72,4 +72,12 @@ public interface SysRoleService {
      * @return {@link ApiResponse }<{@link Boolean }>
      */
     ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission);
+
+    /**
+     * 删除角色
+     *
+     * @param roleId 角色ID
+     * @return {@link ApiResponse }<{@link Boolean }>
+     */
+    ApiResponse<Boolean> deleteRole(String roleId);
 }

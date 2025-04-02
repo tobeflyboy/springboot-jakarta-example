@@ -541,6 +541,38 @@
         });
     }
 
+    // 删除菜单节点
+    function deleteRole(btn) {
+        let roleId = $(btn).data('id');
+        let roleName = $(btn).data('role-name');
+        showConfirm(
+            `确定要删除【${roleName}】角色吗？`,
+            '删除确认',
+            function () {
+                // 确认
+                $.ajax({
+                    url: ctx + '/auth/delete/role/' + roleId,
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.code === 200 && response.data) {
+                            $("#queryRoleBtn").click();
+                        } else {
+                            let message = '删除失败！';
+                            if (response.message) {
+                                message = response.message;
+                            }
+                            toastr.error('', message);
+                        }
+                    }
+                });
+            },
+            function () {
+                // 取消
+                console.log(`【${roleName}】角色`);
+            }
+        );
+    }
+
     $(document).ready(function () {
         $("#addRoleForm").validate({
             rules: {

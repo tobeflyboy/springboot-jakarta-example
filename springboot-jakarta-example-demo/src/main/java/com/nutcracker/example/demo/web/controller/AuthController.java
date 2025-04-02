@@ -121,6 +121,15 @@ public class AuthController {
         return response;
     }
 
+    @PostMapping("/auth/delete/role/{roleId}")
+    @ResponseBody
+    public ApiResponse<Boolean> deleteRole(@PathVariable("roleId") String roleId) {
+        log.info("/auth/delete/role/{}", roleId);
+        ApiResponse<Boolean> response = sysRoleService.deleteRole(roleId);
+        log.info("/auth/delete/role/{}, response={}", roleId, response);
+        return response;
+    }
+
     @GetMapping("/auth/role_permission/{roleId}")
     @ResponseBody
     public List<SysPermission> rolePermission(@PathVariable("roleId") String roleId) {

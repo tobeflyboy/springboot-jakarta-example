@@ -13,12 +13,14 @@ import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysUserRoleDo;
 import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.exception.BusinessException;
 import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
+import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     private final SysRoleMapper sysRoleMapper;
     private final SysPermissionMapper sysPermissionMapper;
     private final SysRolePermissionMapper sysRolePermissionMapper;
+    private final SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     @Transactional
@@ -182,5 +185,28 @@ public class SysRoleServiceImpl implements SysRoleService {
         // 故意抛出异常测试事务回滚
         //throw new RuntimeException("测试事务回滚");
         return ApiResponse.ofSuccess(true);
+    }
+
+    @Override
+    public ApiResponse<Boolean> deleteRole(String roleId) {
+        log.info("deleteRole , roleId={}", roleId);
+        if (StrUtil.isBlank(roleId)) {
+            return ApiResponse.fail("删除失败，角色id为空！");
+        }
+        SysRoleDo sysRoleDo = sysRoleMapper.selectById(roleId);
+        if (null == sysRoleDo) {
+            return ApiResponse.fail("删除失败，角色不存在！");
+        }
+        // 判断下面有没有人
+        List<SysUserRoleDo> list = sysUserRoleMapper.findUserRoleByRoleId(roleId);
+        if (CollUtil.isNotEmpty(list)) {
+            log.info("deleteRole, roleId={}, list={}", roleId, list);
+            return ApiResponse.fail("删除失败，该角色下有用户！");
+        }
+        int ret = sysRoleMapper.deleteById(roleId);
+        if (ret == 1) {
+            return ApiResponse.ofSuccess(true);
+        }
+        return ApiResponse.fail("删除失败！");
     }
 }
