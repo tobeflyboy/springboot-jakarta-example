@@ -176,8 +176,8 @@
                             <div class="input-group">
                                 <input class="form-control" id="icon" readonly>
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" onclick="showIconSelector()">选择图标</button>
-                            </span>
+                                    <button class="btn btn-default" type="button" onclick="showIconSelector()">选择图标</button>
+                                </span>
                             </div>
                             <!-- 图标预览区域 -->
                             <span id="icon-preview" class="help-block"></span>
@@ -417,11 +417,11 @@
                     // 关闭模态框
                     $('#nodeModal').modal('hide');
                 } else {
-                    let message = '保存失败！';
-                    if (response.message) {
-                        message = response.message;
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
                     }
-                    toastr.error('', message);
+                    toastr.error('', msg);
                 }
             }
         });
@@ -442,11 +442,11 @@
                             // 刷新树数据
                             drawTree();
                         } else {
-                            let message = '删除失败！';
-                            if (response.message) {
-                                message = response.message;
+                            let msg = '删除失败！';
+                            if (response.msg) {
+                                msg = response.msg;
                             }
-                            toastr.error('', message);
+                            toastr.error('', msg);
                         }
                     }
                 });

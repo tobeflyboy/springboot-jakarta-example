@@ -50,7 +50,7 @@
 
     <select id="findUser" resultType="com.nutcracker.example.demo.entity.domain.auth.SysUser">
         select
-            u1.id,
+            u1.id as userId,
             u1.username,
             u1.real_name as realName,
             u1.email,
@@ -59,10 +59,14 @@
             u2.real_name as createUserRealName,
             u1.update_time as updateTime,
             u3.real_name as updateUserRealName,
-            u1.last_login_time as lastLoginTime
+            u1.last_login_time as lastLoginTime,
+            r.id as roleId,
+            r.role_name as roleName
         from sys_user u1
         left join sys_user u2 on u2.id = u1.create_by
         left join sys_user u3 on u3.id = u1.update_by
+        left join sys_user_role ur on ur.user_id = u1.id
+        left join sys_role r on r.id = ur.role_id
         <where>
             <if test="username != null and username != ''">
                 and u1.username=#{username,jdbcType=VARCHAR}

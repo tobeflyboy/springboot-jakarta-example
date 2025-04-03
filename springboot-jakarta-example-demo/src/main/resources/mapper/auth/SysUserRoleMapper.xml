@@ -24,6 +24,17 @@
           and r.role_code = #{roleCode,jdbcType=VARCHAR}
     </select>
 
+    <select id="findUserRoleByUserId" parameterType="java.lang.String" resultMap="userRoleMap">
+        select
+            id,
+            user_id,
+            role_id,
+            create_time,
+            create_by
+        from sys_user_role
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
     <select id="findUserRoleByRoleId" resultMap="userRoleMap" parameterType="java.lang.String">
         select
             ur.id,

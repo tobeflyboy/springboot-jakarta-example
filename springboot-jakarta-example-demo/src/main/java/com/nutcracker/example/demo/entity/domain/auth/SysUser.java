@@ -23,11 +23,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SysUser implements Serializable {
+
     @Serial
     private static final long serialVersionUID = -2617669111308455616L;
 
-    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String id;
+    @Schema(description = "userId", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String userId;
 
     @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
@@ -61,5 +62,11 @@ public class SysUser implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "最后登录时间")
     private Date lastLoginTime;
+
+    @Schema(description = "角色id", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String roleId;
+
+    @Schema(description = "角色", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String roleName;
 
 }

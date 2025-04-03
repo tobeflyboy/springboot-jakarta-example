@@ -1,10 +1,10 @@
 package com.nutcracker.example.demo.service.auth;
 
 import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public interface SysRoleService {
      * 添加一个角色 ，若已经存在同名角色，则不创建
      *
      * @param sysRole 角色对象
-     * @return {@link ApiResponse }<{@link Boolean }>
+     * @return {@link RespWrapper }<{@link Boolean }>
      */
-    ApiResponse<Boolean> addSysRole(SysRole sysRole);
+    RespWrapper<Boolean> addSysRole(SysRole sysRole);
 
     /**
      * 根据编码查询角色
@@ -61,23 +61,30 @@ public interface SysRoleService {
      * 编辑角色
      *
      * @param role 角色
-     * @return {@link ApiResponse }<{@link Boolean }>
+     * @return {@link RespWrapper }<{@link Boolean }>
      */
-    ApiResponse<Boolean> editRole(SysRole role);
+    RespWrapper<Boolean> editRole(SysRole role);
 
     /**
      * 给角色授权
      *
      * @param saveRolePermission 保存角色权限
-     * @return {@link ApiResponse }<{@link Boolean }>
+     * @return {@link RespWrapper }<{@link Boolean }>
      */
-    ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission);
+    RespWrapper<Boolean> saveRolePermission(SaveRolePermission saveRolePermission);
 
     /**
      * 删除角色
      *
      * @param roleId 角色ID
-     * @return {@link ApiResponse }<{@link Boolean }>
+     * @return {@link RespWrapper }<{@link Boolean }>
      */
-    ApiResponse<Boolean> deleteRole(String roleId);
+    RespWrapper<Boolean> deleteRole(String roleId);
+
+    /**
+     * 角色列表
+     *
+     * @return {@link RespWrapper }<{@link List }<{@link SysRole }>>
+     */
+    RespWrapper<List<SysRole>> roleList();
 }

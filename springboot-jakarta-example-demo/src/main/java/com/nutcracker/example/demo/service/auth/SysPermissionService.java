@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.service.auth;
 
-import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
 
 import java.util.List;
 
@@ -33,16 +33,15 @@ public interface SysPermissionService {
      *
      * @param sysPermission 菜单
      */
-    ApiResponse<Boolean> savePermission(SysPermission sysPermission);
+    RespWrapper<Boolean> savePermission(SysPermission sysPermission);
 
     /**
      * 删除菜单权限
      *
      * @param permissionId 菜单权限id
-     * @return {@link ApiResponse }<{@link Boolean }>
+     * @return {@link RespWrapper }<{@link Boolean }>
      */
-    ApiResponse<Boolean> deletePermission(String permissionId);
-
+    RespWrapper<Boolean> deletePermission(String permissionId);
 
     /**
      * 查询角色所拥有的所有菜单

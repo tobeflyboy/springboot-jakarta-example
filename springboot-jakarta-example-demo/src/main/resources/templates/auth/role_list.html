@@ -329,6 +329,7 @@
 
     // 新增
     $("#showAddRoleModal").click(function () {
+        $('#addRoleForm')[0].reset();
         // 显示图标选择模态框
         $('#roleAddModal').modal('show');
     });
@@ -420,11 +421,11 @@
                     // 查询
                     $("#queryRoleBtn").click();
                 } else {
-                    let message = '保存失败！';
-                    if (response.message) {
-                        message = response.message;
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
                     }
-                    toastr.error('', message);
+                    toastr.error('', msg);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -502,11 +503,11 @@
                     // 查询
                     $("#queryRoleBtn").click();
                 } else {
-                    let message = '保存失败！';
-                    if (response.message) {
-                        message = response.message;
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
                     }
-                    toastr.error('', message);
+                    toastr.error('', msg);
                 }
             }
         });
@@ -531,17 +532,17 @@
                     // 查询
                     $("#queryRoleBtn").click();
                 } else {
-                    let message = '保存失败！';
-                    if (response.message) {
-                        message = response.message;
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
                     }
-                    toastr.error('', message);
+                    toastr.error('', msg);
                 }
             }
         });
     }
 
-    // 删除菜单节点
+    // 删除角色
     function deleteRole(btn) {
         let roleId = $(btn).data('id');
         let roleName = $(btn).data('role-name');
@@ -551,17 +552,17 @@
             function () {
                 // 确认
                 $.ajax({
-                    url: ctx + '/auth/delete/role/' + roleId,
+                    url: ctx + '/auth/role/delete/' + roleId,
                     method: 'POST',
                     success: function (response) {
                         if (response.code === 200 && response.data) {
                             $("#queryRoleBtn").click();
                         } else {
-                            let message = '删除失败！';
-                            if (response.message) {
-                                message = response.message;
+                            let msg = '删除失败！';
+                            if (response.msg) {
+                                msg = response.msg;
                             }
-                            toastr.error('', message);
+                            toastr.error('', msg);
                         }
                     }
                 });

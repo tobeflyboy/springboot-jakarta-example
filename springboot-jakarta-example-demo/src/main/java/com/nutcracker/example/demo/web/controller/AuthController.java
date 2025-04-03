@@ -1,7 +1,10 @@
 package com.nutcracker.example.demo.web.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
-import com.nutcracker.example.demo.entity.ApiResponse;
+import com.nutcracker.example.demo.convert.auth.SysUserConvert;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
@@ -11,6 +14,7 @@ import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.JSON;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,18 +74,18 @@ public class AuthController {
 
     @PostMapping("/auth/permission/save")
     @ResponseBody
-    public ApiResponse<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
+    public RespWrapper<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
         log.info("/auth/permission/save {}", sysPermission);
-        ApiResponse<Boolean> response = sysPermissionService.savePermission(sysPermission);
+        RespWrapper<Boolean> response = sysPermissionService.savePermission(sysPermission);
         log.info("/auth/permission/save {}, response={}", sysPermission, response);
         return response;
     }
 
     @PostMapping("/auth/permission/delete/{permissionId}")
     @ResponseBody
-    public ApiResponse<Boolean> permissionDelete(@PathVariable("permissionId") String permissionId) {
+    public RespWrapper<Boolean> permissionDelete(@PathVariable("permissionId") String permissionId) {
         log.info("/auth/permission/delete permissionId={}", permissionId);
-        ApiResponse<Boolean> response = sysPermissionService.deletePermission(permissionId);
+        RespWrapper<Boolean> response = sysPermissionService.deletePermission(permissionId);
         log.info("/auth/permission/delete permissionId={}, response={}", permissionId, response);
         return response;
     }
@@ -105,28 +109,37 @@ public class AuthController {
 
     @PostMapping("/auth/add/role")
     @ResponseBody
-    public ApiResponse<Boolean> addRole(@RequestBody SysRole role) {
+    public RespWrapper<Boolean> addRole(@RequestBody SysRole role) {
         log.info("/auth/add/save {}", role);
-        ApiResponse<Boolean> response = sysRoleService.addSysRole(role);
+        RespWrapper<Boolean> response = sysRoleService.addSysRole(role);
         log.info("/auth/add/save {}, response={}", role, response);
         return response;
     }
 
     @PostMapping("/auth/edit/role")
     @ResponseBody
-    public ApiResponse<Boolean> editRole(@RequestBody SysRole role) {
+    public RespWrapper<Boolean> editRole(@RequestBody SysRole role) {
         log.info("/auth/edit/save {}", role);
-        ApiResponse<Boolean> response = sysRoleService.editRole(role);
+        RespWrapper<Boolean> response = sysRoleService.editRole(role);
         log.info("/auth/edit/save {}, response={}", role, response);
         return response;
     }
 
-    @PostMapping("/auth/delete/role/{roleId}")
+    @PostMapping("/auth/role/list")
     @ResponseBody
-    public ApiResponse<Boolean> deleteRole(@PathVariable("roleId") String roleId) {
-        log.info("/auth/delete/role/{}", roleId);
-        ApiResponse<Boolean> response = sysRoleService.deleteRole(roleId);
-        log.info("/auth/delete/role/{}, response={}", roleId, response);
+    public RespWrapper<List<SysRole>> roleList() {
+        log.info("/auth/role/list");
+        RespWrapper<List<SysRole>> response = sysRoleService.roleList();
+        log.info("/auth/role/list, response={}", response);
+        return response;
+    }
+
+    @PostMapping("/auth/role/delete/{roleId}")
+    @ResponseBody
+    public RespWrapper<Boolean> deleteRole(@PathVariable("roleId") String roleId) {
+        log.info("/auth/role/delete/{}", roleId);
+        RespWrapper<Boolean> response = sysRoleService.deleteRole(roleId);
+        log.info("/auth/role/delete/{}, response={}", roleId, response);
         return response;
     }
 
@@ -141,10 +154,10 @@ public class AuthController {
 
     @PostMapping("/auth/role_permission/save")
     @ResponseBody
-    public ApiResponse<Boolean> rolePermissionSave(@RequestBody SaveRolePermission save) {
-        log.info("/auth/role_permission/save {}", save);
-        ApiResponse<Boolean> response = sysRoleService.saveRolePermission(save);
-        log.info("/auth/role_permission/save {}, response={}", save, response);
+    public RespWrapper<Boolean> rolePermissionSave(@RequestBody SaveRolePermission save) {
+        log.info(" /auth/role_permission/save {}", save);
+        RespWrapper<Boolean> response = sysRoleService.saveRolePermission(save);
+        log.info(" /auth/role_permission/save {}, response={}", save, response);
         return response;
     }
 
@@ -168,14 +181,33 @@ public class AuthController {
         return "auth/user_list_page";
     }
 
-    @PostMapping("/auth/create_user")
-    public String createUser(@RequestBody SysUser user, ModelMap model) {
-        log.info("/auth/create_user user={}", user);
-        //PageInfo<SysUser> page = sysUserService.findSysUserByPage(pageNum, user);
-        //model.put("page", page);
-        //model.put("statusMap", SysUserStatusEnum.getStatusMap());
-        //model.put("user", user);
-        return "auth/user_list_page";
+    @PostMapping("/auth/user/add")
+    @ResponseBody
+    public RespWrapper<Boolean> userAdd(@RequestBody SysUser user) {
+        log.info("/auth/user/add {}", user);
+        SysUserDo userDo = SysUserConvert.INSTANCE.toDo(user);
+        SysRoleDo roleDo = ObjectUtil.isEmpty(user) || ObjectUtil.isEmpty(user.getRoleId()) ? null : SysRoleDo.builder().id(user.getRoleId()).build();
+        RespWrapper<Boolean> response = sysUserService.addSysUser(userDo, roleDo);
+        log.info("/auth/user/add {}, response={}", user, response);
+        return response;
+    }
+
+    @PostMapping("/auth/user/delete/{userId}")
+    @ResponseBody
+    public RespWrapper<Boolean> deleteUser(@PathVariable("userId") String userId) {
+        log.info("/auth/delete/user/{}", userId);
+        RespWrapper<Boolean> response = sysUserService.deleteUser(userId);
+        log.info("/auth/delete/user/{}, response={}", userId, response);
+        return response;
+    }
+
+    @PostMapping("/auth/user/edit")
+    @ResponseBody
+    public RespWrapper<Boolean> userEdit(@RequestBody SysUser user) {
+        log.info(" /auth/user/edit {}", user);
+        RespWrapper<Boolean> response = sysUserService.editUser(user);
+        log.info(" /auth/user/edit {}, response={}", user, response);
+        return response;
     }
 
 }

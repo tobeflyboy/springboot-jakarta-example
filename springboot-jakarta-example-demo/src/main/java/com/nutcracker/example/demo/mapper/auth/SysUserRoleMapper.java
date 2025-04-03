@@ -26,6 +26,14 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRoleDo> {
     SysUserRoleDo findUserRoleByUsernameAndRoleCode(@Param("username") String username, @Param("roleCode") String roleCode);
 
     /**
+     * 按用户id查找用户角色
+     *
+     * @param userId 使用id
+     * @return {@link List }<{@link SysUserRoleDo }>
+     */
+    List<SysUserRoleDo> findUserRoleByUserId(@Param("userId") String userId);
+
+    /**
      * 按角色id查找用户角色
      *
      * @param roleId 角色ID

@@ -1,6 +1,9 @@
 package com.nutcracker.example.demo.service.auth.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -11,12 +14,15 @@ import com.nutcracker.example.demo.entity.dataobject.auth.SysUserRoleDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
 import com.nutcracker.example.demo.enums.SysUserStatusEnum;
 import com.nutcracker.example.demo.exception.BusinessException;
+import com.nutcracker.example.demo.mapper.CustomDateTypeHandler;
 import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.example.demo.util.salt.Digests;
 import com.nutcracker.example.demo.util.salt.Encodes;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
+import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,42 +62,59 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Transactional
     @Override
-    public void addSysUser(SysUserDo sysUserDo, SysRoleDo sysRoleDo) {
-        if (sysUserDo == null || sysRoleDo == null) {
-            throw new BusinessException("user.registr.error", "注册信息错误");
+    public RespWrapper<Boolean> addSysUser(SysUserDo userDo, SysRoleDo roleDo) {
+        log.info("addSysUser {},{}", userDo, roleDo);
+        if (userDo == null || roleDo == null) {
+            log.error("addSysUser 缺少必要参数，新增用户失败！");
+            return RespWrapper.validateFailed("缺少必要参数，新增用户失败！");
         }
 
-        if (StrUtil.isBlank(sysUserDo.getUsername()) || StrUtil.isBlank(sysUserDo.getPassword())) {
-            throw new BusinessException("user.registr.error", "注册信息错误");
+        if (StrUtil.isBlank(userDo.getUsername()) || StrUtil.isBlank(userDo.getPassword())) {
+            log.error("addSysUser {},{} 添加用户失败，新增用户失败！", userDo, roleDo);
+            return RespWrapper.validateFailed("账号或密码错误，新增用户失败！");
         }
 
-        if (StrUtil.isBlank(sysRoleDo.getId())) {
-            throw new BusinessException("user.registr.error", "用户未指定所属角色");
+        if (StrUtil.isBlank(roleDo.getId())) {
+            log.error("addSysUser {},{} 用户未指定所属角色，新增用户失败！", userDo, roleDo);
+            return RespWrapper.validateFailed("用户未指定所属角色，新增用户失败！");
         }
 
-        // Role r = daoService.getByPrimaryKey(Role.class, role.getId());
-        SysRoleDo r = sysRoleMapper.selectById(sysRoleDo.getId());
+        SysRoleDo r = sysRoleMapper.selectById(roleDo.getId());
         if (r == null) {
-            throw new BusinessException("user.registr.error", "用户未指定所属组织或角色");
+            log.error("addSysUser {},{} 用户未指定所属组织或角色，新增用户失败！", userDo, roleDo);
+            return RespWrapper.validateFailed("用户未指定所属组织或角色，新增用户失败！");
         }
 
-        SysUserDo u = sysUserMapper.findUserByUsername(sysUserDo.getUsername());
+        SysUserDo u = sysUserMapper.findUserByUsername(userDo.getUsername());
         if (u != null) {
-            throw new BusinessException("user.registr.error", "用户账号已经存在,username=" + sysUserDo.getUsername());
+            log.error("addSysUser {},{} 用户账号已经存在，新增用户失败！", userDo, roleDo);
+            return RespWrapper.fail("用户账号已经存在，新增用户失败！");
         }
-
-        entryptPassword(sysUserDo);
-        sysUserDo.setStatus(SysUserStatusEnum.VALID.getCode());
-        sysUserDo.setCreateTime(Calendar.getInstance().getTime());
-        sysUserDo.setId(String.valueOf(IdWorker.getId("T_USER")));
-        sysUserMapper.insert(sysUserDo);
+        String createdBy = Identify.getSessionUser().getRealName();
+        Date now = Calendar.getInstance().getTime();
+        entryptPassword(userDo);
+        userDo.setId(String.valueOf(IdWorker.getId("sys_user")));
+        userDo.setStatus(SysUserStatusEnum.VALID.getCode());
+        userDo.setCreateTime(now);
+        userDo.setCreateBy(createdBy);
+        int ret = sysUserMapper.insert(userDo);
+        if (ret == 0) {
+            log.error("addSysUser {},{} 新增用户失败！", userDo, roleDo);
+            return RespWrapper.fail("新增用户失败！");
+        }
 
         SysUserRoleDo ur = new SysUserRoleDo();
+        ur.setId(String.valueOf(IdWorker.getId("sys_user_role")));
         ur.setRoleId(r.getId());
-        ur.setUserId(sysUserDo.getId());
-        ur.setId(String.valueOf(IdWorker.getId("T_USER_ROLE")));
-        // daoService.save(ur);
-        sysUserRoleMapper.insert(ur);
+        ur.setUserId(userDo.getId());
+        ur.setCreateTime(now);
+        ur.setCreateBy(createdBy);
+        ret = sysUserRoleMapper.insert(ur);
+        if (ret == 0) {
+            log.error("addSysUser {},{} 新增用户失败！", userDo, roleDo);
+            return RespWrapper.fail("新增用户失败！");
+        }
+        return RespWrapper.success(true);
     }
 
     @Override
@@ -144,5 +167,88 @@ public class SysUserServiceImpl implements SysUserService {
         PageInfo<SysUser> page = new PageInfo<>(list);
         log.debug("findSysUserByPage page.toString()={}", page);
         return page;
+    }
+
+    @Transactional
+    @Override
+    public RespWrapper<Boolean> deleteUser(String userId) {
+        log.info("deleteUser , userId={}", userId);
+        if (StrUtil.isBlank(userId)) {
+            return RespWrapper.validateFailed("删除失败，用户id为空！");
+        }
+        SysUserDo userDo = sysUserMapper.selectById(userId);
+        if (null == userDo) {
+            return RespWrapper.validateFailed("删除失败，用户不存在！");
+        }
+        int ret = sysUserMapper.deleteById(userId);
+        if (ret == 1) {
+            return RespWrapper.success(true);
+        }
+        return RespWrapper.fail("删除失败！");
+    }
+
+    @Transactional
+    @Override
+    public RespWrapper<Boolean> editUser(SysUser user) {
+        log.info("editUser, {}", user);
+        if (ObjectUtil.isEmpty(user) || StrUtil.isBlank(user.getUserId())) {
+            return RespWrapper.validateFailed("编辑保存失败，缺失用户信息！");
+        }
+        if (StrUtil.isAllBlank(user.getRoleId(), user.getEmail())) {
+            return RespWrapper.validateFailed("编辑保存失败，用户角色必选，用户邮箱必填写！");
+        }
+        if (ObjectUtil.isEmpty(user.getStatus())) {
+            return RespWrapper.validateFailed("编辑保存失败，用户状态未指定！");
+        }
+        SysUserDo userDo = sysUserMapper.selectById(user.getUserId());
+        if (null == userDo) {
+            return RespWrapper.validateFailed("编辑保存失败，用户不存在！");
+        }
+
+        Date now = Calendar.getInstance().getTime();
+        String operator = Identify.getSessionUser().getRealName();
+        // 更新用户状态、邮箱
+        int updateResult = sysUserMapper.update(
+                new LambdaUpdateWrapper<SysUserDo>()
+                        .eq(SysUserDo::getId, user.getUserId())
+                        .set(SysUserDo::getStatus, user.getStatus())
+                        .set(SysUserDo::getEmail, user.getEmail())
+                        .set(SysUserDo::getUpdateTime, now, "typeHandler=" + CustomDateTypeHandler.class.getName())
+                        .set(SysUserDo::getUpdateBy, operator)
+        );
+        if (updateResult == 0) {
+            log.error("editUser, sysUserMapper.update fail, {},now={},operator={}", user, now, operator);
+            return RespWrapper.fail("编辑保存失败！");
+        }
+        List<SysUserRoleDo> list = sysUserRoleMapper.findUserRoleByUserId(user.getUserId());
+        if (CollUtil.isEmpty(list)) {
+            // 用户找不到角色，给用户新增角色
+            SysUserRoleDo userRoleDo = SysUserRoleDo.builder()
+                    .roleId(user.getRoleId())
+                    .userId(user.getUserId())
+                    .createTime(now)
+                    .createBy(operator)
+                    .build();
+            if (sysUserRoleMapper.insert(userRoleDo) == 0) {
+                log.error("editUser, sysUserRoleMapper.insert fail, {},now={},operator={}", userRoleDo, now, operator);
+                return RespWrapper.fail("编辑保存失败！");
+            }
+        } else {
+            if (CollUtil.size(list) > 1) {
+                // 清理冗余角色记录（保留第一条）
+                list.subList(1, list.size()).forEach(role ->
+                        sysUserRoleMapper.deleteById(role.getId())
+                );
+            }
+            SysUserRoleDo userRoleDo = list.get(0);
+            if (!StrUtil.equals(user.getRoleId(), userRoleDo.getRoleId())) {
+                userRoleDo.setRoleId(user.getRoleId());
+                if (sysUserRoleMapper.updateById(userRoleDo) == 0) {
+                    log.error("editUser, sysUserRoleMapper.updateById fail, {},now={},operator={}", userRoleDo, now, operator);
+                    return RespWrapper.fail("编辑保存失败！");
+                }
+            }
+        }
+        return RespWrapper.success(true);
     }
 }

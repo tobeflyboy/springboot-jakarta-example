@@ -92,7 +92,7 @@
 </div>
 <!---右侧内容区结束----->
 
-<!---创建用户开始--->
+<!---创建用户-开始--->
 <div class="modal fade" id="create-user-modal" tabindex="-1" aria-labelledby="create-user-modal-label">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -100,9 +100,8 @@
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                 <h4 class="modal-title">添加用户账号</h4>
             </div>
-            <div class="modal-body">
-
-                <form id="addUserForm" name="addUserForm" class="form-horizontal">
+            <form id="addUserForm" name="addUserForm" class="form-horizontal">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="addUserName" class="col-sm-3 control-label">账号名称：<span class="text-danger">*</span></label>
                         <div class="col-sm-8">
@@ -133,97 +132,79 @@
                             <input type="text" id="addEmail" name="addEmail" required placeholder="请输入邮箱地址" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group m-t-sm">
-                        <div class="col-sm-6 col-sm-push-3">
-                            <button class="btn btn-md btn-primary " id="createUserBtn"><strong>确定</strong>
-                            </button>
-                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addRole">所属角色：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <select id="addRole" name="addRole" class="form-control">
+                            </select>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-md btn-primary " id="createUserBtn"><strong>确定</strong>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<!---创建用户结束--->
+<!---创建用户-结束--->
 
-<!----明细开始---->
-<div class="modal fade" id="user-detail-box" tabindex="-1" role="dialog" aria-labelledby="user-detail-box-label" aria-hidden="true">
+<!----查看用户详情-开始---->
+<div class="modal fade" id="userEditModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h5 class="modal-title" id="user-detail-box-label">用户信息</h5>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">编辑用户</h4>
             </div>
-            <div class="modal-body">
-                <!-- Payment Information -->
-                <form>
+            <form id="userEditForm" name="userEditForm" class="form-horizontal">
+                <input type="hidden" id="editUserId" name="editUserId">
+                <div class="modal-body">
                     <div class="form-group row">
-                        <label for="detail-username" class="col-sm-4 col-form-label text-right"><strong>账号:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-username"></span>
+                        <label for="editUsername" class="col-sm-2 col-form-label text-right"><strong>账号:</strong></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly id="editUsername" name="editUsername">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="detail-real-name" class="col-sm-4 col-form-label text-right"><strong>姓名:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-real-name"></span>
+                        <label for="editRealName" class="col-sm-2 col-form-label text-right"><strong>姓名:</strong></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly id="editRealName" name="editRealName">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="detail-email" class="col-sm-4 col-form-label text-right"><strong>邮箱:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-email"></span>
+                        <label for="editEmail" class="col-sm-2 col-form-label text-right"><strong>邮箱:</strong></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" required id="editEmail" name="editEmail">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="detail-status" class="col-sm-4 col-form-label text-right"><strong>状态:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-status"></span>
+                        <label for="editStatus" class="col-sm-2 col-form-label text-right"><strong>状态:</strong></label>
+                        <div class="col-sm-10">
+                            <select type="text" class="form-control" required id="editStatus" name="editStatus">
+                                <option th:each="status:${statusMap}" th:value="${status.key}" th:text="${status.value.msg}"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="detail-create-time" class="col-sm-4 col-form-label text-right"><strong>创建时间:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-create-time"></span>
+                        <label for="editRoleId" class="col-sm-2 col-form-label text-right"><strong>所属角色:</strong></label>
+                        <div class="col-sm-10">
+                            <select type="text" class="form-control" required id="editRoleId" name="editRoleId"></select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="detail-create-user-real-name" class="col-sm-4 col-form-label text-right"><strong>创建人:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-create-user-real-name"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="detail-update-time" class="col-sm-4 col-form-label text-right"><strong>更新时间:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-update-time"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="detail-update-user-real-name" class="col-sm-4 col-form-label text-right"><strong>更新时间:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-update-user-real-name"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="detail-last-login-time" class="col-sm-4 col-form-label text-right"><strong>最后登录时间:</strong></label>
-                        <div class="col-sm-8">
-                            <span id="detail-last-login-time"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-md btn-primary" id="updateUserBtn"><strong>确定</strong>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<!----明细结束---->
-
+<!----查看用户详情-结束---->
 
 <!-- 全局 scripts -->
 <script th:inline="javascript">
@@ -249,23 +230,191 @@
 <script th:src="@{/static/js/plugins/loading/jquery.loading.js}"></script>
 <script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
 <script th:src="@{/static/js/plugins/validate/validate-cn.js}"></script>
-
 <script th:inline="javascript">
+
+    // 动态加载角色数据
+    function loadRoles(select, optionValue = null) {
+        $.ajax({
+            url: ctx + '/auth/role/list',
+            method: 'POST',
+            sync: true,
+            beforeSend: function () {
+                select.prop('disabled', true);
+            },
+            success: function (response) {
+                if (response && response.code === 200) {
+                    select.empty();
+                    select.append($('<option>', {
+                        value: '',
+                        text: '请选择角色',
+                        disabled: true,
+                        selected: !optionValue
+                    }));
+                    let roles = response.data;
+                    if (roles && roles.length > 0) {
+                        roles.forEach(role => {
+                            let selected = false;
+                            if (optionValue && optionValue === role.id) {
+                                selected = true;
+                            }
+                            select.append($('<option>', {
+                                value: role.id,
+                                text: role.roleName,
+                                selected: selected
+                            }));
+                        });
+                    }
+                }
+                select.prop('disabled', false);
+            },
+            error: function (xhr) {
+                console.error('角色加载失败:', xhr.statusText);
+                select.html(
+                    $('<option>', {value: '', text: '加载失败，点击重试'})
+                ).prop('disabled', false).on('click', function () {
+                    loadRoles(select, null);
+                });
+            }
+        });
+    }
+
+    // 创建用户
+    function createUser() {
+        const user = {
+            username: $('#addUserName').val(),
+            realName: $('#addRealName').val(),
+            email: $('#addEmail').val(),
+            password: $('#addPassword').val(),
+            roleId: $('#addRole').val()
+        };
+        console.log(user);
+        $.ajax({
+            url: ctx + '/auth/user/add',
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(user),
+            success: function (response) {
+                if (response && response.code === 200) {
+                    toastr.success('新增用户成功');
+                    $('#create-user-modal').modal('hide');
+                    $('#search-user-btn').click(); // 刷新列表
+                } else {
+                    let msg = '新增用户失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            },
+            error: function (xhr) {
+                console.error('新增用户失败:', xhr.statusText);
+                toastr.error('新增用户失败');
+            }
+        });
+    }
+
+    // 删除用户
+    function deleteUser(btn) {
+        let userId = $(btn).data('id');
+        let realName = $(btn).data('real-name');
+        showConfirm(
+            `确定要删除【${realName}】用户吗？`,
+            '删除确认',
+            function () {
+                // 确认
+                $.ajax({
+                    url: ctx + '/auth/user/delete/' + userId,
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.code === 200 && response.data) {
+                            $('#search-user-btn').click(); // 刷新列表
+                        } else {
+                            let msg = '删除失败！';
+                            if (response.msg) {
+                                msg = response.msg;
+                            }
+                            toastr.error('', msg);
+                        }
+                    }
+                });
+            },
+            function () {
+                // 取消
+                console.log(`【${realName}】用户`);
+            }
+        );
+    }
+
+    // 显示编辑用户模态框
+    function showEditUserModal(btn) {
+        $('#userEditForm')[0].reset();
+        let userid = $(btn).data("id");
+        let user = $('#' + userid);
+        let username = user.data("username");
+        let realName = user.data("real-name");
+        let email = user.data("email");
+        let status = user.data("status");
+        let roleId = user.data("role-id");
+
+        $("#editUserId").val(userid);
+        $("#editUsername").val(username);
+        $("#editRealName").val(realName);
+        $("#editEmail").val(email);
+        $("#editStatus").each((index, element) => {
+            if (status === $(element).val()) {
+                $(element).prop("selected", true);
+            }
+        });
+        loadRoles($("#editRoleId"), roleId);
+    }
+
+    // 创建用户
+    function editUser() {
+        const user = {
+            userId: $('#editUserId').val(),
+            status: $('#editStatus').val(),
+            email: $('#editEmail').val(),
+            roleId: $('#editRoleId').val()
+        };
+        console.log(user);
+        $.ajax({
+            url: ctx + '/auth/user/edit',
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(user),
+            success: function (response) {
+                if (response && response.code === 200) {
+                    toastr.success('编辑用户成功');
+                    $('#userEditModal').modal('hide');
+                    $('#search-user-btn').click(); // 刷新列表
+                } else {
+                    let msg = '编辑用户失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            },
+            error: function (xhr) {
+                console.error('编辑用户失败:', xhr.statusText);
+                toastr.error('编辑用户失败');
+            }
+        });
+    }
+
     $(document).ready(function () {
         //查询
         $("#search-user-btn").click(function () {
-            const username = $("#username").val();
-            const realName = $("#realName").val();
-            const status = $("#status").val();
+            const searchForm = {
+                username: $.trim($("#username").val()),
+                realName: $.trim($("#realName").val()),
+                status: $("#status").val()
+            };
             $.ajax({
                 url: ctx + '/auth/user_list?pageNum=1',
                 type: "post",
                 contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    "username": username,
-                    "realName": realName,
-                    "status": status
-                }),
+                data: JSON.stringify(searchForm),
                 success: function (data) {
                     $('#user_list_page_box').html(data);
                 },
@@ -278,9 +427,12 @@
         // 显示创建用户模态框
         $("#view-create-user-model-btn").click(function () {
             $("#addUserForm")[0].reset();
+            // 初始化加载角色
+            loadRoles($('#addRole'), null);
         });
 
-        $("#addUserForm").validate({
+        const addUserForm = $('#addUserForm');
+        addUserForm.validate({
             rules: {
                 addUserName: {
                     required: true,
@@ -302,6 +454,9 @@
                 addEmail: {
                     required: true,
                     email: true
+                },
+                addRole: {
+                    required: true
                 }
             },
             messages: {
@@ -325,97 +480,50 @@
                 addEmail: {
                     required: "请输入有效的电子邮件地址",
                     email: "请输入有效的电子邮件地址."
+                },
+                addRole: {
+                    required: "必须选择用户角色"
                 }
             },
             debug: true,
-            submitHandler: function (form) {
+            submitHandler: function () {
                 // 获取表单数据
-                createUser(form);
+                createUser();
             }
         });
 
         // 阻止表单的默认提交行为
-        $("#addUserForm").on('submit', function (event) {
+        addUserForm.on('submit', function (event) {
+            // 阻止表单的默认提交行为
+            event.preventDefault();
+        });
+
+        const userEditForm = $('#userEditForm');
+        userEditForm.validate({
+            rules: {
+                editStatus: {required: true},
+                addEmail: {required: true, email: true},
+                editRoleId: {required: true}
+            },
+            messages: {
+                editStatus: {required: "必须选择状态"},
+                addEmail: {required: "请输入有效的电子邮件地址", email: "请输入有效的电子邮件地址"},
+                editRoleId: {required: "必须选择用户角色"}
+            },
+            debug: true,
+            submitHandler: function () {
+                console.log('提交表单');
+                editUser();
+            }
+        });
+
+        // 阻止表单的默认提交行为
+        userEditForm.on('submit', function (event) {
             // 阻止表单的默认提交行为
             event.preventDefault();
         });
     });
 
-
-    // 创建用户
-    function createUser(form) {
-        const username = $(form).find("#addUserName").val();
-        const realName = $(form).find("#addRealName").val();
-        const email = $(form).find("#addEmail").val();
-        const password = $(form).find("#addPassword").val();
-        const confirmPassword = $(form).find("#addConfirmPassword").val();
-        const user = JSON.stringify({
-            "username": username,
-            "realName": realName,
-            "email": email,
-            "password": password
-        });
-        console.log(user);
-        toastr.success('操作成功！','操作成功！');
-        // $.ajax({
-        //     url: ctx + '/auth/add_user',
-        //     type: "post",
-        //     contentType: "application/json; charset=UTF-8",
-        //     data: user,
-        //     success: function (data) {
-        //     }
-        // });
-    }
-
-    // 查看详情
-    function viewDetail(btn) {
-        let userid = $(btn).data("id");
-        let user = $('#' + userid);
-        let username = user.data("username");
-        let realName = user.data("real-name");
-        let email = user.data("email");
-        let status = user.data("status");
-        let createTime = user.data("create-time");
-        let createUserRealName = user.data("create-user-real-name");
-        let updateTime = user.data("update-time");
-        let updateUserRealName = user.data("update-user-real-name");
-        let lastLoginTime = user.data("last-login-time");
-
-        $("#detail-username").text(username);
-        $("#detail-real-name").text(realName);
-        $("#detail-email").text(email);
-        $("#detail-status").text(status);
-        if (createTime) {
-            $("#detail-create-time").text(createTime);
-        } else {
-            $("#detail-create-time").text("");
-        }
-        if (createUserRealName) {
-            $("#detail-create-user-real-name").text(createUserRealName);
-        } else {
-            $("#detail-create-user-real-name").text("");
-        }
-        if (updateTime) {
-            $("#detail-update-time").text(updateTime);
-        } else {
-            $("#detail-update-time").text("");
-        }
-        if (updateUserRealName) {
-            $("#detail-update-user-real-name").text(updateUserRealName);
-        } else {
-            $("#detail-update-user-real-name").text("");
-        }
-        if (updateTime) {
-            $("#detail-update-time").text(updateTime);
-        } else {
-            $("#detail-update-time").text("");
-        }
-        if (lastLoginTime) {
-            $("#detail-last-login-time").text(lastLoginTime);
-        } else {
-            $("#detail-last-login-time").text("");
-        }
-    }
 
 </script>
 

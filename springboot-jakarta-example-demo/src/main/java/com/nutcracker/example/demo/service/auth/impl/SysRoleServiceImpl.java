@@ -9,7 +9,6 @@ import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
-import com.nutcracker.example.demo.entity.ApiResponse;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo;
@@ -22,6 +21,7 @@ import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
 import com.nutcracker.example.demo.web.Identify;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,16 +51,16 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional
-    public ApiResponse<Boolean> addSysRole(SysRole sysRole) {
+    public RespWrapper<Boolean> addSysRole(SysRole sysRole) {
         if (sysRole == null || StrUtil.isBlank(sysRole.getRoleCode()) || StrUtil.isBlank(sysRole.getRoleName())) {
-            return ApiResponse.fail("新增角色失败，角色编码、角色名称不能为空！");
+            return RespWrapper.validateFailed("新增角色失败，角色编码、角色名称不能为空！");
         }
         if (log.isDebugEnabled()) {
             log.debug("添加角色 : {}", sysRole);
         }
         SysRoleDo sysRoleDo = findByRoleCode(sysRole.getRoleCode());
         if (sysRoleDo != null) {
-            return ApiResponse.fail("新增角色失败，角色已不存在！");
+            return RespWrapper.validateFailed("新增角色失败，角色已不存在！");
         }
         sysRoleDo = SysRoleConvert.INSTANCE.toDo(sysRole);
         sysRoleDo.setId(String.valueOf(IdWorker.getId("sys_role")));
@@ -68,9 +68,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRoleDo.setCreateTime(Calendar.getInstance().getTime());
         int ret = sysRoleMapper.insert(sysRoleDo);
         if (ret == 1) {
-            return ApiResponse.ofSuccess(true);
+            return RespWrapper.success(true);
         }
-        return ApiResponse.fail("新增角色失败！");
+        return RespWrapper.fail("新增角色失败！");
     }
 
     @Override
@@ -125,42 +125,42 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public ApiResponse<Boolean> editRole(SysRole role) {
+    public RespWrapper<Boolean> editRole(SysRole role) {
         log.info("editRole , role={}", role);
         if (role == null || StrUtil.isAllBlank(role.getId(), role.getRoleCode(), role.getRoleName())) {
-            return ApiResponse.fail("更新角色失败，角色编码、角色名称不能为空！");
+            return RespWrapper.validateFailed("更新角色失败，角色编码、角色名称不能为空！");
         }
         SysRoleDo sysRoleDo = sysRoleMapper.selectById(role.getId());
         if (null == sysRoleDo) {
-            return ApiResponse.fail("更新角色失败，角色已不存在！");
+            return RespWrapper.validateFailed("更新角色失败，角色已不存在！");
         }
         sysRoleDo = sysRoleMapper.findRoleByRoleCode(role.getRoleCode());
         if (null != sysRoleDo && !StrUtil.equals(role.getId(), sysRoleDo.getId())) {
             log.warn("editRole 更新角色失败，角色编码已经存在了！{}", sysRoleDo);
-            return ApiResponse.fail("更新角色失败，角色编码已经存在了！");
+            return RespWrapper.fail("更新角色失败，角色编码已经存在了！");
         }
         sysRoleDo = SysRoleConvert.INSTANCE.toDo(role);
         int ret = sysRoleMapper.updateById(sysRoleDo);
         if (ret == 1) {
-            return ApiResponse.ofSuccess(true);
+            return RespWrapper.success(true);
         }
-        return ApiResponse.fail("更新角色失败！");
+        return RespWrapper.fail("更新角色失败！");
     }
 
     @Override
     @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, key = "#saveRolePermission.roleId", condition = "#saveRolePermission!=null && #saveRolePermission.roleId!=null")
     @Transactional
-    public ApiResponse<Boolean> saveRolePermission(SaveRolePermission saveRolePermission) {
+    public RespWrapper<Boolean> saveRolePermission(SaveRolePermission saveRolePermission) {
         log.info("saveRolePermission , saveRolePermission={}", saveRolePermission);
         if (saveRolePermission == null || StrUtil.isBlank(saveRolePermission.getRoleId())) {
-            return ApiResponse.fail("角色授权失败，角色信息不存在！");
+            return RespWrapper.validateFailed("角色授权失败，角色信息不存在！");
         }
         if (saveRolePermission.getPermissionIdList() == null || saveRolePermission.getPermissionIdList().isEmpty()) {
-            return ApiResponse.fail("角色授权失败，菜单权限信息不存在！");
+            return RespWrapper.validateFailed("角色授权失败，菜单权限信息不存在！");
         }
         SysRoleDo sysRoleDo = sysRoleMapper.selectById(saveRolePermission.getRoleId());
         if (null == sysRoleDo) {
-            return ApiResponse.fail("角色授权失败，角色已不存在！");
+            return RespWrapper.validateFailed("角色授权失败，角色已不存在！");
         }
         int ret = sysRolePermissionMapper.deleteRolePermissionByRoleId(saveRolePermission.getRoleId());
         log.info("saveRolePermission , deleteByRoleId ret={}, saveRolePermission={}", ret, saveRolePermission);
@@ -184,29 +184,37 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         // 故意抛出异常测试事务回滚
         //throw new RuntimeException("测试事务回滚");
-        return ApiResponse.ofSuccess(true);
+        return RespWrapper.success(true);
     }
 
     @Override
-    public ApiResponse<Boolean> deleteRole(String roleId) {
+    public RespWrapper<Boolean> deleteRole(String roleId) {
         log.info("deleteRole , roleId={}", roleId);
         if (StrUtil.isBlank(roleId)) {
-            return ApiResponse.fail("删除失败，角色id为空！");
+            return RespWrapper.validateFailed("删除失败，角色id为空！");
         }
         SysRoleDo sysRoleDo = sysRoleMapper.selectById(roleId);
         if (null == sysRoleDo) {
-            return ApiResponse.fail("删除失败，角色不存在！");
+            return RespWrapper.validateFailed("删除失败，角色不存在！");
         }
         // 判断下面有没有人
         List<SysUserRoleDo> list = sysUserRoleMapper.findUserRoleByRoleId(roleId);
         if (CollUtil.isNotEmpty(list)) {
             log.info("deleteRole, roleId={}, list={}", roleId, list);
-            return ApiResponse.fail("删除失败，该角色下有用户！");
+            return RespWrapper.fail("删除失败，该角色下有用户！");
         }
         int ret = sysRoleMapper.deleteById(roleId);
         if (ret == 1) {
-            return ApiResponse.ofSuccess(true);
+            return RespWrapper.success(true);
         }
-        return ApiResponse.fail("删除失败！");
+        return RespWrapper.fail("删除失败！");
+    }
+
+    @Override
+    public RespWrapper<List<SysRole>> roleList() {
+        log.info("roleList");
+        List<SysRoleDo> list = sysRoleMapper.selectList(null);
+        List<SysRole> sysRoleList = SysRoleConvert.INSTANCE.toDomain(list);
+        return RespWrapper.success(sysRoleList);
     }
 }

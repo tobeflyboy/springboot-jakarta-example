@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
+import com.nutcracker.example.demo.util.wrapper.RespWrapper;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface SysUserService {
      * @param sysUserDo 用户
      * @param sysRoleDo 角色
      */
-    void addSysUser(SysUserDo sysUserDo, SysRoleDo sysRoleDo);
+    RespWrapper<Boolean> addSysUser(SysUserDo sysUserDo, SysRoleDo sysRoleDo);
 
 
     /**
@@ -56,4 +57,19 @@ public interface SysUserService {
      */
     PageInfo<SysUser> findSysUserByPage(Integer pageNum , SysUser user);
 
+    /**
+     * 删除用户
+     *
+     * @param userId 用户id
+     * @return {@link RespWrapper }<{@link Boolean }>
+     */
+    RespWrapper<Boolean> deleteUser(String userId);
+
+    /**
+     * 编辑用户
+     *
+     * @param user 用户
+     * @return {@link RespWrapper }<{@link Boolean }>
+     */
+    RespWrapper<Boolean> editUser(SysUser user);
 }
