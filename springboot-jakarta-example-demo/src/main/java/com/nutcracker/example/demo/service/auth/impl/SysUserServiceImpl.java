@@ -267,18 +267,14 @@ public class SysUserServiceImpl implements SysUserService {
         if (ObjectUtil.isEmpty(user) || StrUtil.isBlank(user.getUserId())) {
             return RespWrapper.validateFailed("重置密码失败，缺失用户信息！");
         }
-        if (StrUtil.isAllBlank(user.getPassword(), user.getNewPassword())) {
+        if (StrUtil.isBlank(user.getNewPassword())) {
             return RespWrapper.validateFailed("请输入密码！");
         }
         SysUserDo userDo = sysUserMapper.selectById(user.getUserId());
         if (null == userDo) {
             return RespWrapper.validateFailed("重置密码失败，用户不存在！");
         }
-        String password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getPassword(), userDo.getUsername());
-        if (!StrUtil.equals(password, userDo.getPassword())) {
-            return RespWrapper.validateFailed("原密码错误！");
-        }
-        password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getNewPassword(), userDo.getUsername());
+        String password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getNewPassword(), userDo.getUsername());
         Date now = Calendar.getInstance().getTime();
         String operator = Identify.getSessionUser().getId();
         // 更新用户状态、邮箱

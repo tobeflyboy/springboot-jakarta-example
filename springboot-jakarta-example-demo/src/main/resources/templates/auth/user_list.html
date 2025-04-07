@@ -224,12 +224,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="oldPassword" class="col-sm-2 col-form-label text-right"><strong>密码:</strong></label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" required id="oldPassword" name="oldPassword">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="newPassword" class="col-sm-2 col-form-label text-right"><strong>新密码:</strong></label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" required id="newPassword" name="newPassword">
@@ -464,7 +458,6 @@
     function resetPwd() {
         const user = {
             userId: $('#resetPwdUserId').val(),
-            password: $('#oldPassword').val(),
             newPassword: $('#newPassword').val()
         };
         $.ajax({
@@ -616,15 +609,10 @@
         const resetUserPwdForm = $('#resetUserPwdForm');
         resetUserPwdForm.validate({
             rules: {
-                oldPassword: {required: true, rangelength: [6, 12]},
                 newPassword: {required: true, rangelength: [6, 12]},
                 confirmPassword: {required: true, rangelength: [6, 12], equalTo: "#newPassword"}
             },
             messages: {
-                oldPassword: {
-                    required: "请输入密码",
-                    rangelength: $.validator.format("请输入{0}-{1}位的英文字母或字符")
-                },
                 newPassword: {
                     required: "请输入新密码",
                     rangelength: $.validator.format("请输入{0}-{1}位的英文字母或字符")

@@ -41,5 +41,8 @@ public class DemoConstants {
     /** 白名单url */
     public static final String[] WHILE_URL_LIST = {"/favicon.ico", "/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**", "/swagger-ui/**", "/actuator/**"};
 
-
+    /** 管理员角色代码 */
+    public static final String ADMIN_ROLE_CODE = "admin";
+    /** 管理员用户名 */
+    public static final String ADMIN_USERNAME = "admin";
 }

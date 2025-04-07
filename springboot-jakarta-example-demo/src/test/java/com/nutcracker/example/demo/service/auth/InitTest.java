@@ -2,6 +2,7 @@ package com.nutcracker.example.demo.service.auth;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo;
@@ -43,9 +44,6 @@ public class InitTest {
     @Resource
     private SysUserRoleMapper sysUserRoleMapper;
 
-    private static final String ADMIN_ROLE_CODE = "admin";
-    private static final String ADMIN_USERNAME = "admin";
-
     /**
      * 初始化auth示例数据
      */
@@ -84,12 +82,12 @@ public class InitTest {
 
     public void addSysRole() {
         try {
-            SysRoleDo sysRoleDo = sysRoleMapper.findRoleByRoleCode(ADMIN_ROLE_CODE);
+            SysRoleDo sysRoleDo = sysRoleMapper.findRoleByRoleCode(DemoConstants.ADMIN_ROLE_CODE);
             if (null == sysRoleDo) {
                 sysRoleDo = SysRoleDo
                         .builder()
                         .id(String.valueOf(IdWorker.getId("sys_role")))
-                        .roleCode(ADMIN_ROLE_CODE)
+                        .roleCode(DemoConstants.ADMIN_ROLE_CODE)
                         .roleName("管理员")
                         .createTime(Calendar.getInstance().getTime())
                         .build();
@@ -106,7 +104,7 @@ public class InitTest {
 
     public void addSysRolePermission() {
         try {
-            SysRoleDo sysRoleDo = sysRoleMapper.findRoleByRoleCode(ADMIN_ROLE_CODE);
+            SysRoleDo sysRoleDo = sysRoleMapper.findRoleByRoleCode(DemoConstants.ADMIN_ROLE_CODE);
             if (sysRoleDo == null) {
                 throw new BusinessException("未找到角色");
             }
@@ -144,7 +142,7 @@ public class InitTest {
 
     public void addSysUser() {
         try {
-            String username = ADMIN_USERNAME;
+            String username = DemoConstants.ADMIN_USERNAME;
             SysUserDo sysUserDo = sysUserMapper.findUserByUsername(username);
             if (null == sysUserDo) {
                 String secret = "123456";
@@ -174,8 +172,8 @@ public class InitTest {
 
     public void addSysUserRole() {
         try {
-            String roleCode = ADMIN_ROLE_CODE;
-            String username = ADMIN_USERNAME;
+            String roleCode = DemoConstants.ADMIN_ROLE_CODE;
+            String username = DemoConstants.ADMIN_USERNAME;
             SysUserRoleDo sysUserRoleDo = sysUserRoleMapper.findUserRoleByUsernameAndRoleCode(username, roleCode);
             if (null == sysUserRoleDo) {
                 SysUserDo sysUserDo = sysUserMapper.findUserByUsername(username);

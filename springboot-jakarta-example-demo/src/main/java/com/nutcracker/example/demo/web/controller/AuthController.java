@@ -2,6 +2,7 @@ package com.nutcracker.example.demo.web.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysUserConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
@@ -95,6 +96,7 @@ public class AuthController {
         log.info("/auth/role_list");
         PageInfo<SysRole> page = sysRoleService.findSysRoleByPage(null, null);
         model.put("page", page);
+        model.put("admin_role_code", DemoConstants.ADMIN_ROLE_CODE);
         return "auth/role_list";
     }
 
@@ -104,6 +106,7 @@ public class AuthController {
         PageInfo<SysRole> page = sysRoleService.findSysRoleByPage(pageNum, role);
         model.put("page", page);
         model.put("role", role);
+        model.put("admin_role_code", DemoConstants.ADMIN_ROLE_CODE);
         return "auth/role_list_page";
     }
 
@@ -168,6 +171,7 @@ public class AuthController {
         log.info("userList {}", JSON.toJSONString(page));
         model.put("page", page);
         model.put("statusMap", SysUserStatusEnum.getStatusMap());
+        model.put("admin_username", DemoConstants.ADMIN_USERNAME);
         return "auth/user_list";
     }
 
@@ -178,6 +182,7 @@ public class AuthController {
         model.put("page", page);
         model.put("statusMap", SysUserStatusEnum.getStatusMap());
         model.put("user", user);
+        model.put("admin_username", DemoConstants.ADMIN_USERNAME);
         return "auth/user_list_page";
     }
 
