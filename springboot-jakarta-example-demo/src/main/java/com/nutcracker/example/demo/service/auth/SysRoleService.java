@@ -22,7 +22,7 @@ public interface SysRoleService {
      * @param sysRole 角色对象
      * @return {@link RespWrapper }<{@link Boolean }>
      */
-    RespWrapper<Boolean> addSysRole(SysRole sysRole);
+    RespWrapper<Boolean> addRole(SysRole sysRole);
 
     /**
      * 根据编码查询角色

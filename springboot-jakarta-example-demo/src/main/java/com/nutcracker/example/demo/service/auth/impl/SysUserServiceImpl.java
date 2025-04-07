@@ -90,7 +90,7 @@ public class SysUserServiceImpl implements SysUserService {
             log.error("addSysUser {},{} 用户账号已经存在，新增用户失败！", userDo, roleDo);
             return RespWrapper.fail("用户账号已经存在，新增用户失败！");
         }
-        String createdBy = Identify.getSessionUser().getRealName();
+        String createdBy = Identify.getSessionUser().getId();
         Date now = Calendar.getInstance().getTime();
         entryptPassword(userDo);
         userDo.setId(String.valueOf(IdWorker.getId("sys_user")));
@@ -180,11 +180,19 @@ public class SysUserServiceImpl implements SysUserService {
         if (null == userDo) {
             return RespWrapper.validateFailed("删除失败，用户不存在！");
         }
-        int ret = sysUserMapper.deleteById(userId);
-        if (ret == 1) {
-            return RespWrapper.success(true);
+
+        List<SysUserRoleDo> list = sysUserRoleMapper.findUserRoleByUserId(userId);
+        if (CollUtil.isNotEmpty(list)) {
+            int ret = sysUserRoleMapper.delete(new LambdaUpdateWrapper<SysUserRoleDo>().eq(SysUserRoleDo::getUserId, userId));
+            if (ret == 0) {
+                log.error("deleteUser, sysUserRoleMapper.delete fail, userId={}", userId);
+                return RespWrapper.fail("删除失败！");
+            }
         }
-        return RespWrapper.fail("删除失败！");
+        if (0 == sysUserMapper.deleteById(userId)) {
+            return RespWrapper.fail("删除失败！");
+        }
+        return RespWrapper.success(true);
     }
 
     @Transactional

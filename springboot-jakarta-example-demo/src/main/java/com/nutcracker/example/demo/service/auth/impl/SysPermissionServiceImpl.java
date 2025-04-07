@@ -2,14 +2,18 @@ package com.nutcracker.example.demo.service.auth.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
-import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
+import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.util.JSON;
 import com.nutcracker.example.demo.util.wrapper.RespWrapper;
@@ -22,9 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,7 @@ import java.util.stream.Collectors;
 public class SysPermissionServiceImpl implements SysPermissionService {
 
     private final SysPermissionMapper sysPermissionMapper;
+    private final SysRolePermissionMapper sysRolePermissionMapper;
 
     @Override
     public List<SysPermission> findSysPermission() {
@@ -157,11 +162,12 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             resultNum = sysPermissionMapper.updateSysPermissionById(p);
         } else {
-            SessionUser sessionUser = Identify.getSessionUser();
+            String operator = Identify.getSessionUser().getId();
+            Date now = DateUtil.date();
             p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
-            p.setCreateTime(Calendar.getInstance().getTime());
-            p.setCreateBy(sessionUser.getRealName());
+            p.setCreateTime(now);
+            p.setCreateBy(operator);
             resultNum = sysPermissionMapper.insert(p);
         }
         log.info("savePermission {},resultNum={}", sysPermission, resultNum);
@@ -179,10 +185,25 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         if (CollUtil.isNotEmpty(children)) {
             return RespWrapper.validateFailed("因为还有下级菜单，无法执行删除操作！");
         }
-        if (sysPermissionMapper.deleteById(permissionId) > 0) {
-            return RespWrapper.success(Boolean.TRUE);
+        List<SysRolePermissionDo> list = sysRolePermissionMapper.selectList(
+                new LambdaQueryWrapper<SysRolePermissionDo>()
+                        .eq(SysRolePermissionDo::getPermissionId, permissionId)
+        );
+        if (CollUtil.isNotEmpty(list)) {
+            int ret = sysRolePermissionMapper.delete(
+                    new LambdaUpdateWrapper<SysRolePermissionDo>()
+                            .eq(SysRolePermissionDo::getPermissionId, permissionId)
+            );
+            if (ret == 0) {
+                log.error("resetPwd, sysRolePermissionMapper.delete fail, permissionId={}", permissionId);
+                return RespWrapper.fail("删除失败！");
+            }
         }
-        return RespWrapper.fail("删除失败！");
+        if (sysPermissionMapper.deleteById(permissionId) == 0) {
+            log.error("resetPwd, sysPermissionMapper.deleteById fail, permissionId={}", permissionId);
+            return RespWrapper.fail("删除失败！");
+        }
+        return RespWrapper.success(Boolean.TRUE);
     }
 
     @Override

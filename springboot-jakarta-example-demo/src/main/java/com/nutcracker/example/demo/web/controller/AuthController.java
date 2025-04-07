@@ -111,7 +111,7 @@ public class AuthController {
     @ResponseBody
     public RespWrapper<Boolean> addRole(@RequestBody SysRole role) {
         log.info("/auth/add/save {}", role);
-        RespWrapper<Boolean> response = sysRoleService.addSysRole(role);
+        RespWrapper<Boolean> response = sysRoleService.addRole(role);
         log.info("/auth/add/save {}, response={}", role, response);
         return response;
     }

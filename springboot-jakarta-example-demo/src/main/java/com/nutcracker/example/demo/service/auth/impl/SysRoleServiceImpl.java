@@ -3,6 +3,8 @@ package com.nutcracker.example.demo.service.auth.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -51,7 +53,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional
-    public RespWrapper<Boolean> addSysRole(SysRole sysRole) {
+    public RespWrapper<Boolean> addRole(SysRole sysRole) {
         if (sysRole == null || StrUtil.isBlank(sysRole.getRoleCode()) || StrUtil.isBlank(sysRole.getRoleName())) {
             return RespWrapper.validateFailed("新增角色失败，角色编码、角色名称不能为空！");
         }
@@ -64,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         sysRoleDo = SysRoleConvert.INSTANCE.toDo(sysRole);
         sysRoleDo.setId(String.valueOf(IdWorker.getId("sys_role")));
-        sysRoleDo.setCreateBy(Identify.getSessionUser().getRealName());
+        sysRoleDo.setCreateBy(Identify.getSessionUser().getId());
         sysRoleDo.setCreateTime(Calendar.getInstance().getTime());
         int ret = sysRoleMapper.insert(sysRoleDo);
         if (ret == 1) {
@@ -203,11 +205,24 @@ public class SysRoleServiceImpl implements SysRoleService {
             log.info("deleteRole, roleId={}, list={}", roleId, list);
             return RespWrapper.fail("删除失败，该角色下有用户！");
         }
-        int ret = sysRoleMapper.deleteById(roleId);
-        if (ret == 1) {
-            return RespWrapper.success(true);
+        List<SysRolePermissionDo> rolePermissionDoList = sysRolePermissionMapper.selectList(
+                new LambdaQueryWrapper<SysRolePermissionDo>()
+                        .eq(SysRolePermissionDo::getRoleId, roleId)
+        );
+        if (CollUtil.isNotEmpty(rolePermissionDoList)) {
+            int ret = sysRolePermissionMapper.delete(
+                    new LambdaUpdateWrapper<SysRolePermissionDo>()
+                            .eq(SysRolePermissionDo::getRoleId, roleId)
+            );
+            if (ret == 0) {
+                log.error("deleteRole, sysRolePermissionMapper.delete fail, roleId={}", roleId);
+                return RespWrapper.fail("删除失败！");
+            }
         }
-        return RespWrapper.fail("删除失败！");
+        if (sysRoleMapper.deleteById(roleId) == 0) {
+            return RespWrapper.fail("删除失败！");
+        }
+        return RespWrapper.success(true);
     }
 
     @Override
