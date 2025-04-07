@@ -19,6 +19,7 @@ import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.SysUserService;
+import com.nutcracker.example.demo.util.SecurityUtils;
 import com.nutcracker.example.demo.util.salt.Digests;
 import com.nutcracker.example.demo.util.salt.Encodes;
 import com.nutcracker.example.demo.util.wrapper.RespWrapper;
@@ -55,9 +56,8 @@ public class SysUserServiceImpl implements SysUserService {
     private void entryptPassword(SysUserDo sysUserDo) {
         byte[] salt = Digests.generateSalt(SALT_SIZE);
         sysUserDo.setSalt(Encodes.encodeHex(salt));
-
-        byte[] hashPassword = Digests.sha1(sysUserDo.getPassword().getBytes(), salt, HASH_INTERATIONS);
-        sysUserDo.setPassword(Encodes.encodeHex(hashPassword));
+        String pwd = SecurityUtils.encryptPassword(sysUserDo.getSalt(), sysUserDo.getPassword(), sysUserDo.getUsername());
+        sysUserDo.setPassword(pwd);
     }
 
     @Transactional
@@ -206,7 +206,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
         Date now = Calendar.getInstance().getTime();
-        String operator = Identify.getSessionUser().getRealName();
+        String operator = Identify.getSessionUser().getId();
         // 更新用户状态、邮箱
         int updateResult = sysUserMapper.update(
                 new LambdaUpdateWrapper<SysUserDo>()
@@ -248,6 +248,42 @@ public class SysUserServiceImpl implements SysUserService {
                     return RespWrapper.fail("编辑保存失败！");
                 }
             }
+        }
+        return RespWrapper.success(true);
+    }
+
+    @Transactional
+    @Override
+    public RespWrapper<Boolean> resetPwd(SysUser user) {
+        log.info("resetPwd, {}", user);
+        if (ObjectUtil.isEmpty(user) || StrUtil.isBlank(user.getUserId())) {
+            return RespWrapper.validateFailed("重置密码失败，缺失用户信息！");
+        }
+        if (StrUtil.isAllBlank(user.getPassword(), user.getNewPassword())) {
+            return RespWrapper.validateFailed("请输入密码！");
+        }
+        SysUserDo userDo = sysUserMapper.selectById(user.getUserId());
+        if (null == userDo) {
+            return RespWrapper.validateFailed("重置密码失败，用户不存在！");
+        }
+        String password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getPassword(), userDo.getUsername());
+        if (!StrUtil.equals(password, userDo.getPassword())) {
+            return RespWrapper.validateFailed("原密码错误！");
+        }
+        password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getNewPassword(), userDo.getUsername());
+        Date now = Calendar.getInstance().getTime();
+        String operator = Identify.getSessionUser().getId();
+        // 更新用户状态、邮箱
+        int updateResult = sysUserMapper.update(
+                new LambdaUpdateWrapper<SysUserDo>()
+                        .eq(SysUserDo::getId, user.getUserId())
+                        .set(SysUserDo::getPassword, password)
+                        .set(SysUserDo::getUpdateTime, now, "typeHandler=" + CustomDateTypeHandler.class.getName())
+                        .set(SysUserDo::getUpdateBy, operator)
+        );
+        if (updateResult == 0) {
+            log.error("resetPwd, sysUserMapper.update fail, {},now={},operator={}", user, now, operator);
+            return RespWrapper.fail("重置密码失败！");
         }
         return RespWrapper.success(true);
     }

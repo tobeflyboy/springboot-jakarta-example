@@ -210,4 +210,13 @@ public class AuthController {
         return response;
     }
 
+    @PostMapping("/auth/user/reset-pwd")
+    @ResponseBody
+    public RespWrapper<Boolean> resetPwd(@RequestBody SysUser user) {
+        log.info(" /auth/user/reset-pwd {}", user);
+        RespWrapper<Boolean> response = sysUserService.resetPwd(user);
+        log.info(" /auth/user/reset-pwd {}, response={}", user, response);
+        return response;
+    }
+
 }

@@ -33,8 +33,11 @@ public class SysUser implements Serializable {
     @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String username;
 
-    @Schema(description = "用户登录密码", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "登录密码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String password;
+
+    @Schema(description = "新登录密码", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String newPassword;
 
     @Schema(description = "姓名")
     private String realName;

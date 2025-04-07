@@ -30,7 +30,7 @@
                     <td th:text="${user.updateTime} ? ${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
                     <td th:text="${user.updateUserRealName}" class="small"></td>
                     <td th:text="${user.lastLoginTime} ? ${#dates.format(user.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
-                    <td class="text-right text-nowrap" style="min-width: 125px;">
+                    <td class="text-right text-nowrap" style="min-width: 150px;">
                         <div class="btn-group"
                              th:id="${user.userId}"
                              th:attr="
@@ -50,6 +50,8 @@
                                 <i class="fa fa-trash"></i> 删除</button>
                             <button onclick="showEditUserModal(this)" th:attr="data-id=${user.userId}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#userEditModal" title="编辑用户">
                                 <i class="fa fa-eye"></i> 编辑</button>
+                            <button onclick="showResetUserPwd(this)" th:attr="data-id=${user.userId}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#resetUserPwdModal" title="重置密码">
+                                <i class="fa fa-warning"></i> 重置密码</button>
                         </div>
                     </td>
                 </tr>

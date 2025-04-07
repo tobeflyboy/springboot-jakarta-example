@@ -72,4 +72,12 @@ public interface SysUserService {
      * @return {@link RespWrapper }<{@link Boolean }>
      */
     RespWrapper<Boolean> editUser(SysUser user);
+
+    /**
+     * 重置用户密码
+     *
+     * @param user 用户
+     * @return {@link RespWrapper }<{@link Boolean }>
+     */
+    RespWrapper<Boolean> resetPwd(SysUser user);
 }
