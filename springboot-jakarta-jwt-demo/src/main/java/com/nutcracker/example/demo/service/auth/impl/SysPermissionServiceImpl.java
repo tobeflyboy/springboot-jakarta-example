@@ -178,6 +178,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
+    @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, allEntries = true)
     public RespWrapper<Boolean> deletePermission(String permissionId) {
         log.info("deletePermission permissionId={}", permissionId);
         SysPermissionDo sysPermissionDo = sysPermissionMapper.selectById(permissionId);
