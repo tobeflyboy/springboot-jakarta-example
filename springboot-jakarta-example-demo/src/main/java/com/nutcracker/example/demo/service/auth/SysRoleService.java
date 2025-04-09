@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
-import com.nutcracker.wrapper.RespWrapper;
+import com.nutcracker.common.wrapper.RespWrapper;
 
 import java.util.List;
 

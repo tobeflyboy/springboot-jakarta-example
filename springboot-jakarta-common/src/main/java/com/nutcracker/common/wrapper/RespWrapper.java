@@ -1,4 +1,4 @@
-package com.nutcracker.wrapper;
+package com.nutcracker.common.wrapper;
 
 import lombok.Getter;
 import lombok.ToString;

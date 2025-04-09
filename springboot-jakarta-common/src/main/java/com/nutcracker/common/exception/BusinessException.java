@@ -1,4 +1,4 @@
-package com.nutcracker.exception;
+package com.nutcracker.common.exception;
 
 import java.io.Serial;
 

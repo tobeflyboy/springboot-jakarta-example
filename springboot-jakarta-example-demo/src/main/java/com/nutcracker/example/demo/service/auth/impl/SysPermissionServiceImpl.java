@@ -17,7 +17,7 @@ import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.web.Identify;
-import com.nutcracker.wrapper.RespWrapper;
+import com.nutcracker.common.wrapper.RespWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.nutcracker.exception.BusinessException;
+import com.nutcracker.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

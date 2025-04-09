@@ -1,7 +1,7 @@
 package com.nutcracker.common.util;
 
 
-import com.nutcracker.exception.BusinessException;
+import com.nutcracker.common.exception.BusinessException;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

@@ -15,7 +15,7 @@ import com.nutcracker.example.demo.enums.SysUserStatusEnum;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
-import com.nutcracker.wrapper.RespWrapper;
+import com.nutcracker.common.wrapper.RespWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

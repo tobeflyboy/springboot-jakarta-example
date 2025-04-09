@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.service.auth;
 
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
-import com.nutcracker.wrapper.RespWrapper;
+import com.nutcracker.common.wrapper.RespWrapper;
 
 import java.util.List;
 
