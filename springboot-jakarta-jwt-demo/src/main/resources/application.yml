@@ -77,7 +77,7 @@ spring:
       datasource:
         auth:
 #          url: jdbc:sqlite::resource:db/auth.sqlite
-          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/auth.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-jwt-demo/src/main/resources/db/auth.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:
@@ -101,7 +101,7 @@ spring:
             connection-test-query: SELECT 'auth'
         biz:
 #          url: jdbc:sqlite::resource:db/biz.sqlite
-          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/biz.sqlite
+          url: jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-jwt-demo/src/main/resources/db/biz.sqlite
           driver-class-name: org.sqlite.JDBC
           username:
           password:

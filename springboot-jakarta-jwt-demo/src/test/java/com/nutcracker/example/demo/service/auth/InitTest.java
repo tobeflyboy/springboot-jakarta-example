@@ -28,8 +28,8 @@ import java.util.List;
 
 @Slf4j
 @SpringBootTest(properties = {
-        "spring.datasource.dynamic.datasource.auth.url=jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/auth.sqlite",
-        "spring.datasource.dynamic.datasource.biz.url=jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-example-demo/src/main/resources/db/biz.sqlite"
+        "spring.datasource.dynamic.datasource.auth.url=jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-jwt-demo/src/main/resources/db/auth.sqlite",
+        "spring.datasource.dynamic.datasource.biz.url=jdbc:sqlite:D:/workspace/github/springboot-jakarta-example/springboot-jakarta-jwt-demo/src/main/resources/db/biz.sqlite"
 })
 public class InitTest {
 
