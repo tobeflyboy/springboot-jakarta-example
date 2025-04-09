@@ -1,0 +1,414 @@
+<div class="sidebar-scroll">
+	<div class="logo">
+		<a th:href="@{/dashboard}"><img th:src="@{/static/images/logo_icon.png}" style="width: 55px;height: 40px;">Demo System</a>
+	</div>
+	<div class="sidebar-collapse">
+		<ul class="nav metismenu" id="side-menu">
+			<!-- 首页 -->
+			<li class="active"><a th:href="@{/dashboard}"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a></li>
+
+			<!-- 权限管理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-key"></i>
+					<span class="nav-label">权限管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/auth/permission_list}"><i class="fa fa-cubes"></i>资源管理</a></li>
+					<li><a th:href="@{/auth/role_list}"><i class="fa fa-users"></i>角色管理</a></li>
+					<li><a th:href="@{/auth/user_list}"><i class="fa fa-user"></i>用户管理</a></li>
+				</ul>
+			</li>
+
+			<!-- 系统配置 -->
+			<li><a th:href="@{/view/sysconfig/setconfig}"><i class="fa fa-gear"></i> <span class="nav-label">系统配置</span></a></li>
+
+			<!-- 电商管理 -->
+			<li><a th:href="@{/view/tenant/tenant-list}"><i class="fa fa-desktop"></i> <span class="nav-label">电商管理</span> <span class="label label-primary pull-right">28</span></a></li>
+
+			<!-- 电商配置 -->
+			<li><a th:href="@{/view/tenantConfig/list}"><i class="fa fa-gears"></i> <span class="nav-label">电商配置</span></a></li>
+
+			<!-- 地区城市管理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-map-marker"></i>
+					<span class="nav-label">地区城市管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/city/add2}"><i class="fa fa-plus"></i>添加城市</a></li>
+					<li><a th:href="@{/view/city/list}"><i class="fa fa-list"></i>城市列表</a></li>
+				</ul>
+			</li>
+
+			<!-- 账号管理 -->
+			<li><a th:href="@{/view/sysUserDo/user_list}"><i class="fa fa-users"></i> <span class="nav-label">账号管理</span></a></li>
+
+			<!-- 楼盘管理 -->
+			<li>
+				<a th:href="@{/view/project/list}">
+					<i class="fa fa-building"></i>
+					<span class="nav-label">楼盘管理</span>
+					<span class="pull-right label label-warning">234</span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/project/openProject}"><i class="fa fa-plus"></i>开通楼盘</a></li>
+					<li><a th:href="@{/view/project/list}"><i class="fa fa-pencil"></i>楼盘审核</a></li>
+					<li><a th:href="@{/view/project/manager_list}"><i class="fa fa-building"></i>楼盘管理</a></li>
+					<li><a th:href="@{/view/project/edit_list}"><i class="fa fa-slideshare"></i>合作楼盘</a></li>
+					<li>
+						<a th:href="@{/view/project/add}">
+							<i class="fa fa-plus"></i>
+							<span class="nav-label">添加楼盘</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-third-level">
+							<li><a th:href="@{/view/project/add}"><i class="fa fa-file-text-o"></i>基本信息</a></li>
+							<li><a th:href="@{/view/project/add2}"><i class="fa fa-puzzle-piece"></i>户型管理</a></li>
+							<li><a th:href="@{/view/project/add3}"><i class="fa fa-picture-o"></i>楼盘相册</a></li>
+							<li><a th:href="@{/view/project/add4}"><i class="fa fa-sort-numeric-asc"></i>销控管理</a></li>
+							<li><a th:href="@{/view/project/add5}"><i class="fa fa-slideshare"></i>合作信息</a></li>
+							<li><a th:href="@{/view/project/add6}"><i class="fa fa-share-alt"></i>产品维护</a></li>
+							<li><a th:href="@{/view/project/add7}"><i class="fa fa-dollar"></i>拥金维护</a></li>
+							<li><a th:href="@{/view/project/add8}"><i class="fa fa-list-alt"></i>楼盘动态</a></li>
+							<li><a th:href="@{/view/project/add9}"><i class="fa fa-heart"></i>优惠活动</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<!-- 经济公司/经纪人 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-group"></i>
+					<span class="nav-label">经济公司/经纪人</span>
+					<span class="pull-right label label-primary">206</span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/firm/list}"><i class="fa fa-vine"></i>经纪公司维护</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-group"></i>经纪人管理</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-newspaper-o"></i>经纪人实名认证</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-credit-card"></i>经纪人银行卡认证</a></li>
+				</ul>
+			</li>
+
+			<!-- 置业顾问管理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-user-md"></i>
+					<span class="nav-label">置业顾问管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/adviserProject/adviserAuditList}"><i class="fa fa-stumbleupon"></i>置业顾问挂靠审核</a></li>
+					<li><a th:href="@{/view/adviser/list}"><i class="fa fa-user-md"></i>置业顾问管理</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-newspaper-o"></i>置业顾问实名认证</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-credit-card"></i>置业顾问银行卡认证</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-database"></i>置业顾问元宝提现</a></li>
+				</ul>
+			</li>
+
+			<!-- POS交易管理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-credit-card"></i>
+					<span class="nav-label">POS交易管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/pos/bind}"><i class="fa fa-unlock-alt"></i>POS机绑定</a></li>
+					<li><a th:href="@{/view/pos/list}"><i class="fa fa-link"></i>POS绑定信息</a></li>
+					<li><a th:href="@{/view/pos/poslog}"><i class="fa fa-legal"></i>POS交易信息</a></li>
+				</ul>
+			</li>
+
+			<!-- 数据统计 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-pie-chart"></i>
+					<span class="nav-label">数据统计</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-user"></i>用户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-group"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 合同管理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-edit"></i>
+					<span class="nav-label">合同管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/agreement/list}"><i class="fa fa-plus"></i>添加/管理列表</a></li>
+					<li><a th:href="@{/view/agreement/rengou}"><i class="fa fa-mail-forward"></i>转认购</a></li>
+					<li><a th:href="@{/view/agreement/qianyue}"><i class="fa fa-check-square-o"></i>签约</a></li>
+					<li><a th:href="@{/view/agreement/edit}"><i class="fa fa-edit"></i>合同明细/编辑</a></li>
+					<li><a th:href="@{/view/agreement/view}"><i class="fa fa-building-o"></i>合同详情</a></li>
+				</ul>
+			</li>
+
+			<!-- 总经理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">总经理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-group"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 经济公司管理员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">经济公司管理员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/firm/verify}"><i class="fa fa-slideshare"></i>合作</a></li>
+					<li><a th:href="@{/view/firm/list2}"><i class="fa fa-slideshare"></i>门店列表</a></li>
+					<li><a th:href="@{/view/sysUserDo/user_list}"><i class="fa fa-slideshare"></i>账号管理</a></li>
+					<li><a th:href="@{/view/firm/verify}"><i class="fa fa-slideshare"></i>挂靠审核</a></li>
+					<li><a th:href="@{/view/firm/view}"><i class="fa fa-slideshare"></i>对公账号</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-slideshare"></i>经纪人列表</a></li>
+					<li><a th:href="@{/view/agent/custAgent}"><i class="fa fa-slideshare"></i>客户列表</a></li>
+					<li><a th:href="@{/view/commission/agentCommission}"><i class="fa fa-money"></i>佣金信息</a></li>
+					<li><a th:href="@{/view/commission/commissionExt}"><i class="fa fa-money"></i>额外佣金</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-group"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 门店管理员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">门店管理员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/firm/verify}"><i class="fa fa-check"></i>挂靠审核</a></li>
+					<li><a th:href="@{/view/firm/list2}"><i class="fa fa-user"></i>经纪人列表</a></li>
+					<li><a th:href="@{/view/agent/custAgent}"><i class="fa fa-users"></i>客户列表</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-user"></i>用户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-user"></i>用户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-user"></i>用户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-users"></i>客户统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 案场经理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">案场经理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li>
+						<a href="javascript:void(0)">
+							<i class="fa fa-building"></i>
+							<span class="nav-label">楼盘管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-third-level">
+							<li><a th:href="@{/view/project/list}"><i class="fa fa-list"></i>楼盘列表</a></li>
+							<li><a th:href="@{/view/project/add}"><i class="fa fa-edit"></i>编辑添加</a></li>
+						</ul>
+					</li>
+					<li><a th:href="@{/view/adviserProject/adviserAuditList}"><i class="fa fa-check"></i>置业顾问挂靠审核</a></li>
+					<li><a th:href="@{/view/adviser/list}"><i class="fa fa-user-md"></i>置业顾问管理</a></li>
+					<li><a th:href="@{/view/custintent/custAuditList}"><i class="fa fa-check"></i>客户审核</a></li>
+				</ul>
+			</li>
+
+			<!-- 项目总监 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">项目总监</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-group"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 项目经理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">项目经理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/project/openProject}"><i class="fa fa-plus"></i>开通楼盘</a></li>
+					<li><a th:href="@{/view/project/edit_list}"><i class="fa fa-building"></i>楼盘管理</a></li>
+					<li><a th:href="@{/view/sysUserDo/user_list}"><i class="fa fa-users"></i>账号管理</a></li>
+					<li><a th:href="@{/view/commission/list}"><i class="fa fa-check"></i>佣金审核</a></li>
+					<li><a th:href="@{/view/devpSubsidy/list}"><i class="fa fa-money"></i>开发商补贴</a></li>
+					<li><a th:href="@{/view/push/list}"><i class="fa fa-bell"></i>推送管理</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-group"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 项目助理 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">项目助理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/code/code}"><i class="fa fa-check"></i>确认到访</a></li>
+					<li><a th:href="@{/view/code/telcode}"><i class="fa fa-volume-up"></i>发送语音验证码</a></li>
+					<li><a th:href="@{/view/pos/bind}"><i class="fa fa-link"></i>POS机绑定</a></li>
+					<li><a th:href="@{/view/pos/list}"><i class="fa fa-list"></i>POS交易记录</a></li>
+					<li><a th:href="@{/view/custintent/custAuditList}"><i class="fa fa-search"></i>客户意向查询</a></li>
+					<li><a th:href="@{/view/agreement/list}"><i class="fa fa-file-text"></i>合同管理</a></li>
+				</ul>
+			</li>
+
+			<!-- 运营专员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">运营专员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/sysconfig/signin}"><i class="fa fa-calendar"></i>签到规则配置</a></li>
+					<li><a th:href="@{/view/project/manager_list}"><i class="fa fa-building"></i>楼盘管理</a></li>
+					<li><a th:href="@{/view/city/add2}"><i class="fa fa-plus"></i>城市管理</a></li>
+					<li><a th:href="@{/view/sysUserDo/user_list}"><i class="fa fa-users"></i>账号管理</a></li>
+					<li><a th:href="@{/view/push/list}"><i class="fa fa-bell"></i>推送管理</a></li>
+					<li><a th:href="@{/view/adv/list}"><i class="fa fa-bullhorn"></i>广告位管理</a></li>
+					<li><a th:href="@{/view/custintent/custAuditList}"><i class="fa fa-search"></i>客户意向查询</a></li>
+					<li><a th:href="@{/view/pos/bind}"><i class="fa fa-link"></i>POS机绑定</a></li>
+					<li><a th:href="@{/view/pos/list}"><i class="fa fa-list"></i>POS交易记录</a></li>
+					<li><a th:href="@{/view/agent/com_list}"><i class="fa fa-comments-o"></i>签约经纪公司</a></li>
+					<li><a th:href="@{/view/agent/list}"><i class="fa fa-user"></i>经纪人管理</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-user"></i>用户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-users"></i>客户统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-line-chart"></i>收入统计</a></li>
+					<li><a th:href="@{/view/data/statIncome_data}"><i class="fa fa-pie-chart"></i>佣金统计</a></li>
+				</ul>
+			</li>
+
+			<!-- 佣金专员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">佣金专员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/commission/auditList}"><i class="fa fa-check"></i>佣金规则审核</a></li>
+					<li><a th:href="@{/view/agent/namelist}"><i class="fa fa-newspaper-o"></i>经纪人实名认证</a></li>
+					<li><a th:href="@{/view/agent/card}"><i class="fa fa-credit-card"></i>经纪人银行卡认证</a></li>
+					<li><a th:href="@{/view/agent/grain}"><i class="fa fa-money"></i>经纪人元宝提现</a></li>
+					<li><a th:href="@{/view/adviser/namelist}"><i class="fa fa-newspaper-o"></i>置业顾问实名认证</a></li>
+					<li><a th:href="@{/view/adviser/card}"><i class="fa fa-credit-card"></i>置业顾问银行卡认证</a></li>
+					<li><a th:href="@{/view/adviser/grain}"><i class="fa fa-money"></i>置业顾问元宝提现</a></li>
+					<li><a th:href="@{/view/firm/account}"><i class="fa fa-credit-card"></i>对公账号审核</a></li>
+					<li><a th:href="@{/view/refund/list}"><i class="fa fa-check"></i>退款审核</a></li>
+					<li><a th:href="@{/view/commission/list}"><i class="fa fa-check"></i>佣金审核</a></li>
+					<li><a th:href="@{/view/agreement/list}"><i class="fa fa-file-text"></i>合同管理</a></li>
+					<li><a th:href="@{/view/commission/Ext}"><i class="fa fa-money"></i>额外佣金审核</a></li>
+				</ul>
+			</li>
+
+			<!-- 出纳专员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">出纳专员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/agent/grain}"><i class="fa fa-money"></i>经纪人元宝提现</a></li>
+					<li><a th:href="@{/view/adviser/grain}"><i class="fa fa-money"></i>置业顾问元宝提现</a></li>
+					<li><a th:href="@{/view/refund/list}"><i class="fa fa-check"></i>退款审核</a></li>
+					<li><a th:href="@{/view/commission/list}"><i class="fa fa-check"></i>佣金审核</a></li>
+					<li><a th:href="@{/view/commission/Ext}"><i class="fa fa-money"></i>额外佣金审核</a></li>
+				</ul>
+			</li>
+
+			<!-- 财务专员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">财务专员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/agent/grain}"><i class="fa fa-money"></i>经纪人元宝提现</a></li>
+					<li><a th:href="@{/view/adviser/grain}"><i class="fa fa-money"></i>置业顾问元宝提现</a></li>
+					<li><a th:href="@{/view/devpSubsidy/list2}"><i class="fa fa-money"></i>开发商补贴确认</a></li>
+					<li><a th:href="@{/view/refund/list}"><i class="fa fa-check"></i>退款审核</a></li>
+					<li><a th:href="@{/view/commission/list}"><i class="fa fa-check"></i>佣金审核</a></li>
+					<li><a th:href="@{/view/pos/poslog}"><i class="fa fa-list"></i>POS交易记录</a></li>
+					<li><a th:href="@{/view/commission/Ext}"><i class="fa fa-money"></i>额外佣金审核</a></li>
+				</ul>
+			</li>
+
+			<!-- 经纪服务专员测试 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">经纪服务专员测试</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/firm/list2}"><i class="fa fa-building"></i>经纪公司维护</a></li>
+				</ul>
+			</li>
+
+			<!-- 客服专员 -->
+			<li>
+				<a href="javascript:void(0)">
+					<i class="fa fa-sitemap"></i>
+					<span class="nav-label">客服专员</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li><a th:href="@{/view/custintent/custSupport}"><i class="fa fa-check"></i>客户意向审核</a></li>
+				</ul>
+			</li>
+
+			<!-- 系统更新 -->
+			<li class="landing_link">
+				<a target="_blank" href="landing.html">
+					<i class="fa fa-star"></i>
+					<span class="nav-label">系统更新</span>
+					<span class="label label-warning pull-right">NEW</span>
+				</a>
+			</li>
+
+			<!-- 购买服务 -->
+			<li class="special_link">
+				<a href="package.html">
+					<i class="fa fa-database"></i>
+					<span class="nav-label">购买服务</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

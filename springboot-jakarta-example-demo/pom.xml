@@ -6,22 +6,18 @@
     <parent>
         <groupId>com.nutcracker</groupId>
         <artifactId>springboot-jakarta-example</artifactId>
-        <version>2022.12.23-SNAPSHOT</version>
+        <version>2025.04.09-SNAPSHOT</version>
     </parent>
 
     <artifactId>springboot-jakarta-example-demo</artifactId>
 
-    <properties>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
-        <java.version>17</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <logback.version>1.5.15</logback.version>
-    </properties>
-
     <dependencies>
+
+        <dependency>
+            <groupId>com.nutcracker</groupId>
+            <artifactId>springboot-jakarta-common</artifactId>
+        </dependency>
+
         <!-- SpringBoot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -126,18 +122,7 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
 
-        <!--硬件信息获取-->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-        </dependency>
-
-        <!--ip2region获取详细IP地址 -->
-        <dependency>
-            <groupId>org.lionsoul</groupId>
-            <artifactId>ip2region</artifactId>
-        </dependency>
-
+        <!-- 获取浏览器agent -->
         <dependency>
             <groupId>nl.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
@@ -150,6 +135,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- mapstruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -165,15 +151,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>fontbox</artifactId>
         </dependency>
     </dependencies>
 

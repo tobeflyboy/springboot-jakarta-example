@@ -4,10 +4,12 @@
 
     <groupId>com.nutcracker</groupId>
     <artifactId>springboot-jakarta-example</artifactId>
-    <version>2022.12.23-SNAPSHOT</version>
+    <version>2025.04.09-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>springboot-jakarta-common</module>
         <module>springboot-jakarta-example-demo</module>
+        <module>springboot-jakarta-jwt-demo</module>
     </modules>
 
     <properties>
@@ -60,6 +62,16 @@
         <dependencies>
             <dependency>
                 <groupId>com.nutcracker</groupId>
+                <artifactId>springboot-jakarta-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nutcracker</groupId>
+                <artifactId>springboot-jakarta-jwt-demo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nutcracker</groupId>
                 <artifactId>springboot-jakarta-example-demo</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -76,18 +88,6 @@
                 <groupId>org.springframework.session</groupId>
                 <artifactId>spring-session-data-redis</artifactId>
                 <version>3.4.2</version>
-            </dependency>
-
-            <!-- logback -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.5.18</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>1.5.18</version>
             </dependency>
 
             <!-- https://baomidou.com -->
@@ -160,26 +160,14 @@
                 <version>2.2.28</version>
             </dependency>
 
-            <!--硬件信息获取-->
-            <dependency>
-                <groupId>com.github.oshi</groupId>
-                <artifactId>oshi-core</artifactId>
-                <version>6.4.0</version>
-            </dependency>
-
-            <!--ip2region获取详细IP地址 -->
-            <dependency>
-                <groupId>org.lionsoul</groupId>
-                <artifactId>ip2region</artifactId>
-                <version>1.7</version>
-            </dependency>
-
+            <!-- 获取浏览器agent -->
             <dependency>
                 <groupId>nl.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>1.2.4</version>
             </dependency>
 
+            <!-- mapstruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -191,15 +179,11 @@
                 <version>1.6.3</version>
             </dependency>
 
+            <!-- jwt -->
             <dependency>
-                <groupId>org.apache.pdfbox</groupId>
-                <artifactId>pdfbox</artifactId>
-                <version>3.0.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pdfbox</groupId>
-                <artifactId>fontbox</artifactId>
-                <version>3.0.4</version>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>4.5.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

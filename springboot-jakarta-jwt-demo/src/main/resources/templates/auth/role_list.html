@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh_CN"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <title>角色管理</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <link th:href="@{/static/js/My97DatePicker/skin/WdatePicker.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/treeview/bootstrap-treeview.min.css}" rel="stylesheet">
+    <style>
+        .node-menu {
+            position: absolute;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+        }
+
+        .node-menu-item {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .node-menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        /* 图标预览样式 */
+        #icon-preview {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        /* 图标选择器样式 */
+        .icon-item {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .icon-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .icon-item i {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .icon-item p {
+            font-size: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 新增样式 */
+        .modal-body-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* 调整图标与菜单名称的间距 */
+        .treeview .list-group-item i {
+            margin-left: 5px;
+        }
+
+        .treeview .partially-selected {
+            background-color: #e6f3ff;
+        }
+
+        .treeview .partially-selected > .check-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .permission-item {
+            padding: 5px 0;
+            border-left: 2px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .permission-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .child-permissions {
+            margin-left: 15px;
+            border-left: 2px dashed #ddd;
+        }
+
+        .checkbox-inline {
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .checkbox-inline input[type="checkbox"] {
+            margin-left: -20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body class="fixed-sidebar">
+<div id="wrapper">
+    <!----左侧导航开始----->
+    <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+    <!----左侧导航结束----->
+
+    <!---右侧内容区开始---->
+    <div id="page-wrapper" class="gray-bg">
+        <!---顶部状态栏 star-->
+        <div class="row ">
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+        </div>
+        <!---顶部状态栏 end-->
+
+        <!--------当前位置----->
+        <div class="row  border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>角色管理</h2>
+                <ol class="breadcrumb">
+                    <li>权限管理</li>
+                    <li class="active">角色管理</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-----内容区域---->
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <!--当前位置开始-->
+            <div class="ibox-content m-b-sm border-bottom">
+                <div class="row">
+                    <div class="form-group col-md-3 m-t-xs m-b-none">
+                        <input value="" placeholder="请输入角色编码" class="form-control input-sm text-center" id="roleCode">
+                    </div>
+                    <div class="form-group col-md-3 m-t-xs m-b-none">
+                        <input value="" placeholder="请输入角色名称，模糊查询" class="form-control input-sm text-center" id="roleName">
+                    </div>
+                    <div class="form-group col-md-3 m-t-xs m-b-none">
+                        <button type="button" class="btn btn-sm btn-primary no-margins" id="queryRoleBtn">查询</button>
+                        <button type="button" class="btn btn-sm btn-primary" id="showAddRoleModal">新增</button>
+                    </div>
+                </div>
+            </div>
+            <!--当前位置结束-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox" id="role_list_page_box" th:include="auth/role_list_page:: #include_list_page">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-----内容结束----->
+
+    </div>
+</div>
+<!---右侧内容区结束----->
+
+<!----角色新增-开始---->
+<div class="modal fade" id="roleAddModal" tabindex="-1" aria-labelledby="roleAddModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">新增角色</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addRoleForm" name="addRoleForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="addRoleCode" class="col-sm-3 control-label">角色编码：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="addRoleCode" name="addRoleCode" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="addRoleName">角色名称：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="addRoleName" name="addRoleName" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-sm">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            <button class="btn btn-primary" id="addRoleBtn"><strong>保存</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!----角色新增-结束---->
+
+<!----角色编辑-开始---->
+<div class="modal fade" id="roleEditModal" tabindex="-1" aria-labelledby="roleEditModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title" id="modalTitle">编辑角色</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editRoleForm" name="editRoleForm" class="form-horizontal">
+                    <input type="hidden" id="editRoleId">
+                    <div class="form-group">
+                        <label for="editRoleCode" class="col-sm-3 control-label">角色编码：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="editRoleCode" name="editRoleCode" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="editRoleName">角色名称：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="editRoleName" name="editRoleName" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-sm">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            <button class="btn btn-primary" id="editRoleBtn"><strong>保存</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!----角色编辑-结束---->
+
+<!----角色授权-开始---->
+<div class="modal fade" id="rolePermissionModal" tabindex="-1" aria-labelledby="rolePermissionModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">角色授权</h4>
+            </div>
+            <div class="modal-body">
+                <form id="rolePermissionForm" class="form-horizontal">
+                    <input type="hidden" id="roleId">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-info" id="selectAllPermBtn">全选</button>
+                        <button type="button" class="btn btn-primary" id="rolePermissionBtn">保存</button>
+                    </div>
+                    <div class="form-group">
+                        <div id="permissionContainer" style="max-height: 600px; overflow-y: auto;">
+                            <!-- 权限结构将在这里动态生成 -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!----角色授权-结束---->
+
+<!-- 全局 scripts -->
+<script th:inline="javascript">
+    window.ctx = [[${application.ctx}]];
+    window.sessionUser = [[${session.sessionUser}]];
+</script>
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script>
+<script th:src="@{/static/js/plugins/tagsinput/jquery.tagsinput.js}"></script>
+<script th:src="@{/static/js/plugins/rslide/rslide.js}"></script>
+<script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
+<script th:src="@{/static/js/plugins/treeview/bootstrap-treeview.min.js}"></script>
+<script th:src="@{/static/font-awesome/js/icon.js}"></script>
+<script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/static/js/plugins/validate/validate-cn.js}"></script>
+<script th:inline="javascript">
+
+    // 查询
+    $("#queryRoleBtn").click(function () {
+        const roleCode = $("#roleCode").val();
+        const roleName = $("#roleName").val();
+        $.ajax({
+            url: ctx + '/auth/role_list?pageNum=1',
+            type: "post",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+                "roleCode": roleCode,
+                "roleName": roleName
+            }),
+            success: function (data) {
+                $('#role_list_page_box').html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error('', '查询失败');
+            }
+        });
+    });
+
+    // 新增
+    $("#showAddRoleModal").click(function () {
+        $('#addRoleForm')[0].reset();
+        // 显示图标选择模态框
+        $('#roleAddModal').modal('show');
+    });
+
+    // 显示编辑角色模态框
+    function showEditRoleModal(btn) {
+        $('#editRoleForm')[0].reset();
+        const roleId = $(btn).data("id");
+        const role = $('#' + roleId);
+        const roleCode = role.data("role-code");
+        const roleName = role.data("role-name");
+        $("#editRoleId").val(roleId);
+        $("#editRoleCode").val(roleCode);
+        $("#editRoleName").val(roleName);
+    }
+
+    // 显示授权角色模态框
+    function showRolePermissionModal(btn) {
+        const roleId = $(btn).data("id");
+        $.get(ctx + '/auth/role_permission/' + roleId, function (data) {
+
+            // 构建树
+            $('#permissionContainer').html(buildPermissionHTML(data));
+
+            // 隐藏表单域，角色id
+            $("#roleId").val(roleId);
+
+            // 初始化权限勾选逻辑
+            $('.perm-checkbox').change(function () {
+                const $checkbox = $(this);
+                const isChecked = $checkbox.prop('checked');
+
+                // 处理子节点
+                if ($checkbox.data('has-child')) {
+                    $checkbox.closest('.permission-item')
+                        .find('.child-permissions .perm-checkbox')
+                        .prop('checked', isChecked)
+                        .trigger('change');
+                }
+
+                // 处理父节点
+                const parentCode = $checkbox.data('parent-code');
+                const code = $checkbox.data('code');
+                if (parentCode && parentCode !== code) {
+                    const $parent = $(`.perm-checkbox[data-code="${parentCode}"]`);
+                    updateParentState($parent);
+                }
+            });
+        });
+    }
+
+    // 获取选中权限ID
+    function getSelectedPermissionIds() {
+        return $('.perm-checkbox').filter(function () {
+            return this.checked || this.indeterminate;
+        }).map(function () {
+            return $(this).data('id');
+        }).get();
+    }
+
+    // 全选按钮点击事件
+    $('#selectAllPermBtn').click(function() {
+        const $checkboxes = $('.perm-checkbox');
+        const isAllChecked = $checkboxes.length === $checkboxes.filter(':checked').length;
+
+        // 全选/反选切换
+        $checkboxes.prop('checked', !isAllChecked).trigger('change');
+
+        // 更新按钮文字
+        $(this).text(isAllChecked ? '全选' : '取消全选');
+    });
+
+    // 保存授权
+    $('#rolePermissionBtn').click(function () {
+        const permissionIds = getSelectedPermissionIds();
+        const roleId = $("#roleId").val();
+        $.ajax({
+            url: ctx + '/auth/role_permission/save',
+            type: "post",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+                "roleId": roleId,
+                "permissionIdList": permissionIds
+            }),
+            success: function (response) {
+                if (response.code === 200 && response.data) {
+                    // 关闭模态框
+                    $('#rolePermissionModal').modal('hide');
+                    // 查询
+                    $("#queryRoleBtn").click();
+                } else {
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error('', '保存失败');
+            }
+        });
+    });
+
+    function buildPermissionHTML(permissions, level = 0) {
+        return permissions.map(perm => {
+            // 设置复选框的属性
+            const isChecked = perm.checked ? 'checked' : '';
+            const hasChild = perm.children && perm.children.length > 0 ? 1 : 0;
+            const parentCode = perm.parentPermissionCode ? perm.parentPermissionCode : perm.permissionCode;
+
+            // 构建父级权限HTML
+            const parentHTML = `
+            <div class="permission-item" data-code="${parentCode}" style="margin-left: ${level * 20}px">
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="perm-checkbox"
+                           ${isChecked}
+                           data-id="${perm.id}"
+                           data-has-child="${hasChild}"
+                           data-code="${perm.permissionCode}"
+                           data-parent-code="${parentCode}">
+                    ${perm.permissionName}
+                </label>
+            `;
+
+            // 如果有子权限，递归构建子权限HTML
+            if (perm.children && perm.children.length > 0) {
+                const childrenHTML = buildPermissionHTML(perm.children, level + 1);
+                return `${parentHTML}<div class="child-permissions">${childrenHTML}</div></div>`;
+            } else {
+                return `${parentHTML}</div>`;
+            }
+        }).join('');
+    }
+
+    // 更新父节点状态
+    function updateParentState($parent) {
+        const children = $parent.closest('.permission-item').find('.child-permissions .perm-checkbox');
+        const allChecked = children.length === children.filter(':checked').length;
+        const anyChecked = children.filter(':checked').length > 0;
+        console.log(allChecked, anyChecked);
+        $parent.prop('checked', allChecked);
+        $parent.prop('indeterminate', anyChecked && !allChecked);// 设置不确定状态
+
+        // 判断是否还有父节点，如果有则继续更上一级父节点状态
+        const parentCode = $parent.data('parent-code');
+        const code = $parent.data('code');
+        if (parentCode && parentCode !== code) {
+            updateParentState($(`.perm-checkbox[data-code="${parentCode}"]`));
+        }
+    }
+
+    // 编辑保存角色
+    function editRole() {
+        // 获取表单数据
+        const roleData = {
+            id: $('#editRoleId').val(),
+            roleCode: $('#editRoleCode').val(),
+            roleName: $('#editRoleName').val()
+        };
+        // 发送保存请求
+        $.ajax({
+            url: ctx + '/auth/edit/role',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(roleData),
+            success: function (response) {
+                if (response.code === 200 && response.data) {
+                    // 关闭模态框
+                    $('#roleEditModal').modal('hide');
+                    // 查询
+                    $("#queryRoleBtn").click();
+                } else {
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            }
+        });
+    }
+
+    function addRole(){
+        // 获取表单数据
+        const roleData = {
+            roleCode: $('#addRoleCode').val(),
+            roleName: $('#addRoleName').val()
+        };
+        // 发送保存请求
+        $.ajax({
+            url: ctx + '/auth/add/role',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(roleData),
+            success: function (response) {
+                if (response.code === 200 && response.data) {
+                    // 关闭模态框
+                    $('#roleAddModal').modal('hide');
+                    // 查询
+                    $("#queryRoleBtn").click();
+                } else {
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            }
+        });
+    }
+
+    // 删除角色
+    function deleteRole(btn) {
+        let roleId = $(btn).data('id');
+        let roleName = $(btn).data('role-name');
+        showConfirm(
+            `确定要删除【${roleName}】角色吗？`,
+            '删除确认',
+            function () {
+                // 确认
+                $.ajax({
+                    url: ctx + '/auth/role/delete/' + roleId,
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.code === 200 && response.data) {
+                            $("#queryRoleBtn").click();
+                        } else {
+                            let msg = '删除失败！';
+                            if (response.msg) {
+                                msg = response.msg;
+                            }
+                            toastr.error('', msg);
+                        }
+                    }
+                });
+            },
+            function () {
+                // 取消
+                console.log(`【${roleName}】角色`);
+            }
+        );
+    }
+
+    $(document).ready(function () {
+        $("#addRoleForm").validate({
+            rules: {
+                addRoleCode: {required: true},
+                addRoleName: {required: true},
+            },
+            messages: {
+                addRoleCode: {required: "请输入角色编码!"},
+                addRoleName: {required: "请输入角色名称!"},
+            },
+            debug: true,
+            submitHandler: function (form) {
+                addRole(form);
+            }
+        });
+
+        $("#editRoleForm").validate({
+            rules: {
+                editRoleCode: {required: true},
+                editRoleName: {required: true},
+            },
+            messages: {
+                editRoleCode: {required: "请输入角色编码!"},
+                editRoleName: {required: "请输入角色名称!"},
+            },
+            debug: true,
+            submitHandler: function (form) {
+                editRole(form);
+            }
+        });
+
+        // 阻止表单的默认提交行为
+        $("#addRoleBtn").on('submit', function (event) {
+            event.preventDefault();
+        });
+
+        // 阻止表单的默认提交行为
+        $("#editRoleBtn").on('submit', function (event) {
+            event.preventDefault();
+        });
+    });
+
+</script>
+
+</body>
+</html>

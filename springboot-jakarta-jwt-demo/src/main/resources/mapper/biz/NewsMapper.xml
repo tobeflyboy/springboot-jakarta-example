@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nutcracker.example.demo.mapper.biz.NewsMapper">
+
+    <resultMap id="newsMap" type="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
+        <result column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="description" property="description"/>
+        <result column="news_time" property="newsTime"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
+        insert into t_news(id, address, create_time, description, news_time, title)
+        values (#{id}, #{address}, #{createTime}, #{description}, #{newsTime}, #{title})
+    </insert>
+
+    <sql id="news_column">
+	    <![CDATA[
+        id, address, create_time, description, news_time, title
+        ]]>
+	</sql>
+
+    <select id="findNewsByKeywords" parameterType="string" resultMap="newsMap">
+        select 
+            <include refid="news_column"/>
+        from t_news
+        <where>
+            <if test="keywords != null and keywords != ''">
+                <bind name="pattern" value="'%' + _parameter.keywords + '%'"/>
+                title like #{pattern}
+            </if>
+        </where>
+    </select>
+
+    <select id="findNewsByPage" parameterType="string" resultMap="newsMap">
+        select 
+            <include refid="news_column"/>
+        from t_news
+        <where>
+            <if test="keywords != null and keywords != ''">
+                <bind name="pattern" value="'%' + _parameter.keywords + '%'"/>
+                title like #{pattern}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="updateNews" parameterType="com.nutcracker.example.demo.entity.dataobject.biz.NewsDo">
+        update t_news
+        <set>
+            <if test="address != null and address!='' ">
+                address = #{address},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="description != null and description!='' ">
+                description = #{description},
+            </if>
+            <if test="newsTime != null">
+                news_time = #{newsTime},
+            </if>
+            <if test="title != null and title!='' ">
+                title = #{title},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findNewsByTitle" parameterType="string" resultMap="newsMap">
+        select
+        <include refid="news_column" />
+        from t_news
+        <where>
+            <if test="title != null and title != ''"> title like '%${title}%'</if>
+        </where>
+    </select>
+</mapper>

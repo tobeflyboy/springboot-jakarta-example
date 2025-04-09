@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh_CN"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <title>资源管理</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <!--date style-->
+    <link th:href="@{/static/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <link th:href="@{/static/js/My97DatePicker/skin/WdatePicker.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/treeview/bootstrap-treeview.min.css}" rel="stylesheet">
+    <!-- 原有head部分保持不变，新增样式部分 -->
+    <style>
+        .node-menu {
+            position: absolute;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+        }
+
+        .node-menu-item {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .node-menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        /* 图标预览样式 */
+        #icon-preview {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        /* 图标选择器样式 */
+        .icon-item {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .icon-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .icon-item i {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .icon-item p {
+            font-size: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 新增样式 */
+        .modal-body-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* 调整图标与菜单名称的间距 */
+        .treeview .list-group-item i {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body class="fixed-sidebar">
+<div id="wrapper">
+    <!----左侧导航开始----->
+    <nav class="navbar-default navbar-static-side" role="navigation" id="leftnav"></nav>
+    <!----左侧导航结束----->
+
+    <!---右侧内容区开始---->
+    <div id="page-wrapper" class="gray-bg">
+        <!---顶部状态栏 star-->
+        <div class="row ">
+            <nav class="navbar navbar-fixed-top" role="navigation" id="topnav"></nav>
+        </div>
+        <!---顶部状态栏 end-->
+
+        <!--------当前位置----->
+        <div class="row  border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>资源管理</h2>
+                <ol class="breadcrumb">
+                    <li>权限管理</li>
+                    <li class="active">资源管理</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-----内容区域---->
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <button class="btn btn-primary btn-sm" onclick="showAddModal(null)">
+                                <i class="fa fa-plus"></i> 添加一级菜单
+                            </button>
+                            <h6>点击选择菜单后，右键可添加子节点、可编辑、可删除</h6>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="permissionTree"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-----内容结束----->
+
+    </div>
+</div>
+<!---右侧内容区结束----->
+
+<!---新增、编辑菜单开始--->
+<div class="modal fade" id="nodeModal" tabindex="-1" aria-labelledby="nodeModal-label">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title" id="modalTitle">添加新节点</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="permissionId">
+                <form id="saveNodeForm" name="saveNodeForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="permissionName" class="col-sm-3 control-label">菜单名称：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="permissionName" name="permissionName" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="permissionCode">菜单编码：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="permissionCode" name="permissionCode" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="parentPermissionCode">父菜单编码：</label>
+                        <div class="col-sm-8">
+                            <input id="parentPermissionCode" name="parentPermissionCode" readonly class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="icon">icon图标：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input class="form-control" id="icon" readonly>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="showIconSelector()">选择图标</button>
+                                </span>
+                            </div>
+                            <!-- 图标预览区域 -->
+                            <span id="icon-preview" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="url">URL：</label>
+                        <div class="col-sm-8">
+                            <input id="url" name="url" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="lev">菜单级别：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="lev" name="lev" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="sort">菜单排序：<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="sort" name="sort" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-sm">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            <button class="btn btn-primary" id="save-node-btn"><strong>保存</strong>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!---新增、编辑菜单结束--->
+
+<!-- 图标选择器模态框 -->
+<div class="modal fade" id="iconSelectorModal" tabindex="-1" role="alertdialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <label class="modal-title" for="iconSearch">选择图标</label>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="display: flex; align-items: center;width:300px">
+                    <input type="text" class="form-control" id="iconSearch" placeholder="搜索图标，例如：heart" style="flex: 1;margin-right: 5px;">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="searchIcons()">搜索</button>
+                    </div>
+                </div>
+                <div class="modal-body-content">
+                    <div class="icon-grid" id="iconGrid">
+                        <!-- 图标将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 右键菜单模板 -->
+<div id="nodeMenu" class="node-menu" style="display:none;">
+    <div class="node-menu-item" onclick="showAddModal(currentNode)">
+        <i class="fa fa-plus"></i> 添加子菜单
+    </div>
+    <div class="node-menu-item" onclick="showEditModal(currentNode)">
+        <i class="fa fa-edit"></i> 编辑
+    </div>
+    <div class="node-menu-item" onclick="deleteNode(currentNode)">
+        <i class="fa fa-trash"></i> 删除
+    </div>
+</div>
+
+<!-- 全局 scripts -->
+<script th:inline="javascript">
+    window.ctx = [[${application.ctx}]];
+    window.sessionUser = [[${session.sessionUser}]];
+</script>
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/static/js/common.js}"></script>
+<script th:src="@{/static/js/plugins/pace/pace.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- 插件 scripts -->
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}"></script>
+<script th:src="@{/static/js/plugins/tagsinput/jquery.tagsinput.js}"></script>
+<script th:src="@{/static/js/plugins/rslide/rslide.js}"></script>
+<script th:src="@{/static/js/My97DatePicker/WdatePicker.js}"></script>
+<script th:src="@{/static/js/plugins/treeview/bootstrap-treeview.min.js}"></script>
+<script th:src="@{/static/font-awesome/js/icon.js}"></script>
+<script th:src="@{/static/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/static/js/plugins/validate/validate-cn.js}"></script>
+
+<script th:inline="javascript">
+    let currentNode = null;
+    let treeData = [];
+
+    // 图标选择器相关功能
+    function showIconSelector() {
+        // 显示图标选择模态框
+        $('#iconSelectorModal').modal('show');
+        // 生成图标网格
+        generateIconGrid();
+    }
+
+    // 根据搜索条件生成图标网格
+    function generateIconGrid(searchTerm = '') {
+        let iconGrid = $('#iconGrid');
+        iconGrid.empty();
+
+        // 过滤图标
+        let filteredIcons = iconList;
+        if (searchTerm) {
+            filteredIcons = iconList.filter(icon =>
+                icon.label.includes(searchTerm) ||
+                icon.name.includes(searchTerm)
+            );
+        }
+
+        // 生成图标HTML
+        const iconHtml = filteredIcons.map(icon => `
+            <div class="icon-item">
+                <i class="${icon.name}"></i>
+                <p class="text-muted">${icon.label}</p>
+            </div>
+        `).join('');
+
+        iconGrid.html(iconHtml);
+
+        // 为每个图标添加点击事件
+        $('.icon-item').off('click').on('click', function () {
+            // 获取选中的图标类名
+            const iconClass = $(this).find('i').attr('class');
+            // 设置图标输入框值
+            $('#icon').val(iconClass);
+            // 更新图标预览
+            $('#icon-preview').html(`<i class="${iconClass}"></i>`);
+            // 关闭图标选择模态框
+            $('#iconSelectorModal').modal('hide');
+        });
+    }
+
+    // 搜索图标
+    function searchIcons() {
+        const searchTerm = $('#iconSearch').val().trim();
+        generateIconGrid(searchTerm);
+    }
+
+    // 初始化树结构
+    function initTree() {
+        $('#permissionTree').treeview({
+            data: treeData,
+            showIcon: false,
+            levels: 1,
+            enableLinks: false,
+            highlightSelected: true,
+            onNodeSelected: function (event, node) {
+                // 保存当前选中的节点
+                currentNode = node;
+            },
+            onNodeUnselected: function (event, node) {
+                // 清空当前选中的节点
+                currentNode = null;
+            }
+        });
+    }
+
+    // 显示添加/编辑模态框
+    function showAddModal(node) {
+        // 清空表单数据
+        $("#icon-error").empty();
+        $('#saveNodeForm')[0].reset();
+        if (node) {
+            $('#modalTitle').text('添加子菜单');
+            $('#lev').val(node.lev + 1);
+            $('#parentPermissionCode').val(node.permissionCode);  // 清空父ID（编辑时不需要）
+        } else {
+            $('#modalTitle').text('添加一级菜单');
+            $('#lev').val(1);
+        }
+        // 清空图标预览
+        $('#icon-preview').html('');
+        // 显示模态框
+        $('#nodeModal').modal('show');
+    }
+
+    // 显示编辑表单并填充数据
+    function showEditModal(node) {
+        // 清空表单数据
+        $("#icon-error").empty();
+        $('#saveNodeForm')[0].reset();
+        $('#permissionId').val(node.id);                            // 设置节点ID
+        $('#parentPermissionCode').val(node.parentPermissionCode);  // 清空父ID（编辑时不需要）
+        $('#permissionName').val(node.permissionName);              // 设置节点名称
+        $('#permissionCode').val(node.permissionCode);              // 设置权限标识
+        $('#icon').val(node.icon);                                  // 设置图标
+        $('#url').val(node.url);                                    // 设置URL
+        $('#lev').val(node.lev);                                    // 设置级别
+        $('#sort').val(node.sort);                                  // 设置排序
+        $('#nodeModal').modal('show');                              // 显示模态框
+        $('#modalTitle').text('编辑菜单节点');                        // 设置模态框标题
+        $('#icon-preview').html(`<i class="${node.icon}"></i>`);
+    }
+
+    // 保存节点数据
+    function saveNode() {
+        // 获取表单数据
+        const nodeData = {
+            id: $('#permissionId').val(),
+            parentPermissionCode: $('#parentPermissionCode').val(),
+            permissionName: $('#permissionName').val(),    // 对应显示名称
+            permissionCode: $('#permissionCode').val(),  // 对应权限编码
+            icon: $('#icon').val(),
+            url: $('#url').val(),
+            lev: $('#lev').val(),
+            sort: $('#sort').val()
+        };
+        // 发送保存请求
+        $.ajax({
+            url: ctx + '/auth/permission/save',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(nodeData),
+            success: function (response) {
+                if (response.code === 200 && response.data) {
+                    // 刷新树数据
+                    drawTree();
+                    // 关闭模态框
+                    $('#nodeModal').modal('hide');
+                } else {
+                    let msg = '保存失败！';
+                    if (response.msg) {
+                        msg = response.msg;
+                    }
+                    toastr.error('', msg);
+                }
+            }
+        });
+    }
+
+    // 删除菜单节点
+    function deleteNode(node) {
+        showConfirm(
+            `确定要删除【${node.permissionName}】及其所有子节点吗？`,
+            '删除确认',
+            function () {
+                // 确认
+                $.ajax({
+                    url: ctx + '/auth/permission/delete/' + node.id, // 使用节点ID
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.code === 200 && response.data) {
+                            // 刷新树数据
+                            drawTree();
+                        } else {
+                            let msg = '删除失败！';
+                            if (response.msg) {
+                                msg = response.msg;
+                            }
+                            toastr.error('', msg);
+                        }
+                    }
+                });
+            },
+            function () {
+                // 取消
+                console.log(`【${node.permissionName}】菜单`);
+            }
+        );
+    }
+
+    // 绘制树
+    function drawTree() {
+        $.get(ctx + '/auth/permission/tree', function (data) {
+            // 转换数据格式
+            treeData = convertToTreeView(data);
+            // 重新初始化树
+            initTree();
+        });
+    }
+
+    // 初始化右键菜单
+    $(document).on('contextmenu', '.list-group-item', function (e) {
+        e.preventDefault();
+        const menu = $('#nodeMenu');
+        menu.css({
+            left: e.pageX + 'px',
+            top: e.pageY + 'px'
+        }).show();
+
+        $(document).one('click', function () {
+            menu.hide();
+        });
+    });
+
+    // 转换树数据结构
+    function convertToTreeView(nodes) {
+        return nodes.map(function (permission) {
+            const iconHtml = permission.icon ? `<i class="${permission.icon}"></i>` : '';
+            const node = {
+                id: permission.id,
+                permissionCode: permission.permissionCode,
+                permissionName: permission.permissionName,
+                parentPermissionCode: permission.parentPermissionCode,
+                icon: permission.icon,
+                url: permission.url,
+                lev: permission.lev,
+                sort: permission.sort,
+                text: `&nbsp;&nbsp;&nbsp;&nbsp;${permission.permissionName} ${iconHtml}`,
+                selectable: true,
+                nodes: permission.children ? convertToTreeView(permission.children) : null
+            };
+            // 如果有 checked 字段，则设置 state.checked
+            if (permission.checked !== undefined) {
+                node.state = {
+                    checked: permission.checked
+                };
+            }
+            return node;
+        });
+    }
+
+    // 页面初始化
+    $(document).ready(function () {
+        // 初始化菜单树
+        drawTree();
+        $("#saveNodeForm").validate({
+            rules: {
+                permissionName: {required: true},
+                permissionCode: {required: true},
+                sort: {required: true}
+            },
+            messages: {
+                permissionName: {required: "请输入菜单名!"},
+                permissionCode: {required: "请输入菜单编码!"},
+                sort: {required: "请输入菜单显示的顺序!"}
+            },
+            debug: true,
+            submitHandler: function (form) {
+                // 对icon做特殊的校验
+                const icon = $('#icon').val();
+                if (!icon) {
+                    $('#icon-preview').before(`<label id="icon-error" class="error" for="icon">请选择icon图标!</label>`)
+                    return;
+                }
+                // 保存菜单节点
+                saveNode(form);
+            }
+        });
+
+        // 阻止表单的默认提交行为
+        $("#save-node-btn").on('submit', function (event) {
+            // 阻止表单的默认提交行为
+            event.preventDefault();
+        });
+    });
+</script>
+
+</body>
+</html>

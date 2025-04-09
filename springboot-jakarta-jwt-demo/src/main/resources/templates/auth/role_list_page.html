@@ -1,0 +1,54 @@
+<div id="include_list_page">
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-centerbody table-mail table-striped table-condensed text-nowrap"
+                   id="editable-sample">
+                <thead>
+                <tr>
+                    <th>角色编码</th>
+                    <th>角色名称</th>
+                    <th>创建时间</th>
+                    <th>创建人</th>
+                    <th class="text-right text-nowrap">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="role:${page.list}">
+                    <td th:text="${role.roleCode}" class="small"></td>
+                    <td th:text="${role.roleName}" class="small"></td>
+                    <td th:text="${role.createTime} ? ${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')} : ''" class="small"></td>
+                    <td th:text="${role.createUserRealName}" class="small"></td>
+                    <td class="text-right text-nowrap" style="min-width: 125px;">
+                        <div class="btn-group"
+                             th:id="${role.id}"
+                             th:attr="
+                                data-role-code=${role.roleCode},
+                                data-role-name=${role.roleName},
+                                data-create-user-real-name=${role.createUserRealName},
+                                data-create-time=${role.createTime} ? ${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')} : ''
+                                ">
+                            <button th:if="${role.roleCode != admin_role_code}" onclick="deleteRole(this)" th:attr="data-id=${role.id},data-role-name=${role.roleName}" class="btn-white btn btn-sm through" title="删除角色">
+                                <i class="fa fa-trash"></i> 删除
+                            </button>
+                            <button th:if="${role.roleCode != admin_role_code}" onclick="showEditRoleModal(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#roleEditModal" title="编辑角色">
+                                <i class="fa fa-eye"></i> 编辑
+                            </button>
+                            <button onclick="showRolePermissionModal(this)" th:attr="data-id=${role.id}" class="btn-white btn btn-sm through" data-toggle="modal" data-target="#rolePermissionModal" title="给角色授予菜单权限">
+                                <i class="fa fa-unlock-alt"></i> 授权
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 分页表单 -->
+        <form th:action="@{/auth/role_list}" id="roleListPageForm">
+            <div class="pages border-top" th:include="common/page::#include_page" th:with="formId='roleListPageForm',pageBoxId='role_list_page_box'">
+            </div>
+            <!-- 查询条件，用隐藏表单域 -->
+            <input type="hidden" th:value="${role == null ? '' : role.roleCode}" name="roleCode"/>
+            <input type="hidden" th:value="${role == null ? '' : role.roleName}" name="roleName"/>
+        </form>
+    </div>
+</div>

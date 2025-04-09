@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper">
+
+    <resultMap id="rolePermissionMap" type="com.nutcracker.example.demo.entity.dataobject.auth.SysRolePermissionDo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+    </resultMap>
+
+    <select id="findRolePermissionByRoleIdAndPermissionId" parameterType="java.lang.String" resultMap="rolePermissionMap">
+        select
+            id,
+            role_id,
+            permission_id,
+            create_time,
+            create_by
+        from sys_role_permission
+        where role_id = #{roleId,jdbcType=VARCHAR}
+          and permission_id = #{permissionId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteRolePermissionByRoleId" parameterType="java.lang.String">
+        delete from sys_role_permission
+        where role_id = #{roleId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into sys_role_permission (id, role_id, permission_id, create_time, create_by)
+        values
+        <foreach collection="list" item="perm" separator=",">
+            (#{perm.id,jdbcType=VARCHAR}, #{perm.roleId,jdbcType=VARCHAR}, #{perm.permissionId,jdbcType=VARCHAR}, #{perm.createTime,jdbcType=VARCHAR,typeHandler=com.nutcracker.example.demo.mapper.CustomDateTypeHandler}, #{perm.createBy,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+</mapper>

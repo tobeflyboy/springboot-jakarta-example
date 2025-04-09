@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+        }
+
+        /* 确保 input 类型 submit 的按钮应用相同的样式 */
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body th:attr="data-ctx=${application.ctx}">
+<div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm" name="loginForm" method="post" th:action="@{/login}">
+        <div class="form-group">
+            <label for="username">账号</label>
+            <input type="text" id="username" name="username" required value="admin">
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" id="password" name="password" required value="123456">
+        </div>
+        <!-- 将 button 替换为 input 类型 submit -->
+        <input type="button" class="login-btn" id="login-btn" value="登录">
+    </form>
+</div>
+</body>
+<!-- 全局 scripts -->
+<script th:src="@{/static/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins/toastr/toastr.min.js}" async></script><!---顶部弹出提示--->
+<script th:src="@{/static/js/plugins/crypto/sha256.js}"></script><!---顶部弹出提示--->
+<!-- 激活thymeleaf取值 -->
+<script th:inline="javascript">
+    var ctx = [[${application.ctx}]];
+    $(function () {
+
+        // 修改事件绑定以适应新的 input 提交按钮
+        $("#login-btn").on("click", function (event) {
+            event.preventDefault(); // 阻止默认表单提交行为
+
+            const username = $.trim($("#username").val());
+            const password = $.trim($("#password").val());
+            if (!username || !password) {
+                toastr.error('', '请输入账号和密码');
+                return;
+            }
+            $("#loginForm").submit();
+        });
+
+        // 添加回车键登录事件
+        $(document).on('keydown', function (event) {
+            if (event.key === "Enter") { // 检测回车键
+                $("#login-btn").click(); // 模拟点击登录按钮
+            }
+        });
+
+    });
+</script>
+</html>

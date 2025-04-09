@@ -1,0 +1,21 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "name": "app",
+      "description": "应用相关参数配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "description": "应用版本号"
+    },
+    {
+      "name": "app.secret.pool-size",
+      "type": "java.lang.Integer",
+      "description": "加解密线程池大小"
+    }
+  ]
+}

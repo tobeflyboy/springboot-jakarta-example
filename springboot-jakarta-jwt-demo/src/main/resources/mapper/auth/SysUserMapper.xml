@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nutcracker.example.demo.mapper.auth.SysUserMapper">
+
+    <resultMap id="userMap" type="com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="last_login_time" jdbcType="VARCHAR" property="lastLoginTime" typeHandler="com.nutcracker.example.demo.mapper.CustomDateTypeHandler"/>
+    </resultMap>
+
+    <sql id="find_xxx">
+        id, username, password, salt, real_name, email, status, create_time, create_by, update_time, update_by, last_login_time
+	</sql>
+
+    <select id="findUserByUsername" parameterType="string" resultMap="userMap">
+        select
+            <include refid="find_xxx"/>
+        from sys_user
+        where username=#{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findUserByRoleCode" parameterType="string" resultMap="userMap">
+        select
+            u.id,
+            u.username,
+            u.password,
+            u.salt,
+            u.real_name,
+            u.email,
+            u.status,
+            u.create_time,
+            u.create_by,
+            u.update_time,
+            u.update_by,
+            u.last_login_time
+        from sys_user u
+        inner join sys_user_role ur on ur.user_id = u.id
+        inner join sys_role r on r.role_id = ur.role_id
+        where r.authority = #{roleCode}
+    </select>
+
+    <select id="findUser" resultType="com.nutcracker.example.demo.entity.domain.auth.SysUser">
+        select
+            u1.id as userId,
+            u1.username,
+            u1.real_name as realName,
+            u1.email,
+            u1.status,
+            u1.create_time as createTime,
+            u2.real_name as createUserRealName,
+            u1.update_time as updateTime,
+            u3.real_name as updateUserRealName,
+            u1.last_login_time as lastLoginTime,
+            r.id as roleId,
+            r.role_name as roleName
+        from sys_user u1
+        left join sys_user u2 on u2.id = u1.create_by
+        left join sys_user u3 on u3.id = u1.update_by
+        left join sys_user_role ur on ur.user_id = u1.id
+        left join sys_role r on r.id = ur.role_id
+        <where>
+            <if test="username != null and username != ''">
+                and u1.username=#{username,jdbcType=VARCHAR}
+            </if>
+            <if test="realName != null and realName != ''">
+                and u1.real_name like '%'||#{realName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="status != null">
+                and u1.status=#{status,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by u1.create_time desc
+    </select>
+
+</mapper>
