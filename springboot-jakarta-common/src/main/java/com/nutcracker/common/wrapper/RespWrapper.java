@@ -13,7 +13,7 @@ import java.util.List;
  * @author 胡桃夹子
  * @date 2025/04/03 10:32:05
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class RespWrapper<T> implements Serializable {
     @Serial

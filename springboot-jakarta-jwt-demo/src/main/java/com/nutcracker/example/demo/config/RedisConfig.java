@@ -1,9 +1,6 @@
 package com.nutcracker.example.demo.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nutcracker.example.demo.constant.CacheableKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +26,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.TimeZone;
 
 /**
  * Redis
@@ -45,23 +41,6 @@ public class RedisConfig implements CachingConfigurer {
     private final RedisConnectionFactory redisConnectionFactory;
 
     /**
-     * 获取对象映射器
-     *
-     * @return {@link ObjectMapper }
-     */
-    private ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-        objectMapper.registerModule(new JavaTimeModule());
-
-        // 处理循环引用
-        objectMapper.configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, false);
-        objectMapper.configure(SerializationFeature.FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS, false);
-        return objectMapper;
-    }
-
-    /**
      * redisTemplate 序列化使用的jdkSerializeable, 存储二进制字节码, 所以自定义序列化类
      *
      * @return RedisTemplate<Object, Object>
@@ -70,7 +49,6 @@ public class RedisConfig implements CachingConfigurer {
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
-        //Jackson2JsonRedisSerializer<Object> jsonRedisSerializer = new Jackson2JsonRedisSerializer<>(getObjectMapper(), Object.class);
         GenericJackson2JsonRedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
@@ -138,7 +116,6 @@ public class RedisConfig implements CachingConfigurer {
     }
 
     private RedisCacheConfiguration getRedisCacheConfigurationWithTtl(long seconds) {
-        //Jackson2JsonRedisSerializer<Object> jsonRedisSerializer = new Jackson2JsonRedisSerializer<>(getObjectMapper(), Object.class);
         GenericJackson2JsonRedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.serializeValuesWith(

@@ -5,6 +5,7 @@ import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.web.Identify;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author 胡桃夹子
  * @date 2024/12/23 09:47:13
  */
+@Hidden
 @Slf4j
 @RequiredArgsConstructor
 @Controller

@@ -16,6 +16,7 @@ import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import com.nutcracker.common.wrapper.RespWrapper;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ import java.util.List;
  * @author 胡桃夹子
  * @date 2024/12/10 09:50:10
  */
+@Hidden
 @RequiredArgsConstructor
 @Slf4j
 @Controller

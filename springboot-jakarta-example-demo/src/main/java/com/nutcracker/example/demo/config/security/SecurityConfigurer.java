@@ -121,7 +121,7 @@ public class SecurityConfigurer {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         // 允许任何域名使用
-        config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
         // 允许cookies跨域
         config.setAllowCredentials(true);
         // 允许任何方法（post、get等）

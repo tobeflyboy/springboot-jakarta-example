@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.nutcracker.common.util.BigDecimalUtil;
 import com.nutcracker.example.demo.entity.domain.dashboard.PayDailySumTotalDto;
 import com.nutcracker.example.demo.enums.BusiEnum;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author 胡桃夹子
  * @date 2020-03-01 12:43
  */
+@Hidden
 @Slf4j
 @Controller
 public class DashboardController {
