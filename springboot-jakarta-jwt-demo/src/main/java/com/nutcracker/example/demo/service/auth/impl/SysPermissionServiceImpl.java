@@ -78,6 +78,15 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return result;
     }
 
+    @Override
+    public SysPermission getPermission(String id) {
+        log.info("getPermission id={}", id);
+        SysPermissionDo permissionDo = sysPermissionMapper.selectById(id);
+        SysPermission permission = SysPermissionConvert.INSTANCE.toDomain(permissionDo);
+        log.info("getPermission id={},permission={}", id, JSON.toJSONString(permission));
+        return permission;
+    }
+
     private List<SysPermission> getPermissionTree(List<SysPermission> permissionList) {
         // 如果查询结果为空，直接返回空列表
         if (CollectionUtil.isEmpty(permissionList)) {

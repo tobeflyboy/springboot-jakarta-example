@@ -29,6 +29,14 @@ public interface SysPermissionService {
     List<SysPermission> getRolePermissionByRoleId(String roleId);
 
     /**
+     * 根据菜单ID，查询菜单资源
+     *
+     * @param id 菜单ID
+     * @return {@link SysPermission }
+     */
+    SysPermission getPermission(String id);
+
+    /**
      * 保存菜单
      *
      * @param sysPermission 菜单

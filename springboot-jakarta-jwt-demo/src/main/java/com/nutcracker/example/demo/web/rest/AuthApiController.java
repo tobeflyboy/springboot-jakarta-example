@@ -58,6 +58,17 @@ public class AuthApiController {
         return resp;
     }
 
+    @Operation(summary = "菜单-详情接口", description = "菜单详情接口")
+    @PostMapping("/api/permission/{permissionId}")
+    @ResponseBody
+    public RespWrapper<SysPermission> permission(@PathVariable("permissionId") String permissionId) {
+        log.info(" /api/permission/{}", permissionId);
+        SysPermission permission = sysPermissionService.getPermission(permissionId);
+        RespWrapper<SysPermission> resp = RespWrapper.success(permission);
+        log.info(" /api/permission/{},{}", permissionId, JSON.toJSONString(resp));
+        return resp;
+    }
+
     @Operation(summary = "角色-查询所有接口", description = "角色查询所有有效数据接口")
     @PostMapping("/api/role/all-list")
     public RespWrapper<List<SysRole>> roleAllList() {
