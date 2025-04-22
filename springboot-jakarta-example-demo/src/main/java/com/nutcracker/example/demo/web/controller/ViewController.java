@@ -48,6 +48,19 @@ public class ViewController {
         return "books/twgx";
     }
 
+    @GetMapping("books/yylj")
+    public String booksYylj() {
+        log.debug("loading books/yylj ");
+        return "books/yylj";
+    }
+
+    @GetMapping("books/csb")
+    public String booksCsb() {
+        log.debug("loading books/csb ");
+        return "books/csb";
+    }
+
+
 
     @GetMapping("view/sysconfig/setconfig")
     public String setConfig() {
