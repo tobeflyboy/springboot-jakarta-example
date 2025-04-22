@@ -42,6 +42,12 @@ public class ViewController {
         return "topnav";
     }
 
+    @GetMapping("books/twgx")
+    public String booksTwgx() {
+        log.debug("loading books/twgx ");
+        return "books/twgx";
+    }
+
 
     @GetMapping("view/sysconfig/setconfig")
     public String setConfig() {

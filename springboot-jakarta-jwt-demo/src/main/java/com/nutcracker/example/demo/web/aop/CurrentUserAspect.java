@@ -1,10 +1,20 @@
 package com.nutcracker.example.demo.web.aop;
 
+import cn.hutool.core.collection.CollUtil;
 import com.nutcracker.common.util.IpInfoUtils;
+import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
+import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
+import com.nutcracker.example.demo.entity.domain.auth.SysRole;
+import com.nutcracker.example.demo.service.auth.AuthService;
+import com.nutcracker.example.demo.service.auth.SysPermissionService;
+import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.web.Identify;
 import com.nutcracker.example.demo.web.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,6 +26,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import java.util.List;
+
 
 /**
  * 当前登录人切面
@@ -23,17 +35,21 @@ import org.springframework.web.context.request.RequestContextHolder;
  * @author 胡桃夹子
  * @date 2025/03/20 14:02:44
  */
+@RequiredArgsConstructor
 @Aspect
 @Component
 @Slf4j
 @Order(1)
 public class CurrentUserAspect {
 
+    private final AuthService authService;
+    private final SysRoleService sysRoleService;
+    private final SysPermissionService sysPermissionService;
 
     /**
      * 设置操作切入点 扫描所有controller包下操作
      */
-    @Pointcut("execution(* com.nutcracker.example.demo.web.controller..*.*(..))")
+    @Pointcut("execution(* com.nutcracker.example.demo.web.rest..*.*(..))")
     public void currentUserPointCut() {
     }
 
@@ -53,6 +69,25 @@ public class CurrentUserAspect {
                     username = user.getUsername();
                     realName = user.getRealName();
                     Identify.setSessionUser(user);
+                } else {
+                    // FIXME 临时用户
+                    SysUserDo sysUserDo = authService.findUserByName("admin");
+                    SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
+                    List<SysPermission> permissions;
+                    if (null != sysRoleDo) {
+                        permissions = sysPermissionService.getRolePermissionByRoleId(sysRoleDo.getId());
+                    } else {
+                        permissions = CollUtil.empty(SysPermission.class);
+                    }
+                    SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
+                    SessionUser sessionUser = SessionUser.builder()
+                            .id(sysUserDo.getId())
+                            .username(sysUserDo.getUsername())
+                            .realName(sysUserDo.getRealName())
+                            .permissions(permissions)
+                            .sysRole(role)
+                            .build();
+                    Identify.setSessionUser(sessionUser);
                 }
                 ip = IpInfoUtils.getIpAddr(request);
                 hostname = IpInfoUtils.getHostName();

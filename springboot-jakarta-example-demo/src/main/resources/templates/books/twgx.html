@@ -1,0 +1,4224 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>滕王阁序</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <style>
+        body,
+        td {
+            font-size: 10pt;
+        }
+
+        .pinying {
+            font-size: 0.71em;
+            vertical-align: baseline;
+            max-width: 100%;
+            color: rgb(0, 0, 0);
+        }
+
+        .hanzi {
+            font-size: 20px;
+            vertical-align: baseline;
+            max-width: 100%;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+        }
+
+        .char_cell {
+            font-size: 16px;
+            vertical-align: baseline;
+            max-width: 40px;
+            text-align: center;
+            display: inline-block;
+            list-style-type: none;
+            min-height: 80px;
+            width: 40px;
+            min-width: 40px;
+        }
+
+        .char_cell_clean {
+            font-size: 100%;
+            vertical-align: baseline;
+        }
+
+        .char_row {
+            list-style: none;
+            clear: left;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <ul style="text-align:center;">
+        <li class="char_row" style="text-align:center;">
+        <span class="char_cell">
+          <div class="pinying">téng</div>
+          <div class="hanzi">滕</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wáng</div>
+          <div class="hanzi">王</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gé</div>
+          <div class="hanzi">阁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xù</div>
+          <div class="hanzi">序</div>
+        </span>
+        </li>
+    </ul>
+    <ul style="text-align:center;">
+        <li class="char_row" style="text-align:center;">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">〔</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">táng</div>
+          <div class="hanzi">唐</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">〕</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wáng</div>
+          <div class="hanzi">王</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bó</div>
+          <div class="hanzi">勃</div>
+        </span>
+        </li>
+    </ul>
+    <ul style="text-align:left;">
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yù</div>
+          <div class="hanzi">豫</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhāng</div>
+          <div class="hanzi">章</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gù</div>
+          <div class="hanzi">故</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jùn</div>
+            <div class="hanzi">郡</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hóng</div>
+          <div class="hanzi">洪</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dū</div>
+          <div class="hanzi">都</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xīn</div>
+          <div class="hanzi">新</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fǔ</div>
+            <div class="hanzi">府</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xīng</div>
+          <div class="hanzi">星</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēn</div>
+          <div class="hanzi">分</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">翼</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhěn</div>
+            <div class="hanzi">轸</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">地</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiē</div>
+          <div class="hanzi">接</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">héng</div>
+          <div class="hanzi">衡</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lú</div>
+            <div class="hanzi">庐</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīn</div>
+          <div class="hanzi">襟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sān</div>
+          <div class="hanzi">三</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiāng</div>
+          <div class="hanzi">江</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dài</div>
+          <div class="hanzi">带</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wǔ</div>
+          <div class="hanzi">五</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">hú</div>
+            <div class="hanzi">湖</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kòng</div>
+          <div class="hanzi">控</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mán</div>
+          <div class="hanzi">蛮</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīng</div>
+          <div class="hanzi">荆</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐn</div>
+          <div class="hanzi">引</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ōu</div>
+          <div class="hanzi">瓯</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yuè</div>
+            <div class="hanzi">越</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wù</div>
+          <div class="hanzi">物</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huá</div>
+          <div class="hanzi">华</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tiān</div>
+          <div class="hanzi">天</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bǎo</div>
+            <div class="hanzi">宝</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lóng</div>
+          <div class="hanzi">龙</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guāng</div>
+          <div class="hanzi">光</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shè</div>
+          <div class="hanzi">射</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">niú</div>
+          <div class="hanzi">牛</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dǒu</div>
+          <div class="hanzi">斗</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xū</div>
+            <div class="hanzi">墟</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rén</div>
+          <div class="hanzi">人</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jié</div>
+          <div class="hanzi">杰</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">地</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">líng</div>
+            <div class="hanzi">灵</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xú</div>
+          <div class="hanzi">徐</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rú</div>
+          <div class="hanzi">孺</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xià</div>
+          <div class="hanzi">下</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chén</div>
+          <div class="hanzi">陈</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fán</div>
+          <div class="hanzi">蕃</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">tà</div>
+            <div class="hanzi">榻</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xióng</div>
+          <div class="hanzi">雄</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōu</div>
+          <div class="hanzi">州</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wù</div>
+          <div class="hanzi">雾</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">liè</div>
+            <div class="hanzi">列</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jùn</div>
+          <div class="hanzi">俊</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cǎi</div>
+          <div class="hanzi">采</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xīng</div>
+          <div class="hanzi">星</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">chí</div>
+            <div class="hanzi">驰</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tái</div>
+          <div class="hanzi">台</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huáng</div>
+          <div class="hanzi">隍</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhěn</div>
+          <div class="hanzi">枕</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yí</div>
+          <div class="hanzi">夷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xià</div>
+          <div class="hanzi">夏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiāo</div>
+            <div class="hanzi">交</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bīn</div>
+          <div class="hanzi">宾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhǔ</div>
+          <div class="hanzi">主</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jìn</div>
+          <div class="hanzi">尽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dōng</div>
+          <div class="hanzi">东</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">南</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">měi</div>
+            <div class="hanzi">美</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dū</div>
+          <div class="hanzi">都</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dū</div>
+          <div class="hanzi">督</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yán</div>
+          <div class="hanzi">阎</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gōng</div>
+          <div class="hanzi">公</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǎ</div>
+          <div class="hanzi">雅</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">wàng</div>
+            <div class="hanzi">望</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐ</div>
+          <div class="hanzi">棨</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jǐ</div>
+          <div class="hanzi">戟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yáo</div>
+          <div class="hanzi">遥</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lín</div>
+            <div class="hanzi">临</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǔ</div>
+          <div class="hanzi">宇</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wén</div>
+          <div class="hanzi">文</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xīn</div>
+          <div class="hanzi">新</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōu</div>
+          <div class="hanzi">州</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">懿</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fàn</div>
+            <div class="hanzi">范</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chān</div>
+          <div class="hanzi">襜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wéi</div>
+          <div class="hanzi">帷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zàn</div>
+          <div class="hanzi">暂</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhù</div>
+            <div class="hanzi">驻</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shí</div>
+          <div class="hanzi">十</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xún</div>
+          <div class="hanzi">旬</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiū</div>
+          <div class="hanzi">休</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xiá</div>
+            <div class="hanzi">假</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shèng</div>
+          <div class="hanzi">胜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǒu</div>
+          <div class="hanzi">友</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rú</div>
+          <div class="hanzi">如</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yún</div>
+            <div class="hanzi">云</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qiān</div>
+          <div class="hanzi">千</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǐ</div>
+          <div class="hanzi">里</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">féng</div>
+          <div class="hanzi">逢</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yíng</div>
+            <div class="hanzi">迎</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">péng</div>
+          <div class="hanzi">朋</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mǎn</div>
+          <div class="hanzi">满</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zuò</div>
+            <div class="hanzi">座</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">téng</div>
+          <div class="hanzi">腾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiāo</div>
+          <div class="hanzi">蛟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐ</div>
+          <div class="hanzi">起</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fèng</div>
+            <div class="hanzi">凤</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mèng</div>
+          <div class="hanzi">孟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xué</div>
+          <div class="hanzi">学</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">士</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cí</div>
+          <div class="hanzi">词</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zōng</div>
+            <div class="hanzi">宗</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">紫</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">diàn</div>
+          <div class="hanzi">电</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qīng</div>
+          <div class="hanzi">青</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shuāng</div>
+            <div class="hanzi">霜</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wáng</div>
+          <div class="hanzi">王</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiāng</div>
+          <div class="hanzi">将</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jūn</div>
+          <div class="hanzi">军</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wǔ</div>
+          <div class="hanzi">武</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">kù</div>
+            <div class="hanzi">库</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiā</div>
+          <div class="hanzi">家</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jūn</div>
+          <div class="hanzi">君</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zuò</div>
+          <div class="hanzi">作</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zǎi</div>
+            <div class="hanzi">宰</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lù</div>
+          <div class="hanzi">路</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chū</div>
+          <div class="hanzi">出</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">míng</div>
+          <div class="hanzi">名</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qū</div>
+            <div class="hanzi">区</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tóng</div>
+          <div class="hanzi">童</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">子</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hé</div>
+          <div class="hanzi">何</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhī</div>
+            <div class="hanzi">知</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gōng</div>
+          <div class="hanzi">躬</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">féng</div>
+          <div class="hanzi">逢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shèng</div>
+          <div class="hanzi">胜</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiàn</div>
+            <div class="hanzi">饯</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shí</div>
+          <div class="hanzi">时</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wéi</div>
+          <div class="hanzi">维</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiǔ</div>
+          <div class="hanzi">九</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yuè</div>
+            <div class="hanzi">月</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xù</div>
+          <div class="hanzi">序</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shǔ</div>
+          <div class="hanzi">属</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sān</div>
+          <div class="hanzi">三</div>
+        </span>
+            <span class="char_cell_clean"></span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qiū</div>
+            <div class="hanzi">秋</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǎo</div>
+          <div class="hanzi">潦</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǐ</div>
+          <div class="hanzi">水</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jìn</div>
+          <div class="hanzi">尽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hán</div>
+          <div class="hanzi">寒</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tán</div>
+          <div class="hanzi">潭</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qīng</div>
+            <div class="hanzi">清</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yān</div>
+          <div class="hanzi">烟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guāng</div>
+          <div class="hanzi">光</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">níng</div>
+          <div class="hanzi">凝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mù</div>
+          <div class="hanzi">暮</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shān</div>
+          <div class="hanzi">山</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zǐ</div>
+            <div class="hanzi">紫</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǎn</div>
+          <div class="hanzi">俨</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cān</div>
+          <div class="hanzi">骖</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">騑</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shàng</div>
+          <div class="hanzi">上</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lù</div>
+            <div class="hanzi">路</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fǎng</div>
+          <div class="hanzi">访</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēng</div>
+          <div class="hanzi">风</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jǐng</div>
+          <div class="hanzi">景</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chóng</div>
+          <div class="hanzi">崇</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">ē</div>
+            <div class="hanzi">阿</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lín</div>
+          <div class="hanzi">临</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">帝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">子</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhōu</div>
+            <div class="hanzi">洲</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dé</div>
+          <div class="hanzi">得</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tiān</div>
+          <div class="hanzi">天</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rén</div>
+          <div class="hanzi">人</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiù</div>
+          <div class="hanzi">旧</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">guǎn</div>
+            <div class="hanzi">馆</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">céng</div>
+          <div class="hanzi">层</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">luán</div>
+          <div class="hanzi">峦</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sǒng</div>
+          <div class="hanzi">耸</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">cuì</div>
+            <div class="hanzi">翠</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shàng</div>
+          <div class="hanzi">上</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chū</div>
+          <div class="hanzi">出</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chóng</div>
+          <div class="hanzi">重</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xiāo</div>
+            <div class="hanzi">霄</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">飞</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gé</div>
+          <div class="hanzi">阁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">liú</div>
+          <div class="hanzi">流</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">dān</div>
+            <div class="hanzi">丹</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xià</div>
+          <div class="hanzi">下</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lín</div>
+          <div class="hanzi">临</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wú</div>
+          <div class="hanzi">无</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">dì</div>
+            <div class="hanzi">地</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hè</div>
+          <div class="hanzi">鹤</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tīng</div>
+          <div class="hanzi">汀</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fú</div>
+          <div class="hanzi">凫</div>
+        </span>
+            <span class="char_cell_clean"></span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhǔ</div>
+            <div class="hanzi">渚</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qióng</div>
+          <div class="hanzi">穷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dǎo</div>
+          <div class="hanzi">岛</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǔ</div>
+          <div class="hanzi">屿</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yíng</div>
+          <div class="hanzi">萦</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">huí</div>
+            <div class="hanzi">回</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guì</div>
+          <div class="hanzi">桂</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">diàn</div>
+          <div class="hanzi">殿</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lán</div>
+          <div class="hanzi">兰</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">gōng</div>
+            <div class="hanzi">宫</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jí</div>
+          <div class="hanzi">即</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāng</div>
+          <div class="hanzi">冈</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">luán</div>
+          <div class="hanzi">峦</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tǐ</div>
+          <div class="hanzi">体</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shì</div>
+            <div class="hanzi">势</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pī</div>
+          <div class="hanzi">披</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiù</div>
+          <div class="hanzi">绣</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">tà</div>
+            <div class="hanzi">闼</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fǔ</div>
+          <div class="hanzi">俯</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">diāo</div>
+          <div class="hanzi">雕</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">méng</div>
+            <div class="hanzi">甍</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shān</div>
+          <div class="hanzi">山</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yuán</div>
+          <div class="hanzi">原</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kuàng</div>
+          <div class="hanzi">旷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qí</div>
+          <div class="hanzi">其</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yíng</div>
+          <div class="hanzi">盈</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shì</div>
+            <div class="hanzi">视</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chuān</div>
+          <div class="hanzi">川</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zé</div>
+          <div class="hanzi">泽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yū</div>
+          <div class="hanzi">纡</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qí</div>
+          <div class="hanzi">其</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hài</div>
+          <div class="hanzi">骇</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhǔ</div>
+            <div class="hanzi">瞩</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǘ</div>
+          <div class="hanzi">闾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yán</div>
+          <div class="hanzi">阎</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pū</div>
+          <div class="hanzi">扑</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">dì</div>
+            <div class="hanzi">地</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōng</div>
+          <div class="hanzi">钟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">míng</div>
+          <div class="hanzi">鸣</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dǐng</div>
+          <div class="hanzi">鼎</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shí</div>
+          <div class="hanzi">食</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiā</div>
+            <div class="hanzi">家</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gě</div>
+          <div class="hanzi">舸</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiàn</div>
+          <div class="hanzi">舰</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mí</div>
+          <div class="hanzi">弥</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jīn</div>
+            <div class="hanzi">津</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qīng</div>
+          <div class="hanzi">青</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">què</div>
+          <div class="hanzi">雀</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huáng</div>
+          <div class="hanzi">黄</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lóng</div>
+          <div class="hanzi">龙</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhú</div>
+            <div class="hanzi">轴</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiāo</div>
+          <div class="hanzi">销</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǔ</div>
+          <div class="hanzi">雨</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jì</div>
+            <div class="hanzi">霁</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cǎi</div>
+          <div class="hanzi">彩</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chè</div>
+          <div class="hanzi">彻</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qū</div>
+          <div class="hanzi">区</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">míng</div>
+            <div class="hanzi">明</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">luò</div>
+          <div class="hanzi">落</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiá</div>
+          <div class="hanzi">霞</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǔ</div>
+          <div class="hanzi">与</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gū</div>
+          <div class="hanzi">孤</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wù</div>
+          <div class="hanzi">鹜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qí</div>
+          <div class="hanzi">齐</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fēi</div>
+            <div class="hanzi">飞</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qiū</div>
+          <div class="hanzi">秋</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǐ</div>
+          <div class="hanzi">水</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gòng</div>
+          <div class="hanzi">共</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tiān</div>
+          <div class="hanzi">天</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yí</div>
+          <div class="hanzi">一</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">sè</div>
+            <div class="hanzi">色</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">渔</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōu</div>
+          <div class="hanzi">舟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chàng</div>
+          <div class="hanzi">唱</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">wǎn</div>
+            <div class="hanzi">晚</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiǎng</div>
+          <div class="hanzi">响</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qióng</div>
+          <div class="hanzi">穷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">péng</div>
+          <div class="hanzi">彭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǐ</div>
+          <div class="hanzi">蠡</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bīn</div>
+            <div class="hanzi">滨</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yàn</div>
+          <div class="hanzi">雁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhèn</div>
+          <div class="hanzi">阵</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīng</div>
+          <div class="hanzi">惊</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">hán</div>
+            <div class="hanzi">寒</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shēng</div>
+          <div class="hanzi">声</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">duàn</div>
+          <div class="hanzi">断</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">héng</div>
+          <div class="hanzi">衡</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yáng</div>
+          <div class="hanzi">阳</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">pǔ</div>
+            <div class="hanzi">浦</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yáo</div>
+          <div class="hanzi">遥</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīn</div>
+          <div class="hanzi">襟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fǔ</div>
+          <div class="hanzi">甫</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">chàng</div>
+            <div class="hanzi">畅</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">逸</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xìng</div>
+          <div class="hanzi">兴</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chuán</div>
+          <div class="hanzi">遄</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fēi</div>
+            <div class="hanzi">飞</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǎng</div>
+          <div class="hanzi">爽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lài</div>
+          <div class="hanzi">籁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fā</div>
+          <div class="hanzi">发</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qīng</div>
+          <div class="hanzi">清</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēng</div>
+          <div class="hanzi">风</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shēng</div>
+            <div class="hanzi">生</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiān</div>
+          <div class="hanzi">纤</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gē</div>
+          <div class="hanzi">歌</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">níng</div>
+          <div class="hanzi">凝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bái</div>
+          <div class="hanzi">白</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">è</div>
+            <div class="hanzi">遏</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">suī</div>
+          <div class="hanzi">睢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yuán</div>
+          <div class="hanzi">园</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǜ</div>
+          <div class="hanzi">绿</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhú</div>
+            <div class="hanzi">竹</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qì</div>
+          <div class="hanzi">气</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">líng</div>
+          <div class="hanzi">凌</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">péng</div>
+          <div class="hanzi">彭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zé</div>
+          <div class="hanzi">泽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zūn</div>
+            <div class="hanzi">樽</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yè</div>
+          <div class="hanzi">邺</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǐ</div>
+          <div class="hanzi">水</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhū</div>
+          <div class="hanzi">朱</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">huā</div>
+            <div class="hanzi">华</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guāng</div>
+          <div class="hanzi">光</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhào</div>
+          <div class="hanzi">照</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lín</div>
+          <div class="hanzi">临</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chuān</div>
+          <div class="hanzi">川</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bǐ</div>
+            <div class="hanzi">笔</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sì</div>
+          <div class="hanzi">四</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">měi</div>
+          <div class="hanzi">美</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jù</div>
+            <div class="hanzi">具</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">èr</div>
+          <div class="hanzi">二</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">难</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bìng</div>
+            <div class="hanzi">并</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qióng</div>
+          <div class="hanzi">穷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">睇</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">miǎn</div>
+          <div class="hanzi">眄</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōng</div>
+          <div class="hanzi">中</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">tiān</div>
+            <div class="hanzi">天</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jí</div>
+          <div class="hanzi">极</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">娱</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yóu</div>
+          <div class="hanzi">游</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiá</div>
+          <div class="hanzi">暇</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">rì</div>
+            <div class="hanzi">日</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tiān</div>
+          <div class="hanzi">天</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">地</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiǒng</div>
+            <div class="hanzi">迥</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jué</div>
+          <div class="hanzi">觉</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǔ</div>
+          <div class="hanzi">宇</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhòu</div>
+          <div class="hanzi">宙</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wú</div>
+          <div class="hanzi">无</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qióng</div>
+            <div class="hanzi">穷</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xìng</div>
+          <div class="hanzi">兴</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jìn</div>
+          <div class="hanzi">尽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bēi</div>
+          <div class="hanzi">悲</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lái</div>
+            <div class="hanzi">来</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shí</div>
+          <div class="hanzi">识</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yíng</div>
+          <div class="hanzi">盈</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xū</div>
+          <div class="hanzi">虚</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǒu</div>
+          <div class="hanzi">有</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shù</div>
+            <div class="hanzi">数</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wàng</div>
+          <div class="hanzi">望</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ān</div>
+          <div class="hanzi">安</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rì</div>
+          <div class="hanzi">日</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xià</div>
+            <div class="hanzi">下</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mù</div>
+          <div class="hanzi">目</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wú</div>
+          <div class="hanzi">吴</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kuài</div>
+          <div class="hanzi">会</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiān</div>
+            <div class="hanzi">间</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">地</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">势</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jí</div>
+          <div class="hanzi">极</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">南</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">míng</div>
+          <div class="hanzi">溟</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shēn</div>
+            <div class="hanzi">深</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tiān</div>
+          <div class="hanzi">天</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhù</div>
+          <div class="hanzi">柱</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">běi</div>
+          <div class="hanzi">北</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chén</div>
+          <div class="hanzi">辰</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yuǎn</div>
+            <div class="hanzi">远</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guān</div>
+          <div class="hanzi">关</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shān</div>
+          <div class="hanzi">山</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">难</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yuè</div>
+            <div class="hanzi">越</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuí</div>
+          <div class="hanzi">谁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bēi</div>
+          <div class="hanzi">悲</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shī</div>
+          <div class="hanzi">失</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lù</div>
+          <div class="hanzi">路</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">rén</div>
+            <div class="hanzi">人</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">píng</div>
+          <div class="hanzi">萍</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǐ</div>
+          <div class="hanzi">水</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiāng</div>
+          <div class="hanzi">相</div>
+        </span>
+            <span class="char_cell_clean"></span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">féng</div>
+            <div class="hanzi">逢</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jìn</div>
+          <div class="hanzi">尽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">是</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tā</div>
+          <div class="hanzi">他</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiāng</div>
+          <div class="hanzi">乡</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">kè</div>
+            <div class="hanzi">客</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huái</div>
+          <div class="hanzi">怀</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">帝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hūn</div>
+          <div class="hanzi">阍</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bú</div>
+          <div class="hanzi">不</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiàn</div>
+            <div class="hanzi">见</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fèng</div>
+          <div class="hanzi">奉</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xuān</div>
+          <div class="hanzi">宣</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">室</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐ</div>
+          <div class="hanzi">以</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hé</div>
+          <div class="hanzi">何</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">nián</div>
+            <div class="hanzi">年</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">？</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiē</div>
+          <div class="hanzi">嗟</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">hū</div>
+            <div class="hanzi">乎</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">！</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shí</div>
+          <div class="hanzi">时</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yùn</div>
+          <div class="hanzi">运</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bù</div>
+          <div class="hanzi">不</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qí</div>
+            <div class="hanzi">齐</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mìng</div>
+          <div class="hanzi">命</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tú</div>
+          <div class="hanzi">途</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">duō</div>
+          <div class="hanzi">多</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">chuǎn</div>
+            <div class="hanzi">舛</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">féng</div>
+          <div class="hanzi">冯</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">táng</div>
+          <div class="hanzi">唐</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">易</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lǎo</div>
+            <div class="hanzi">老</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǐ</div>
+          <div class="hanzi">李</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guǎng</div>
+          <div class="hanzi">广</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">难</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fēng</div>
+            <div class="hanzi">封</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qū</div>
+          <div class="hanzi">屈</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiǎ</div>
+          <div class="hanzi">贾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">谊</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shā</div>
+            <div class="hanzi">沙</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">非</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wú</div>
+          <div class="hanzi">无</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shèng</div>
+          <div class="hanzi">圣</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhǔ</div>
+            <div class="hanzi">主</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cuàn</div>
+          <div class="hanzi">窜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">liáng</div>
+          <div class="hanzi">梁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hóng</div>
+          <div class="hanzi">鸿</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hǎi</div>
+          <div class="hanzi">海</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qū</div>
+            <div class="hanzi">曲</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐ</div>
+          <div class="hanzi">岂</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fá</div>
+          <div class="hanzi">乏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">míng</div>
+          <div class="hanzi">明</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shí</div>
+            <div class="hanzi">时</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">？</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">suǒ</div>
+          <div class="hanzi">所</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lài</div>
+          <div class="hanzi">赖</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jūn</div>
+          <div class="hanzi">君</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">子</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiàn</div>
+          <div class="hanzi">见</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jī</div>
+            <div class="hanzi">机</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dá</div>
+          <div class="hanzi">达</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rén</div>
+          <div class="hanzi">人</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">知</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">mìng</div>
+            <div class="hanzi">命</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǎo</div>
+          <div class="hanzi">老</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dāng</div>
+          <div class="hanzi">当</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">益</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhuàng</div>
+            <div class="hanzi">壮</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nìng</div>
+          <div class="hanzi">宁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yí</div>
+          <div class="hanzi">移</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bái</div>
+          <div class="hanzi">白</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shǒu</div>
+          <div class="hanzi">首</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xīn</div>
+            <div class="hanzi">心</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">？</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qióng</div>
+          <div class="hanzi">穷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qiě</div>
+          <div class="hanzi">且</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">益</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiān</div>
+            <div class="hanzi">坚</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bú</div>
+          <div class="hanzi">不</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhuì</div>
+          <div class="hanzi">坠</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qīng</div>
+          <div class="hanzi">青</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zhì</div>
+            <div class="hanzi">志</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhuó</div>
+          <div class="hanzi">酌</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tān</div>
+          <div class="hanzi">贪</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">quán</div>
+          <div class="hanzi">泉</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jué</div>
+          <div class="hanzi">觉</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shuǎng</div>
+            <div class="hanzi">爽</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chǔ</div>
+          <div class="hanzi">处</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hé</div>
+          <div class="hanzi">涸</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhé</div>
+          <div class="hanzi">辙</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐ</div>
+          <div class="hanzi">以</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yóu</div>
+          <div class="hanzi">犹</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">huān</div>
+            <div class="hanzi">欢</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">běi</div>
+          <div class="hanzi">北</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hǎi</div>
+          <div class="hanzi">海</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">suī</div>
+          <div class="hanzi">虽</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shē</div>
+            <div class="hanzi">赊</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fú</div>
+          <div class="hanzi">扶</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yáo</div>
+          <div class="hanzi">摇</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kě</div>
+          <div class="hanzi">可</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiē</div>
+            <div class="hanzi">接</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dōng</div>
+          <div class="hanzi">东</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">隅</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐ</div>
+          <div class="hanzi">已</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shì</div>
+            <div class="hanzi">逝</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sāng</div>
+          <div class="hanzi">桑</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">榆</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">非</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">wǎn</div>
+            <div class="hanzi">晚</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mèng</div>
+          <div class="hanzi">孟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">尝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jié</div>
+            <div class="hanzi">洁</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kōng</div>
+          <div class="hanzi">空</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">余</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bào</div>
+          <div class="hanzi">报</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">guó</div>
+          <div class="hanzi">国</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">qíng</div>
+            <div class="hanzi">情</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ruǎn</div>
+          <div class="hanzi">阮</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jí</div>
+          <div class="hanzi">籍</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chāng</div>
+          <div class="hanzi">猖</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">kuáng</div>
+            <div class="hanzi">狂</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐ</div>
+          <div class="hanzi">岂</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiào</div>
+          <div class="hanzi">效</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qióng</div>
+          <div class="hanzi">穷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tú</div>
+          <div class="hanzi">途</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">kū</div>
+            <div class="hanzi">哭</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">！</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bó</div>
+            <div class="hanzi">勃</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sān</div>
+          <div class="hanzi">三</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chǐ</div>
+          <div class="hanzi">尺</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wēi</div>
+          <div class="hanzi">微</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">mìng</div>
+            <div class="hanzi">命</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yí</div>
+          <div class="hanzi">一</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiè</div>
+          <div class="hanzi">介</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shū</div>
+          <div class="hanzi">书</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shēng</div>
+            <div class="hanzi">生</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wú</div>
+          <div class="hanzi">无</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lù</div>
+          <div class="hanzi">路</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐng</div>
+          <div class="hanzi">请</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yīng</div>
+            <div class="hanzi">缨</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">děng</div>
+          <div class="hanzi">等</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōng</div>
+          <div class="hanzi">终</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jūn</div>
+          <div class="hanzi">军</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ruò</div>
+          <div class="hanzi">弱</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">guàn</div>
+            <div class="hanzi">冠</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǒu</div>
+          <div class="hanzi">有</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huái</div>
+          <div class="hanzi">怀</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tóu</div>
+          <div class="hanzi">投</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">bǐ</div>
+            <div class="hanzi">笔</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mù</div>
+          <div class="hanzi">慕</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zōng</div>
+          <div class="hanzi">宗</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">què</div>
+          <div class="hanzi">悫</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fēng</div>
+            <div class="hanzi">风</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shě</div>
+          <div class="hanzi">舍</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zān</div>
+          <div class="hanzi">簪</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hù</div>
+          <div class="hanzi">笏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bǎi</div>
+          <div class="hanzi">百</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">líng</div>
+            <div class="hanzi">龄</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fèng</div>
+          <div class="hanzi">奉</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chén</div>
+          <div class="hanzi">晨</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hūn</div>
+          <div class="hanzi">昏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wàn</div>
+          <div class="hanzi">万</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lǐ</div>
+            <div class="hanzi">里</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">非</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xiè</div>
+          <div class="hanzi">谢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiā</div>
+          <div class="hanzi">家</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bǎo</div>
+          <div class="hanzi">宝</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">shù</div>
+            <div class="hanzi">树</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiē</div>
+          <div class="hanzi">接</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mèng</div>
+          <div class="hanzi">孟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">氏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhī</div>
+          <div class="hanzi">之</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fāng</div>
+          <div class="hanzi">芳</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">lín</div>
+            <div class="hanzi">邻</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tā</div>
+          <div class="hanzi">他</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rì</div>
+          <div class="hanzi">日</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qū</div>
+          <div class="hanzi">趋</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">tíng</div>
+            <div class="hanzi">庭</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tāo</div>
+          <div class="hanzi">叨</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">péi</div>
+          <div class="hanzi">陪</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lǐ</div>
+          <div class="hanzi">鲤</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">duì</div>
+            <div class="hanzi">对</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīn</div>
+          <div class="hanzi">今</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zī</div>
+          <div class="hanzi">兹</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pěng</div>
+          <div class="hanzi">捧</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">mèi</div>
+            <div class="hanzi">袂</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xǐ</div>
+          <div class="hanzi">喜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tuō</div>
+          <div class="hanzi">托</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lóng</div>
+          <div class="hanzi">龙</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">mén</div>
+            <div class="hanzi">门</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yáng</div>
+          <div class="hanzi">杨</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">意</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bù</div>
+          <div class="hanzi">不</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">féng</div>
+          <div class="hanzi">逢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">，</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fǔ</div>
+          <div class="hanzi">抚</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">líng</div>
+          <div class="hanzi">凌</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ér</div>
+          <div class="hanzi">而</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zì</div>
+          <div class="hanzi">自</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xī</div>
+            <div class="hanzi">惜</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōng</div>
+          <div class="hanzi">钟</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qī</div>
+          <div class="hanzi">期</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jì</div>
+          <div class="hanzi">既</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yù</div>
+            <div class="hanzi">遇</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zòu</div>
+          <div class="hanzi">奏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">liú</div>
+          <div class="hanzi">流</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shuǐ</div>
+          <div class="hanzi">水</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐ</div>
+          <div class="hanzi">以</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hé</div>
+          <div class="hanzi">何</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">cán</div>
+            <div class="hanzi">惭</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">？</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wū</div>
+          <div class="hanzi">呜</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">hū</div>
+            <div class="hanzi">呼</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">！</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shèng</div>
+          <div class="hanzi">胜</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">地</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bù</div>
+          <div class="hanzi">不</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">cháng</div>
+            <div class="hanzi">常</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shèng</div>
+          <div class="hanzi">盛</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yán</div>
+          <div class="hanzi">筵</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">难</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zài</div>
+            <div class="hanzi">再</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lán</div>
+          <div class="hanzi">兰</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tíng</div>
+          <div class="hanzi">亭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐ</div>
+          <div class="hanzi">已</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yǐ</div>
+            <div class="hanzi">矣</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">梓</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zé</div>
+          <div class="hanzi">泽</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qiū</div>
+          <div class="hanzi">丘</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">xū</div>
+            <div class="hanzi">墟</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lín</div>
+          <div class="hanzi">临</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bié</div>
+          <div class="hanzi">别</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zèng</div>
+          <div class="hanzi">赠</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yán</div>
+            <div class="hanzi">言</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xìng</div>
+          <div class="hanzi">幸</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">chéng</div>
+          <div class="hanzi">承</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">ēn</div>
+          <div class="hanzi">恩</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wěi</div>
+          <div class="hanzi">伟</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiàn</div>
+            <div class="hanzi">饯</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dēng</div>
+          <div class="hanzi">登</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zuò</div>
+          <div class="hanzi">作</div>
+        </span>
+            <span class="char_cell_clean"></span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">fù</div>
+            <div class="hanzi">赋</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shì</div>
+          <div class="hanzi">是</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">suǒ</div>
+          <div class="hanzi">所</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wàng</div>
+          <div class="hanzi">望</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yú</div>
+          <div class="hanzi">于</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qún</div>
+          <div class="hanzi">群</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">gōng</div>
+            <div class="hanzi">公</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gǎn</div>
+          <div class="hanzi">敢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jié</div>
+          <div class="hanzi">竭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bǐ</div>
+          <div class="hanzi">鄙</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">huái</div>
+            <div class="hanzi">怀</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gōng</div>
+          <div class="hanzi">恭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shū</div>
+          <div class="hanzi">疏</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">duǎn</div>
+          <div class="hanzi">短</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yǐn</div>
+            <div class="hanzi">引</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">；</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yì</div>
+          <div class="hanzi">一</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yán</div>
+          <div class="hanzi">言</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jūn</div>
+          <div class="hanzi">均</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fù</div>
+          <div class="hanzi">赋</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">，</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sì</div>
+          <div class="hanzi">四</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yùn</div>
+          <div class="hanzi">韵</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jù</div>
+          <div class="hanzi">俱</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">chéng</div>
+            <div class="hanzi">成</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qǐng</div>
+          <div class="hanzi">请</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">sǎ</div>
+          <div class="hanzi">洒</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pān</div>
+          <div class="hanzi">潘</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">jiāng</div>
+            <div class="hanzi">江</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gè</div>
+          <div class="hanzi">各</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qīng</div>
+          <div class="hanzi">倾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lù</div>
+          <div class="hanzi">陆</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hǎi</div>
+          <div class="hanzi">海</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">ěr</div>
+            <div class="hanzi">尔</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">！</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">téng</div>
+          <div class="hanzi">滕</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wáng</div>
+          <div class="hanzi">王</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gāo</div>
+          <div class="hanzi">高</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gé</div>
+          <div class="hanzi">阁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lín</div>
+          <div class="hanzi">临</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiāng</div>
+          <div class="hanzi">江</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhǔ</div>
+          <div class="hanzi">渚</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">，</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pèi</div>
+          <div class="hanzi">佩</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yù</div>
+          <div class="hanzi">玉</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">míng</div>
+          <div class="hanzi">鸣</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">luán</div>
+          <div class="hanzi">鸾</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">bà</div>
+          <div class="hanzi">罢</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gē</div>
+          <div class="hanzi">歌</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">wǔ</div>
+            <div class="hanzi">舞</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huà</div>
+          <div class="hanzi">画</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dòng</div>
+          <div class="hanzi">栋</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhāo</div>
+          <div class="hanzi">朝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">fēi</div>
+          <div class="hanzi">飞</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">nán</div>
+          <div class="hanzi">南</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">pǔ</div>
+          <div class="hanzi">浦</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yún</div>
+            <div class="hanzi">云</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhū</div>
+          <div class="hanzi">珠</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">lián</div>
+          <div class="hanzi">帘</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">mù</div>
+          <div class="hanzi">暮</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">juǎn</div>
+          <div class="hanzi">卷</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xī</div>
+          <div class="hanzi">西</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">shān</div>
+          <div class="hanzi">山</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yǔ</div>
+            <div class="hanzi">雨</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xián</div>
+          <div class="hanzi">闲</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yún</div>
+          <div class="hanzi">云</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">tán</div>
+          <div class="hanzi">潭</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yǐng</div>
+          <div class="hanzi">影</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">rì</div>
+          <div class="hanzi">日</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yōu</div>
+          <div class="hanzi">悠</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">yōu</div>
+            <div class="hanzi">悠</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wù</div>
+          <div class="hanzi">物</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">huàn</div>
+          <div class="hanzi">换</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">xīng</div>
+          <div class="hanzi">星</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">yí</div>
+          <div class="hanzi">移</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jǐ</div>
+          <div class="hanzi">几</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dù</div>
+          <div class="hanzi">度</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">qiū</div>
+          <div class="hanzi">秋</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">。</div>
+        </span>
+        </li>
+        <li class="char_row">
+        <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">　</div>
+          <div class="hanzi">　</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">gé</div>
+          <div class="hanzi">阁</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zhōng</div>
+          <div class="hanzi">中</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">dì</div>
+          <div class="hanzi">帝</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zǐ</div>
+          <div class="hanzi">子</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jīn</div>
+          <div class="hanzi">今</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">hé</div>
+          <div class="hanzi">何</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">zài</div>
+            <div class="hanzi">在</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">，</div>
+          </span>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiàn</div>
+          <div class="hanzi">槛</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">wài</div>
+          <div class="hanzi">外</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">cháng</div>
+          <div class="hanzi">长</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">jiāng</div>
+          <div class="hanzi">江</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">kōng</div>
+          <div class="hanzi">空</div>
+        </span>
+            <span class="char_cell">
+          <div class="pinying">zì</div>
+          <div class="hanzi">自</div>
+        </span>
+            <span class="char_cell_clean">
+          <span class="char_cell">
+            <div class="pinying">liú</div>
+            <div class="hanzi">流</div>
+          </span>
+          <span class="char_cell">
+            <div class="pinying">　</div>
+            <div class="hanzi">。</div>
+          </span></span>
+        </li>
+    </ul>
+</div>
+</body>
+
+</html>

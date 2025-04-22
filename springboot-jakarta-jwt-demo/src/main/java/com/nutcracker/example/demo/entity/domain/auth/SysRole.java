@@ -37,10 +37,10 @@ public class SysRole implements Serializable {
     private String roleName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
-    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED, example = "2025-04-14T13:20:50.987+08:00", type = "string", format = "date-time")
     private Date createTime;
 
-    @Schema(description = "创建人", name = "createUserRealName")
+    @Schema(description = "创建人")
     private String createUserRealName;
 
 }
