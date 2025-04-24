@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.nutcracker.common.util.JSON;
+import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.convert.auth.SysPermissionConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysPermissionDo;
@@ -17,7 +18,6 @@ import com.nutcracker.example.demo.mapper.auth.SysPermissionMapper;
 import com.nutcracker.example.demo.mapper.auth.SysRolePermissionMapper;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
 import com.nutcracker.example.demo.web.Identify;
-import com.nutcracker.common.wrapper.RespWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,27 +158,38 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @CacheEvict(cacheNames = CacheableKey.ROLE_PERMISSION, allEntries = true)
     @Transactional
     @Override
-    public RespWrapper<Boolean> savePermission(SysPermission sysPermission) {
-        log.info("savePermission {}", sysPermission);
-        if (sysPermission == null || StrUtil.isBlank(sysPermission.getPermissionCode()) || StrUtil.isBlank(sysPermission.getPermissionName())) {
-            log.error("savePermission fail, {}", sysPermission);
+    public RespWrapper<Boolean> savePermission(SysPermission permission) {
+        log.info("savePermission {}", permission);
+        if (permission == null || StrUtil.isBlank(permission.getPermissionCode()) || StrUtil.isBlank(permission.getPermissionName())) {
+            log.error("savePermission fail, {}", permission);
             return RespWrapper.validateFailed("保存失败，缺少必要参数");
         }
-        SysPermissionDo p = sysPermissionMapper.selectById(sysPermission.getId());
+
+        SysPermissionDo permissionDo = sysPermissionMapper.findByPermissionCode(permission.getPermissionCode());
         int resultNum;
-        if (p != null) {
-            p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
+        if (StrUtil.isNotBlank(permission.getId())) {
+            // 更新
+            if (null != permissionDo && !StrUtil.equals(permission.getId(), permissionDo.getId()) && StrUtil.equals(permission.getPermissionCode(), permissionDo.getPermissionCode())) {
+                return RespWrapper.validateFailed("更新失败，权限编码已存在");
+            }
+            SysPermissionDo p = sysPermissionMapper.selectById(permission.getId());
+            if (null == p) {
+                return RespWrapper.validateFailed("更新失败，菜单信息不存在！");
+            }
+            p = SysPermissionConvert.INSTANCE.toDo(permission);
             resultNum = sysPermissionMapper.updateSysPermissionById(p);
         } else {
-            String operator = Identify.getSessionUser().getId();
-            Date now = DateUtil.date();
-            p = SysPermissionConvert.INSTANCE.toDo(sysPermission);
+            // 新增
+            if (null != permissionDo && StrUtil.equals(permission.getPermissionCode(), permissionDo.getPermissionCode())) {
+                return RespWrapper.validateFailed("保存失败，权限编码已存在");
+            }
+            SysPermissionDo p = SysPermissionConvert.INSTANCE.toDo(permission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
-            p.setCreateTime(now);
-            p.setCreateBy(operator);
+            p.setCreateTime(DateUtil.date());
+            p.setCreateBy(Identify.getSessionUser().getId());
             resultNum = sysPermissionMapper.insert(p);
         }
-        log.info("savePermission {},resultNum={}", sysPermission, resultNum);
+        log.info("savePermission {},resultNum={}", permission, resultNum);
         if (resultNum == 0) {
             return RespWrapper.fail("保存失败，缺少必要参数");
         }

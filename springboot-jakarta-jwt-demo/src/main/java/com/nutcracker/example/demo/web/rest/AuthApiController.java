@@ -69,6 +69,24 @@ public class AuthApiController {
         return resp;
     }
 
+    @PostMapping("/api/permission/save")
+    @ResponseBody
+    public RespWrapper<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
+        log.info("/api/permission/save {}", sysPermission);
+        RespWrapper<Boolean> response = sysPermissionService.savePermission(sysPermission);
+        log.info("/api/permission/save {}, response={}", sysPermission, response);
+        return response;
+    }
+
+    @PostMapping("/api/permission/delete/{permissionId}")
+    @ResponseBody
+    public RespWrapper<Boolean> permissionDelete(@PathVariable("permissionId") String permissionId) {
+        log.info("/api/permission/delete permissionId={}", permissionId);
+        RespWrapper<Boolean> response = sysPermissionService.deletePermission(permissionId);
+        log.info("/api/permission/delete permissionId={}, response={}", permissionId, response);
+        return response;
+    }
+
     @Operation(summary = "角色-查询所有接口", description = "角色查询所有有效数据接口")
     @PostMapping("/api/role/all-list")
     public RespWrapper<List<SysRole>> roleAllList() {
