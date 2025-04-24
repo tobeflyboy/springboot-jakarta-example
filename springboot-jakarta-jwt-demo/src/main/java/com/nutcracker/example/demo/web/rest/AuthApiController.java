@@ -1,12 +1,14 @@
 package com.nutcracker.example.demo.web.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.nutcracker.common.util.JSON;
 import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.convert.auth.SysUserConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
+import com.nutcracker.example.demo.entity.domain.auth.SaveRolePermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -47,9 +48,8 @@ public class AuthApiController {
     private final SysRoleService sysRoleService;
     private final SysUserService sysUserService;
 
-    @Operation(summary = "菜单-树接口", description = "菜单树接口")
+    @Operation(summary = "【菜单】菜单树接口", description = "菜单树接口")
     @PostMapping("/api/permission/tree")
-    @ResponseBody
     public RespWrapper<List<SysPermission>> permissionTree() {
         log.info("/api/permission/tree");
         List<SysPermission> list = sysPermissionService.findSysPermission();
@@ -58,9 +58,8 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "菜单-详情接口", description = "菜单详情接口")
+    @Operation(summary = "【菜单】菜单详情接口", description = "菜单详情接口")
     @PostMapping("/api/permission/{permissionId}")
-    @ResponseBody
     public RespWrapper<SysPermission> permission(@PathVariable("permissionId") String permissionId) {
         log.info(" /api/permission/{}", permissionId);
         SysPermission permission = sysPermissionService.getPermission(permissionId);
@@ -69,8 +68,8 @@ public class AuthApiController {
         return resp;
     }
 
+    @Operation(summary = "【菜单】菜单新增或菜单更新", description = "菜单新增或菜单更新接口")
     @PostMapping("/api/permission/save")
-    @ResponseBody
     public RespWrapper<Boolean> permissionSave(@RequestBody SysPermission sysPermission) {
         log.info("/api/permission/save {}", sysPermission);
         RespWrapper<Boolean> response = sysPermissionService.savePermission(sysPermission);
@@ -78,8 +77,8 @@ public class AuthApiController {
         return response;
     }
 
+    @Operation(summary = "【菜单】菜单删除接口", description = "菜单删除接口")
     @PostMapping("/api/permission/delete/{permissionId}")
-    @ResponseBody
     public RespWrapper<Boolean> permissionDelete(@PathVariable("permissionId") String permissionId) {
         log.info("/api/permission/delete permissionId={}", permissionId);
         RespWrapper<Boolean> response = sysPermissionService.deletePermission(permissionId);
@@ -87,7 +86,7 @@ public class AuthApiController {
         return response;
     }
 
-    @Operation(summary = "角色-查询所有接口", description = "角色查询所有有效数据接口")
+    @Operation(summary = "【角色】查询所有角色接口", description = "角色查询所有有效数据接口")
     @PostMapping("/api/role/all-list")
     public RespWrapper<List<SysRole>> roleAllList() {
         log.info("/api/role/all-list");
@@ -96,7 +95,62 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-状态枚举接口", description = "用户状态枚举查询接口")
+    @Operation(summary = "【角色】角色列表分页查询接口", description = "角色列表分页查询接口")
+    @PostMapping("/api/role/list")
+    public RespWrapper<PageInfo<SysRole>> roleList(
+            @Parameter(name = "pageNum", description = "页码，当前第x页", example = "1")
+            @RequestParam(value = "pageNum", required = false) Integer pageNum,
+            @RequestBody SysRole role) {
+        log.info("/api/role/list pageNum={},role={}", pageNum, JSON.toJSONString(role));
+        PageInfo<SysRole> page = sysRoleService.findSysRoleByPage(pageNum, role);
+        RespWrapper<PageInfo<SysRole>> resp = RespWrapper.success(page);
+        log.info("/api/role/list pageNum={},role={},resp={}", pageNum, JSON.toJSONString(role), JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【角色】新增或更新接口", description = "角色新增或更新接口")
+    @PostMapping("/api/role/save")
+    public RespWrapper<Boolean> roleSave(@RequestBody SysRole role) {
+        log.info("/api/role/save role={}", JSON.toJSONString(role));
+        RespWrapper<Boolean> resp;
+        if (null != role && StrUtil.isNotBlank(role.getId())) {
+            resp = sysRoleService.editRole(role);
+        } else {
+            resp = sysRoleService.addRole(role);
+        }
+        log.info("/api/role/save role={}, resp={}", JSON.toJSONString(role), JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【角色】角色删除接口", description = "角色删除接口")
+    @PostMapping("/api/role/delete/{roleId}")
+    public RespWrapper<Boolean> deleteRole(@PathVariable("roleId") String roleId) {
+        log.info("/api/role/delete/{}", roleId);
+        RespWrapper<Boolean> resp = sysRoleService.deleteRole(roleId);
+        log.info("/api/role/delete/{}, resp={}", roleId, JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【角色与菜单】查询接口", description = "根据角色查询对应的菜单查询接口")
+    @PostMapping("/api/role_permission/{roleId}")
+    public RespWrapper<List<SysPermission>> rolePermission(@PathVariable("roleId") String roleId) {
+        log.info("/api/role_permission/{}", roleId);
+        List<SysPermission> list = sysPermissionService.getSysPermissionByRoleId(roleId);
+        RespWrapper<List<SysPermission>> resp = RespWrapper.success(list);
+        log.info("/api/role_permission/{},resp={}", roleId, JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【角色与菜单】授权保存接口", description = "角色与菜单，授权保存接口")
+    @PostMapping("/api/role_permission/save")
+    public RespWrapper<Boolean> rolePermissionSave(@RequestBody SaveRolePermission save) {
+        log.info(" /api/role_permission/save {}", JSON.toJSONString(save));
+        RespWrapper<Boolean> resp = sysRoleService.saveRolePermission(save);
+        log.info(" /api/role_permission/save {}, resp={}", JSON.toJSONString(save), JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【用户】状态枚举接口", description = "用户状态枚举查询接口")
     @PostMapping("/api/user/status-enum")
     public RespWrapper<Map<Integer, String>> userStatusEnum() {
         Map<Integer, String> statusMap = new LinkedHashMap<>();
@@ -106,11 +160,11 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-列表分页查询接口", description = "用户列表分页查询接口")
+    @Operation(summary = "【用户】列表分页查询接口", description = "用户列表分页查询接口")
     @PostMapping("/api/user/list")
     public RespWrapper<PageInfo<SysUser>> userList(
             @Parameter(name = "pageNum", description = "页码，当前第x页", example = "1")
-            @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(name = "pageNum", required = false) Integer pageNum,
             @RequestBody(required = false) SysUser user) {
         log.info("/api/user/list pageNum={},{}", pageNum, JSON.toJSONString(user));
         PageInfo<SysUser> page = sysUserService.findSysUserByPage(pageNum, user);
@@ -119,7 +173,7 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-新增接口", description = "用户新增接口")
+    @Operation(summary = "【用户】新增接口", description = "用户新增接口")
     @PostMapping("/api/user/add")
     public RespWrapper<Boolean> userAdd(@RequestBody SysUser user) {
         log.info("/api/user/add {}", JSON.toJSONString(user));
@@ -130,7 +184,7 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-编辑接口", description = "用户编辑接口")
+    @Operation(summary = "【用户】编辑接口", description = "用户编辑接口")
     @PostMapping("/api/user/edit")
     public RespWrapper<Boolean> userEdit(@RequestBody SysUser user) {
         log.info("/api/user/edit {}", JSON.toJSONString(user));
@@ -139,7 +193,7 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-删除接口", description = "用户删除接口")
+    @Operation(summary = "【用户】删除接口", description = "用户删除接口")
     @PostMapping("/api/user/delete/{userId}")
     public RespWrapper<Boolean> deleteUser(@PathVariable("userId") String userId) {
         log.info("/api/delete/user/{}", userId);
@@ -148,9 +202,8 @@ public class AuthApiController {
         return resp;
     }
 
-    @Operation(summary = "用户-重置密码接口", description = "用户重置密码接口")
+    @Operation(summary = "【用户】重置密码接口", description = "用户重置密码接口")
     @PostMapping("/api/user/reset-pwd")
-    @ResponseBody
     public RespWrapper<Boolean> resetPwd(@RequestBody SysUser user) {
         log.info("/api/user/reset-pwd {}", JSON.toJSONString(user));
         RespWrapper<Boolean> resp = sysUserService.resetPwd(user);
