@@ -2,6 +2,9 @@ package com.nutcracker.example.demo.web.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.github.pagehelper.PageInfo;
 import com.nutcracker.common.util.JSON;
 import com.nutcracker.common.wrapper.RespWrapper;
@@ -19,14 +22,22 @@ import com.nutcracker.example.demo.service.auth.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -204,10 +215,66 @@ public class AuthApiController {
 
     @Operation(summary = "【用户】重置密码接口", description = "用户重置密码接口")
     @PostMapping("/api/user/reset-pwd")
-    public RespWrapper<Boolean> resetPwd(@RequestBody SysUser user) {
+    public RespWrapper<Boolean> userResetPwd(@RequestBody SysUser user) {
         log.info("/api/user/reset-pwd {}", JSON.toJSONString(user));
         RespWrapper<Boolean> resp = sysUserService.resetPwd(user);
         log.info("/api/user/reset-pwd {}, response={}", JSON.toJSONString(user), JSON.toJSONString(resp));
+        return resp;
+    }
+
+    @Operation(summary = "【用户】Excel导出接口", description = "用户Excel导出接口")
+    @GetMapping("/api/user/export")
+    @SneakyThrows
+    public void userExport(HttpServletResponse response, SysUser user) {
+        List<SysUser> list = sysUserService.findAll(user);
+
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+        writer.addHeaderAlias("username", "账号");
+        writer.addHeaderAlias("realName", "姓名");
+        writer.addHeaderAlias("email", "邮箱");
+        writer.addHeaderAlias("status", "状态");
+        writer.addHeaderAlias("createTime", "创建时间");
+        writer.addHeaderAlias("createUserRealName", "创建人");
+        writer.addHeaderAlias("updateTime", "更新时间");
+        writer.addHeaderAlias("updateUserRealName", "更新人");
+        writer.addHeaderAlias("lastLoginTime", "最后登录时间");
+        writer.addHeaderAlias("roleName", "角色");
+
+        // 默认的，未添加的alias也会写出，如果想只显示加的别名这种字段，可以在这里设置关闭
+        writer.setOnlyAlias(true);
+
+        writer.write(list, true);
+
+        String fileName = URLEncoder.encode("用户数据", StandardCharsets.UTF_8);
+        // 浏览器响应格式
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+        OutputStream outputStream = response.getOutputStream();
+        writer.flush(outputStream);
+        // 关闭流
+        writer.close();
+        outputStream.close();
+        log.info("用户信息导出成功");
+    }
+
+
+    @Operation(summary = "【用户】Excel导入接口", description = "用户Excel导入接口")
+    @PostMapping("/api/user/import")
+    @SneakyThrows
+    public RespWrapper<Boolean> userImport(MultipartFile file) {
+        log.info("api/user/import");
+        InputStream stream = file.getInputStream();
+        ExcelReader reader = ExcelUtil.getReader(stream);
+        reader.addHeaderAlias("账号", "username");
+        reader.addHeaderAlias("姓名", "realName");
+        reader.addHeaderAlias("邮箱", "email");
+        reader.addHeaderAlias("状态", "status");
+        reader.addHeaderAlias("角色", "roleName");
+        List<SysUser> list = reader.readAll(SysUser.class);
+        // FIXME 这里只是展示如何接收前端上传的Excel数据，不做业务逻辑实现
+        log.info("api/user/import, list={}", JSON.toJSONString(list));
+        RespWrapper<Boolean> resp = RespWrapper.success(true);
+        log.info("api/user/import, resp={}", JSON.toJSONString(resp));
         return resp;
     }
 

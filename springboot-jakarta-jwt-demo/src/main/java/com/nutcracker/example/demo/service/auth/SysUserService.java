@@ -80,4 +80,12 @@ public interface SysUserService {
      * @return {@link RespWrapper }<{@link Boolean }>
      */
     RespWrapper<Boolean> resetPwd(SysUser user);
+
+
+    /**
+     * 查找全部用户
+     *
+     * @return {@link List }<{@link SysUser }>
+     */
+    List<SysUser> findAll(SysUser user);
 }

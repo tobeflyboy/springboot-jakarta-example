@@ -291,4 +291,9 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return RespWrapper.success(true);
     }
+
+    @Override
+    public List<SysUser> findAll(SysUser user) {
+        return sysUserMapper.findUser(user);
+    }
 }
