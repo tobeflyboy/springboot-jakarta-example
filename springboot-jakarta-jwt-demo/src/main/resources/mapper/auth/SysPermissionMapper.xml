@@ -111,7 +111,7 @@
             p.lev,
             p.sort,
             p.create_time as createTime,
-            (case when rp.permission_id is not null then true else false end) as checked
+            (case when rp.permission_id is not null then 1 else 0 end) as checked
         from sys_permission p
         left join (
             select distinct permission_id from sys_role_permission where role_id = #{roleId,jdbcType=VARCHAR}

@@ -107,8 +107,22 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             List<SysPermission> parentMenus = menuLevelMap.getOrDefault(parentLevel, Collections.emptyList());
             // 将子菜单挂到父菜单下
             attachChildrenToParent(menuList, parentMenus);
+            for (SysPermission permission : menuList) {
+                if (permission.getChecked() == 1 && CollUtil.isNotEmpty(permission.getChildren())) {
+                    // 选中状态的子菜单
+                    int checkedChildren = permission.getChildren().stream()
+                            .filter(child -> child.getChecked() == 1)
+                            .mapToInt(SysPermission::getChecked)
+                            .sum();
+                    // 如果选中子菜单数量不等于子菜单总数，则设置父菜单为半选中状态
+                    if (checkedChildren != permission.getChildren().size()) {
+                        permission.setChecked(2);
+                    }
+                }
+            }
             result = menuList;
         }
+
         // 返回顶级菜单，即一级菜单
         return result;
     }
