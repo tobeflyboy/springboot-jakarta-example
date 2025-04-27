@@ -39,6 +39,14 @@ public enum SysPermissionEnum {
     QXGL_ZSGL("qxgl_zsgl", "角色管理", "qxgl", "auth/role_list", "fa fa-users", 1, 2, 1002),
     QXGL_YHGL("qxgl_yhgl", "用户管理", "qxgl", "auth/user_list", "fa fa-user", 1, 2, 1003),
 
+    SHICI("shici", "诗词", null, null, "fa fa-folder", 1, 1, 1100),
+    SHICI_TENGWANGGEXU("shici_tengwanggexu", "滕王阁序", "shici", "books/tengwanggexu", "fa fa-file-text", 1, 2, 1101),
+    SHICI_QIANGJINJIU("shici_qiangjinjiu", "将进酒", "shici", "books/qiangjinjiu", "fa fa-file-text", 1, 2, 1102),
+    SHICI_CHUSHIBIAO("shici_chushibiao", "出师表", "shici", "books/chushibiao", "fa fa-file-text", 1, 2, 1103),
+    SHICI_YUEYANGLOUJI("shici_yueyanglouji", "岳阳楼记", "shici", "books/yueyanglouji", "fa fa-file-text", 1, 2, 1104),
+    SHICI_JIANGCHENZI1("shici_jiangchenzi1", "江城子·乙卯正月二十日夜记梦", "shici", "books/jiangchenzi1", "fa fa-file-text", 1, 2, 1105),
+    SHICI_JIANGCHENZI2("shici_jiangchenzi2", "江城子·密州出猎", "shici", "books/jiangchenzi2", "fa fa-file-text", 1, 2, 1106),
+
     XTPZ("xtpz", "系统配置", null, "view/sysconfig/setconfig", "fa fa-cogs", 1, 1, 1200),
 
     DXGL("dxgl", "电商管理", null, "view/tenant/tenant-list", "fa fa-shopping-cart", 1, 1, 1300),
