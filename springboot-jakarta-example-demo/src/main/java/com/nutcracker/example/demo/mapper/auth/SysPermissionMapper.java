@@ -26,6 +26,15 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionDo> {
     int updateSysPermissionById(SysPermissionDo sysPermission);
 
     /**
+     * 按id更新菜单父编码
+     *
+     * @param newParentPermissionCode 新父权限代码
+     * @param oldParentPermissionCode 旧父权限代码
+     * @return int
+     */
+    int updateParentPermissionCode(String newParentPermissionCode, String oldParentPermissionCode);
+
+    /**
      * 查找所有菜单
      *
      * @return {@link List }<{@link SysPermission }>

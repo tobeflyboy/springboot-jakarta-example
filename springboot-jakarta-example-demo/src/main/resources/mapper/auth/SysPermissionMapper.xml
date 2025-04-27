@@ -48,6 +48,13 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
+    <update id="updateParentPermissionCode">
+        update sys_permission
+        set
+            parent_permission_code = #{newParentPermissionCode,jdbcType=VARCHAR}
+        where parent_permission_code = #{oldParentPermissionCode,jdbcType=VARCHAR}
+    </update>
+
     <select id="findAll" resultMap="permissionMap">
         select
             p.id,

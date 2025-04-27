@@ -190,8 +190,15 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             if (null == p) {
                 return RespWrapper.validateFailed("更新失败，菜单信息不存在！");
             }
+            String oldPermissionCode = p.getPermissionCode();
             p = SysPermissionConvert.INSTANCE.toDo(permission);
             resultNum = sysPermissionMapper.updateSysPermissionById(p);
+
+            // 菜单变更
+            if(!StrUtil.equals(permission.getPermissionCode(), oldPermissionCode)){
+                // 更新子菜单数据
+                sysPermissionMapper.updateParentPermissionCode(permission.getPermissionCode(), oldPermissionCode);
+            }
         } else {
             // 新增
             if (null != permissionDo && StrUtil.equals(permission.getPermissionCode(), permissionDo.getPermissionCode())) {
