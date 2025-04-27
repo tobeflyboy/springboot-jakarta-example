@@ -90,7 +90,7 @@ public class SysUserServiceImpl implements SysUserService {
             log.error("addSysUser {},{} 用户账号已经存在，新增用户失败！", userDo, roleDo);
             return RespWrapper.fail("用户账号已经存在，新增用户失败！");
         }
-        String createdBy = Identify.getSessionUser().getId();
+        String createdBy = Identify.getSessionUser().getUserId();
         Date now = Calendar.getInstance().getTime();
         entryptPassword(userDo);
         userDo.setId(String.valueOf(IdWorker.getId("sys_user")));
@@ -214,7 +214,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
         Date now = Calendar.getInstance().getTime();
-        String operator = Identify.getSessionUser().getId();
+        String operator = Identify.getSessionUser().getUserId();
         // 更新用户状态、邮箱
         int updateResult = sysUserMapper.update(
                 new LambdaUpdateWrapper<SysUserDo>()
@@ -276,7 +276,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         String password = SecurityUtils.encryptPassword(userDo.getSalt(), user.getNewPassword(), userDo.getUsername());
         Date now = Calendar.getInstance().getTime();
-        String operator = Identify.getSessionUser().getId();
+        String operator = Identify.getSessionUser().getUserId();
         // 更新用户状态、邮箱
         int updateResult = sysUserMapper.update(
                 new LambdaUpdateWrapper<SysUserDo>()

@@ -1,7 +1,7 @@
 package com.nutcracker.example.demo.web;
 
+import com.nutcracker.common.domain.User;
 import com.nutcracker.example.demo.constant.DemoConstants;
-import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
@@ -28,7 +28,7 @@ public class WebUtil {
      * @param sessionUser   用户vo
      */
     @SneakyThrows
-    public static void setSessionUser(HttpServletRequest request, HttpServletResponse response, SessionUser sessionUser) {
+    public static void setSessionUser(HttpServletRequest request, HttpServletResponse response, User sessionUser) {
         // 将 SessionUser 存入 Session
         request.getSession().setAttribute(DemoConstants.LOGIN_USER_SESSION_KEY, sessionUser);
     }
@@ -37,10 +37,10 @@ public class WebUtil {
      * 获取登录用户
      *
      * @param request 请求
-     * @return {@link SessionUser }
+     * @return {@link User }
      */
-    public static SessionUser getSessionUser(HttpServletRequest request) {
-        return (SessionUser) request.getSession().getAttribute(DemoConstants.LOGIN_USER_SESSION_KEY);
+    public static User getSessionUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute(DemoConstants.LOGIN_USER_SESSION_KEY);
     }
 
 }

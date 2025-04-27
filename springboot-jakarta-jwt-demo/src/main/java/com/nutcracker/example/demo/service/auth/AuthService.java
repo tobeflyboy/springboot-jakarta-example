@@ -1,7 +1,9 @@
 package com.nutcracker.example.demo.service.auth;
 
+import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
+import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 
 import java.util.List;
 
@@ -36,5 +38,14 @@ public interface AuthService {
      * @return user 用户
      */
     List<SysUserDo> findUserByRoleCode(String roleCode);
+
+    /**
+     * 登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return {@link RespWrapper }<{@link SessionUser }>
+     */
+    RespWrapper<SessionUser> login(String username, String password);
 
 }

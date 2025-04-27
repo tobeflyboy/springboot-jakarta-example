@@ -20,7 +20,7 @@ public class DemoConstants {
     /* session & session key */
     public static final String LOGIN_USER_SESSION_KEY = "sessionUser";
 
-    public static final String LOGIN_URL = "/login";
+    public static final String LOGIN_URL = "/loginPage";
 
     public static final String LOGOUT_URL = "/logout";
 

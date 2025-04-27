@@ -172,3 +172,6 @@ security:
 app:
   secret:
     pool-size: 3
+
+jwt:
+  secret: nutcracker

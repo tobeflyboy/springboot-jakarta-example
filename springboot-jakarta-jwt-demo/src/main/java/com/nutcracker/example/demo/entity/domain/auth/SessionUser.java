@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.entity.domain.auth;
 
+import com.nutcracker.common.domain.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 /**
  * 登录用户vo
@@ -25,18 +26,12 @@ public class SessionUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 2573965649742628481L;
 
-    @Schema(description = "用户ID", example = "182827785478483968")
-    private String id;
+    @Schema(description = "token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IuW8oOS4iSJ9LCJleHAiOjE3NDQyNjYwMjF9.KNDyfjv5zxe_oetmNvRpwIDVJFNM_Oyf5sVG9p9KrUQ")
+    private String token;
 
-    @Schema(description = "账号", example = "test")
-    private String username;
+    @Schema(description = "会话过期时间", example = "182827785478483968")
+    private Date expiresAt;
 
-    @Schema(description = "姓名", example = "test")
-    private String realName;
-
-    @Schema(description = "资源", example = "admin")
-    private List<SysPermission> permissions;
-
-    @Schema(description = "角色", example = "CS王鑫")
-    private SysRole sysRole;
+    @Schema(description = "当前登录用户对象", example = "test")
+    private User user;
 }

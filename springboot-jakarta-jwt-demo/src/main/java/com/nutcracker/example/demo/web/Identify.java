@@ -1,6 +1,6 @@
 package com.nutcracker.example.demo.web;
 
-import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.common.domain.User;
 
 /**
  * 用于存储用户信息
@@ -14,23 +14,23 @@ public class Identify {
 
     }
 
-    private static final ThreadLocal<SessionUser> SESSION_USER_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<User> SESSION_USER_THREAD_LOCAL = new ThreadLocal<>();
 
     /**
      * 缓存当前登录人
      *
      * @param user 用户
      */
-    public static void setSessionUser(SessionUser user) {
+    public static void setSessionUser(User user) {
         SESSION_USER_THREAD_LOCAL.set(user);
     }
 
     /**
      * 获取当前用户
      *
-     * @return {@link SessionUser }
+     * @return {@link User }
      */
-    public static SessionUser getSessionUser() {
+    public static User getSessionUser() {
         return SESSION_USER_THREAD_LOCAL.get();
     }
 
@@ -38,7 +38,7 @@ public class Identify {
      * 清除当前用户
      */
     public static void clearSessionUser() {
-        SessionUser currentUser = SESSION_USER_THREAD_LOCAL.get();
+        User currentUser = SESSION_USER_THREAD_LOCAL.get();
         if (currentUser != null) {
             SESSION_USER_THREAD_LOCAL.remove();
         }

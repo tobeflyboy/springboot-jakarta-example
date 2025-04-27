@@ -1,11 +1,9 @@
 package com.nutcracker.example.demo.config.security;
 
-import cn.hutool.core.collection.CollUtil;
+import com.nutcracker.common.domain.User;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
-import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
-import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.service.auth.SysPermissionService;
@@ -24,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * 身份验证成功处理程序
@@ -52,25 +49,20 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             return;
         }
         SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
-        List<SysPermission> permissions;
-        if (null != sysRoleDo) {
-            permissions = sysPermissionService.getRolePermissionByRoleId(sysRoleDo.getId());
-        } else {
-            permissions = CollUtil.empty(SysPermission.class);
-        }
         SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
-        SessionUser sessionUser = SessionUser.builder()
-                .id(sysUserDo.getId())
+        User user = User.builder()
+                .userId(sysUserDo.getId())
                 .username(sysUserDo.getUsername())
                 .realName(sysUserDo.getRealName())
-                .permissions(permissions)
-                .sysRole(role)
+                .roleId(role.getId())
+                .roleCode(role.getRoleCode())
+                .roleName(role.getRoleName())
                 .build();
-        WebUtil.setSessionUser(request, response, sessionUser);
+        WebUtil.setSessionUser(request, response, user);
         sysUserDo.setLastLoginTime(Calendar.getInstance().getTime());
         sysUserService.updateLastLoginTime(sysUserDo);
 
-        log.info("onAuthenticationSuccess {} 登录成功", sessionUser.getUsername());
+        log.info("onAuthenticationSuccess {} 登录成功", user.getUsername());
 
         // 调用父类的逻辑，处理重定向等操作
         super.onAuthenticationSuccess(request, response, authentication);

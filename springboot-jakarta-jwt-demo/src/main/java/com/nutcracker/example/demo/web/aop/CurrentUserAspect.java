@@ -1,16 +1,10 @@
 package com.nutcracker.example.demo.web.aop;
 
-import cn.hutool.core.collection.CollUtil;
+import com.nutcracker.common.domain.User;
 import com.nutcracker.common.util.IpInfoUtils;
-import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
-import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
-import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
+import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
-import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
-import com.nutcracker.example.demo.entity.domain.auth.SysRole;
 import com.nutcracker.example.demo.service.auth.AuthService;
-import com.nutcracker.example.demo.service.auth.SysPermissionService;
-import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.web.Identify;
 import com.nutcracker.example.demo.web.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,8 +19,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import java.util.List;
 
 
 /**
@@ -43,8 +35,6 @@ import java.util.List;
 public class CurrentUserAspect {
 
     private final AuthService authService;
-    private final SysRoleService sysRoleService;
-    private final SysPermissionService sysPermissionService;
 
     /**
      * 设置操作切入点 扫描所有controller包下操作
@@ -63,7 +53,7 @@ public class CurrentUserAspect {
             String uri = "", username = "", realName = "", ip = "", hostname = "", system = "", browser = "";
 
             if (null != request) {
-                SessionUser user = WebUtil.getSessionUser(request);
+                User user = WebUtil.getSessionUser(request);
                 uri = request.getRequestURI();
                 if (user != null) {
                     username = user.getUsername();
@@ -71,23 +61,8 @@ public class CurrentUserAspect {
                     Identify.setSessionUser(user);
                 } else {
                     // FIXME 临时用户
-                    SysUserDo sysUserDo = authService.findUserByName("admin");
-                    SysRoleDo sysRoleDo = sysRoleService.findRoleByUserId(sysUserDo.getId());
-                    List<SysPermission> permissions;
-                    if (null != sysRoleDo) {
-                        permissions = sysPermissionService.getRolePermissionByRoleId(sysRoleDo.getId());
-                    } else {
-                        permissions = CollUtil.empty(SysPermission.class);
-                    }
-                    SysRole role = SysRoleConvert.INSTANCE.toDomain(sysRoleDo);
-                    SessionUser sessionUser = SessionUser.builder()
-                            .id(sysUserDo.getId())
-                            .username(sysUserDo.getUsername())
-                            .realName(sysUserDo.getRealName())
-                            .permissions(permissions)
-                            .sysRole(role)
-                            .build();
-                    Identify.setSessionUser(sessionUser);
+                    RespWrapper<SessionUser> resp = authService.login("admin", "123456");
+                    Identify.setSessionUser(resp.getData().getUser());
                 }
                 ip = IpInfoUtils.getIpAddr(request);
                 hostname = IpInfoUtils.getHostName();

@@ -207,7 +207,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             SysPermissionDo p = SysPermissionConvert.INSTANCE.toDo(permission);
             p.setId(String.valueOf(IdWorker.getId("t_sys_permission")));
             p.setCreateTime(DateUtil.date());
-            p.setCreateBy(Identify.getSessionUser().getId());
+            p.setCreateBy(Identify.getSessionUser().getUserId());
             resultNum = sysPermissionMapper.insert(p);
         }
         log.info("savePermission {},resultNum={}", permission, resultNum);
