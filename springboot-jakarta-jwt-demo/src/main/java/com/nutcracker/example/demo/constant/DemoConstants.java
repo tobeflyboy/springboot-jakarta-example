@@ -45,4 +45,7 @@ public class DemoConstants {
     public static final String ADMIN_ROLE_CODE = "admin";
     /** 管理员用户名 */
     public static final String ADMIN_USERNAME = "admin";
+
+    /** 令牌值前缀 */
+    public static final String TOKEN_VALUE_PREFIX = "Bearer ";
 }

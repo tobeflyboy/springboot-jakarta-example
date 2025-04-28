@@ -37,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      *
      * @param username 用户名
      * @return {@link UserDetails }
-     * @throws UsernameNotFoundException 找不到用户名异常
+     * @throws UsernameNotFoundException 找不到用户异常
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,7 +53,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             log.info("loadUserByUsername user={}", JSON.toJSONString(user));
             return user;
         } else {
-            throw new UsernameNotFoundException("用户名不存在");
+            throw new UsernameNotFoundException("用户不存在");
         }
     }
 }

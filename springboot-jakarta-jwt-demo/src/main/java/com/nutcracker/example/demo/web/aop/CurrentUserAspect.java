@@ -2,11 +2,8 @@ package com.nutcracker.example.demo.web.aop;
 
 import com.nutcracker.common.domain.User;
 import com.nutcracker.common.util.IpInfoUtils;
-import com.nutcracker.common.wrapper.RespWrapper;
-import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.web.Identify;
-import com.nutcracker.example.demo.web.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +12,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -36,6 +34,9 @@ public class CurrentUserAspect {
 
     private final AuthService authService;
 
+    @Value("${jwt.secret}")
+    private String secret;
+
     /**
      * 设置操作切入点 扫描所有controller包下操作
      */
@@ -51,18 +52,13 @@ public class CurrentUserAspect {
             // 从获取RequestAttributes中获取HttpServletRequest的信息
             HttpServletRequest request = (HttpServletRequest) (requestAttributes != null ? requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST) : null);
             String uri = "", username = "", realName = "", ip = "", hostname = "", system = "", browser = "";
-
             if (null != request) {
-                User user = WebUtil.getSessionUser(request);
+                User user = Identify.getSessionUser(request, secret);
                 uri = request.getRequestURI();
                 if (user != null) {
                     username = user.getUsername();
                     realName = user.getRealName();
                     Identify.setSessionUser(user);
-                } else {
-                    // FIXME 临时用户
-                    RespWrapper<SessionUser> resp = authService.login("admin", "123456");
-                    Identify.setSessionUser(resp.getData().getUser());
                 }
                 ip = IpInfoUtils.getIpAddr(request);
                 hostname = IpInfoUtils.getHostName();

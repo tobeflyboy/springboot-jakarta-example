@@ -7,6 +7,7 @@ import com.nutcracker.common.util.JSON;
 import com.nutcracker.common.util.JwtUtil;
 import com.nutcracker.common.util.SecurityUtils;
 import com.nutcracker.common.wrapper.RespWrapper;
+import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
@@ -90,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         Date expiresAt = DateUtil.tomorrow();
         String token = JwtUtil.createToken(user, expiresAt, secret);
         SessionUser sessionUser = SessionUser.builder()
-                .token(token)
+                .token(DemoConstants.TOKEN_VALUE_PREFIX + token)
                 .expiresAt(expiresAt)
                 .user(user)
                 .build();
