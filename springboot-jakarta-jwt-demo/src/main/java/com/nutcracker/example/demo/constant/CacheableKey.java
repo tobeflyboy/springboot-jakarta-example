@@ -15,6 +15,8 @@ public class CacheableKey {
 
     /** SysUser CacheManager */
     public static final String SYS_USER = PREFIX + "sys_user";
+    /** 会话用户 */
+    public static final String SESSION_USER = PREFIX + "session_user";
     /** 角色权限缓存 */
     public static final String ROLE_PERMISSION = PREFIX + "role_permission";
 
@@ -28,6 +30,7 @@ public class CacheableKey {
     static {
         // 设置缓存时长
         CACHEABLE_KEY_MAP.put(SYS_USER, CACHE_2_HOUR);
+        CACHEABLE_KEY_MAP.put(SESSION_USER, CACHE_2_HOUR);
         CACHEABLE_KEY_MAP.put(ROLE_PERMISSION, CACHE_1_DAY);
     }
 

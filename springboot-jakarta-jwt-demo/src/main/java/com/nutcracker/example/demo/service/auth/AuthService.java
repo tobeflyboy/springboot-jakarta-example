@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.service.auth;
 
+import com.nutcracker.common.domain.User;
 import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
@@ -38,6 +39,14 @@ public interface AuthService {
      * @return user 用户
      */
     List<SysUserDo> findUserByRoleCode(String roleCode);
+
+    /**
+     * 获取当前用户
+     *
+     * @param token token
+     * @return {@link User }
+     */
+    User getCurrentUser(String token);
 
     /**
      * 登录

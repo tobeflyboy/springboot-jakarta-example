@@ -174,4 +174,4 @@ app:
     pool-size: 3
 
 jwt:
-  secret: nutcracker
+  secret: GZoxfbQ0dDIqSqwvtc2WdstvJaACU3QKALjkHnp3C78=

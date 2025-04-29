@@ -7,20 +7,24 @@ import com.nutcracker.common.util.JSON;
 import com.nutcracker.common.util.JwtUtil;
 import com.nutcracker.common.util.SecurityUtils;
 import com.nutcracker.common.wrapper.RespWrapper;
+import com.nutcracker.example.demo.constant.CacheableKey;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.convert.auth.SysRoleConvert;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysRoleDo;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserDo;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
 import com.nutcracker.example.demo.entity.domain.auth.SysRole;
+import com.nutcracker.example.demo.entity.domain.auth.UserRole;
 import com.nutcracker.example.demo.mapper.auth.SysRoleMapper;
 import com.nutcracker.example.demo.mapper.auth.SysUserMapper;
+import com.nutcracker.example.demo.mapper.auth.SysUserRoleMapper;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.service.auth.SysRoleService;
 import com.nutcracker.example.demo.service.auth.SysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -40,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final SysUserMapper sysUserMapper;
     private final SysRoleMapper sysRoleMapper;
+    private final SysUserRoleMapper sysUserRoleMapper;
     private final SysRoleService sysRoleService;
     private final SysUserService sysUserService;
 
@@ -62,6 +67,24 @@ public class AuthServiceImpl implements AuthService {
     public List<SysUserDo> findUserByRoleCode(String roleCode) {
         log.info("findUserByRoleCode , roleCode={}", roleCode);
         return sysUserMapper.findUserByRoleCode(roleCode);
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheableKey.SESSION_USER, key = "#token", condition = "#token != null", unless = "#result == null")
+    public User getCurrentUser(String token) {
+        User user = JwtUtil.parseToken(token, secret);
+        if (user != null) {
+            UserRole userRole = sysUserRoleMapper.findUserRole(user.getUserId(), user.getRoleId());
+            if (userRole != null) {
+                user.setUsername(userRole.getUsername());
+                user.setRealName(userRole.getRealName());
+                user.setRoleId(userRole.getRoleId());
+                user.setRoleCode(userRole.getRoleCode());
+                user.setRoleName(userRole.getRoleName());
+            }
+            return user;
+        }
+        return null;
     }
 
     @Override

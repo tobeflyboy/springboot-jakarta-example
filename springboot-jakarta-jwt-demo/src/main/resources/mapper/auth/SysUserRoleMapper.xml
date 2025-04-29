@@ -46,4 +46,19 @@
         where ur.role_id = #{roleId,jdbcType=VARCHAR}
     </select>
 
+    <select id="findUserRole" resultType="com.nutcracker.example.demo.entity.domain.auth.UserRole">
+        select
+            ur.user_id as userId,
+            u.username as username,
+            u.real_name as realName,
+            ur.role_id as roleId,
+            r.role_code as roleCode,
+            r.role_name as roleName
+        from sys_user_role ur
+        inner join sys_user u on u.id = ur.user_id
+        inner join sys_role r on r.id = ur.role_id
+        where u.id = #{userId,jdbcType=VARCHAR}
+          and r.id = #{roleId,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

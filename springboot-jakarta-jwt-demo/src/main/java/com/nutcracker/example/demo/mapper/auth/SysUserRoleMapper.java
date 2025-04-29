@@ -2,6 +2,7 @@ package com.nutcracker.example.demo.mapper.auth;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nutcracker.example.demo.entity.dataobject.auth.SysUserRoleDo;
+import com.nutcracker.example.demo.entity.domain.auth.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -40,5 +41,14 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRoleDo> {
      * @return {@link List }<{@link SysUserRoleDo }>
      */
     List<SysUserRoleDo> findUserRoleByRoleId(@Param("roleId") String roleId);
+
+    /**
+     * 查找用户角色
+     *
+     * @param userId 用户id
+     * @param roleId 角色ID
+     * @return {@link UserRole }
+     */
+    UserRole findUserRole(@Param("userId") String userId, @Param("roleId") String roleId);
 
 }
