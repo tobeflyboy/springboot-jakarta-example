@@ -41,12 +41,28 @@ public interface AuthService {
     List<SysUserDo> findUserByRoleCode(String roleCode);
 
     /**
+     * 解析令牌
+     *
+     * @param token token
+     * @return {@link User }
+     */
+    User parseToken(String token);
+
+    /**
      * 获取当前用户
      *
      * @param token token
      * @return {@link User }
      */
     User getCurrentUser(String token);
+
+    /**
+     * 刷新令牌
+     *
+     * @param token token
+     * @return {@link RespWrapper }<{@link SessionUser }>
+     */
+    RespWrapper<SessionUser> refreshToken(String token);
 
     /**
      * 登录

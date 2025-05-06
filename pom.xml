@@ -21,7 +21,7 @@
         <!-- 编译打包时，不执行测试用例，也不编译测试用例类 -->
         <maven.test.skip>true</maven.test.skip>
 
-        <springboot.version>3.4.4</springboot.version>
+        <springboot.version>3.4.5</springboot.version>
     </properties>
 
     <!--

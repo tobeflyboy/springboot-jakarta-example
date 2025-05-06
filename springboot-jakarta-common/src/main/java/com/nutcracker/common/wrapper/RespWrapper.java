@@ -58,6 +58,11 @@ public class RespWrapper<T> implements Serializable {
         return new RespWrapper<>(RespCode.FAILED.getCode(), msg, null);
     }
 
+    // 403 无权限
+    public static <T> RespWrapper<T> unAuthorized(String msg) {
+        return new RespWrapper<>(RespCode.UNAUTHORIZED.getCode(), msg, null);
+    }
+
     // 参数校验失败
     public static <T> RespWrapper<T> validateFailed(String msg) {
         return new RespWrapper<>(RespCode.VALIDATE_FAILED.getCode(), msg, null);

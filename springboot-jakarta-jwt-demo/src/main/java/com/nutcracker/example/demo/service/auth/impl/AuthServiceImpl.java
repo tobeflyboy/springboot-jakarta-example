@@ -1,6 +1,5 @@
 package com.nutcracker.example.demo.service.auth.impl;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.nutcracker.common.domain.User;
 import com.nutcracker.common.util.JSON;
@@ -27,6 +26,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -70,9 +71,18 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public User parseToken(String token) {
+        if(StrUtil.isBlank(token)){
+            return null;
+        }
+        token = StrUtil.startWith(token, DemoConstants.TOKEN_PREFIX) ? token.substring(DemoConstants.TOKEN_PREFIX.length()) : token;
+        return JwtUtil.parseToken(token, secret);
+    }
+
+    @Override
     @Cacheable(cacheNames = CacheableKey.SESSION_USER, key = "#token", condition = "#token != null", unless = "#result == null")
     public User getCurrentUser(String token) {
-        User user = JwtUtil.parseToken(token, secret);
+        User user = parseToken(token);
         if (user != null) {
             UserRole userRole = sysUserRoleMapper.findUserRole(user.getUserId(), user.getRoleId());
             if (userRole != null) {
@@ -85,6 +95,28 @@ public class AuthServiceImpl implements AuthService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public RespWrapper<SessionUser> refreshToken(String oldToken) {
+        User user = getCurrentUser(oldToken);
+        if (user == null) {
+            log.error("refreshToken error, token={}", oldToken);
+            return RespWrapper.unAuthorized("token已失效！");
+        }
+        Date expiresAt = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
+        String token = JwtUtil.refreshToken(oldToken, expiresAt, secret);
+        if (StrUtil.isBlank(token)) {
+            return RespWrapper.unAuthorized("token已失效！");
+        }
+        SessionUser sessionUser = SessionUser.builder()
+                .token(DemoConstants.TOKEN_PREFIX + token)
+                .expiresAt(expiresAt)
+                .user(user)
+                .build();
+        RespWrapper<SessionUser> resp = RespWrapper.success(sessionUser);
+        log.info("refreshToken success, resp={}", JSON.toJSONString(resp));
+        return resp;
     }
 
     @Override
@@ -109,12 +141,11 @@ public class AuthServiceImpl implements AuthService {
                 .roleCode(role.getRoleCode())
                 .roleName(role.getRoleName())
                 .build();
-
         // 有效期为1天
-        Date expiresAt = DateUtil.tomorrow();
+        Date expiresAt = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
         String token = JwtUtil.createToken(user, expiresAt, secret);
         SessionUser sessionUser = SessionUser.builder()
-                .token(DemoConstants.TOKEN_VALUE_PREFIX + token)
+                .token(DemoConstants.TOKEN_PREFIX + token)
                 .expiresAt(expiresAt)
                 .user(user)
                 .build();

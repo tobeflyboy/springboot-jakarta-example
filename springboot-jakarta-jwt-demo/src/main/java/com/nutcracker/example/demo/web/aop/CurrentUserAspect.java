@@ -1,9 +1,7 @@
 package com.nutcracker.example.demo.web.aop;
 
-import cn.hutool.core.util.StrUtil;
 import com.nutcracker.common.domain.User;
 import com.nutcracker.common.util.IpInfoUtils;
-import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.service.auth.AuthService;
 import com.nutcracker.example.demo.web.Identify;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -36,14 +33,12 @@ public class CurrentUserAspect {
 
     private final AuthService authService;
 
-    @Value("${jwt.secret}")
-    private String secret;
-
     /**
      * 设置操作切入点 扫描所有controller包下操作
      */
     @Pointcut("execution(* com.nutcracker.example.demo.web.rest..*.*(..))")
     public void currentUserPointCut() {
+
     }
 
     @Around("currentUserPointCut()")
@@ -55,8 +50,7 @@ public class CurrentUserAspect {
             HttpServletRequest request = (HttpServletRequest) (requestAttributes != null ? requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST) : null);
             String uri = "", userId = "", username = "", realName = "", roleId = "", roleCode = "", roleName = "", ip = "", hostname = "", system = "", browser = "";
             if (null != request) {
-                String authHeader = request.getHeader("Token");
-                String token = StrUtil.startWith(authHeader, DemoConstants.TOKEN_VALUE_PREFIX) ? authHeader.substring(DemoConstants.TOKEN_VALUE_PREFIX.length()) : authHeader;
+                String token = request.getHeader("Token");
                 User user = authService.getCurrentUser(token);
                 if (user != null) {
                     userId = user.getUserId();
@@ -72,7 +66,7 @@ public class CurrentUserAspect {
                 hostname = IpInfoUtils.getHostName();
                 system = IpInfoUtils.getSystemName(request);
                 browser = IpInfoUtils.getBrowser(request);
-                //调用 proceed() 方法才会真正的执行实际被代理的方法
+                // 调用 proceed() 方法才会真正的执行实际被代理的方法
                 MDC.put("uri", uri);
                 MDC.put("userId", userId);
                 MDC.put("username", username);

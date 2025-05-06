@@ -23,7 +23,15 @@ public class JwtUtil {
     private JwtUtil() {
 
     }
-    // 创建 JWT Token
+
+    /**
+     * 创建 JWT Token
+     *
+     * @param user      用户对象
+     * @param expiresAt 到期日
+     * @param secret    密钥
+     * @return {@link String }
+     */
     public static String createToken(User user, Date expiresAt, String secret) {
         // 根据密钥字符串生成 Key 对象
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
@@ -44,7 +52,13 @@ public class JwtUtil {
 
     }
 
-    // 解析 JWT Token
+    /**
+     * 解析 JWT Token
+     *
+     * @param token  token
+     * @param secret 密钥
+     * @return {@link User }
+     */
     public static User parseToken(String token, String secret) {
         try {
             // 根据密钥字符串生成 Key 对象
@@ -66,21 +80,37 @@ public class JwtUtil {
         }
     }
 
-    // 验证 Token 有效性
+    /**
+     * 验证 Token 有效性
+     *
+     * @param token    token
+     * @param username 用户名
+     * @param secret   密钥
+     * @return boolean
+     */
     public static boolean validateToken(String token, String username, String secret) {
         User user = parseToken(token, secret);
         return user != null && user.getUsername().equals(username);
     }
 
-    //public static String generateSecureKey(int length) {
-    //    SecureRandom secureRandom = new SecureRandom();
-    //    byte[] keyBytes = new byte[length];
-    //    secureRandom.nextBytes(keyBytes);
-    //    return Base64.getEncoder().encodeToString(keyBytes);
-    //}
-    //public static void main(String[] args) {
-    //    // 生成 32 字节（256 位）的密钥
-    //    String secretKey = generateSecureKey(32);
-    //    System.out.println(secretKey);
-    //}
+    /**
+     * 刷新 JWT Token
+     *
+     * @param oldToken     旧的 token
+     * @param newExpiresAt 新 token 的过期时间
+     * @param secret       密钥
+     * @return 新的 token（失败返回 null）
+     */
+    public static String refreshToken(String oldToken, Date newExpiresAt, String secret) {
+        // 解析旧 Token 获取用户信息
+        final User user = parseToken(oldToken, secret);
+        if (user == null) {
+            log.warn("Token刷新失败：旧Token无效或已过期");
+            return null;
+        }
+
+        // 生成新 Token（保留用户信息，更新签发时间和过期时间）
+        return createToken(user, newExpiresAt, secret);
+    }
+
 }

@@ -1,14 +1,16 @@
 package com.nutcracker.example.demo.config.security;
 
+import cn.hutool.core.util.StrUtil;
 import com.nutcracker.common.domain.User;
-import com.nutcracker.common.util.JwtUtil;
+import com.nutcracker.common.exception.BusinessException;
 import com.nutcracker.example.demo.constant.DemoConstants;
+import com.nutcracker.example.demo.service.auth.AuthService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,31 +27,25 @@ import java.io.IOException;
  * @author 胡桃夹子
  * @date 2025/04/28 16:05:43
  */
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
-
-    @Value("${jwt.secret}")
-    private String secret;
+    private final AuthService authService;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
-    ) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, BusinessException {
         // 从请求头获取 Token
-        String authHeader = request.getHeader("Token");
-        if (authHeader == null || !authHeader.startsWith(DemoConstants.TOKEN_VALUE_PREFIX)) {
+        final String token = request.getHeader("Token");
+        if (token == null || !token.startsWith(DemoConstants.TOKEN_PREFIX)) {
             filterChain.doFilter(request, response);
-            return;
+            log.info("Token 无效, uri={}", request.getRequestURI());
+            throw new BusinessException("Token 无效");
         }
 
-        String token = authHeader.substring(7);
-        // 去掉 "Bearer " 前缀
-        User user = JwtUtil.parseToken(token, secret);
+        User user = authService.parseToken(token);
         if (user == null) {
             // Token 无效，由 Spring Security 处理
             filterChain.doFilter(request, response);
@@ -58,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 4. 加载用户并校验 Token 有效性
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        if (!JwtUtil.validateToken(token, user.getUsername(), secret)) {
+        if (!StrUtil.equals(user.getUsername(), userDetails.getUsername())) {
             filterChain.doFilter(request, response);
             return;
         }

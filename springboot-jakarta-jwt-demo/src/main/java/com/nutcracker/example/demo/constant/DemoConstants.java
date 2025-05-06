@@ -37,15 +37,32 @@ public class DemoConstants {
 
     public static final String LOCAL_HOST = "127.0.0.1";
 
-
-    /** 白名单url */
-    public static final String[] WHILE_URL_LIST = {"/favicon.ico", "/v3/api-docs/**", "/webjars/**", "/doc.html", "/api/**", "/alive", "/login", "/error/**", "/public/**", "/static/**", "/swagger-ui/**", "/actuator/**"};
-
     /** 管理员角色代码 */
     public static final String ADMIN_ROLE_CODE = "admin";
     /** 管理员用户名 */
     public static final String ADMIN_USERNAME = "admin";
 
+    /** 令牌名称 */
+    public static final String TOKEN_NAME = "token";
+
     /** 令牌值前缀 */
-    public static final String TOKEN_VALUE_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    // 白名单路径（无需认证）
+    public static final String[] WHITE_LIST = {
+            "/public/**",
+            "/static/**",
+            "/favicon.ico",
+            "/v3/api-docs/**",
+            "/webjars/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/swagger-resources/**",
+            "/doc.html",
+            "/rest/actuator/**",
+            "/actuator/**",
+            "/alive",
+            "/login",
+            "/error/**"
+    };
 }
