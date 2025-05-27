@@ -80,7 +80,7 @@ public class CurrentUserAspect {
                 MDC.put("system", system);
             }
             Object result = joinPoint.proceed();
-            log.info("aroundMethod uri={},userId={},realName={},roleName={},ip={},hostname={},system={},browser={}", uri, userId, realName, roleName, ip, hostname, system, browser);
+            log.info("uri={},userId={},realName={},roleName={},ip={},hostname={},system={},browser={}", uri, userId, realName, roleName, ip, hostname, system, browser);
             //方法结束后清除当前登录人、token、appId内存信息
             Identify.clearSessionUser();
             return result;

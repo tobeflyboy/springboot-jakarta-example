@@ -37,8 +37,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, BusinessException {
+        // 检查白名单
+        String servletPath = request.getServletPath();
+        String contextPath = request.getContextPath();
+        String path = servletPath.startsWith(contextPath) ? servletPath.substring(contextPath.length()) : servletPath;
+        log.info("Processing request path: {}", path);
+        if (DemoConstants.isWhitelisted(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 从请求头获取 Token
-        final String token = request.getHeader("Token");
+        final String token = request.getHeader(DemoConstants.TOKEN);
         if (token == null || !token.startsWith(DemoConstants.TOKEN_PREFIX)) {
             filterChain.doFilter(request, response);
             log.info("Token 无效, uri={}", request.getRequestURI());

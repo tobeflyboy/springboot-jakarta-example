@@ -53,7 +53,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-public class AuthApiController {
+public class AuthRestController {
 
     private final SysPermissionService sysPermissionService;
     private final SysRoleService sysRoleService;

@@ -1,6 +1,7 @@
 package com.nutcracker.example.demo.service.auth.impl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.nutcracker.common.domain.User;
 import com.nutcracker.common.util.JSON;
 import com.nutcracker.common.util.JwtUtil;
@@ -72,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User parseToken(String token) {
-        if(StrUtil.isBlank(token)){
+        if (StrUtil.isBlank(token)) {
             return null;
         }
         token = StrUtil.startWith(token, DemoConstants.TOKEN_PREFIX) ? token.substring(DemoConstants.TOKEN_PREFIX.length()) : token;
@@ -80,8 +81,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheableKey.SESSION_USER, key = "#token", condition = "#token != null", unless = "#result == null")
+    @Cacheable(cacheNames = CacheableKey.SESSION_USER, key = "T(cn.hutool.crypto.digest.DigestUtil).md5Hex(#token)", condition = "#token != null", unless = "#result == null")
     public User getCurrentUser(String token) {
+        log.info("getCurrentUser , token_md5={},token={}", DigestUtil.md5Hex(token), token);
         User user = parseToken(token);
         if (user != null) {
             UserRole userRole = sysUserRoleMapper.findUserRole(user.getUserId(), user.getRoleId());
@@ -155,4 +157,6 @@ public class AuthServiceImpl implements AuthService {
         log.info("login success, resp={}", JSON.toJSONString(resp));
         return resp;
     }
+
+
 }

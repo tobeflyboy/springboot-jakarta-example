@@ -63,7 +63,7 @@ spring:
   redis:
     redisson:
       # redisson cluster yml 方式集成redis
-      config: classpath:redisson_cluster.yml
+      config: classpath:redisson.yml
   session:
     store-type: redis
     redis:
