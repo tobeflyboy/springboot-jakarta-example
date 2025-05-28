@@ -1,91 +1,92 @@
 <template>
-  <div class="layout-wrapper">
-    <!-- 头部区域 -->
-    <header class="header">
-      <div class="logo-container">
-        <img src="@/assets/imgs/logo.png" alt="Logo" class="logo"/>
-        <span class="system-title">后台管理系统</span>
+  <el-container class="layout-container">
+    <!-- 左侧菜单 -->
+    <el-aside width="220px" class="sidebar">
+      <div class="logo">
+        <img src="@/assets/imgs/logo.png" alt="Logo" />
+        <span>管理系统</span>
       </div>
-      <nav class="navigation">
-        <span @click="router.push('/manager/home')">首页</span> /
-        <span v-if="currentMeta">{{ currentMeta.name }}</span>
-      </nav>
-      <el-dropdown style="cursor: pointer;">
-        <div class="user-info">
-          <img src="@/assets/imgs/default-avatar.jpg" alt="User Avatar" class="avatar"/>
-          <span>{{ data.realName }}</span>
-          <el-icon class="arrow-down">
-            <ArrowDown/>
-          </el-icon>
+
+      <el-menu
+          :default-active="activeMenu"
+          router
+          unique-opened
+          background-color="#ffffff"
+          text-color="#333"
+          active-text-color="#409EFF"
+          class="menu"
+      >
+        <menu-tree
+            v-for="menu in data.permissions"
+            :key="menu.id"
+            :item="menu"
+        />
+      </el-menu>
+    </el-aside>
+
+    <!-- 右侧主内容 -->
+    <el-container class="main-wrapper">
+      <!-- 头部 -->
+      <el-header class="header">
+        <div class="left-area">
+          <h2 class="page-title">{{ pageTitle }}</h2>
         </div>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="logout">退出</el-dropdown-item>
-            <el-dropdown-item>修改密码</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </header>
 
-    <!-- 主体内容 -->
-    <div class="main-content">
-      <!-- 菜单区域 -->
-      <aside class="sidebar">
-        <el-menu
-            router
-            unique-opened
-            :default-active="router.currentRoute.value.path"
-            background-color="#ffffff"
-            text-color="#333"
-            active-text-color="#4a90e2"
-            class="menu"
-        >
-          <!-- 动态菜单 -->
-          <menu-tree
-              v-for="menu in data.permissions"
-              :key="menu.id"
-              :item="menu"
-          />
-        </el-menu>
-      </aside>
+        <div class="right-area">
+          <el-dropdown @command="handleCommand">
+            <span class="user-info">
+              {{ data.realName }}
+              <el-icon name="arrow-down" class="arrow-down"><ArrowDown /></el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </el-header>
 
-      <!-- 内容区域 -->
-      <main class="content">
+      <!-- 主体内容 -->
+      <el-main class="content">
         <RouterView/>
-      </main>
-    </div>
-  </div>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script setup>
-import {useRoute, useRouter} from 'vue-router'
-import {computed, reactive} from 'vue'
-import request from '@/utils/request.js'
-import {ElMessage} from 'element-plus'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
 import MenuTree from '@/components/layout/MenuTree.vue'
+import request from '@/utils/request.js'
+
+const router = useRouter()
+const route = useRoute()
 
 const data = reactive({
   permissions: [],
   realName: ''
 })
 
-const route = useRoute()
-const router = useRouter()
+// 当前激活菜单
+const activeMenu = computed(() => {
+  return route.path
+})
 
-const currentMeta = computed(() => route.meta)
+// 页面标题
+const pageTitle = computed(() => {
+  return route.meta.title || route.name || '仪表盘'
+})
 
-const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('expires_at')
-  localStorage.removeItem('session_user')
-  location.href = '/login'
-}
-
+// 获取用户权限菜单和信息
 const binding = () => {
   request.post('/api/userMenus').then(res => {
     if (res.code === 200) {
       data.permissions = res.data
-      let user = localStorage.getItem('session_user');
+      const user = localStorage.getItem('session_user')
       if (user) {
         data.realName = JSON.parse(user).realName
       }
@@ -94,68 +95,91 @@ const binding = () => {
     }
   })
 }
-binding()
+
+onMounted(() => {
+  binding()
+})
+
+// 用户操作
+const handleCommand = (command) => {
+  switch (command) {
+    case 'logout':
+      localStorage.removeItem('token')
+      localStorage.removeItem('expires_at')
+      localStorage.removeItem('session_user')
+      router.push('/login')
+      break
+    case 'profile':
+      router.push('/profile')
+      break
+  }
+}
 </script>
 
-<style scoped lang="scss">
-.layout-wrapper {
+<style lang="scss" scoped>
+.layout-container {
   height: 100vh;
-  background-color: #f8f9fa;
+
+  .sidebar {
+    background-color: #fff;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+
+      img {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+      }
+    }
+
+    .menu {
+      border-right: none;
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+
+  .main-wrapper {
+    flex-direction: column;
+    overflow: hidden;
+  }
 
   .header {
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    border-bottom: 1px solid #e6e6e6;
     padding: 0 20px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-
-      .logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-
-      .system-title {
-        font-size: 20px;
-        font-weight: bold;
-        color: #2b2d42;
-      }
-    }
-
-    .navigation {
-      span {
-        cursor: pointer;
-
-        &:hover {
-          color: #4a4e69;
-        }
-      }
+    .page-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: normal;
+      color: #333;
     }
 
     .user-info {
-      display: flex;
-      align-items: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
 
-      .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-
-      span {
-        margin-right: 5px;
+      &:hover {
+        color: #409EFF;
       }
 
       .arrow-down {
+        margin-left: 5px;
         transition: transform 0.3s ease;
       }
 
@@ -165,27 +189,10 @@ binding()
     }
   }
 
-  .main-content {
-    display: flex;
-    height: calc(100% - 60px);
-
-    .sidebar {
-      width: 240px;
-      background-color: #ffffff;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
-      overflow-y: auto;
-
-      .menu {
-        min-height: calc(100vh - 60px);
-      }
-    }
-
-    .content {
-      flex: 1;
-      padding: 20px;
-      background-color: #f8f9fa;
-      overflow-y: auto;
-    }
+  .content {
+    background: #f5f7fa;
+    padding: 20px;
+    overflow: auto;
   }
 }
 </style>

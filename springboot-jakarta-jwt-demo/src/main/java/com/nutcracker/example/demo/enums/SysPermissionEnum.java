@@ -69,7 +69,7 @@ public enum SysPermissionEnum {
     LPGL_TJLP_HZXX("lpgl_tjlp_hzxx","合作信息","lpgl_tjlp","/view/project/add5","ChatLineRound",1,3,1710),
     LPGL_TJLP_CPWH("lpgl_tjlp_cpwh","产品维护","lpgl_tjlp","/view/project/add6","Tools",1,3,1711),
     LPGL_TJLP_RJWH("lpgl_tjlp_rjwh","拥金维护","lpgl_tjlp","/view/project/add7","Money",1,3,1712),
-    LPGL_TJLP_LPDT("lpgl_tjlp_lpdt","楼盘动态","lpgl_tjlp","/view/project/add8","News",1,3,1713),
+    LPGL_TJLP_LPDT("lpgl_tjlp_lpdt","楼盘动态","lpgl_tjlp","/view/project/add8","Shop",1,3,1713),
     LPGL_TJLP_YHHD("lpgl_tjlp_yhhd","优惠活动","lpgl_tjlp","/view/project/add9","Present",1,3,1714),
 
     JJGSJJR("jjgsjjr","经济公司/经纪人",null,null,"User",1,1,1800),
@@ -102,7 +102,7 @@ public enum SysPermissionEnum {
 
     MDGLY("mdgly","门店管理员",null,null,"User",1,1,2500),
     MDGLY_JJRLB("mdgly_jjrlb","经纪人列表","mdgly","/view/agent/list","User",1,2,2501),
-    MDGLY_KHLB("mdgly_khlb","客户列表","mdgly","/view/agent/custAgent","UserGroup",1,2,2502),
+    MDGLY_KHLB("mdgly_khlb","客户列表","mdgly","/view/agent/custAgent","User",1,2,2502),
 
     ACJL("acjl","案场经理",null,null,"User",1,1,2600),
     ACJL_KHSH("acjl_khsh","客户审核","acjl","/view/custintent/custAuditList","Check",1,2,2601),
