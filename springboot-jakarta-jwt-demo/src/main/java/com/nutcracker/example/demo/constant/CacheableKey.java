@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public class CacheableKey {
 
+    private CacheableKey() {
+
+    }
+
     public static final String PREFIX = "nutcracker_";
 
     /** SysUser CacheManager */
@@ -22,15 +26,15 @@ public class CacheableKey {
 
     /** 1天 */
     public static final long CACHE_1_DAY = 86400;
-    /** 2小时 */
-    public static final long CACHE_2_HOUR = 7200;
+    /** 1小时 */
+    public static final long CACHE_1_HOUR = 3600;
 
     private static final Map<String, Long> CACHEABLE_KEY_MAP = new LinkedHashMap<>();
 
     static {
         // 设置缓存时长
-        CACHEABLE_KEY_MAP.put(SYS_USER, CACHE_2_HOUR);
-        CACHEABLE_KEY_MAP.put(SESSION_USER, CACHE_2_HOUR);
+        CACHEABLE_KEY_MAP.put(SYS_USER, CACHE_1_HOUR);
+        CACHEABLE_KEY_MAP.put(SESSION_USER, CACHE_1_HOUR);
         CACHEABLE_KEY_MAP.put(ROLE_PERMISSION, CACHE_1_DAY);
     }
 

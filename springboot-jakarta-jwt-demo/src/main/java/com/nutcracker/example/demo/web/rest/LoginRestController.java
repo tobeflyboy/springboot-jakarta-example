@@ -6,8 +6,11 @@ import com.nutcracker.common.wrapper.RespCode;
 import com.nutcracker.common.wrapper.RespWrapper;
 import com.nutcracker.example.demo.constant.DemoConstants;
 import com.nutcracker.example.demo.entity.domain.auth.SessionUser;
+import com.nutcracker.example.demo.entity.domain.auth.SysPermission;
 import com.nutcracker.example.demo.entity.domain.auth.SysUser;
 import com.nutcracker.example.demo.service.auth.AuthService;
+import com.nutcracker.example.demo.service.auth.SysPermissionService;
+import com.nutcracker.example.demo.web.Identify;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 鉴权api控制器
@@ -32,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginRestController {
 
     private final AuthService authService;
+    private final SysPermissionService sysPermissionService;
 
     @Operation(summary = "登录接口", description = "基于账号密码登录接口")
     @PostMapping("/api/login")
@@ -42,7 +48,7 @@ public class LoginRestController {
     }
 
     @Operation(summary = "刷新Token", description = "刷新系统凭证")
-    @GetMapping(value = "/api/refresh-token")
+    @GetMapping("/api/refresh-token")
     public RespWrapper<SessionUser> refreshToken(@RequestHeader(DemoConstants.TOKEN) String token) {
         if (StringUtils.isBlank(token) || !token.startsWith(DemoConstants.TOKEN_PREFIX)) {
             log.error("/api/refresh-token, token is empty.");
@@ -54,7 +60,7 @@ public class LoginRestController {
     }
 
     @Operation(summary = "用户信息", description = "获取用户信息")
-    @PostMapping(value = "/api/userInfo")
+    @PostMapping("/api/userInfo")
     public RespWrapper<User> userInfo(@RequestHeader(DemoConstants.TOKEN) String token) {
         if (StringUtils.isBlank(token) || !token.startsWith(DemoConstants.TOKEN_PREFIX)) {
             log.error("/api/userInfo, token is empty.");
@@ -71,5 +77,20 @@ public class LoginRestController {
         return resp;
     }
 
+    @Operation(summary = "用户菜单权限数据", description = "获取用户菜单权限数据")
+    @PostMapping("/api/userMenus")
+    public RespWrapper<List<SysPermission>> userMenus() {
+        User user = Identify.getSessionUser();
+        log.debug("==> /api/userMenus begin, roleId={}", user.getRoleId());
+        List<SysPermission> permissions = sysPermissionService.getRolePermissionByRoleId(user.getRoleId());
+        RespWrapper<List<SysPermission>> resp;
+        if (null != permissions) {
+            resp = RespWrapper.success(permissions);
+        } else {
+            resp = RespWrapper.fail(RespCode.FORBIDDEN);
+        }
+        log.debug("<== /api/userMenus end, roleId={},resp={}\n", user.getRoleId(), JSON.toJSONString(resp));
+        return resp;
+    }
 
 }

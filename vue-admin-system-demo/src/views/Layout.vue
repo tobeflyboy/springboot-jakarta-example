@@ -1,6 +1,6 @@
 <template>
   <div class="layout-wrapper">
-    <!-- 头部区域开始 -->
+    <!-- 头部区域 -->
     <header class="header">
       <div class="logo-container">
         <img src="@/assets/imgs/logo.png" alt="Logo" class="logo"/>
@@ -14,7 +14,9 @@
         <div class="user-info">
           <img src="@/assets/imgs/default-avatar.jpg" alt="User Avatar" class="avatar"/>
           <span>{{ data.realName }}</span>
-          <el-icon class="arrow-down"><arrow-down/></el-icon>
+          <el-icon class="arrow-down">
+            <ArrowDown/>
+          </el-icon>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -24,87 +26,75 @@
         </template>
       </el-dropdown>
     </header>
-    <!-- 头部区域结束 -->
 
-    <!-- 下方区域开始 -->
+    <!-- 主体内容 -->
     <div class="main-content">
-      <!-- 菜单区域开始 -->
+      <!-- 菜单区域 -->
       <aside class="sidebar">
-        <el-menu router :default-active="router.currentRoute.value.path" class="menu">
-          <el-menu-item index="/manager/dashboard">
-            <el-icon><HomeFilled/></el-icon>
-            <span>Dashboard</span>
-          </el-menu-item>
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><Setting/></el-icon>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="/manager/permission">
-              <el-icon><Files/></el-icon>
-              <span>资源管理</span>
-            </el-menu-item>
-            <el-menu-item index="/manager/role">
-              <el-icon><Finished/></el-icon>
-              <span>角色管理</span>
-            </el-menu-item>
-            <el-menu-item index="/manager/user">
-              <el-icon><UserFilled/></el-icon>
-              <span>用户管理</span>
-            </el-menu-item>
-          </el-sub-menu>
-          <el-menu-item index="/manager/about">
-            <el-icon><InfoFilled/></el-icon>
-            <span>关于</span>
-          </el-menu-item>
+        <el-menu
+            router
+            unique-opened
+            :default-active="router.currentRoute.value.path"
+            background-color="#ffffff"
+            text-color="#333"
+            active-text-color="#4a90e2"
+            class="menu"
+        >
+          <!-- 动态菜单 -->
+          <menu-tree
+              v-for="menu in data.permissions"
+              :key="menu.id"
+              :item="menu"
+          />
         </el-menu>
       </aside>
-      <!-- 菜单区域结束 -->
 
-      <!-- 数据渲染区域开始 -->
+      <!-- 内容区域 -->
       <main class="content">
         <RouterView/>
       </main>
-      <!-- 数据渲染区域结束 -->
     </div>
-    <!-- 下方区域结束 -->
   </div>
 </template>
 
 <script setup>
-import {useRoute} from 'vue-router';
-import {computed, reactive} from 'vue';
+import {useRoute, useRouter} from 'vue-router'
+import {computed, reactive} from 'vue'
 import request from '@/utils/request.js'
-import router from "@/router/index.js";
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
+import MenuTree from '@/components/layout/MenuTree.vue'
 
 const data = reactive({
-  realName: null
+  permissions: [],
+  realName: ''
 })
 
-// 获取当前路由对象
-const route = useRoute();
+const route = useRoute()
+const router = useRouter()
 
-// 计算属性来获取当前路由的 meta 数据
-const currentMeta = computed(() => route.meta);
+const currentMeta = computed(() => route.meta)
 
 const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('expires_at');
-  localStorage.removeItem('session_user');
-  location.href = '/login';
+  localStorage.removeItem('token')
+  localStorage.removeItem('expires_at')
+  localStorage.removeItem('session_user')
+  location.href = '/login'
 }
 
-const getUserInfo = () => {
-  request.post('/api/userInfo').then(res => {
+const binding = () => {
+  request.post('/api/userMenus').then(res => {
     if (res.code === 200) {
-      data.realName = res.data.realName;
+      data.permissions = res.data
+      let user = localStorage.getItem('session_user');
+      if (user) {
+        data.realName = JSON.parse(user).realName
+      }
     } else {
       ElMessage.error(res.msg)
     }
   })
 }
-getUserInfo()
+binding()
 </script>
 
 <style scoped lang="scss">
@@ -143,6 +133,7 @@ getUserInfo()
     .navigation {
       span {
         cursor: pointer;
+
         &:hover {
           color: #4a4e69;
         }
@@ -152,18 +143,22 @@ getUserInfo()
     .user-info {
       display: flex;
       align-items: center;
+
       .avatar {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         margin-right: 10px;
       }
+
       span {
         margin-right: 5px;
       }
+
       .arrow-down {
         transition: transform 0.3s ease;
       }
+
       &:hover .arrow-down {
         transform: rotate(180deg);
       }

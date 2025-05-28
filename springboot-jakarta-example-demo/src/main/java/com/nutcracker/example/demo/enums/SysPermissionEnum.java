@@ -23,13 +23,17 @@ public enum SysPermissionEnum {
         upper(permission_code) || '(' ||
         '"' || permission_code || '",' ||
         '"' || permission_name || '",' ||
-        '"' || IFNULL(parent_permission_code, 'null') || '",' ||
-        '"' || IFNULL(url, 'null') || '",' ||
-        '"' || IFNULL(icon, 'null') || '",' ||
+        -- 处理 parent_permission_code 为 NULL 的情况
+        CASE WHEN parent_permission_code IS NULL THEN 'null' ELSE '"' || parent_permission_code || '"' END || ',' ||
+        -- 处理 url 为 NULL 的情况
+        CASE WHEN url IS NULL THEN 'null' ELSE '"' || url || '"' END || ',' ||
+        -- 处理 icon 为 NULL 的情况
+        CASE WHEN icon IS NULL THEN 'null' ELSE '"' || icon || '"' END || ',' ||
+        -- hide 字段保持原逻辑（NULL 时默认 1）
         '' || IFNULL(hide, 1) || ',' ||
         '' || lev || ',' ||
         '' || sort || '' ||
-        '),' as SysPermissionEnum
+        '),' AS SysPermissionEnum
     FROM sys_permission;
      */
     GLSY("glsy", "管理首页", null, "dashboard", "fa fa-home", 1, 1, 1),

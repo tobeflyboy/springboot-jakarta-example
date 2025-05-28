@@ -27,6 +27,14 @@ import java.util.stream.Collectors;
 @RestControllerAdvice(basePackages = {" com.nutcracker.example.demo.web.rest"})
 public class GlobalExceptionHandler {
 
+    // 拦截：参数错误
+    @ExceptionHandler(IllegalArgumentException.class)
+    public RespWrapper<Boolean> handlerException(IllegalArgumentException e) {
+        log.error("未登录", e);
+        // 返回给前端
+        return RespWrapper.fail(e.getMessage());
+    }
+
     // 拦截：未登录异常
     @ExceptionHandler(UsernameNotFoundException.class)
     public RespWrapper<Boolean> handlerException(UsernameNotFoundException e) {
