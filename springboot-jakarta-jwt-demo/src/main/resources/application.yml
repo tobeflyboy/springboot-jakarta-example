@@ -36,6 +36,11 @@ server:
       rotate: true # 是否启用访问日志轮换。
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   main:
     # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
     allow-bean-definition-overriding: true

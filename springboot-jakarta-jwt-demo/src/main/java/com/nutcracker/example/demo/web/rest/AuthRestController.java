@@ -284,7 +284,7 @@ public class AuthRestController {
     @Operation(summary = "【用户】Excel导入接口", description = "用户Excel导入接口")
     @PostMapping("/api/user/import")
     @SneakyThrows
-    public RespWrapper<Boolean> userImport(MultipartFile file) {
+    public RespWrapper<Boolean> userImport(@RequestParam("file") MultipartFile file) {
         log.info("api/user/import");
         InputStream stream = file.getInputStream();
         ExcelReader reader = ExcelUtil.getReader(stream);

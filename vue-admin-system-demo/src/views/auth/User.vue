@@ -665,6 +665,7 @@ const showExportUser = async () => {
 
 // 自定义上传处理（使用封装的request）
 const handleImport = async (options) => {
+  console.log('开始导入用户数据...', options)
   const { file } = options
   let loadingInstance = null
 
@@ -679,9 +680,7 @@ const handleImport = async (options) => {
     formData.append('file', file)
 
     const res = await request.post('/api/user/import', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      skipContentType: true
     })
 
     if (res.code === 200) {
