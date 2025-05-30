@@ -76,10 +76,8 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <div class="dialog-footer" style="text-align: right; padding-right: 30px;">
-        <el-button @click="formVisible = false">取消</el-button>
-        <el-button type="primary" @click="saveRole">保存</el-button>
-      </div>
+      <el-button @click="formVisible = false">取消</el-button>
+      <el-button type="primary" @click="saveRole">保存</el-button>
     </template>
   </el-dialog>
 

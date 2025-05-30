@@ -135,19 +135,17 @@
     </el-table>
 
     <!-- 分页控件 -->
-    <div class="pagination">
-      <el-pagination
-          v-model:current-page="data.pageNum"
-          v-model:page-size="data.pageSize"
-          :page-sizes="[10, 20, 50, 100]"
-          :total="data.total"
-          layout="total, sizes, prev, pager, next, jumper"
-          background
-          @size-change="handleSizeChange"
-          @current-change="load"
-          style="margin-top: 15px;"
-      />
-    </div>
+    <el-pagination
+        v-model:current-page="data.pageNum"
+        v-model:page-size="data.pageSize"
+        :page-sizes="[10, 20, 50, 100]"
+        :total="data.total"
+        layout="total, sizes, prev, pager, next, jumper"
+        background
+        @size-change="handleSizeChange"
+        @current-change="load"
+        style="margin-top: 15px;"
+    />
   </el-card>
 
   <!-- 新增用户对话框 -->
@@ -244,11 +242,11 @@
         label-width="100px"
     >
       <el-form-item label="账号名称：">
-        <span class="form-value">{{ data.resetPwdForm.username }}</span>
+        <el-tag>{{ data.resetPwdForm.username }}</el-tag>
       </el-form-item>
 
       <el-form-item label="真实姓名：">
-        <span class="form-value">{{ data.resetPwdForm.realName }}</span>
+        <el-tag>{{ data.resetPwdForm.realName }}</el-tag>
       </el-form-item>
 
       <el-form-item label="密码：" prop="password">
@@ -703,54 +701,3 @@ const handleImport = async (options) => {
 // 初始化页面
 initData()
 </script>
-
-<style lang="scss" scoped>
-.user-management-container {
-  padding: 20px;
-  background-color: #f5f7fa;
-
-  .search-card {
-    margin-bottom: 16px;
-
-    :deep(.el-card__body) {
-      padding: 18px 20px;
-    }
-  }
-
-  .toolbar-card {
-    margin-bottom: 16px;
-
-    :deep(.el-card__body) {
-      padding: 12px 20px;
-    }
-  }
-
-  .table-card {
-    .pagination {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-
-  .form-value {
-    padding-left: 10px;
-    color: #606266;
-  }
-}
-
-.dark {
-  .user-management-container {
-    background-color: var(--el-bg-color-page);
-
-    .el-card {
-      background-color: var(--el-bg-color-overlay);
-      border-color: var(--el-border-color-light);
-    }
-
-    .form-value {
-      color: var(--el-text-color-regular);
-    }
-  }
-}
-</style>
