@@ -253,7 +253,7 @@ public class AuthRestController {
                 writer.write(list, true);
                 writer.flush(outputStream);
             }
-            String fileName = URLEncoder.encode("用户数据", StandardCharsets.UTF_8);
+            String fileName = URLEncoder.encode("用户表格", StandardCharsets.UTF_8);
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
