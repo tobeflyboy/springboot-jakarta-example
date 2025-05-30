@@ -1,263 +1,184 @@
 <template>
-  <div class="user-management-container">
+  <el-card shadow="never">
     <!-- 搜索区域 -->
-    <el-card class="search-card" shadow="never">
-      <el-row :gutter="20">
-        <el-col :span="3">
-          <el-input
-              v-model="data.username"
-              placeholder="账号，精准查询"
-              clearable
-              @keyup.enter="search"
-          >
-            <template #prefix>
-              <el-icon>
-                <Search/>
-              </el-icon>
-            </template>
-          </el-input>
-        </el-col>
-        <el-col :span="3">
-          <el-input
-              v-model="data.realName"
-              placeholder="姓名，模糊查询"
-              clearable
-              @keyup.enter="search"
-          >
-            <template #prefix>
-              <el-icon>
-                <Search/>
-              </el-icon>
-            </template>
-          </el-input>
-        </el-col>
-        <el-col :span="3">
-          <el-select
-              v-model="data.status"
-              placeholder="用户状态"
-              clearable
-              style="width: 100%"
-          >
-            <el-option
-                v-for="(value, key) in data.userStatus"
-                :key="key"
-                :label="value"
-                :value="key"
-            />
-          </el-select>
-        </el-col>
-        <el-col :span="3" style="display: flex; align-items: center;">
-          <el-button type="primary" icon="Search" @click="search">搜索</el-button>
-          <el-button @click="resetSearch">重置</el-button>
-        </el-col>
-      </el-row>
-    </el-card>
+    <el-row :gutter="15" style="margin-bottom: 15px;">
+      <el-col :span="4">
+        <el-input
+            v-model="data.username"
+            placeholder="账号，精准查询"
+            clearable
+            @keyup.enter="search"
+        >
+          <template #prefix>
+            <el-icon>
+              <Search/>
+            </el-icon>
+          </template>
+        </el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-input
+            v-model="data.realName"
+            placeholder="姓名，模糊查询"
+            clearable
+            @keyup.enter="search"
+        >
+          <template #prefix>
+            <el-icon>
+              <Search/>
+            </el-icon>
+          </template>
+        </el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-select
+            v-model="data.status"
+            placeholder="用户状态"
+            clearable
+            style="width: 100%"
+        >
+          <el-option
+              v-for="(value, key) in data.userStatus"
+              :key="key"
+              :label="value"
+              :value="key"
+          />
+        </el-select>
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" icon="Search" @click="search">搜索</el-button>
+        <el-button @click="resetSearch">重置</el-button>
+      </el-col>
+    </el-row>
 
     <!-- 操作工具栏 -->
-    <el-card class="toolbar-card" shadow="never">
-      <el-space>
-        <el-button type="success" icon="Plus" @click="showAddUserDialog">新增用户</el-button>
-        <el-button type="warning" icon="Download" @click="showExportUser">批量导出</el-button>
+    <el-space style="margin-bottom: 15px;">
+      <el-button type="success" icon="Plus" @click="showAddUserDialog">新增用户</el-button>
+      <el-button type="warning" icon="Download" @click="showExportUser">批量导出</el-button>
 
-        <!-- 使用自定义上传 -->
-        <el-upload
-            :show-file-list="false"
-            :http-request="handleImport"
-            accept=".xlsx,.xls"
-        >
-          <el-button type="info" icon="Upload">批量导入</el-button>
-        </el-upload>
-      </el-space>
-    </el-card>
+      <!-- 使用自定义上传 -->
+      <el-upload
+          :show-file-list="false"
+          :http-request="handleImport"
+          accept=".xlsx,.xls"
+      >
+        <el-button type="info" icon="Upload">批量导入</el-button>
+      </el-upload>
+    </el-space>
 
     <!-- 数据表格 -->
-    <el-card class="table-card" shadow="never">
-      <el-table
-          :data="data.tableData"
-          stripe
-          v-loading="data.loading"
-          style="width: 100%"
-          :header-cell-style="{ background: '#f5f7fa', color: '#606266' }"
-      >
-        <el-table-column prop="username" label="账号" min-width="100" fixed="left"/>
-        <el-table-column prop="realName" label="姓名" min-width="80"/>
-        <el-table-column prop="email" label="邮箱" min-width="180">
-          <template #default="{ row }">
-            <el-link type="primary" :href="`mailto:${row.email}`" v-if="row.email">
-              {{ row.email }}
-            </el-link>
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="statusDesc" label="用户状态" width="80">
-          <template #default="{ row }">
-            <el-tag :type="row.status === 1 ? 'success' : 'danger'">
-              {{ row.statusDesc }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="roleName" label="所属角色" width="100"/>
-        <el-table-column prop="createTime" label="创建时间" width="120"/>
-        <el-table-column prop="createUserRealName" label="创建人" width="80"/>
-        <el-table-column prop="updateTime" label="更新时间" width="120"/>
-        <el-table-column prop="updateUserRealName" label="更新人" width="80"/>
-        <el-table-column prop="lastLoginTime" label="最后登录时间" width="120"/>
-        <el-table-column label="操作" fixed="right" width="150">
-          <template #default="scope">
-            <el-space>
-              <el-tooltip content="编辑用户" placement="top">
-                <el-button
-                    size="small"
-                    type="primary"
-                    icon="Edit"
-                    circle
-                    @click="showEditUserDialog(scope.row)"
-                />
-              </el-tooltip>
-
-              <el-tooltip content="重置密码" placement="top">
-                <el-button
-                    size="small"
-                    type="warning"
-                    icon="Key"
-                    circle
-                    @click="showResetPwdDialog(scope.row)"
-                />
-              </el-tooltip>
-
-              <el-tooltip content="删除用户" placement="top">
-                <el-button
-                    size="small"
-                    type="danger"
-                    icon="Delete"
-                    circle
-                    @click="deleteUser(scope.row)"
-                />
-              </el-tooltip>
-            </el-space>
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <!-- 分页控件 -->
-      <div class="pagination">
-        <el-pagination
-            v-model:current-page="data.pageNum"
-            v-model:page-size="data.pageSize"
-            :page-sizes="[10, 20, 50, 100]"
-            :total="data.total"
-            layout="total, sizes, prev, pager, next, jumper"
-            background
-            @size-change="handleSizeChange"
-            @current-change="load"
-        />
-      </div>
-    </el-card>
-
-    <!-- 新增用户对话框 -->
-    <el-dialog
-        :title="data.addUserFormVisible ? '新增用户' : '编辑用户'"
-        v-model="data.dialogVisible"
-        width="500px"
-        :close-on-click-modal="false"
-        :destroy-on-close="true"
+    <el-table
+        :data="data.tableData"
+        stripe
+        v-loading="data.loading"
+        style="width: 100%"
+        :header-cell-style="{ color: '#333', backgroundColor: '#eaf4ff' }"
     >
-      <el-form
-          ref="currentFormRef"
-          :model="data.currentForm"
-          :rules="data.currentFormRules"
-          label-width="100px"
-      >
-        <el-form-item label="账号名称：" prop="username" v-if="data.addUserFormVisible">
-          <el-input
-              v-model="data.currentForm.username"
-              placeholder="请输入6-12位的英文字母或字符"
-          />
-        </el-form-item>
-
-        <el-form-item label="真实姓名：" prop="realName" v-if="data.addUserFormVisible">
-          <el-input v-model="data.currentForm.realName" placeholder="请输入姓名"/>
-        </el-form-item>
-
-        <template v-if="data.addUserFormVisible">
-          <el-form-item label="密码：" prop="password">
-            <el-input
-                v-model="data.currentForm.password"
-                placeholder="请输入6-12位的英文字母或字符"
-                type="password"
-                show-password
-            />
-          </el-form-item>
-
-          <el-form-item label="确认密码：" prop="confirmPassword">
-            <el-input
-                v-model="data.currentForm.confirmPassword"
-                placeholder="请再次输入密码"
-                type="password"
-                show-password
-            />
-          </el-form-item>
+      <el-table-column prop="username" label="账号" min-width="100" fixed="left"/>
+      <el-table-column prop="realName" label="姓名" min-width="80"/>
+      <el-table-column prop="email" label="邮箱" min-width="180">
+        <template #default="{ row }">
+          <el-link type="primary" :href="`mailto:${row.email}`" v-if="row.email">
+            {{ row.email }}
+          </el-link>
+          <span v-else>-</span>
         </template>
+      </el-table-column>
+      <el-table-column prop="statusDesc" label="用户状态" width="80">
+        <template #default="{ row }">
+          <el-tag :type="row.status === 1 ? 'success' : 'danger'">
+            {{ row.statusDesc }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="roleName" label="所属角色" width="100"/>
+      <el-table-column prop="createTime" label="创建时间" width="120"/>
+      <el-table-column prop="createUserRealName" label="创建人" width="80"/>
+      <el-table-column prop="updateTime" label="更新时间" width="120"/>
+      <el-table-column prop="updateUserRealName" label="更新人" width="80"/>
+      <el-table-column prop="lastLoginTime" label="最后登录时间" width="120"/>
+      <el-table-column label="操作" fixed="right" width="150">
+        <template #default="scope">
+          <el-space>
+            <el-tooltip content="编辑用户" placement="top">
+              <el-button
+                  size="small"
+                  type="primary"
+                  icon="Edit"
+                  circle
+                  @click="showEditUserDialog(scope.row)"
+              />
+            </el-tooltip>
 
-        <el-form-item label="邮箱：" prop="email">
-          <el-input v-model="data.currentForm.email" placeholder="请输入邮箱地址"/>
-        </el-form-item>
+            <el-tooltip content="重置密码" placement="top">
+              <el-button
+                  size="small"
+                  type="warning"
+                  icon="Key"
+                  circle
+                  @click="showResetPwdDialog(scope.row)"
+              />
+            </el-tooltip>
 
-        <el-form-item label="状态：" prop="status" v-if="!data.addUserFormVisible">
-          <el-select v-model="data.currentForm.status" placeholder="请选择状态">
-            <el-option
-                v-for="(value, key) in data.userStatus"
-                :key="key"
-                :label="value"
-                :value="key"
-            />
-          </el-select>
-        </el-form-item>
+            <el-tooltip content="删除用户" placement="top">
+              <el-button
+                  size="small"
+                  type="danger"
+                  icon="Delete"
+                  circle
+                  @click="deleteUser(scope.row)"
+              />
+            </el-tooltip>
+          </el-space>
+        </template>
+      </el-table-column>
+    </el-table>
 
-        <el-form-item label="所属角色：" prop="roleId">
-          <el-select v-model="data.currentForm.roleId" placeholder="请选择角色">
-            <el-option
-                v-for="item in data.roles"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-      </el-form>
+    <!-- 分页控件 -->
+    <div class="pagination">
+      <el-pagination
+          v-model:current-page="data.pageNum"
+          v-model:page-size="data.pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          :total="data.total"
+          layout="total, sizes, prev, pager, next, jumper"
+          background
+          @size-change="handleSizeChange"
+          @current-change="load"
+          style="margin-top: 15px;"
+      />
+    </div>
+  </el-card>
 
-      <template #footer>
-        <el-button @click="data.dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="submitForm">
-          保存
-        </el-button>
-      </template>
-    </el-dialog>
-
-    <!-- 重置密码对话框 -->
-    <el-dialog
-        title="重置密码"
-        v-model="data.resetPwdFormVisible"
-        width="500px"
-        :close-on-click-modal="false"
+  <!-- 新增用户对话框 -->
+  <el-dialog
+      :title="data.addUserFormVisible ? '新增用户' : '编辑用户'"
+      v-model="data.dialogVisible"
+      width="500px"
+      :close-on-click-modal="false"
+      :destroy-on-close="true"
+  >
+    <el-form
+        ref="currentFormRef"
+        :model="data.currentForm"
+        :rules="data.currentFormRules"
+        label-width="100px"
     >
-      <el-form
-          ref="resetPwdFormRef"
-          :model="data.resetPwdForm"
-          :rules="data.resetPwdFormRules"
-          label-width="100px"
-      >
-        <el-form-item label="账号名称：">
-          <span class="form-value">{{ data.resetPwdForm.username }}</span>
-        </el-form-item>
+      <el-form-item label="账号名称：" prop="username" v-if="data.addUserFormVisible">
+        <el-input
+            v-model="data.currentForm.username"
+            placeholder="请输入6-12位的英文字母或字符"
+        />
+      </el-form-item>
 
-        <el-form-item label="真实姓名：">
-          <span class="form-value">{{ data.resetPwdForm.realName }}</span>
-        </el-form-item>
+      <el-form-item label="真实姓名：" prop="realName" v-if="data.addUserFormVisible">
+        <el-input v-model="data.currentForm.realName" placeholder="请输入姓名"/>
+      </el-form-item>
 
+      <template v-if="data.addUserFormVisible">
         <el-form-item label="密码：" prop="password">
           <el-input
-              v-model="data.resetPwdForm.password"
+              v-model="data.currentForm.password"
               placeholder="请输入6-12位的英文字母或字符"
               type="password"
               show-password
@@ -266,22 +187,96 @@
 
         <el-form-item label="确认密码：" prop="confirmPassword">
           <el-input
-              v-model="data.resetPwdForm.confirmPassword"
+              v-model="data.currentForm.confirmPassword"
               placeholder="请再次输入密码"
               type="password"
               show-password
           />
         </el-form-item>
-      </el-form>
-
-      <template #footer>
-        <el-button @click="data.resetPwdFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="resetPwd">
-          保存
-        </el-button>
       </template>
-    </el-dialog>
-  </div>
+
+      <el-form-item label="邮箱：" prop="email">
+        <el-input v-model="data.currentForm.email" placeholder="请输入邮箱地址"/>
+      </el-form-item>
+
+      <el-form-item label="状态：" prop="status" v-if="!data.addUserFormVisible">
+        <el-select v-model="data.currentForm.status" placeholder="请选择状态">
+          <el-option
+              v-for="(value, key) in data.userStatus"
+              :key="key"
+              :label="value"
+              :value="key"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="所属角色：" prop="roleId">
+        <el-select v-model="data.currentForm.roleId" placeholder="请选择角色">
+          <el-option
+              v-for="item in data.roles"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+    </el-form>
+
+    <template #footer>
+      <el-button @click="data.dialogVisible = false">取消</el-button>
+      <el-button type="primary" @click="submitForm">
+        保存
+      </el-button>
+    </template>
+  </el-dialog>
+
+  <!-- 重置密码对话框 -->
+  <el-dialog
+      title="重置密码"
+      v-model="data.resetPwdFormVisible"
+      width="500px"
+      :close-on-click-modal="false"
+  >
+    <el-form
+        ref="resetPwdFormRef"
+        :model="data.resetPwdForm"
+        :rules="data.resetPwdFormRules"
+        label-width="100px"
+    >
+      <el-form-item label="账号名称：">
+        <span class="form-value">{{ data.resetPwdForm.username }}</span>
+      </el-form-item>
+
+      <el-form-item label="真实姓名：">
+        <span class="form-value">{{ data.resetPwdForm.realName }}</span>
+      </el-form-item>
+
+      <el-form-item label="密码：" prop="password">
+        <el-input
+            v-model="data.resetPwdForm.password"
+            placeholder="请输入6-12位的英文字母或字符"
+            type="password"
+            show-password
+        />
+      </el-form-item>
+
+      <el-form-item label="确认密码：" prop="confirmPassword">
+        <el-input
+            v-model="data.resetPwdForm.confirmPassword"
+            placeholder="请再次输入密码"
+            type="password"
+            show-password
+        />
+      </el-form-item>
+    </el-form>
+
+    <template #footer>
+      <el-button @click="data.resetPwdFormVisible = false">取消</el-button>
+      <el-button type="primary" @click="resetPwd">
+        保存
+      </el-button>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -672,7 +667,7 @@ const showExportUser = async () => {
 // 自定义上传处理（使用封装的request）
 const handleImport = async (options) => {
   console.log('开始导入用户数据...', options)
-  const { file } = options
+  const {file} = options
   let loadingInstance = null
 
   try {
