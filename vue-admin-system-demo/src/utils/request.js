@@ -24,35 +24,41 @@ request.interceptors.request.use(
 );
 
 // response 拦截器
-// 可以在接口响应后统一处理结果
 request.interceptors.response.use(
     response => {
-        let res = response.data;
-        // 如果是返回的文件
+        console.log('response:', response);
+        // ✅ 如果是 blob 类型，直接返回原始数据，不再做任何处理
         if (response.config.responseType === 'blob') {
-            return res
+            console.log('blob besponse:', response);
+            return response; // 返回整个 response，包含 headers 等完整信息
         }
-        // 兼容服务端返回的字符串数据
+
+        // 否则正常处理 JSON 数据
+        let res = response.data;
+
         if (typeof res === 'string') {
-            res = res ? JSON.parse(res) : res
+            try {
+                res = JSON.parse(res);
+            } catch (e) {
+                // 忽略无法解析的字符串
+                console.error('Failed to parse JSON:', e);
+            }
         }
 
         if (res.code === 401) {
             ElMessage.error('登录过期，请重新登录');
-            console.log("401, redirect login page");
             router.push('/login').catch(err => {
                 console.error('Failed to redirect to login:', err);
             });
         }
-        return res;
 
+        return res;
     },
     error => {
-        console.log('请求异常:', error)
+        // 错误处理不变
         if (error.response) {
             if (error.response.status === 401) {
                 ElMessage.error('登录过期，请重新登录');
-                console.log("401, redirect login page");
                 router.push('/login').catch(err => {
                     console.error('Failed to redirect to login:', err);
                 });
@@ -61,23 +67,21 @@ request.interceptors.response.use(
                 ElMessage.error('未找到请求接口');
             }
             if (error.response.status === 403) {
-                ElMessage.error('未找到请求接口');
+                ElMessage.error('无权限访问');
             }
             if (error.response.status === 500) {
                 ElMessage.error('系统异常，请查看系统日志');
             } else {
-                ElMessage.error(error.message);
+                console.error(`请求失败, url:${error.response.config.url}, error msg:${error.message}`);
             }
-            // 返回拒绝，让调用方可以 catch
-            return Promise.reject(error)
+            return Promise.reject(error);
         }
 
-        // 请求根本没有到达服务器（超时、断网等）
-        if (!navigator.onLine) {
-            ElMessage.error('网络已断开，请检查网络连接');
-        } else {
-            ElMessage.error('请求超时或服务器无响应');
-        }
+        // if (!navigator.onLine) {
+        //     ElMessage.error('网络已断开，请检查网络连接');
+        // } else {
+        //     ElMessage.error('请求超时或服务器无响应');
+        // }
         return Promise.reject(error);
     }
 );

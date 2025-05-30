@@ -85,6 +85,7 @@ const binding = () => {
   request.post('/api/userMenus').then(res => {
     if (res.code === 200) {
       data.permissions = res.data
+      console.log(data.permissions)
       const user = localStorage.getItem('session_user')
       if (user) {
         data.realName = JSON.parse(user).realName

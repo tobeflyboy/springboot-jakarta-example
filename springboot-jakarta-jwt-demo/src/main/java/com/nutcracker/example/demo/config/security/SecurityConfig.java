@@ -71,9 +71,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+        // 所有域名
         config.setAllowedOrigins(List.of("*"));
+        // 所有头
         config.setAllowedHeaders(List.of("*"));
+        // 暴露的响应头
         config.setExposedHeaders(List.of("*"));
+        // 预检请求缓存时间
+        config.setMaxAge(3600L);
+        // 所有方法
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

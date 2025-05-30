@@ -1,5 +1,6 @@
 package com.nutcracker.example.demo.web.rest;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
@@ -26,6 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +36,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -223,40 +228,60 @@ public class AuthRestController {
     }
 
     @Operation(summary = "【用户】Excel导出接口", description = "用户Excel导出接口")
+    @CrossOrigin(origins = "*")
     @GetMapping("/api/user/export")
-    @SneakyThrows
     public void userExport(HttpServletResponse response, SysUser user) {
-        List<SysUser> list = sysUserService.findAll(user);
+        try {
+            log.info("/api/user/export, user={}", JSON.toJSONString(user));
+            List<SysUser> list = sysUserService.findAll(user);
+            if (CollUtil.isEmpty(list)) {
+                throw new RuntimeException("没有可导出的数据");
+            }
+            // 使用临时缓冲区
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try (ExcelWriter writer = ExcelUtil.getWriter(true)) {
+                writer.addHeaderAlias("username", "账号");
+                writer.addHeaderAlias("realName", "姓名");
+                writer.addHeaderAlias("email", "邮箱");
+                writer.addHeaderAlias("status", "状态");
+                writer.addHeaderAlias("createTime", "创建时间");
+                writer.addHeaderAlias("createUserRealName", "创建人");
+                writer.addHeaderAlias("updateTime", "更新时间");
+                writer.addHeaderAlias("updateUserRealName", "更新人");
+                writer.addHeaderAlias("lastLoginTime", "最后登录时间");
+                writer.addHeaderAlias("roleName", "角色");
 
-        ExcelWriter writer = ExcelUtil.getWriter(true);
-        writer.addHeaderAlias("username", "账号");
-        writer.addHeaderAlias("realName", "姓名");
-        writer.addHeaderAlias("email", "邮箱");
-        writer.addHeaderAlias("status", "状态");
-        writer.addHeaderAlias("createTime", "创建时间");
-        writer.addHeaderAlias("createUserRealName", "创建人");
-        writer.addHeaderAlias("updateTime", "更新时间");
-        writer.addHeaderAlias("updateUserRealName", "更新人");
-        writer.addHeaderAlias("lastLoginTime", "最后登录时间");
-        writer.addHeaderAlias("roleName", "角色");
+                writer.setOnlyAlias(true);
+                writer.write(list, true);
+                writer.flush(outputStream);
+            }
+            String fileName = URLEncoder.encode("用户数据", StandardCharsets.UTF_8);
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setContentLength(outputStream.size());
 
-        // 默认的，未添加的alias也会写出，如果想只显示加的别名这种字段，可以在这里设置关闭
-        writer.setOnlyAlias(true);
-
-        writer.write(list, true);
-
-        String fileName = URLEncoder.encode("用户数据", StandardCharsets.UTF_8);
-        // 浏览器响应格式
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
-        OutputStream outputStream = response.getOutputStream();
-        writer.flush(outputStream);
-        // 关闭流
-        writer.close();
-        outputStream.close();
-        log.info("用户信息导出成功");
+            // 此处才真正写入 response 的输出流
+            try (OutputStream os = response.getOutputStream()) {
+                outputStream.writeTo(os);
+            }
+            log.info("用户信息导出成功");
+        } catch (Exception e) {
+            String json = JSON.toJSONString(RespWrapper.fail("导出失败：" + e.getMessage()));
+            log.error("用户导出失败 resp={}", json, e);
+            try {
+                response.resetBuffer();
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json;charset=UTF-8");
+                try (PrintWriter writer = response.getWriter()) {
+                    writer.write(json);
+                    writer.flush();
+                }
+            } catch (IOException ex) {
+                log.error("写入错误信息失败", ex);
+            }
+        }
     }
-
 
     @Operation(summary = "【用户】Excel导入接口", description = "用户Excel导入接口")
     @PostMapping("/api/user/import")

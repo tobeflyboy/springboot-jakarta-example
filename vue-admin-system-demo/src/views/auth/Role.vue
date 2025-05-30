@@ -1,22 +1,20 @@
 <template>
 
-  <!-- 搜索框 开始-->
+  <!-- 搜索框 -->
   <div class="card" style="margin-top: 5px; margin-bottom: 5px;">
-    <el-input style="width: 180px; margin-right: 5px;" v-model="data.roleName" placeholder="角色名称，模糊查询" :prefix-icon="Search"></el-input>
-    <el-input style="width: 180px; margin-right: 5px;" v-model="data.roleCode" placeholder="角色编码，精准查询" :prefix-icon="Search"></el-input>
+    <el-input v-model.trim="role.roleName" placeholder="角色名称，模糊查询" :prefix-icon="Search" style="width: 180px; margin-right: 5px;"></el-input>
+    <el-input v-model.trim="role.roleCode" placeholder="角色编码，精准查询" :prefix-icon="Search" style="width: 180px; margin-right: 5px;"></el-input>
     <el-button type="primary" icon="Search" @click="search">搜索</el-button>
   </div>
-  <!-- 搜索框 结束-->
 
-  <!-- 操作按钮 开始-->
+  <!-- 操作按钮 -->
   <div class="card" style="margin-bottom: 5px;">
     <el-button type="success" @click="showAddRoleDialog">新增角色</el-button>
   </div>
-  <!-- 操作按钮 结束-->
 
-  <!-- 查询内容 开始-->
+  <!-- 查询内容 -->
   <div class="card" style="margin-bottom: 5px;">
-    <el-table :data="data.roles" style="width: 100%" :header-cell-style="{ color: '#333', backgroundColor: '#eaf4ff' }">
+    <el-table :data="role.list" style="width: 100%" :header-cell-style="{ color: '#333', backgroundColor: '#eaf4ff' }">
       <el-table-column prop="roleName" label="角色名称"/>
       <el-table-column prop="roleCode" label="角色编码"/>
       <el-table-column prop="createTime" label="创建时间"/>
@@ -30,291 +28,277 @@
       </el-table-column>
     </el-table>
   </div>
-  <!-- 查询内容 结束-->
 
-  <!-- 分页控件 开始-->
+  <!-- 分页控件 -->
   <div class="card" style="margin-bottom: 5px;">
     <el-pagination
-        v-model:current-page="data.pageNum"
-        :page-size="data.pageSize"
+        v-model:current-page="role.pageNum"
+        :page-size="role.pageSize"
         layout="total, prev, pager, next"
-        :total="data.total"
+        :total="role.total"
         @current-change="loadRoles"
     />
   </div>
-  <!-- 分页控件 结束-->
 
-  <!-- 新增角色与编辑角色，对话框 开始-->
-  <el-dialog :title="data.roleForm.title" v-model="data.roleFormVisible" width="35%" distory-on-close>
-    <el-form ref="roleFormRef" :model="data.roleForm" :rules="data.roleFormRules" label-width="auto" style="padding: 0 5% 0 4%">
-      <input type="hidden" v-model="data.roleForm.id"/>
+  <!-- 新增/编辑角色对话框 -->
+  <el-dialog :title="role.form.title" v-model="role.formVisible" width="35%">
+    <el-form ref="roleFormRef" :model="role.form" :rules="role.rules" label-width="auto" style="padding: 0 5% 0 4%">
+      <input type="hidden" v-model="role.form.id"/>
       <el-form-item label="角色名称：" prop="roleName">
-        <el-input v-model="data.roleForm.roleName" placeholder="请输入角色名称"/>
+        <el-input v-model="role.form.roleName" placeholder="请输入角色名称"/>
       </el-form-item>
       <el-form-item label="角色编码：" prop="roleCode">
-        <el-input v-model="data.roleForm.roleCode" placeholder="请输入角色编码"/>
+        <el-input v-model="role.form.roleCode" placeholder="请输入角色编码"/>
       </el-form-item>
     </el-form>
     <template #footer>
       <div class="dialog-footer" style="padding-right: 30px;">
-        <el-button @click="data.roleFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="saveRole">
-          保存
-        </el-button>
+        <el-button @click="role.formVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveRole">保存</el-button>
       </div>
     </template>
   </el-dialog>
-  <!-- 新增角色与编辑角色，对话框 结束-->
 
-  <!-- 角色菜单授权 开始-->
-  <el-dialog title="角色授权" v-model="data.rolePermissionFormVisible" width="35%" distory-on-close>
+  <!-- 角色权限对话框 -->
+  <el-dialog title="角色授权" v-model="permission.visible" width="35%">
     <template #header>
       <div class="dialog-header">
-        <el-button @click="data.rolePermissionFormVisible = false">取消</el-button>
+        <el-button @click="permission.visible = false">取消</el-button>
         <el-button type="info" @click="selectAll">全选</el-button>
         <el-button type="primary" @click="saveRolePermission">保存</el-button>
       </div>
     </template>
-    <el-form :model="data.rolePermissionForm" label-width="auto" style="padding: 0 5% 0 4%">
-      <input type="hidden" v-model="data.rolePermissionForm.roleId"/>
-      <div class="scrollable-container" v-loading="loading">
+    <el-form label-width="auto" style="padding: 0 5% 0 4%">
+      <input type="hidden" v-model="permission.roleId"/>
+      <div class="scrollable-container" v-loading="loading.value">
         <el-tree
-            style="max-width: 600px;"
-            :data="data.permissionTree"
+            :data="permission.tree"
             show-checkbox
             node-key="id"
             default-expand-all
             auto-expand-parent
-            :props="data.defaultProps"
-            :default-checked-keys="data.defaultCheckedKeys"
+            :props="permission.defaultProps"
+            :default-checked-keys="permission.checkedKeys"
             ref="treeRef"
         >
           <template #default="{ node, data }">
             <div class="custom-tree-node">
-          <span>
-            <!-- 动态显示图标 -->
-            <el-icon v-if="data.icon">
-              <component :is="data.icon"/>
-            </el-icon>
-            {{ node.label }}
-          </span>
+              <span>
+                <el-icon v-if="data.icon">
+                  <component :is="data.icon"/>
+                </el-icon>
+                {{ node.label }}
+              </span>
             </div>
           </template>
         </el-tree>
       </div>
     </el-form>
   </el-dialog>
-  <!-- 角色菜单授权 结束-->
 
 </template>
 
 <script setup>
-import {reactive, ref} from 'vue'
-import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
-import {Search} from "@element-plus/icons-vue";
-import request from "@/utils/request.js";
-import {trim} from "@/utils/common.js";
+import { reactive, ref } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Search } from '@element-plus/icons-vue'
+import request from '@/utils/request.js'
+import { trim } from '@/utils/common.js'
+
 const loading = ref(true)
 
-const data = reactive({
-  roleCode: null,
+// 🧩 角色相关状态
+const role = reactive({
   roleName: null,
+  roleCode: null,
   pageNum: 1,
   pageSize: 10,
   total: 0,
-  roles: [],
-  roleFormVisible: false,
-  roleForm: {},
-  roleFormRules: {
-    roleName: [
-      {required: true, message: '请输入角色名称', trigger: 'blur'},
-    ],
-    roleCode: [
-      {required: true, message: '请输入角色编码', trigger: 'blur'}
-    ]
-  },
-  rolePermissionForm: [],
-  rolePermissionFormVisible: false,
-  defaultProps: {
-    children: 'children',
-    label: 'label',
-  },
-  permissionTree: []
+  list: [],
+  formVisible: false,
+  form: {},
+  rules: {
+    roleName: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
+    roleCode: [{ required: true, message: '请输入角色编码', trigger: 'blur' }]
+  }
 })
 
-const roleFormRef = ref();
+// 🧩 权限相关状态
+const permission = reactive({
+  visible: false,
+  roleId: '',
+  tree: [],
+  checkedKeys: [],
+  defaultProps: {
+    children: 'children',
+    label: 'label'
+  }
+})
 
+const roleFormRef = ref()
+const treeRef = ref()
 
+// 加载角色列表
 const loadRoles = () => {
-  request.post('/api/role/list?pageNum=' + data.pageNum, {
-    roleCode: trim(data.roleCode),
-    roleName: trim(data.roleName)
+  request.post('/api/role/list?pageNum=' + role.pageNum, {
+    roleCode: trim(role.roleCode),
+    roleName: trim(role.roleName)
   }).then(res => {
     if (res.code === 200) {
-      data.roles = res.data.list;
-      data.total = res.data.total;
-      data.pageSize = res.data.pageSize;
-      data.pageNum = res.data.pageNum;
+      role.list = res.data.list
+      role.total = res.data.total
+      role.pageSize = res.data.pageSize
+      role.pageNum = res.data.pageNum
     }
-  });
+  })
 }
+loadRoles()
 
-loadRoles();
-
-
+// 搜索
 const search = () => {
-  data.pageNum = 1;
-  loadRoles();
+  role.pageNum = 1
+  loadRoles()
 }
 
+// 显示新增角色弹窗
 const showAddRoleDialog = () => {
-  data.roleFormVisible = true;
-  data.roleForm = {};
-  data.roleForm.title = '新增角色';
+  role.formVisible = true
+  role.form = { title: '新增角色' }
 }
 
+// 保存角色
 const saveRole = () => {
   roleFormRef.value.validate((valid) => {
     if (valid) {
-      let role = {
-        id: trim(data.roleForm.id),
-        roleName: trim(data.roleForm.roleName),
-        roleCode: trim(data.roleForm.roleCode)
+      const payload = {
+        id: trim(role.form.id),
+        roleName: trim(role.form.roleName),
+        roleCode: trim(role.form.roleCode)
       }
-      request.post('/api/role/save', role).then(res => {
+      request.post('/api/role/save', payload).then(res => {
         if (res.code === 200) {
-          search();
-          data.roleFormVisible = false;
-          ElMessage.success('保存角色成功!');
+          search()
+          role.formVisible = false
+          ElMessage.success('保存角色成功!')
         } else {
-          ElMessage.error(res.msg);
+          ElMessage.error(res.msg)
         }
-      });
+      })
     }
-  });
-}
-
-const showEditRoleDialog = (role) => {
-  data.roleForm = [];
-  data.roleForm.title = '编辑角色';
-  data.roleForm.id = role.id;
-  data.roleForm.roleName = role.roleName;
-  data.roleForm.roleCode = role.roleCode;
-  data.roleFormVisible = true;
-}
-
-const deleteRole = (role) => {
-  ElMessageBox.confirm(
-      '您确认删除名称为【' + role.roleName + '】的角色吗?',
-      '删除确认',
-      {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }
-  ).then(() => {
-    request.post('/api/role/delete/' + role.id).then(res => {
-      if (res.code === 200) {
-        search();
-        ElMessage.success('删除角色成功!');
-      } else {
-        ElMessage.error(res.msg);
-      }
-    });
-  }).catch(() => {
   })
 }
 
-// 转换树数据结构
-function convertToTreeView(nodes, checkedIds = []) {
-  return nodes.map((permission) => {
-    const node = {
-      id: permission.id,
-      label: permission.permissionName,
-      parentPermissionCode: permission.parentPermissionCode,
-      permissionName: permission.permissionName,
-      permissionCode: permission.permissionCode,
-      icon: permission.icon,
-      url: permission.url,
-      lev: permission.lev,
-      sort: permission.sort,
-      children: permission.children ? convertToTreeView(permission.children, checkedIds) : null,
-    };
-    if (permission.checked === 1) {
-      checkedIds.push(permission.id);
-    }
-    return node;
-  });
-}
-
-const showRolePermissionDialog = (role) => {
-  console.log(role);
-  data.permissionTree = [];
-  const checkedIds = [];
-  data.rolePermissionForm.roleId = role.id;
-  data.rolePermissionFormVisible = true;
-  loading.value = true;
-  request.post('/api/role_permission/' + role.id).then(res => {
-    if (res.code === 200) {
-      data.permissionTree = convertToTreeView(res.data, checkedIds);
-      data.defaultCheckedKeys = checkedIds; // 设置默认选中的节点ID
-      loading.value = false;
-    } else {
-      ElMessage.error(res.msg);
-    }
-  }).catch(error => {
-    console.error('Failed to load permission tree:', error);
-    ElMessage.error('加载权限树失败');
-  });
-}
-
-const treeRef = ref(null); // 创建对 el-tree 组件的引用
-
-const selectAll = () => {
-  if (treeRef.value) {
-    // 获取所有节点
-    const allNodes = data.permissionTree.reduce((acc, node) => acc.concat(node, node.children ? node.children : []), []);
-    // 使用 setCheckedNodes 方法选中所有节点
-    treeRef.value.setCheckedNodes(allNodes);
+// 编辑角色
+const showEditRoleDialog = (item) => {
+  role.form = {
+    title: '编辑角色',
+    id: item.id,
+    roleName: item.roleName,
+    roleCode: item.roleCode
   }
+  role.formVisible = true
 }
 
-const saveRolePermission = () => {
-  console.log(data.rolePermissionForm);
-  if (treeRef.value) {
-    // 获取所有完全选中的节点的 id
-    const checkedIds = treeRef.value.getCheckedKeys();
-    // 获取所有部分选中的节点的 id
-    const halfCheckedIds = treeRef.value.getHalfCheckedKeys();
-
-    // 合并两个列表并确保所有 id 都是字符串形式
-    const allSelectedIds = [...checkedIds, ...halfCheckedIds].map(id => id.toString());
-
-    console.log('完全选中的节点ID:', checkedIds);
-    console.log('部分选中的节点ID:', halfCheckedIds);
-    console.log('所有选中的节点ID:', allSelectedIds);
-
-    // 在这里处理保存逻辑，比如发送请求到服务器
-    // 示例：发送包含所有选中节点的数据到后端
-    request.post('/api/role_permission/save', {
-      roleId: data.rolePermissionForm.roleId,
-      permissionIdList: allSelectedIds
-    }).then(res => {
+// 删除角色
+const deleteRole = (item) => {
+  ElMessageBox.confirm(`确认删除角色【${item.roleName}】？`, '删除确认', {
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    request.post(`/api/role/delete/${item.id}`).then(res => {
       if (res.code === 200) {
-        ElMessage.success('保存权限成功!');
-        data.rolePermissionFormVisible = false;
+        search()
+        ElMessage.success('删除角色成功!')
       } else {
-        ElMessage.error(res.msg);
+        ElMessage.error(res.msg)
       }
-    });
-  }
-
+    })
+  })
 }
 
+// 构建权限树
+function buildPermissionTree(permissions = [], checkedList = []) {
+  return permissions.map(p => {
+    const node = {
+      id: p.id,
+      label: p.permissionName,
+      parentPermissionCode: p.parentPermissionCode,
+      permissionName: p.permissionName,
+      permissionCode: p.permissionCode,
+      icon: p.icon,
+      url: p.url,
+      lev: p.lev,
+      sort: p.sort,
+      children: p.children ? buildPermissionTree(p.children, checkedList) : undefined
+    }
+    if (p.checked === 1) checkedList.push(p.id)
+    return node
+  })
+}
+
+// 获取所有节点ID
+function getAllNodeIds(nodes) {
+  let ids = []
+  nodes.forEach(node => {
+    ids.push(node.id)
+    if (node.children) {
+      ids = ids.concat(getAllNodeIds(node.children))
+    }
+  })
+  return ids
+}
+
+// 打开权限弹窗
+const showRolePermissionDialog = (item) => {
+  permission.tree = []
+  permission.checkedKeys = []
+  permission.roleId = item.id
+  permission.visible = true
+  loading.value = true
+
+  request.post(`/api/role_permission/${item.id}`).then(res => {
+    if (res.code === 200) {
+      permission.tree = buildPermissionTree(res.data, permission.checkedKeys)
+      loading.value = false
+    } else {
+      ElMessage.error(res.msg)
+    }
+  }).catch(err => {
+    console.error('加载权限失败:', err)
+    ElMessage.error('加载权限失败')
+  })
+}
+
+// 全选
+const selectAll = () => {
+  const allIds = getAllNodeIds(permission.tree)
+  treeRef.value.setCheckedKeys(allIds)
+}
+
+// 保存权限
+const saveRolePermission = () => {
+  const checkedIds = treeRef.value.getCheckedKeys()
+  const halfCheckedIds = treeRef.value.getHalfCheckedKeys()
+  const allSelectedIds = [...checkedIds, ...halfCheckedIds].map(id => id.toString())
+
+  request.post('/api/role_permission/save', {
+    roleId: permission.roleId,
+    permissionIdList: allSelectedIds
+  }).then(res => {
+    if (res.code === 200) {
+      ElMessage.success('权限保存成功！')
+      permission.visible = false
+    } else {
+      ElMessage.error(res.msg)
+    }
+  })
+}
 </script>
+
 <style scoped>
 .scrollable-container {
-  max-height: 500px; /* 根据需要调整这个值 */
+  max-height: 500px;
   overflow-y: auto;
 }
 </style>
