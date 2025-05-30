@@ -73,8 +73,8 @@
           style="width: 100%"
           :header-cell-style="{ background: '#f5f7fa', color: '#606266' }"
       >
-        <el-table-column prop="username" label="账号" min-width="120" fixed="left"/>
-        <el-table-column prop="realName" label="姓名" min-width="100"/>
+        <el-table-column prop="username" label="账号" min-width="100" fixed="left"/>
+        <el-table-column prop="realName" label="姓名" min-width="80"/>
         <el-table-column prop="email" label="邮箱" min-width="180">
           <template #default="{ row }">
             <el-link type="primary" :href="`mailto:${row.email}`" v-if="row.email">
@@ -83,19 +83,19 @@
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="statusDesc" label="用户状态" width="100">
+        <el-table-column prop="statusDesc" label="用户状态" width="80">
           <template #default="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'danger'">
               {{ row.statusDesc }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="roleName" label="所属角色" width="120"/>
-        <el-table-column prop="createTime" label="创建时间" width="160"/>
-        <el-table-column prop="createUserRealName" label="创建人" width="100"/>
-        <el-table-column prop="updateTime" label="更新时间" width="160"/>
-        <el-table-column prop="updateUserRealName" label="更新人" width="100"/>
-        <el-table-column prop="lastLoginTime" label="最后登录时间" width="160"/>
+        <el-table-column prop="roleName" label="所属角色" width="100"/>
+        <el-table-column prop="createTime" label="创建时间" width="120"/>
+        <el-table-column prop="createUserRealName" label="创建人" width="80"/>
+        <el-table-column prop="updateTime" label="更新时间" width="120"/>
+        <el-table-column prop="updateUserRealName" label="更新人" width="80"/>
+        <el-table-column prop="lastLoginTime" label="最后登录时间" width="120"/>
         <el-table-column label="操作" fixed="right" width="150">
           <template #default="scope">
             <el-space>
