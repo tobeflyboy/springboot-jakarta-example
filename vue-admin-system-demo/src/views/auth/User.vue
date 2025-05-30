@@ -3,7 +3,7 @@
     <!-- 搜索区域 -->
     <el-card class="search-card" shadow="never">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="3">
           <el-input
               v-model="data.username"
               placeholder="账号，精准查询"
@@ -17,15 +17,21 @@
             </template>
           </el-input>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="3">
           <el-input
               v-model="data.realName"
               placeholder="姓名，模糊查询"
               clearable
               @keyup.enter="search"
-          />
+          >
+            <template #prefix>
+              <el-icon>
+                <Search/>
+              </el-icon>
+            </template>
+          </el-input>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="3">
           <el-select
               v-model="data.status"
               placeholder="用户状态"
@@ -40,7 +46,7 @@
             />
           </el-select>
         </el-col>
-        <el-col :span="6" style="display: flex; align-items: center;">
+        <el-col :span="3" style="display: flex; align-items: center;">
           <el-button type="primary" icon="Search" @click="search">搜索</el-button>
           <el-button @click="resetSearch">重置</el-button>
         </el-col>

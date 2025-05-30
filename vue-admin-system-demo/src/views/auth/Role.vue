@@ -1,59 +1,101 @@
 <template>
-
   <!-- 搜索框 -->
   <div class="card" style="margin-top: 5px; margin-bottom: 5px;">
-    <el-input v-model.trim="role.roleName" placeholder="角色名称，模糊查询" :prefix-icon="Search" style="width: 180px; margin-right: 5px;"></el-input>
-    <el-input v-model.trim="role.roleCode" placeholder="角色编码，精准查询" :prefix-icon="Search" style="width: 180px; margin-right: 5px;"></el-input>
-    <el-button type="primary" icon="Search" @click="search">搜索</el-button>
+    <el-card class="search-card" shadow="never">
+      <el-row :gutter="20">
+        <el-col :span="3">
+          <el-input
+              v-model.trim="data.roleName"
+              placeholder="角色名称，模糊查询"
+              clearable
+              @keyup.enter="search"
+          >
+            <template #prefix>
+              <el-icon>
+                <Search/>
+              </el-icon>
+            </template>
+          </el-input>
+        </el-col>
+        <el-col :span="3">
+          <el-input
+              v-model.trim="data.roleCode"
+              placeholder="角色编码，精准查询"
+              clearable
+              @keyup.enter="search"
+          >
+            <template #prefix>
+              <el-icon>
+                <Search/>
+              </el-icon>
+            </template>
+          </el-input>
+        </el-col>
+        <el-col :span="3" style="display: flex; align-items: center;">
+          <el-button type="primary" icon="Search" @click="search">搜索</el-button>
+          <el-button @click="resetSearch">重置</el-button>
+        </el-col>
+      </el-row>
+    </el-card>
   </div>
 
   <!-- 操作按钮 -->
   <div class="card" style="margin-bottom: 5px;">
-    <el-button type="success" @click="showAddRoleDialog">新增角色</el-button>
+    <el-card class="toolbar-card" shadow="never">
+      <el-space>
+        <el-button type="success" icon="Plus" @click="showAddRoleDialog">新增角色</el-button>
+      </el-space>
+    </el-card>
   </div>
 
   <!-- 查询内容 -->
   <div class="card" style="margin-bottom: 5px;">
-    <el-table :data="role.list" style="width: 100%" :header-cell-style="{ color: '#333', backgroundColor: '#eaf4ff' }">
-      <el-table-column prop="roleName" label="角色名称"/>
-      <el-table-column prop="roleCode" label="角色编码"/>
-      <el-table-column prop="createTime" label="创建时间"/>
-      <el-table-column prop="createUserRealName" label="创建人"/>
-      <el-table-column label="操作" width="120">
-        <template #default="scope">
-          <el-button size="small" type="primary" @click="showEditRoleDialog(scope.row)" icon="Edit" circle title="编辑角色"></el-button>
-          <el-button size="small" type="primary" @click="showRolePermissionDialog(scope.row)" icon="Connection" circle title="菜单授权"></el-button>
-          <el-button size="small" type="danger" @click="deleteRole(scope.row)" icon="Delete" circle title="删除角色"></el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-card class="table-card" shadow="never">
+      <el-table :data="data.list" style="width: 100%" :header-cell-style="{ color: '#333', backgroundColor: '#eaf4ff' }">
+        <el-table-column prop="roleName" label="角色名称"/>
+        <el-table-column prop="roleCode" label="角色编码"/>
+        <el-table-column prop="createTime" label="创建时间"/>
+        <el-table-column prop="createUserRealName" label="创建人"/>
+        <el-table-column label="操作" width="120">
+          <template #default="scope">
+            <el-button size="small" type="primary" @click="showEditRoleDialog(scope.row)" icon="Edit" circle title="编辑角色"></el-button>
+            <el-button size="small" type="primary" @click="showRolePermissionDialog(scope.row)" icon="Connection" circle title="菜单授权"></el-button>
+            <el-button size="small" type="danger" @click="deleteRole(scope.row)" icon="Delete" circle title="删除角色"></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页控件 -->
+      <div class="card" style="margin-top: 20px;display: flex; justify-content: flex-end;">
+        <el-pagination
+            v-model:current-page="data.pageNum"
+            v-model:page-size="data.pageSize"
+            :page-sizes="[10, 20, 50, 100]"
+            :total="data.total"
+            layout="total, sizes, prev, pager, next, jumper"
+            background
+            @current-change="loadRoles"
+        />
+      </div>
+    </el-card>
   </div>
 
-  <!-- 分页控件 -->
-  <div class="card" style="margin-bottom: 5px;">
-    <el-pagination
-        v-model:current-page="role.pageNum"
-        :page-size="role.pageSize"
-        layout="total, prev, pager, next"
-        :total="role.total"
-        @current-change="loadRoles"
-    />
-  </div>
+
 
   <!-- 新增/编辑角色对话框 -->
-  <el-dialog :title="role.form.title" v-model="role.formVisible" width="35%">
-    <el-form ref="roleFormRef" :model="role.form" :rules="role.rules" label-width="auto" style="padding: 0 5% 0 4%">
-      <input type="hidden" v-model="role.form.id"/>
+  <el-dialog :title="data.form.title" v-model="data.formVisible" width="35%">
+    <el-form ref="roleFormRef" :model="data.form" :rules="data.rules" label-width="auto" style="padding: 0 5% 0 4%">
+      <input type="hidden" v-model="data.form.id"/>
       <el-form-item label="角色名称：" prop="roleName">
-        <el-input v-model="role.form.roleName" placeholder="请输入角色名称"/>
+        <el-input v-model="data.form.roleName" placeholder="请输入角色名称"/>
       </el-form-item>
       <el-form-item label="角色编码：" prop="roleCode">
-        <el-input v-model="role.form.roleCode" placeholder="请输入角色编码"/>
+        <el-input v-model="data.form.roleCode" placeholder="请输入角色编码"/>
       </el-form-item>
     </el-form>
     <template #footer>
       <div class="dialog-footer" style="padding-right: 30px;">
-        <el-button @click="role.formVisible = false">取消</el-button>
+        <el-button @click="data.formVisible = false">取消</el-button>
         <el-button type="primary" @click="saveRole">保存</el-button>
       </div>
     </template>
@@ -95,20 +137,20 @@
       </div>
     </el-form>
   </el-dialog>
-
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search } from '@element-plus/icons-vue'
+import {reactive, ref} from 'vue'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {Search} from '@element-plus/icons-vue'
 import request from '@/utils/request.js'
-import { trim } from '@/utils/common.js'
+import {trim} from '@/utils/common.js'
 
+// 加载状态
 const loading = ref(true)
 
-// 🧩 角色相关状态
-const role = reactive({
+// 角色数据
+const data = reactive({
   roleName: null,
   roleCode: null,
   pageNum: 1,
@@ -118,12 +160,12 @@ const role = reactive({
   formVisible: false,
   form: {},
   rules: {
-    roleName: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
-    roleCode: [{ required: true, message: '请输入角色编码', trigger: 'blur' }]
+    roleName: [{required: true, message: '请输入角色名称', trigger: 'blur'}],
+    roleCode: [{required: true, message: '请输入角色编码', trigger: 'blur'}]
   }
 })
 
-// 🧩 权限相关状态
+// 权限数据
 const permission = reactive({
   visible: false,
   roleId: '',
@@ -140,15 +182,15 @@ const treeRef = ref()
 
 // 加载角色列表
 const loadRoles = () => {
-  request.post('/api/role/list?pageNum=' + role.pageNum, {
-    roleCode: trim(role.roleCode),
-    roleName: trim(role.roleName)
+  request.post('/api/role/list?pageNum=' + data.pageNum, {
+    roleCode: trim(data.roleCode),
+    roleName: trim(data.roleName)
   }).then(res => {
     if (res.code === 200) {
-      role.list = res.data.list
-      role.total = res.data.total
-      role.pageSize = res.data.pageSize
-      role.pageNum = res.data.pageNum
+      data.list = res.data.list
+      data.total = res.data.total
+      data.pageSize = res.data.pageSize
+      data.pageNum = res.data.pageNum
     }
   })
 }
@@ -156,14 +198,21 @@ loadRoles()
 
 // 搜索
 const search = () => {
-  role.pageNum = 1
+  data.pageNum = 1
   loadRoles()
+}
+
+// 重置搜索
+const resetSearch = () => {
+  data.roleCode = ''
+  data.roleName = ''
+  search()
 }
 
 // 显示新增角色弹窗
 const showAddRoleDialog = () => {
-  role.formVisible = true
-  role.form = { title: '新增角色' }
+  data.formVisible = true
+  data.form = {title: '新增角色'}
 }
 
 // 保存角色
@@ -171,14 +220,14 @@ const saveRole = () => {
   roleFormRef.value.validate((valid) => {
     if (valid) {
       const payload = {
-        id: trim(role.form.id),
-        roleName: trim(role.form.roleName),
-        roleCode: trim(role.form.roleCode)
+        id: trim(data.form.id),
+        roleName: trim(data.form.roleName),
+        roleCode: trim(data.form.roleCode)
       }
       request.post('/api/role/save', payload).then(res => {
         if (res.code === 200) {
           search()
-          role.formVisible = false
+          data.formVisible = false
           ElMessage.success('保存角色成功!')
         } else {
           ElMessage.error(res.msg)
@@ -190,13 +239,13 @@ const saveRole = () => {
 
 // 编辑角色
 const showEditRoleDialog = (item) => {
-  role.form = {
+  data.form = {
     title: '编辑角色',
     id: item.id,
     roleName: item.roleName,
     roleCode: item.roleCode
   }
-  role.formVisible = true
+  data.formVisible = true
 }
 
 // 删除角色
