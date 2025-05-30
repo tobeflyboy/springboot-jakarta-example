@@ -38,8 +38,9 @@ server:
 spring:
   servlet:
     multipart:
-      enabled: true
+      # 单文件上传大小限制
       max-file-size: 10MB
+      # 请求的大小（文件总大小 + 其他表单数据）限制
       max-request-size: 10MB
   main:
     # 解决bean重复定义。设置为true，后定义bean覆盖之前定义相同名称的bean。springboot2.0.4开始支持，默认为rue；springboot2.1.0开始默认false
