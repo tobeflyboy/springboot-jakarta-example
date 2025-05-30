@@ -49,6 +49,9 @@ public class SysUser implements Serializable {
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer status;
 
+    @Schema(description = "状态描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "有效")
+    private String statusDesc;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED, example = "2025-04-14T13:20:50.987+08:00", type = "string", format = "date-time")
     private Date createTime;

@@ -241,7 +241,7 @@ public class AuthRestController {
                 writer.addHeaderAlias("username", "账号");
                 writer.addHeaderAlias("realName", "姓名");
                 writer.addHeaderAlias("email", "邮箱");
-                writer.addHeaderAlias("status", "状态");
+                writer.addHeaderAlias("statusDesc", "状态");
                 writer.addHeaderAlias("createTime", "创建时间");
                 writer.addHeaderAlias("createUserRealName", "创建人");
                 writer.addHeaderAlias("updateTime", "更新时间");

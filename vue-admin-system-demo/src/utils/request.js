@@ -26,10 +26,8 @@ request.interceptors.request.use(
 // response 拦截器
 request.interceptors.response.use(
     response => {
-        console.log('response:', response);
         // ✅ 如果是 blob 类型，直接返回原始数据，不再做任何处理
         if (response.config.responseType === 'blob') {
-            console.log('blob besponse:', response);
             return response; // 返回整个 response，包含 headers 等完整信息
         }
 

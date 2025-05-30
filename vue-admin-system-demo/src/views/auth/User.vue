@@ -284,6 +284,10 @@ import {ElMessage, ElMessageBox, ElLoading} from 'element-plus'
 import request from "@/utils/request.js"
 import {trim} from "@/utils/common.js"
 
+// 创建独立的表单引用
+const currentFormRef = ref(null);
+const resetPwdFormRef = ref(null);
+
 // 使用更清晰的状态管理
 const data = reactive({
   // 搜索条件
@@ -310,7 +314,6 @@ const data = reactive({
 
   // 当前表单
   currentForm: {},
-  currentFormRef: null,
 
   // 重置密码表单
   resetPwdForm: {},
@@ -376,8 +379,6 @@ const data = reactive({
     ]
   }
 })
-
-const resetPwdFormRef = ref()
 
 // 初始化数据
 const initData = async () => {
@@ -453,6 +454,50 @@ const handleSizeChange = (size) => {
   load()
 }
 
+// 提交表单（新增/编辑）
+const submitForm = async () => {
+  try {
+    console.log('submitForm开始')
+
+    // 使用独立的表单引用
+    await currentFormRef.value.validate()
+
+    console.log('表单验证通过')
+    console.log('当前表单数据:', data.currentForm)
+
+    const isAdd = data.addUserFormVisible
+    const api = isAdd ? '/api/user/add' : '/api/user/edit'
+    const params = isAdd
+        ? {
+          username: trim(data.currentForm.username),
+          realName: trim(data.currentForm.realName),
+          password: trim(data.currentForm.password),
+          email: trim(data.currentForm.email),
+          roleId: trim(data.currentForm.roleId)
+        }
+        : {
+          userId: trim(data.currentForm.userId),
+          status: trim(data.currentForm.status),
+          email: trim(data.currentForm.email),
+          roleId: trim(data.currentForm.roleId)
+        }
+
+    console.log('提交参数:', params);
+
+    const res = await request.post(api, params)
+    if (res.code === 200) {
+      ElMessage.success(`${isAdd ? '新增' : '编辑'}用户成功`)
+      data.dialogVisible = false
+      load()
+    } else {
+      ElMessage.error(res.msg)
+    }
+  } catch (error) {
+    // 验证失败
+    console.error('表单验证失败:', error)
+  }
+}
+
 // 显示新增用户对话框
 const showAddUserDialog = () => {
   data.addUserFormVisible = true
@@ -468,8 +513,9 @@ const showAddUserDialog = () => {
   }
 
   nextTick(() => {
-    if (data.currentFormRef) {
-      data.currentFormRef.resetFields()
+    if (currentFormRef.value) {
+      currentFormRef.value.resetFields()
+      console.log('表单已重置')
     }
   })
 }
@@ -489,45 +535,11 @@ const showEditUserDialog = (user) => {
   }
 
   nextTick(() => {
-    if (data.currentFormRef) {
-      data.currentFormRef.resetFields()
+    if (currentFormRef.value) {
+      currentFormRef.value.resetFields()
+      console.log('表单已重置')
     }
   })
-}
-
-// 提交表单（新增/编辑）
-const submitForm = async () => {
-  try {
-    await data.currentFormRef.validate()
-
-    const isAdd = data.addUserFormVisible
-    const api = isAdd ? '/api/user/add' : '/api/user/edit'
-    const params = isAdd
-        ? {
-          username: trim(data.currentForm.username),
-          realName: trim(data.currentForm.realName),
-          password: trim(data.currentForm.password),
-          email: trim(data.currentForm.email),
-          roleId: trim(data.currentForm.roleId)
-        }
-        : {
-          userId: trim(data.currentForm.userId),
-          status: trim(data.currentForm.status),
-          email: trim(data.currentForm.email),
-          roleId: trim(data.currentForm.roleId)
-        }
-
-    const res = await request.post(api, params)
-    if (res.code === 200) {
-      ElMessage.success(`${isAdd ? '新增' : '编辑'}用户成功`)
-      data.dialogVisible = false
-      load()
-    } else {
-      ElMessage.error(res.msg)
-    }
-  } catch (error) {
-    // 验证失败
-  }
 }
 
 // 显示重置密码对话框
