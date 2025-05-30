@@ -27,7 +27,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -228,7 +227,6 @@ public class AuthRestController {
     }
 
     @Operation(summary = "【用户】Excel导出接口", description = "用户Excel导出接口")
-    @CrossOrigin(origins = "*")
     @GetMapping("/api/user/export")
     public void userExport(HttpServletResponse response, SysUser user) {
         try {
