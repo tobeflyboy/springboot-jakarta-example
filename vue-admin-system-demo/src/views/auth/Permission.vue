@@ -348,6 +348,7 @@ const remove = (node, row) => {
   gap: 8px;
   margin-left: 12px;
 }
+
 .icon-dialog {
   .el-dialog__body {
     padding: 0;
