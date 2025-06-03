@@ -1,55 +1,76 @@
 <template>
-  <div class="permission-page">
+  <el-card shadow="hover" class="main-container">
     <!-- 工具栏 -->
-    <el-card class="toolbar" shadow="never">
-      <el-button type="success" @click="addPermissionDialog">新增一级菜单</el-button>
-    </el-card>
+    <el-button type="success" @click="addPermissionDialog" class="primary-btn">
+      <el-icon>
+        <Plus/>
+      </el-icon>
+      <span>新增一级菜单</span>
+    </el-button>
+    <el-divider/>
 
     <!-- 权限树 -->
-    <el-card class="tree-container" shadow="hover">
-      <el-tree
-          :data="data.permissionTree"
-          node-key="id"
-          default-expand-all
-          :props="data.defaultProps"
-      >
-        <template #default="{ node, data }">
-          <span class="tree-node-label">
-            <el-icon v-if="data.icon">
-              <component :is="data.icon" />
+    <el-tree
+        :data="data.permissionTree"
+        node-key="id"
+        default-expand-all
+        :props="data.defaultProps"
+        class="custom-tree"
+    >
+      <template #default="{ node, data }">
+        <div class="tree-node-content">
+          <div class="tree-node-label">
+            <el-icon v-if="data.icon" class="node-icon">
+              <component :is="data.icon"/>
             </el-icon>
-            {{ node.label }}
-          </span>
-          <div class="tree-node-actions">
-            <el-button link type="primary" @click="showAddPermissionDialog(data)">添加</el-button>
-            <el-button link type="primary" @click="edit(data)">编辑</el-button>
-            <el-button link type="danger" @click="remove(node, data)">删除</el-button>
+            <span class="node-text">{{ node.label }}</span>
           </div>
-        </template>
-      </el-tree>
-    </el-card>
+
+          <div class="tree-node-actions-wrapper">
+            <div class="tree-node-actions">
+              <el-button link type="primary" @click="showAddPermissionDialog(data)">
+                <el-icon>
+                  <Plus/>
+                </el-icon>
+              </el-button>
+              <el-button link type="primary" @click="edit(data)">
+                <el-icon>
+                  <Edit/>
+                </el-icon>
+              </el-button>
+              <el-button link type="danger" @click="remove(node, data)">
+                <el-icon>
+                  <Delete/>
+                </el-icon>
+              </el-button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </el-tree>
 
     <!-- 菜单表单弹窗 -->
     <el-dialog
         :title="permissionForm.title"
         v-model="permissionFormVisible"
-        width="35%"
+        width="40%"
         center
         destroy-on-close
+        class="custom-dialog"
     >
-      <el-form ref="formRef" :model="permissionForm" :rules="rules" label-width="120px">
-        <input type="hidden" v-model="permissionForm.id" />
+      <el-form ref="formRef" :model="permissionForm" :rules="rules" label-width="130px">
+        <input type="hidden" v-model="permissionForm.id"/>
 
         <el-form-item label="菜单名称：" prop="permissionName">
-          <el-input v-model="permissionForm.permissionName" placeholder="请输入菜单名称" />
+          <el-input v-model="permissionForm.permissionName" placeholder="请输入菜单名称"/>
         </el-form-item>
 
         <el-form-item label="菜单编码：" prop="permissionCode">
-          <el-input v-model="permissionForm.permissionCode" placeholder="请输入菜单编码" />
+          <el-input v-model="permissionForm.permissionCode" placeholder="请输入菜单编码"/>
         </el-form-item>
 
         <el-form-item label="父菜单编码：" prop="parentPermissionCode">
-          <el-input v-model="permissionForm.parentPermissionCode" readonly />
+          <el-input v-model="permissionForm.parentPermissionCode" readonly/>
         </el-form-item>
 
         <el-form-item label="图标：" prop="icon">
@@ -60,23 +81,24 @@
               @click="showIconDialog = true"
           />
           <div v-if="permissionForm.icon" style="margin-top: 8px;">
-            <el-icon><component :is="permissionForm.icon" /></el-icon>
+            <el-icon>
+              <component :is="permissionForm.icon"/>
+            </el-icon>
           </div>
         </el-form-item>
 
         <el-form-item label="菜单URL：" prop="url">
-          <el-input v-model="permissionForm.url" placeholder="请输入菜单URL" />
+          <el-input v-model="permissionForm.url" placeholder="请输入菜单URL"/>
         </el-form-item>
 
         <el-form-item label="菜单级别：">
-          <el-input v-model.number="permissionForm.lev" type="number" readonly />
+          <el-input v-model.number="permissionForm.lev" type="number" readonly/>
         </el-form-item>
 
         <el-form-item label="排序序号：">
-          <el-input v-model.number="permissionForm.sort" type="number" />
+          <el-input v-model.number="permissionForm.sort" type="number"/>
         </el-form-item>
       </el-form>
-
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="permissionFormVisible = false">取消</el-button>
@@ -86,26 +108,38 @@
     </el-dialog>
 
     <!-- 图标选择弹窗 -->
-    <el-dialog title="选择图标" v-model="showIconDialog" width="60%">
-      <el-input v-model="iconSearch" placeholder="输入关键字搜索图标" style="margin-bottom: 10px;" clearable />
-      <div class="icon-list">
+    <el-dialog title="选择图标" v-model="showIconDialog" width="80%" class="icon-dialog">
+      <el-input
+          v-model="iconSearch"
+          placeholder="搜索图标..."
+          clearable
+          prefix-icon="Search"
+          class="icon-search-input"
+      />
+
+      <div class="icon-grid">
         <div
             v-for="(icon, index) in filteredIcons"
             :key="index"
             class="icon-item"
+            :class="{ 'selected': permissionForm.icon === icon.name }"
             @click="selectIcon(icon.name)"
         >
-          <el-icon><component :is="icon.component" /></el-icon>
-          <span>{{ icon.name }}</span>
+          <div class="icon-preview">
+            <el-icon :size="28">
+              <component :is="icon.component"/>
+            </el-icon>
+          </div>
+          <span class="icon-name">{{ icon.name }}</span>
         </div>
       </div>
     </el-dialog>
-  </div>
+  </el-card>
 </template>
 
 <script setup>
-import { reactive, ref, computed, onMounted } from 'vue'
-import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
+import {reactive, ref, computed, onMounted} from 'vue'
+import {ElMessage, ElMessageBox, ElNotification} from 'element-plus'
 import request from '@/utils/request.js'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -136,9 +170,9 @@ const permissionForm = ref({
 })
 
 const rules = {
-  permissionName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-  permissionCode: [{ required: true, message: '请输入菜单编码', trigger: 'blur' }],
-  icon: [{ required: true, message: '请选择图标', trigger: 'change' }]
+  permissionName: [{required: true, message: '请输入菜单名称', trigger: 'blur'}],
+  permissionCode: [{required: true, message: '请输入菜单编码', trigger: 'blur'}],
+  icon: [{required: true, message: '请选择图标', trigger: 'change'}]
 }
 
 // ====================== 图标相关 ======================
@@ -264,52 +298,120 @@ const remove = (node, row) => {
 }
 </script>
 
-<style lang="scss" scoped>
-.permission-page {
-  padding: 20px;
+<style scoped>
+/* 主题变量 */
+:root {
+  --primary-color: #409EFF;
+  --primary-light: #ecf5ff;
+  --text-color: #303133;
+  --border-color: #ebeef5;
 }
 
-.toolbar {
-  margin-bottom: 10px;
+/* 主容器 */
+.main-container {
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.tree-container {
-  padding: 10px;
+/* 树节点 */
+.tree-node-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 12px;
 }
 
 .tree-node-label {
   display: flex;
   align-items: center;
-  gap: 6px;
-}
+  gap: 8px;
+  flex-grow: 1;
 
-.tree-node-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.icon-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 10px;
-}
-
-.icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #f5f7fa;
+  .node-icon {
+    color: var(--primary-color);
   }
 
-  span {
+  .node-text {
+    font-weight: 500;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.tree-node-actions-wrapper {
+  flex-shrink: 0;
+  width: 160px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: 12px;
+}
+.icon-dialog {
+  .el-dialog__body {
+    padding: 0;
+  }
+
+  .icon-search-input {
+    padding: 15px 20px 0;
+
+    .el-input__wrapper {
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px var(--border-color) inset;
+    }
+  }
+
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    padding: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .icon-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    border: 2px solid transparent;
+
+    &:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+
+      .icon-preview {
+        transform: scale(1.2);
+      }
+    }
+
+    &.selected {
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+
+      .icon-preview {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .icon-preview {
+    margin-bottom: 8px;
+    color: #606266;
+    transition: all 0.2s;
+    display: inline-flex;
+  }
+
+  .icon-name {
     font-size: 12px;
-    margin-top: 4px;
+    color: #909399;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>
