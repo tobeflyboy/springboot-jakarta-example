@@ -13,7 +13,7 @@ import {ElementPlusResolver} from 'unplugin-vue-components/resolvers' // 对应�
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    port: 3000 // 自定义的端口号，比如 3000
+    // port: 3000 // 默认端口5173，这里可以自定义的端口号，比如 3000
   },
   plugins: [
     vue(),
