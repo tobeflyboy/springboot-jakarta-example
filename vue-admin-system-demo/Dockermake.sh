@@ -10,5 +10,5 @@ docker build --no-cache \
   --build-arg BUILD_COMMIT=${build_commit} \
   --build-arg BUILD_VERSION=${build_version} \
   -f Dockerfile -t your-company.harbor.com/admin-system/vue-admin-system-demo:${build_version} .
-docker push your-company.harbor.com/admin-system/vue-admin-system-demo:${build_version}
-docker rmi your-company.harbor.com/admin-system/vue-admin-system-demo:${build_version}
+#docker push your-company.harbor.com/admin-system/vue-admin-system-demo:${build_version}
+#docker rmi your-company.harbor.com/admin-system/vue-admin-system-demo:${build_version}

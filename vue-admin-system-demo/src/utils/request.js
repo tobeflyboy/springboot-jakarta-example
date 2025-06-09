@@ -3,7 +3,7 @@ import {ElMessage} from "element-plus";
 import router from '@/router';
 
 const request = axios.create({
-    baseURL: "http://nutcracker.com:8080/demo",
+    baseURL: import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_API_CONTENT_PATH,
     timeout: 30000
 });
 

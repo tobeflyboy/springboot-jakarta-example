@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>springboot-jakarta-jwt-demo</artifactId>
+    <version>2025.04.09-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>springboot-jakarta-jwt-demo</name>
+    <description>springboot-jakarta-jwt-demo</description>
 
     <dependencies>
 

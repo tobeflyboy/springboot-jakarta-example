@@ -32,6 +32,6 @@ WORKDIR /opt/app
 
 # 传包
 COPY target/$JAR .
-#COPY $JAR .
+COPY src/main/resources/db/ ./db
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8 -DLANG=en_US.UTF-8 -Djava.security.egd=file:/dev/./urandom -jar $JAR"]

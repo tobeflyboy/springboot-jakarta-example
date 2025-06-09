@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>springboot-jakarta-example-demo</artifactId>
+    <version>2025.04.09-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>springboot-jakarta-example-demo</name>
+    <description>springboot-jakarta-example-demo</description>
 
     <dependencies>
 
