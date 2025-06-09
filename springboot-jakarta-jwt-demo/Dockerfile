@@ -1,8 +1,12 @@
 # 镜像模板
-FROM m.daocloud.io/docker.io/library/nginx:latest
+FROM m.daocloud.io/docker.io/library/eclipse-temurin:17-jre-alpine
+
+# 环境变量设置
+ENV TZ=Asia/Shanghai \
+    JAR=springboot-jakarta-jwt-demo.jar
 
 # 定义Label接收的变量
-ARG BUILD_DATE BUILD_BRANCH BUILD_COMMIT
+ARG BUILD_DATE BUILD_BRANCH BUILD_COMMIT BUILD_VERSION
 
 # 添加标签
 # maintainer 作者
@@ -20,10 +24,14 @@ LABEL maintainer="胡桃夹子" \
 #   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
 #   --build-arg BUILD_BRANCH=$(git branch --show-current) \
 #   --build-arg BUILD_COMMIT=$(git rev-parse HEAD | tr -d '\n') \
-#   --build-arg BUILD_VERSION=$(node -p "require('./package.json').version") \
-#   -f Dockerfile -t your-company.harbor.com/admin-system/vue-admin-system-demo:0.0.1 .
+#   --build-arg BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) \
+#   -f Dockerfile -t your-company.harbor.com/admin-system/springboot-jakarta-jwt-demo:0.0.1-SNAPSHOT .
 
+# 指定默认目录
+WORKDIR /opt/app
 
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+# 传包
+COPY target/$JAR .
+#COPY $JAR .
 
-COPY dist /usr/share/nginx/html/
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8 -DLANG=en_US.UTF-8 -Djava.security.egd=file:/dev/./urandom -jar $JAR"]
