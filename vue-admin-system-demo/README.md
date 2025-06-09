@@ -69,7 +69,7 @@ Vue-cli 是 Vue.js 的客户端工具。通过 Vue-cli 可以实现 Vue 项目�
 
 这里以vue3.x为例，先安装node环境，可以借助nvm插件来安装node，方便后期切换node版本。
 
-nodejs必须 18.3 以上版本，这是vue官网的要求。
+vue需要18.3+版本的nodejs，Vite 需要 20.19+, 22.12+版本的nodejs，所以这里使用的是20.19.2版本。
 
 [nvm安装与学习](https://blog.csdn.net/wangxin_wangxin/article/details/132355048)
 
@@ -176,59 +176,32 @@ npm create vue@latest
 工程创建完之后，结构如下：
 
 > **vue-admin-system**
->
 > |-- README.md
->
 > |-- index.html
->
 > |-- jsconfig.json
->
 > |-- node_modules
->
 > |  |-- \*\*\*\*\*\*
->
 > |-- package-lock.json
->
 > |-- package.json
->
 > |-- public
->
 > |  -- favicon.ico
->
 > |-- src
->
 > |  |-- App.vue
->
 > |  |-- assets
->
 > |  |  |-- base.css
->
 > |  |  |-- logo.svg
->
 > |  |  -- main.css
->
 > |  |-- components
->
 > |  |  |-- HelloWorld.vue
->
 > |  |  |-- TheWelcome.vue
->
 > |  |  |-- WelcomeItem.vue
->
 > |  |  -- icons
->
 > |  |-- main.js
->
 > |  |-- router
->
 > |  |  -- index.js
->
 > |  -- views
->
 > |    |-- AboutView.vue
->
 > |    -- HomeView.vue
->
 > -- vite.config.js
 
 在项目被创建后，通过以下步骤安装依赖并启动开发服务器：
@@ -330,59 +303,32 @@ app.mount('#app')
 结构如下：
 
 > **vue-admin-system**
->
 > |-- README.md
->
 > |-- index.html
->
 > |-- jsconfig.json
->
 > |-- node_modules
->
 > |  |-- \*\*\*\*\*\*
->
 > |-- package-lock.json
->
 > |-- package.json
->
 > |-- public
->
 > |  -- favicon.ico
->
 > |-- src
->
 > |  |-- App.vue
->
 > |  |-- assets
->
 > |  |  |-- base.css
->
 > |  |  |-- logo.svg
->
 > |  |  -- main.css
->
 > |  |-- components
->
 > |  |  |-- HelloWorld.vue
->
 > |  |  |-- TheWelcome.vue
->
 > |  |  |-- WelcomeItem.vue
->
 > |  |  -- icons
->
 > |  |-- main.js
->
 > |  |-- router
->
 > |  |  -- index.js
->
 > |  -- views
->
 > |    |-- AboutView.vue
->
 > |    -- HomeView.vue
->
 > -- vite.config.js
 
 ### 4.1 项目工程目录

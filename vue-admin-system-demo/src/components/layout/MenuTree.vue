@@ -27,7 +27,7 @@
 
 <script setup>
 
-const props = defineProps(['item']);
+defineProps(['item']);
 
 // 判断是否有子菜单
 const hasChildren = (item) => {
