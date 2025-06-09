@@ -191,6 +191,13 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>5.4.1</version>
             </dependency>
+
+            <!-- logstash -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>8.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
