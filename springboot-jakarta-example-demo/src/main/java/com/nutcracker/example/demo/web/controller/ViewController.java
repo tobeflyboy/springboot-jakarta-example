@@ -42,43 +42,6 @@ public class ViewController {
         return "topnav";
     }
 
-    @GetMapping("books/tengwanggexu")
-    public String booksTengwanggexu() {
-        log.debug("loading books/滕王阁序 ");
-        return "books/滕王阁序";
-    }
-
-    @GetMapping("books/qiangjinjiu")
-    public String booksQiangjinjiu() {
-        log.debug("loading books/将进酒 ");
-        return "books/将进酒";
-    }
-
-    @GetMapping("books/chushibiao")
-    public String booksChushibiao() {
-        log.debug("loading books/出师表");
-        return "books/出师表";
-    }
-
-    @GetMapping("books/yueyanglouji")
-    public String booksYueyanglouji() {
-        log.debug("loading books/岳阳楼记");
-        return "books/岳阳楼记";
-    }
-
-    @GetMapping("books/jiangchenzi1")
-    public String booksJiangchenzi1() {
-        log.debug("loading books/江城子·乙卯正月二十日夜记梦");
-        return "books/江城子·乙卯正月二十日夜记梦";
-    }
-    @GetMapping("books/jiangchenzi2")
-    public String booksJiangchenzi2() {
-        log.debug("loading books/江城子·密州出猎");
-        return "books/江城子·密州出猎";
-    }
-
-
-
     @GetMapping("view/sysconfig/setconfig")
     public String setConfig() {
         log.debug("loading view/sysconfig/setconfig ");

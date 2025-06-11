@@ -44,7 +44,6 @@ public class ViewController {
         return "topnav";
     }
 
-
     @GetMapping("view/sysconfig/setconfig")
     public String setConfig() {
         log.debug("loading view/sysconfig/setconfig ");
