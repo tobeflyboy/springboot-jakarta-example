@@ -44,6 +44,19 @@ public enum SysPermissionEnum {
     QXGL_ZSGL("qxgl_zsgl","角色管理","qxgl","/auth/role","Finished",1,2,1002),
     QXGL_YHGL("qxgl_yhgl","用户管理","qxgl","/auth/user","UserFilled",1,2,1003),
 
+    GUSHICI("gushici","古诗词",null,null,"Notebook",1,1,1100),
+    GUSHICI_TENGWANGGEXU("gushici_tengwanggexu","滕王阁序","gushici","/gushici/tengwanggexu","Tickets",1,2,1101),
+    GUSHICI_JIANGJINJIU("gushici_jiangjinjiu","将进酒","gushici","/gushici/jiangjinjiu","Tickets",1,2,1102),
+    GUSHICI_MANJIANGHONG("gushici_manjianghong","满江红·写怀","gushici","/gushici/manjianghong","Tickets",1,2,1103),
+    GUSHICI_YUEYANGLOUJI("gushici_yueyanglouji","岳阳楼记","gushici","/gushici/yueyanglouji","Tickets",1,2,1104),
+    GUSHICI_CHUSHIBIAO("gushici_chushibiao","出师表","gushici","/gushici/chushibiao","Tickets",1,2,1105),
+    GUSHICI_DUANGEXING("gushici_duangexing","短歌行","gushici","/gushici/duangexing","Tickets",1,2,1106),
+    GUSHICI_SONGDONGYANGMASHENGXU("gushici_songdongyangmashengxu","送东阳马生序","gushici","/gushici/songdongyangmashengxu","Tickets",1,2,1107),
+    GUSHICI_BEIMINGYOUYU("gushici_beimingyouyu","北冥有鱼","gushici","/gushici/beimingyouyu","Tickets",1,2,1108),
+    GUSHICI_DINGFENGBO("gushici_dingfengbo","定风波","gushici","/gushici/dingfengbo","Tickets",1,2,1109),
+    GUSHICI_JIANGCHENGZIYIMAOZHENGYUEERSHIRIYEJIMENG("gushici_jiangchengziyimaozhengyueershiriyejimeng","江城子·乙卯正月二十日夜记梦","gushici","/gushici/jiangchengziyimaozhengyueershiriyejimeng","Tickets",1,2,1110),
+    GUSHICI_JIANGCHENGZIMIZHOUCHULIE("gushici_jiangchengzimizhouchulie","江城子·密州出猎","gushici","/gushici/jiangchengzimizhouchulie","Tickets",1,2,1111),
+
     XTPZ("xtpz","系统配置",null,"/view/sysconfig/setconfig","Setting",1,1,1200),
 
     DXGL("dxgl","电商管理",null,"/view/tenant/tenant-list","ShoppingCart",1,1,1300),

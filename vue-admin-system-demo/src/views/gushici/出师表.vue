@@ -1,0 +1,3143 @@
+<template>
+  <div class="g_box">
+    <ul class="g_main text-c">
+      <li>
+        <span>
+          <div class="s_t">chū</div>
+          <div class="s_b">出</div>
+        </span>
+        <span>
+          <div class="s_t">shī</div>
+          <div class="s_b">师</div>
+        </span>
+        <span>
+          <div class="s_t">biǎo</div>
+          <div class="s_b">表</div>
+        </span>
+      </li>
+    </ul>
+    <ul class="g_main text-c">
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">〔</div>
+        </span>
+        <span>
+          <div class="s_t">sān</div>
+          <div class="s_b">三</div>
+        </span>
+        <span>
+          <div class="s_t">guó</div>
+          <div class="s_b">国</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">·</div>
+        </span>
+        <span>
+          <div class="s_t">shǔ</div>
+          <div class="s_b">蜀</div>
+        </span>
+        <span>
+          <div class="s_t">hàn</div>
+          <div class="s_b">汉</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">〕</div>
+        </span>
+        <span>
+          <div class="s_t">zhū</div>
+          <div class="s_b">诸</div>
+        </span>
+        <span>
+          <div class="s_t">gě</div>
+          <div class="s_b">葛</div>
+        </span>
+        <span>
+          <div class="s_t">liàng</div>
+          <div class="s_b">亮</div>
+        </span>
+      </li>
+    </ul>
+    <ul class="g_main">
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">chuàng</div>
+          <div class="s_b">创</div>
+        </span>
+        <span>
+          <div class="s_t">yè</div>
+          <div class="s_b">业</div>
+        </span>
+        <span>
+          <div class="s_t">wèi</div>
+          <div class="s_b">未</div>
+        </span>
+        <span>
+          <div class="s_t">bàn</div>
+          <div class="s_b">半</div>
+        </span>
+        <span>
+          <div class="s_t">ér</div>
+          <div class="s_b">而</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t">dào</div>
+          <div class="s_b">道</div>
+        </span>
+        <span>
+          <div class="s_t">bēng</div>
+          <div class="s_b">崩</div>
+        </span>
+        <span>
+          <div class="s_t">cú</div>
+          <div class="s_b">殂</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">jīn</div>
+          <div class="s_b">今</div>
+        </span>
+        <span>
+          <div class="s_t">tiān</div>
+          <div class="s_b">天</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">sān</div>
+          <div class="s_b">三</div>
+        </span>
+        <span>
+          <div class="s_t">fēn</div>
+          <div class="s_b">分</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">益</div>
+        </span>
+        <span>
+          <div class="s_t">zhōu</div>
+          <div class="s_b">州</div>
+        </span>
+        <span>
+          <div class="s_t">pí</div>
+          <div class="s_b">疲</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">弊</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">chéng</div>
+          <div class="s_b">诚</div>
+        </span>
+        <span>
+          <div class="s_t">wēi</div>
+          <div class="s_b">危</div>
+        </span>
+        <span>
+          <div class="s_t">jí</div>
+          <div class="s_b">急</div>
+        </span>
+        <span>
+          <div class="s_t">cún</div>
+          <div class="s_b">存</div>
+        </span>
+        <span>
+          <div class="s_t">wáng</div>
+          <div class="s_b">亡</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">qiū</div>
+          <div class="s_b">秋</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">rán</div>
+          <div class="s_b">然</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">侍</div>
+        </span>
+        <span>
+          <div class="s_t">wèi</div>
+          <div class="s_b">卫</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">bú</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">xiè</div>
+          <div class="s_b">懈</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">nèi</div>
+          <div class="s_b">内</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">志</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">士</div>
+        </span>
+        <span>
+          <div class="s_t">wàng</div>
+          <div class="s_b">忘</div>
+        </span>
+        <span>
+          <div class="s_t">shēn</div>
+          <div class="s_b">身</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">wài</div>
+          <div class="s_b">外</div>
+        </span>
+        <span>
+          <div class="s_t">zhě</div>
+          <div class="s_b">者</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">gài</div>
+          <div class="s_b">盖</div>
+        </span>
+        <span>
+          <div class="s_t">zhuī</div>
+          <div class="s_b">追</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">shū</div>
+          <div class="s_b">殊</div>
+        </span>
+        <span>
+          <div class="s_t">yù</div>
+          <div class="s_b">遇</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yù</div>
+          <div class="s_b">欲</div>
+        </span>
+        <span>
+          <div class="s_t">bào</div>
+          <div class="s_b">报</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">chéng</div>
+          <div class="s_b">诚</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">kāi</div>
+          <div class="s_b">开</div>
+        </span>
+        <span>
+          <div class="s_t">zhāng</div>
+          <div class="s_b">张</div>
+        </span>
+        <span>
+          <div class="s_t">shèng</div>
+          <div class="s_b">圣</div>
+        </span>
+        <span>
+          <div class="s_t">tīng</div>
+          <div class="s_b">听</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">guāng</div>
+          <div class="s_b">光</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">遗</div>
+        </span>
+        <span>
+          <div class="s_t">dé</div>
+          <div class="s_b">德</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">huī</div>
+          <div class="s_b">恢</div>
+        </span>
+        <span>
+          <div class="s_t">hóng</div>
+          <div class="s_b">弘</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">志</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">士</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">qì</div>
+          <div class="s_b">气</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">wàng</div>
+          <div class="s_b">妄</div>
+        </span>
+        <span>
+          <div class="s_t">zì</div>
+          <div class="s_b">自</div>
+        </span>
+        <span>
+          <div class="s_t">fěi</div>
+          <div class="s_b">菲</div>
+        </span>
+        <span>
+          <div class="s_t">bó</div>
+          <div class="s_b">薄</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐn</div>
+          <div class="s_b">引</div>
+        </span>
+        <span>
+          <div class="s_t">yù</div>
+          <div class="s_b">喻</div>
+        </span>
+        <span>
+          <div class="s_t">shī</div>
+          <div class="s_b">失</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">义</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">sè</div>
+          <div class="s_b">塞</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">jiàn</div>
+          <div class="s_b">谏</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">lù</div>
+          <div class="s_b">路</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">gōng</div>
+          <div class="s_b">宫</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t">fǔ</div>
+          <div class="s_b">府</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">jù</div>
+          <div class="s_b">俱</div>
+        </span>
+        <span>
+          <div class="s_t">wéi</div>
+          <div class="s_b">为</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">一</div>
+        </span>
+        <span>
+          <div class="s_t">tǐ</div>
+          <div class="s_b">体</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">陟</div>
+        </span>
+        <span>
+          <div class="s_t">fá</div>
+          <div class="s_b">罚</div>
+        </span>
+        <span>
+          <div class="s_t">zāng</div>
+          <div class="s_b">臧</div>
+        </span>
+        <span>
+          <div class="s_t">pǐ</div>
+          <div class="s_b">否</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">异</div>
+        </span>
+        <span>
+          <div class="s_t">tóng</div>
+          <div class="s_b">同</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">ruò</div>
+          <div class="s_b">若</div>
+        </span>
+        <span>
+          <div class="s_t">yǒu</div>
+          <div class="s_b">有</div>
+        </span>
+        <span>
+          <div class="s_t">zuò</div>
+          <div class="s_b">作</div>
+        </span>
+        <span>
+          <div class="s_t">jiān</div>
+          <div class="s_b">奸</div>
+        </span>
+        <span>
+          <div class="s_t">fàn</div>
+          <div class="s_b">犯</div>
+        </span>
+        <span>
+          <div class="s_t">kē</div>
+          <div class="s_b">科</div>
+        </span>
+        <span>
+          <div class="s_t">jí</div>
+          <div class="s_b">及</div>
+        </span>
+        <span>
+          <div class="s_t">wéi</div>
+          <div class="s_b">为</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">shàn</div>
+          <div class="s_b">善</div>
+        </span>
+        <span>
+          <div class="s_t">zhě</div>
+          <div class="s_b">者</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">fù</div>
+          <div class="s_b">付</div>
+        </span>
+        <span>
+          <div class="s_t">yǒu</div>
+          <div class="s_b">有</div>
+        </span>
+        <span>
+          <div class="s_t">sī</div>
+          <div class="s_b">司</div>
+        </span>
+        <span>
+          <div class="s_t">lùn</div>
+          <div class="s_b">论</div>
+        </span>
+        <span>
+          <div class="s_t">qí</div>
+          <div class="s_b">其</div>
+        </span>
+        <span>
+          <div class="s_t">xíng</div>
+          <div class="s_b">刑</div>
+        </span>
+        <span>
+          <div class="s_t">shǎng</div>
+          <div class="s_b">赏</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zhāo</div>
+          <div class="s_b">昭</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">píng</div>
+          <div class="s_b">平</div>
+        </span>
+        <span>
+          <div class="s_t">míng</div>
+          <div class="s_b">明</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">lǐ</div>
+          <div class="s_b">理</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">piān</div>
+          <div class="s_b">偏</div>
+        </span>
+        <span>
+          <div class="s_t">sī</div>
+          <div class="s_b">私</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shǐ</div>
+          <div class="s_b">使</div>
+        </span>
+        <span>
+          <div class="s_t">nèi</div>
+          <div class="s_b">内</div>
+        </span>
+        <span>
+          <div class="s_t">wài</div>
+          <div class="s_b">外</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">异</div>
+        </span>
+        <span>
+          <div class="s_t">fǎ</div>
+          <div class="s_b">法</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">侍</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">侍</div>
+        </span>
+        <span>
+          <div class="s_t">láng</div>
+          <div class="s_b">郎</div>
+        </span>
+        <span>
+          <div class="s_t">guō</div>
+          <div class="s_b">郭</div>
+        </span>
+        <span>
+          <div class="s_t">yōu</div>
+          <div class="s_b">攸</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">fèi</div>
+          <div class="s_b">费</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">祎</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">dǒng</div>
+          <div class="s_b">董</div>
+        </span>
+        <span>
+          <div class="s_t">yǔn</div>
+          <div class="s_b">允</div>
+        </span>
+        <span>
+          <div class="s_t">děng</div>
+          <div class="s_b">等</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">jiē</div>
+          <div class="s_b">皆</div>
+        </span>
+        <span>
+          <div class="s_t">liáng</div>
+          <div class="s_b">良</div>
+        </span>
+        <span>
+          <div class="s_t">shí</div>
+          <div class="s_b">实</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">志</div>
+        </span>
+        <span>
+          <div class="s_t">lǜ</div>
+          <div class="s_b">虑</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">chún</div>
+          <div class="s_b">纯</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">是</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">jiǎn</div>
+          <div class="s_b">简</div>
+        </span>
+        <span>
+          <div class="s_t">bá</div>
+          <div class="s_b">拔</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">wèi</div>
+          <div class="s_b">遗</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">愚</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">wéi</div>
+          <div class="s_b">为</div>
+        </span>
+        <span>
+          <div class="s_t">gōng</div>
+          <div class="s_b">宫</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t">wú</div>
+          <div class="s_b">无</div>
+        </span>
+        <span>
+          <div class="s_t">dà</div>
+          <div class="s_b">大</div>
+        </span>
+        <span>
+          <div class="s_t">xiǎo</div>
+          <div class="s_b">小</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xī</div>
+          <div class="s_b">悉</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zī</div>
+          <div class="s_b">咨</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">rán</div>
+          <div class="s_b">然</div>
+        </span>
+        <span>
+          <div class="s_t">hòu</div>
+          <div class="s_b">后</div>
+        </span>
+        <span>
+          <div class="s_t">shī</div>
+          <div class="s_b">施</div>
+        </span>
+        <span>
+          <div class="s_t">xíng</div>
+          <div class="s_b">行</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">必</div>
+        </span>
+        <span>
+          <div class="s_t">néng</div>
+          <div class="s_b">能</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">裨</div>
+        </span>
+        <span>
+          <div class="s_t">bǔ</div>
+          <div class="s_b">补</div>
+        </span>
+        <span>
+          <div class="s_t">quē</div>
+          <div class="s_b">阙</div>
+        </span>
+        <span>
+          <div class="s_t">lòu</div>
+          <div class="s_b">漏</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǒu</div>
+          <div class="s_b">有</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t">guǎng</div>
+          <div class="s_b">广</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">益</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">jiāng</div>
+          <div class="s_b">将</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">军</div>
+        </span>
+        <span>
+          <div class="s_t">xiàng</div>
+          <div class="s_b">向</div>
+        </span>
+        <span>
+          <div class="s_t">chǒng</div>
+          <div class="s_b">宠</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xìng</div>
+          <div class="s_b">性</div>
+        </span>
+        <span>
+          <div class="s_t">xíng</div>
+          <div class="s_b">行</div>
+        </span>
+        <span>
+          <div class="s_t">shū</div>
+          <div class="s_b">淑</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">均</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xiǎo</div>
+          <div class="s_b">晓</div>
+        </span>
+        <span>
+          <div class="s_t">chàng</div>
+          <div class="s_b">畅</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">军</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">试</div>
+        </span>
+        <span>
+          <div class="s_t">yòng</div>
+          <div class="s_b">用</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">xī</div>
+          <div class="s_b">昔</div>
+        </span>
+        <span>
+          <div class="s_t">rì</div>
+          <div class="s_b">日</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">chēng</div>
+          <div class="s_b">称</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">yuē</div>
+          <div class="s_b">曰</div>
+        </span>
+        <span>
+          <div class="s_t">néng</div>
+          <div class="s_b">能</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">是</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zhòng</div>
+          <div class="s_b">众</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">议</div>
+        </span>
+        <span>
+          <div class="s_t">jǔ</div>
+          <div class="s_b">举</div>
+        </span>
+        <span>
+          <div class="s_t">chǒng</div>
+          <div class="s_b">宠</div>
+        </span>
+        <span>
+          <div class="s_t">wéi</div>
+          <div class="s_b">为</div>
+        </span>
+        <span>
+          <div class="s_t">dū</div>
+          <div class="s_b">督</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">愚</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">wéi</div>
+          <div class="s_b">为</div>
+        </span>
+        <span>
+          <div class="s_t">yíng</div>
+          <div class="s_b">营</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xī</div>
+          <div class="s_b">悉</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zī</div>
+          <div class="s_b">咨</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">必</div>
+        </span>
+        <span>
+          <div class="s_t">néng</div>
+          <div class="s_b">能</div>
+        </span>
+        <span>
+          <div class="s_t">shǐ</div>
+          <div class="s_b">使</div>
+        </span>
+        <span>
+          <div class="s_t">háng</div>
+          <div class="s_b">行</div>
+        </span>
+        <span>
+          <div class="s_t">zhèn</div>
+          <div class="s_b">阵</div>
+        </span>
+        <span>
+          <div class="s_t">hé</div>
+          <div class="s_b">和</div>
+        </span>
+        <span>
+          <div class="s_t">mù</div>
+          <div class="s_b">睦</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yōu</div>
+          <div class="s_b">优</div>
+        </span>
+        <span>
+          <div class="s_t">liè</div>
+          <div class="s_b">劣</div>
+        </span>
+        <span>
+          <div class="s_t">dé</div>
+          <div class="s_b">得</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">qīn</div>
+          <div class="s_b">亲</div>
+        </span>
+        <span>
+          <div class="s_t">xián</div>
+          <div class="s_b">贤</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yuǎn</div>
+          <div class="s_b">远</div>
+        </span>
+        <span>
+          <div class="s_t">xiǎo</div>
+          <div class="s_b">小</div>
+        </span>
+        <span>
+          <div class="s_t">rén</div>
+          <div class="s_b">人</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">hàn</div>
+          <div class="s_b">汉</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">xīng</div>
+          <div class="s_b">兴</div>
+        </span>
+        <span>
+          <div class="s_t">lóng</div>
+          <div class="s_b">隆</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">；</div>
+        </span>
+        <span>
+          <div class="s_t">qīn</div>
+          <div class="s_b">亲</div>
+        </span>
+        <span>
+          <div class="s_t">xiǎo</div>
+          <div class="s_b">小</div>
+        </span>
+        <span>
+          <div class="s_t">rén</div>
+          <div class="s_b">人</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yuǎn</div>
+          <div class="s_b">远</div>
+        </span>
+        <span>
+          <div class="s_t">xián</div>
+          <div class="s_b">贤</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">hòu</div>
+          <div class="s_b">后</div>
+        </span>
+        <span>
+          <div class="s_t">hàn</div>
+          <div class="s_b">汉</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">qīng</div>
+          <div class="s_b">倾</div>
+        </span>
+        <span>
+          <div class="s_t">tuí</div>
+          <div class="s_b">颓</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">zài</div>
+          <div class="s_b">在</div>
+        </span>
+        <span>
+          <div class="s_t">shí</div>
+          <div class="s_b">时</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">měi</div>
+          <div class="s_b">每</div>
+        </span>
+        <span>
+          <div class="s_t">yǔ</div>
+          <div class="s_b">与</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">lùn</div>
+          <div class="s_b">论</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">wèi</div>
+          <div class="s_b">未</div>
+        </span>
+        <span>
+          <div class="s_t">cháng</div>
+          <div class="s_b">尝</div>
+        </span>
+        <span>
+          <div class="s_t">bú</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">tàn</div>
+          <div class="s_b">叹</div>
+        </span>
+        <span>
+          <div class="s_t">xī</div>
+          <div class="s_b">息</div>
+        </span>
+        <span>
+          <div class="s_t">tòng</div>
+          <div class="s_b">痛</div>
+        </span>
+        <span>
+          <div class="s_t">hèn</div>
+          <div class="s_b">恨</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">huán</div>
+          <div class="s_b">桓</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">líng</div>
+          <div class="s_b">灵</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">侍</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">shàng</div>
+          <div class="s_b">尚</div>
+        </span>
+        <span>
+          <div class="s_t">shū</div>
+          <div class="s_b">书</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">zhǎng</div>
+          <div class="s_b">长</div>
+        </span>
+        <span>
+          <div class="s_t">shǐ</div>
+          <div class="s_b">史</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">cān</div>
+          <div class="s_b">参</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">军</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">xī</div>
+          <div class="s_b">悉</div>
+        </span>
+        <span>
+          <div class="s_t">zhēn</div>
+          <div class="s_b">贞</div>
+        </span>
+        <span>
+          <div class="s_t">liáng</div>
+          <div class="s_b">良</div>
+        </span>
+        <span>
+          <div class="s_t">sǐ</div>
+          <div class="s_b">死</div>
+        </span>
+        <span>
+          <div class="s_t">jié</div>
+          <div class="s_b">节</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yuàn</div>
+          <div class="s_b">愿</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">qīn</div>
+          <div class="s_b">亲</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">xìn</div>
+          <div class="s_b">信</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zé</div>
+          <div class="s_b">则</div>
+        </span>
+        <span>
+          <div class="s_t">hàn</div>
+          <div class="s_b">汉</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">室</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">lóng</div>
+          <div class="s_b">隆</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">kě</div>
+          <div class="s_b">可</div>
+        </span>
+        <span>
+          <div class="s_t">jì</div>
+          <div class="s_b">计</div>
+        </span>
+        <span>
+          <div class="s_t">rì</div>
+          <div class="s_b">日</div>
+        </span>
+        <span>
+          <div class="s_t">ér</div>
+          <div class="s_b">而</div>
+        </span>
+        <span>
+          <div class="s_t">dài</div>
+          <div class="s_b">待</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">běn</div>
+          <div class="s_b">本</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">布</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">衣</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">gōng</div>
+          <div class="s_b">躬</div>
+        </span>
+        <span>
+          <div class="s_t">gēng</div>
+          <div class="s_b">耕</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">nán</div>
+          <div class="s_b">南</div>
+        </span>
+        <span>
+          <div class="s_t">yáng</div>
+          <div class="s_b">阳</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">gǒu</div>
+          <div class="s_b">苟</div>
+        </span>
+        <span>
+          <div class="s_t">quán</div>
+          <div class="s_b">全</div>
+        </span>
+        <span>
+          <div class="s_t">xìng</div>
+          <div class="s_b">性</div>
+        </span>
+        <span>
+          <div class="s_t">mìng</div>
+          <div class="s_b">命</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">luàn</div>
+          <div class="s_b">乱</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">世</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">qiú</div>
+          <div class="s_b">求</div>
+        </span>
+        <span>
+          <div class="s_t">wén</div>
+          <div class="s_b">闻</div>
+        </span>
+        <span>
+          <div class="s_t">dá</div>
+          <div class="s_b">达</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">zhū</div>
+          <div class="s_b">诸</div>
+        </span>
+        <span>
+          <div class="s_t">hóu</div>
+          <div class="s_b">侯</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">bēi</div>
+          <div class="s_b">卑</div>
+        </span>
+        <span>
+          <div class="s_t">bǐ</div>
+          <div class="s_b">鄙</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">wěi</div>
+          <div class="s_b">猥</div>
+        </span>
+        <span>
+          <div class="s_t">zì</div>
+          <div class="s_b">自</div>
+        </span>
+        <span>
+          <div class="s_t">wǎng</div>
+          <div class="s_b">枉</div>
+        </span>
+        <span>
+          <div class="s_t">qū</div>
+          <div class="s_b">屈</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">sān</div>
+          <div class="s_b">三</div>
+        </span>
+        <span>
+          <div class="s_t">gù</div>
+          <div class="s_b">顾</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">cǎo</div>
+          <div class="s_b">草</div>
+        </span>
+        <span>
+          <div class="s_t">lú</div>
+          <div class="s_b">庐</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zī</div>
+          <div class="s_b">咨</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">dāng</div>
+          <div class="s_b">当</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">世</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yóu</div>
+          <div class="s_b">由</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">是</div>
+        </span>
+        <span>
+          <div class="s_t">gǎn</div>
+          <div class="s_b">感</div>
+        </span>
+        <span>
+          <div class="s_t">jī</div>
+          <div class="s_b">激</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">suì</div>
+          <div class="s_b">遂</div>
+        </span>
+        <span>
+          <div class="s_t">xǔ</div>
+          <div class="s_b">许</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">qū</div>
+          <div class="s_b">驱</div>
+        </span>
+        <span>
+          <div class="s_t">chí</div>
+          <div class="s_b">驰</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">hòu</div>
+          <div class="s_b">后</div>
+        </span>
+        <span>
+          <div class="s_t">zhí</div>
+          <div class="s_b">值</div>
+        </span>
+        <span>
+          <div class="s_t">qīng</div>
+          <div class="s_b">倾</div>
+        </span>
+        <span>
+          <div class="s_t">fù</div>
+          <div class="s_b">覆</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shòu</div>
+          <div class="s_b">受</div>
+        </span>
+        <span>
+          <div class="s_t">rèn</div>
+          <div class="s_b">任</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">bài</div>
+          <div class="s_b">败</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">军</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">jì</div>
+          <div class="s_b">际</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">fèng</div>
+          <div class="s_b">奉</div>
+        </span>
+        <span>
+          <div class="s_t">mìng</div>
+          <div class="s_b">命</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">wēi</div>
+          <div class="s_b">危</div>
+        </span>
+        <span>
+          <div class="s_t">nàn</div>
+          <div class="s_b">难</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">jiān</div>
+          <div class="s_b">间</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">ěr</div>
+          <div class="s_b">尔</div>
+        </span>
+        <span>
+          <div class="s_t">lái</div>
+          <div class="s_b">来</div>
+        </span>
+        <span>
+          <div class="s_t">èr</div>
+          <div class="s_b">二</div>
+        </span>
+        <span>
+          <div class="s_t">shí</div>
+          <div class="s_b">十</div>
+        </span>
+        <span>
+          <div class="s_t">yòu</div>
+          <div class="s_b">有</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">一</div>
+        </span>
+        <span>
+          <div class="s_t">nián</div>
+          <div class="s_b">年</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">矣</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">知</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">jǐn</div>
+          <div class="s_b">谨</div>
+        </span>
+        <span>
+          <div class="s_t">shèn</div>
+          <div class="s_b">慎</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">gù</div>
+          <div class="s_b">故</div>
+        </span>
+        <span>
+          <div class="s_t">lín</div>
+          <div class="s_b">临</div>
+        </span>
+        <span>
+          <div class="s_t">bēng</div>
+          <div class="s_b">崩</div>
+        </span>
+        <span>
+          <div class="s_t">jì</div>
+          <div class="s_b">寄</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">dà</div>
+          <div class="s_b">大</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">事</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">shòu</div>
+          <div class="s_b">受</div>
+        </span>
+        <span>
+          <div class="s_t">mìng</div>
+          <div class="s_b">命</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">lái</div>
+          <div class="s_b">来</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">sù</div>
+          <div class="s_b">夙</div>
+        </span>
+        <span>
+          <div class="s_t">yè</div>
+          <div class="s_b">夜</div>
+        </span>
+        <span>
+          <div class="s_t">yōu</div>
+          <div class="s_b">忧</div>
+        </span>
+        <span>
+          <div class="s_t">tàn</div>
+          <div class="s_b">叹</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">kǒng</div>
+          <div class="s_b">恐</div>
+        </span>
+        <span>
+          <div class="s_t">tuō</div>
+          <div class="s_b">托</div>
+        </span>
+        <span>
+          <div class="s_t">fù</div>
+          <div class="s_b">付</div>
+        </span>
+        <span>
+          <div class="s_t">bú</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">xiào</div>
+          <div class="s_b">效</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">shāng</div>
+          <div class="s_b">伤</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">míng</div>
+          <div class="s_b">明</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">gù</div>
+          <div class="s_b">故</div>
+        </span>
+        <span>
+          <div class="s_t">wǔ</div>
+          <div class="s_b">五</div>
+        </span>
+        <span>
+          <div class="s_t">yuè</div>
+          <div class="s_b">月</div>
+        </span>
+        <span>
+          <div class="s_t">dù</div>
+          <div class="s_b">渡</div>
+        </span>
+        <span>
+          <div class="s_t">lú</div>
+          <div class="s_b">泸</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shēn</div>
+          <div class="s_b">深</div>
+        </span>
+        <span>
+          <div class="s_t">rù</div>
+          <div class="s_b">入</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">máo</div>
+          <div class="s_b">毛</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">jīn</div>
+          <div class="s_b">今</div>
+        </span>
+        <span>
+          <div class="s_t">nán</div>
+          <div class="s_b">南</div>
+        </span>
+        <span>
+          <div class="s_t">fāng</div>
+          <div class="s_b">方</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">已</div>
+        </span>
+        <span>
+          <div class="s_t">dìng</div>
+          <div class="s_b">定</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bīng</div>
+          <div class="s_b">兵</div>
+        </span>
+        <span>
+          <div class="s_t">jiǎ</div>
+          <div class="s_b">甲</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">已</div>
+        </span>
+        <span>
+          <div class="s_t">zú</div>
+          <div class="s_b">足</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">dāng</div>
+          <div class="s_b">当</div>
+        </span>
+        <span>
+          <div class="s_t">jiǎng</div>
+          <div class="s_b">奖</div>
+        </span>
+        <span>
+          <div class="s_t">shuài</div>
+          <div class="s_b">率</div>
+        </span>
+        <span>
+          <div class="s_t">sān</div>
+          <div class="s_b">三</div>
+        </span>
+        <span>
+          <div class="s_t">jūn</div>
+          <div class="s_b">军</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">běi</div>
+          <div class="s_b">北</div>
+        </span>
+        <span>
+          <div class="s_t">dìng</div>
+          <div class="s_b">定</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">中</div>
+        </span>
+        <span>
+          <div class="s_t">yuán</div>
+          <div class="s_b">原</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shù</div>
+          <div class="s_b">庶</div>
+        </span>
+        <span>
+          <div class="s_t">jié</div>
+          <div class="s_b">竭</div>
+        </span>
+        <span>
+          <div class="s_t">nú</div>
+          <div class="s_b">驽</div>
+        </span>
+        <span>
+          <div class="s_t">dùn</div>
+          <div class="s_b">钝</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">rǎng</div>
+          <div class="s_b">攘</div>
+        </span>
+        <span>
+          <div class="s_t">chú</div>
+          <div class="s_b">除</div>
+        </span>
+        <span>
+          <div class="s_t">jiān</div>
+          <div class="s_b">奸</div>
+        </span>
+        <span>
+          <div class="s_t">xiōng</div>
+          <div class="s_b">凶</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">xīng</div>
+          <div class="s_b">兴</div>
+        </span>
+        <span>
+          <div class="s_t">fù</div>
+          <div class="s_b">复</div>
+        </span>
+        <span>
+          <div class="s_t">hàn</div>
+          <div class="s_b">汉</div>
+        </span>
+        <span>
+          <div class="s_t">shì</div>
+          <div class="s_b">室</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">huán</div>
+          <div class="s_b">还</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">jiù</div>
+          <div class="s_b">旧</div>
+        </span>
+        <span>
+          <div class="s_t">dū</div>
+          <div class="s_b">都</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">cǐ</div>
+          <div class="s_b">此</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">bào</div>
+          <div class="s_b">报</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">ér</div>
+          <div class="s_b">而</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">zhí</div>
+          <div class="s_b">职</div>
+        </span>
+        <span>
+          <div class="s_t">fèn</div>
+          <div class="s_b">分</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">至</div>
+        </span>
+        <span>
+          <div class="s_t">yú</div>
+          <div class="s_b">于</div>
+        </span>
+        <span>
+          <div class="s_t">zhēn</div>
+          <div class="s_b">斟</div>
+        </span>
+        <span>
+          <div class="s_t">zhuó</div>
+          <div class="s_b">酌</div>
+        </span>
+        <span>
+          <div class="s_t">sǔn</div>
+          <div class="s_b">损</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">益</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">jìn</div>
+          <div class="s_b">进</div>
+        </span>
+        <span>
+          <div class="s_t">jìn</div>
+          <div class="s_b">尽</div>
+        </span>
+        <span>
+          <div class="s_t">zhōng</div>
+          <div class="s_b">忠</div>
+        </span>
+        <span>
+          <div class="s_t">yán</div>
+          <div class="s_b">言</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zé</div>
+          <div class="s_b">则</div>
+        </span>
+        <span>
+          <div class="s_t">yōu</div>
+          <div class="s_b">攸</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">祎</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">yǔn</div>
+          <div class="s_b">允</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">rèn</div>
+          <div class="s_b">任</div>
+        </span>
+        <span>
+          <div class="s_t">yě</div>
+          <div class="s_b">也</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+      <li>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b"></div>
+        </span>
+        <span>
+          <div class="s_t">yuàn</div>
+          <div class="s_b">愿</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">tuō</div>
+          <div class="s_b">托</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">tǎo</div>
+          <div class="s_b">讨</div>
+        </span>
+        <span>
+          <div class="s_t">zéi</div>
+          <div class="s_b">贼</div>
+        </span>
+        <span>
+          <div class="s_t">xīng</div>
+          <div class="s_b">兴</div>
+        </span>
+        <span>
+          <div class="s_t">fù</div>
+          <div class="s_b">复</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">xiào</div>
+          <div class="s_b">效</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">；</div>
+        </span>
+        <span>
+          <div class="s_t">bú</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">xiào</div>
+          <div class="s_b">效</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zé</div>
+          <div class="s_b">则</div>
+        </span>
+        <span>
+          <div class="s_t">zhì</div>
+          <div class="s_b">治</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">zuì</div>
+          <div class="s_b">罪</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">gào</div>
+          <div class="s_b">告</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">líng</div>
+          <div class="s_b">灵</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">ruò</div>
+          <div class="s_b">若</div>
+        </span>
+        <span>
+          <div class="s_t">wú</div>
+          <div class="s_b">无</div>
+        </span>
+        <span>
+          <div class="s_t">xīng</div>
+          <div class="s_b">兴</div>
+        </span>
+        <span>
+          <div class="s_t">dé</div>
+          <div class="s_b">德</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">yán</div>
+          <div class="s_b">言</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">zé</div>
+          <div class="s_b">则</div>
+        </span>
+        <span>
+          <div class="s_t">zé</div>
+          <div class="s_b">责</div>
+        </span>
+        <span>
+          <div class="s_t">yōu</div>
+          <div class="s_b">攸</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">yī</div>
+          <div class="s_b">祎</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">、</div>
+        </span>
+        <span>
+          <div class="s_t">yǔn</div>
+          <div class="s_b">允</div>
+        </span>
+        <span>
+          <div class="s_t">děng</div>
+          <div class="s_b">等</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">之</div>
+        </span>
+        <span>
+          <div class="s_t">màn</div>
+          <div class="s_b">慢</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zhāng</div>
+          <div class="s_b">彰</div>
+        </span>
+        <span>
+          <div class="s_t">qí</div>
+          <div class="s_b">其</div>
+        </span>
+        <span>
+          <div class="s_t">jiù</div>
+          <div class="s_b">咎</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">bì</div>
+          <div class="s_b">陛</div>
+        </span>
+        <span>
+          <div class="s_t">xià</div>
+          <div class="s_b">下</div>
+        </span>
+        <span>
+          <div class="s_t">yì</div>
+          <div class="s_b">亦</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">宜</div>
+        </span>
+        <span>
+          <div class="s_t">zì</div>
+          <div class="s_b">自</div>
+        </span>
+        <span>
+          <div class="s_t">móu</div>
+          <div class="s_b">谋</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">yǐ</div>
+          <div class="s_b">以</div>
+        </span>
+        <span>
+          <div class="s_t">zī</div>
+          <div class="s_b">咨</div>
+        </span>
+        <span>
+          <div class="s_t">zōu</div>
+          <div class="s_b">诹</div>
+        </span>
+        <span>
+          <div class="s_t">shàn</div>
+          <div class="s_b">善</div>
+        </span>
+        <span>
+          <div class="s_t">dào</div>
+          <div class="s_b">道</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">chá</div>
+          <div class="s_b">察</div>
+        </span>
+        <span>
+          <div class="s_t">nà</div>
+          <div class="s_b">纳</div>
+        </span>
+        <span>
+          <div class="s_t">yǎ</div>
+          <div class="s_b">雅</div>
+        </span>
+        <span>
+          <div class="s_t">yán</div>
+          <div class="s_b">言</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">shēn</div>
+          <div class="s_b">深</div>
+        </span>
+        <span>
+          <div class="s_t">zhuī</div>
+          <div class="s_b">追</div>
+        </span>
+        <span>
+          <div class="s_t">xiān</div>
+          <div class="s_b">先</div>
+        </span>
+        <span>
+          <div class="s_t">dì</div>
+          <div class="s_b">帝</div>
+        </span>
+        <span>
+          <div class="s_t">yí</div>
+          <div class="s_b">遗</div>
+        </span>
+        <span>
+          <div class="s_t">zhào</div>
+          <div class="s_b">诏</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">chén</div>
+          <div class="s_b">臣</div>
+        </span>
+        <span>
+          <div class="s_t">bú</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">shèng</div>
+          <div class="s_b">胜</div>
+        </span>
+        <span>
+          <div class="s_t">shòu</div>
+          <div class="s_b">受</div>
+        </span>
+        <span>
+          <div class="s_t">ēn</div>
+          <div class="s_b">恩</div>
+        </span>
+        <span>
+          <div class="s_t">gǎn</div>
+          <div class="s_b">感</div>
+        </span>
+        <span>
+          <div class="s_t">jī</div>
+          <div class="s_b">激</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+        <span>
+          <div class="s_t">jīn</div>
+          <div class="s_b">今</div>
+        </span>
+        <span>
+          <div class="s_t">dāng</div>
+          <div class="s_b">当</div>
+        </span>
+        <span>
+          <div class="s_t">yuǎn</div>
+          <div class="s_b">远</div>
+        </span>
+        <span>
+          <div class="s_t">lí</div>
+          <div class="s_b">离</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">lín</div>
+          <div class="s_b">临</div>
+        </span>
+        <span>
+          <div class="s_t">biǎo</div>
+          <div class="s_b">表</div>
+        </span>
+        <span>
+          <div class="s_t">tì</div>
+          <div class="s_b">涕</div>
+        </span>
+        <span>
+          <div class="s_t">líng</div>
+          <div class="s_b">零</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">，</div>
+        </span>
+        <span>
+          <div class="s_t">bù</div>
+          <div class="s_b">不</div>
+        </span>
+        <span>
+          <div class="s_t">zhī</div>
+          <div class="s_b">知</div>
+        </span>
+        <span>
+          <div class="s_t">suǒ</div>
+          <div class="s_b">所</div>
+        </span>
+        <span>
+          <div class="s_t">yán</div>
+          <div class="s_b">言</div>
+        </span>
+        <span>
+          <div class="s_t"></div>
+          <div class="s_b">。</div>
+        </span>
+      </li>
+    </ul>
+  </div>
+</template>
+<script setup>
+</script>
+<style>
+.text-c {
+  text-align: center;
+}
+
+.g_main {
+  text-align: left;
+  margin-left: -2.5%;
+}
+
+.g_main li {
+  clear: left;
+  list-style-type: none;
+}
+
+.g_main li span {
+  display: inline-block;
+  text-align: center;
+  list-style-type: none;
+  width: 40px;
+  font-size: 15px;
+}
+
+.g_main li span .s_b {
+  font-size: 18px;
+}
+
+.g_main li span .s_t {
+  font-size: 0.8em;
+}
+</style>

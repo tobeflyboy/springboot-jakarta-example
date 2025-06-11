@@ -22,13 +22,12 @@ const router = createRouter({
                     meta: {title: 'Dashboard'},
                     component: () => import('@/views/Dashboard.vue')
                 },
-
                 {
                     path: 'about',
                     meta: {title: '关于'},
                     component: () => import('@/views/About.vue')
                 },
-
+                // 权限管理
                 {
                     path: 'auth',
                     children: [
@@ -48,7 +47,68 @@ const router = createRouter({
                             component: () => import('@/views/auth/User.vue')
                         }
                     ]
-                }
+                },
+                // 古文
+                {
+                    path: 'gushici',
+                    children: [
+                        {
+                            path: 'tengwanggexu',
+                            meta: {title: '《滕王阁序》拼音版'},
+                            component: () => import('@/views/gushici/滕王阁序.vue')
+                        },
+                        {
+                            path: 'jiangjinjiu',
+                            meta: {title: '《将进酒》拼音版'},
+                            component: () => import('@/views/gushici/将进酒.vue')
+                        },
+                        {
+                            path: 'manjianghong',
+                            meta: {title: '《满江红·写怀》拼音版'},
+                            component: () => import('@/views/gushici/满江红.vue')
+                        },
+                        {
+                            path: 'yueyanglouji',
+                            meta: {title: '《岳阳楼记》拼音版'},
+                            component: () => import('@/views/gushici/岳阳楼记.vue')
+                        },
+                        {
+                            path: 'chushibiao',
+                            meta: {title: '《出师表》拼音版'},
+                            component: () => import('@/views/gushici/出师表.vue')
+                        },
+                        {
+                            path: 'duangexing',
+                            meta: {title: '《短歌行》拼音版'},
+                            component: () => import('@/views/gushici/短歌行.vue')
+                        },
+                        {
+                            path: 'songdongyangmashengxu',
+                            meta: {title: '《送东阳马生序》拼音版'},
+                            component: () => import('@/views/gushici/送东阳马生序.vue')
+                        },
+                        {
+                            path: 'beimingyouyu',
+                            meta: {title: '《北冥有鱼》拼音版'},
+                            component: () => import('@/views/gushici/北冥有鱼.vue')
+                        },
+                        {
+                            path: 'dingfengbo',
+                            meta: {title: '《定风波》拼音版'},
+                            component: () => import('@/views/gushici/定风波.vue')
+                        },
+                        {
+                            path: 'jiangchengziyimaozhengyueershiriyejimeng',
+                            meta: {title: '《江城子·乙卯正月二十日夜记梦》拼音版'},
+                            component: () => import('@/views/gushici/江城子·乙卯正月二十日夜记梦.vue')
+                        },
+                        {
+                            path: 'jiangchengzimizhouchulie',
+                            meta: {title: '《江城子·密州出猎》拼音版'},
+                            component: () => import('@/views/gushici/江城子·密州出猎.vue')
+                        }
+                    ]
+                },
             ]
         },
 
