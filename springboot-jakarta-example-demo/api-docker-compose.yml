@@ -1,10 +1,10 @@
 version: "2.0"
 
 services:
-  springboot-jakarta-jwt-demo:
-    image: 'your-company.harbor.com/admin-system/springboot-jakarta-jwt-demo:2025.04.09-SNAPSHOT'
+  springboot-jakarta-example-demo:
+    image: 'your-company.harbor.com/admin-system/springboot-jakarta-example-demo:2025.04.09-SNAPSHOT'
     restart: always
-    container_name: springboot-jakarta-jwt-demo
+    container_name: springboot-jakarta-example-demo
     ports:
       - "18080:8080"
     volumes:
