@@ -88,7 +88,6 @@
           <div class="s_t">wéi</div>
           <div class="s_b">为</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">kūn</div>
@@ -141,27 +140,6 @@
           <div class="s_t">lǐ</div>
           <div class="s_b">里</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -206,7 +184,6 @@
           <div class="s_t">wéi</div>
           <div class="s_b">为</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">péng</div>
@@ -259,19 +236,6 @@
           <div class="s_t">lǐ</div>
           <div class="s_b">里</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -290,7 +254,6 @@
           <div class="s_t">ér</div>
           <div class="s_b">而</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">fēi</div>
@@ -325,8 +288,6 @@
           <div class="s_t">zhī</div>
           <div class="s_b">之</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yún</div>
@@ -399,20 +360,6 @@
           <div class="s_t">míng</div>
           <div class="s_b">冥</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zhě</div>
@@ -435,7 +382,6 @@
           <div class="s_t">yě</div>
           <div class="s_b">也</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t"></div>
@@ -450,7 +396,6 @@
           <div class="s_t">qí</div>
           <div class="s_b">齐</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xié</div>
@@ -509,20 +454,6 @@
           <div class="s_t">yán</div>
           <div class="s_b">言</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yuē</div>
@@ -585,10 +516,6 @@
           <div class="s_t">qiān</div>
           <div class="s_b">千</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">lǐ</div>
@@ -667,11 +594,6 @@
           <div class="s_t">yě</div>
           <div class="s_b">也</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t"></div>
@@ -784,7 +706,6 @@
           <div class="s_t">sè</div>
           <div class="s_b">色</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yé</div>
@@ -871,9 +792,6 @@
           <div class="s_t">yǐ</div>
           <div class="s_b">已</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yǐ</div>
@@ -912,7 +830,6 @@
           <div class="s_t">bú</div>
           <div class="s_b">不</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">hòu</div>
@@ -951,7 +868,6 @@
           <div class="s_t">wú</div>
           <div class="s_b">无</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">lì</div>
@@ -990,7 +906,6 @@
           <div class="s_t">zhī</div>
           <div class="s_b">之</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">shàng</div>
@@ -1185,10 +1100,6 @@
           <div class="s_t">xià</div>
           <div class="s_b">下</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yǐ</div>
@@ -1345,18 +1256,6 @@
           <div class="s_t">yuē</div>
           <div class="s_b">曰</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t"></div>
@@ -1781,8 +1680,6 @@
           <div class="s_t">rán</div>
           <div class="s_b">然</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -1925,7 +1822,6 @@
           <div class="s_t">wéi</div>
           <div class="s_b">为</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">chūn</div>
@@ -1952,7 +1848,6 @@
           <div class="s_t">wéi</div>
           <div class="s_b">为</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">qiū</div>
@@ -2117,11 +2012,6 @@
           <div class="s_t">pǐ</div>
           <div class="s_b">匹</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zhī</div>
@@ -2262,7 +2152,6 @@
           <div class="s_t">yú</div>
           <div class="s_b">鱼</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yān</div>
@@ -2393,8 +2282,6 @@
           <div class="s_t">tài</div>
           <div class="s_b">太</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">shān</div>
@@ -2489,7 +2376,6 @@
           <div class="s_t">yún</div>
           <div class="s_b">云</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">qì</div>
@@ -2660,7 +2546,6 @@
           <div class="s_t">ér</div>
           <div class="s_b">而</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xià</div>
@@ -2847,7 +2732,6 @@
           <div class="s_t">yì</div>
           <div class="s_b">一</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xiāng</div>
@@ -2870,7 +2754,6 @@
           <div class="s_t">yì</div>
           <div class="s_b">一</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">jūn</div>
@@ -3183,7 +3066,6 @@
           <div class="s_t">suī</div>
           <div class="s_b">虽</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">rán</div>
@@ -3242,7 +3124,6 @@
           <div class="s_t">ér</div>
           <div class="s_b">而</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xíng</div>
@@ -3297,7 +3178,6 @@
           <div class="s_t">hòu</div>
           <div class="s_b">后</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">fǎn</div>
@@ -3516,8 +3396,6 @@
           <div class="s_t">dài</div>
           <div class="s_b">待</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zāi</div>
@@ -3730,10 +3608,6 @@
           <div class="s_t">nán</div>
           <div class="s_b">难</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">hū</div>
@@ -3922,7 +3796,6 @@
           <div class="s_t">tiān</div>
           <div class="s_b">天</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xià</div>
@@ -3997,8 +3870,6 @@
           <div class="s_t">zhì</div>
           <div class="s_b">治</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -4025,7 +3896,6 @@
           <div class="s_t">dài</div>
           <div class="s_b">代</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zǐ</div>
@@ -4550,8 +4420,6 @@
           <div class="s_t">qíng</div>
           <div class="s_b">情</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yān</div>
@@ -4606,8 +4474,6 @@
           <div class="s_t">zāi</div>
           <div class="s_b">哉</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t"></div>
@@ -6200,7 +6066,6 @@
           <div class="s_t">wén</div>
           <div class="s_b">闻</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zhī</div>
@@ -6293,7 +6158,6 @@
           <div class="s_t">pì</div>
           <div class="s_b">澼</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">kuàng</div>
@@ -6316,7 +6180,6 @@
           <div class="s_t">shù</div>
           <div class="s_b">数</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">jīn</div>
@@ -6825,8 +6688,6 @@
           <div class="s_t">fú</div>
           <div class="s_b">夫</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t"></div>
@@ -6881,7 +6742,6 @@
           <div class="s_t">dà</div>
           <div class="s_b">大</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">shù</div>
@@ -7074,8 +6934,6 @@
           <div class="s_t">wú</div>
           <div class="s_b">无</div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yòng</div>

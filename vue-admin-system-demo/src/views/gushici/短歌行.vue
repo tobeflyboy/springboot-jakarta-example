@@ -280,7 +280,6 @@
           <div class="s_t">wǒ</div>
           <div class="s_b">我</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">xīn</div>

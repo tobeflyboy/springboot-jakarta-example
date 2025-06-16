@@ -216,7 +216,6 @@
           <div class="s_t">bǐ</div>
           <div class="s_b">笔</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">lù</div>
@@ -435,7 +434,6 @@
             假
           </div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yú</div>
@@ -1084,7 +1082,6 @@
           <div class="s_t">shī</div>
           <div class="s_b">师</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -1733,9 +1730,6 @@
             乐
           </div>
         </span>
-        <nobr></nobr>
-        <nobr></nobr>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zhě</div>
@@ -1792,7 +1786,6 @@
           <div class="s_t">rén</div>
           <div class="s_b">人</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -2263,7 +2256,6 @@
           <div class="s_t">huàn</div>
           <div class="s_b">患</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yǐ</div>
@@ -2310,7 +2302,6 @@
           <div class="s_t">shī</div>
           <div class="s_b">诗</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">shū</div>
@@ -2389,7 +2380,6 @@
           <div class="s_t">zhī</div>
           <div class="s_b">之</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">shī</div>
@@ -2458,7 +2448,6 @@
           <div class="s_t">zhě</div>
           <div class="s_b">者</div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">yě</div>
@@ -2747,7 +2736,6 @@
             过
           </div>
         </span>
-        <nobr></nobr>
         <nobr>
           <span>
             <div class="s_t">zāi</div>
