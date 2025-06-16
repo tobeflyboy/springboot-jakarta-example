@@ -78,6 +78,16 @@ const router = createRouter({
                             component: () => import('@/views/gushici/出师表.vue')
                         },
                         {
+                            path: 'xiaoyaoyou',
+                            meta: {title: '《逍遥游》拼音版'},
+                            component: () => import('@/views/gushici/逍遥游.vue')
+                        },
+                        {
+                            path: 'xiaoyaoyoujiexuan',
+                            meta: {title: '《逍遥游节选》拼音版'},
+                            component: () => import('@/views/gushici/逍遥游节选.vue')
+                        },
+                        {
                             path: 'duangexing',
                             meta: {title: '《短歌行》拼音版'},
                             component: () => import('@/views/gushici/短歌行.vue')
@@ -86,11 +96,6 @@ const router = createRouter({
                             path: 'songdongyangmashengxu',
                             meta: {title: '《送东阳马生序》拼音版'},
                             component: () => import('@/views/gushici/送东阳马生序.vue')
-                        },
-                        {
-                            path: 'beimingyouyu',
-                            meta: {title: '《北冥有鱼》拼音版'},
-                            component: () => import('@/views/gushici/北冥有鱼.vue')
                         },
                         {
                             path: 'dingfengbo',
@@ -106,6 +111,11 @@ const router = createRouter({
                             path: 'jiangchengzimizhouchulie',
                             meta: {title: '《江城子·密州出猎》拼音版'},
                             component: () => import('@/views/gushici/江城子·密州出猎.vue')
+                        },
+                        {
+                            path: 'taohuaange',
+                            meta: {title: '《桃花庵歌》拼音版'},
+                            component: () => import('@/views/gushici/桃花庵歌.vue')
                         }
                     ]
                 },

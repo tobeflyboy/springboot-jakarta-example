@@ -44,6 +44,18 @@ public class GushiciController {
         return "gushici/出师表";
     }
 
+    @GetMapping("gushici/xiaoyaoyou")
+    public String xiaoyaoyou() {
+        log.debug("loading gushici/逍遥游");
+        return "gushici/逍遥游";
+    }
+
+    @GetMapping("gushici/xiaoyaoyoujiexuan")
+    public String xiaoyaoyoujiexuan() {
+        log.debug("loading gushici/逍遥游节选");
+        return "gushici/逍遥游节选";
+    }
+
     @GetMapping("gushici/duangexing")
     public String duangexing() {
         log.debug("loading gushici/短歌行");
@@ -54,12 +66,6 @@ public class GushiciController {
     public String songdongyangmashengxu() {
         log.debug("loading gushici/送东阳马生序");
         return "gushici/送东阳马生序";
-    }
-
-    @GetMapping("gushici/beimingyouyu")
-    public String beimingyouyu() {
-        log.debug("loading gushici/北冥有鱼");
-        return "gushici/北冥有鱼";
     }
 
     @GetMapping("gushici/dingfengbo")
@@ -73,11 +79,17 @@ public class GushiciController {
         log.debug("loading gushici/江城子·乙卯正月二十日夜记梦");
         return "gushici/江城子·乙卯正月二十日夜记梦";
     }
+
     @GetMapping("gushici/jiangchengzimizhouchulie")
     public String jiangchengzimizhouchulie() {
         log.debug("loading gushici/江城子·密州出猎");
         return "gushici/江城子·密州出猎";
     }
 
+    @GetMapping("gushici/taohuaange")
+    public String taohuaange() {
+        log.debug("loading gushici/桃花庵歌");
+        return "gushici/桃花庵歌";
+    }
 
 }
