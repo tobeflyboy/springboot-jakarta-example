@@ -100,7 +100,7 @@ const router = createRouter({
                         {
                             path: 'dingfengbo',
                             meta: {title: '《定风波》拼音版'},
-                            component: () => import('@/views/gushici/定风波.vue')
+                            component: () => import('@/views/gushici/定风波·莫听穿林打叶声.vue')
                         },
                         {
                             path: 'jiangchengziyimaozhengyueershiriyejimeng',

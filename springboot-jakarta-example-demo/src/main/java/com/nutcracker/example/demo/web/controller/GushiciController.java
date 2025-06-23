@@ -71,7 +71,7 @@ public class GushiciController {
     @GetMapping("gushici/dingfengbo")
     public String dingfengbo() {
         log.debug("loading gushici/定风波");
-        return "gushici/定风波";
+        return "定风波·莫听穿林打叶声";
     }
 
     @GetMapping("gushici/jiangchengziyimaozhengyueershiriyejimeng")
