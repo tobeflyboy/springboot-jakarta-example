@@ -7,7 +7,7 @@
     <!-- LOGSTASH_ADDRESS: Logstash的地址和端口，用于日志收集，kibana地址：http://10.28.19.168:5601 -->
     <property name="LOGSTASH_ADDRESS" value="10.28.19.168:5042"/>
     <!-- 根据ENV属性设置应用名称 -->
-    <property name="APP" value="deep-pay"/>
+    <property name="APP" value="springboot-jakarta-example-demo"/>
     <!-- 环境 -->
     <property name="ENV" value="${spring.profiles.active:-dev}"/>
 
